@@ -69,7 +69,7 @@ export class CMSetupComponent implements OnInit {
   }
   onPeriodTypeChange(event: Event) {
     this.cmsSetupForm.get('periodBetweenPNValue').setValue('');
-    this.cmsSetupForm.get('periodBetweenPNTypeMonth').setValue('');
+    this.cmsSetupForm.get('periodBetweenPNValueMonth').setValue('');
   }
 
 }
