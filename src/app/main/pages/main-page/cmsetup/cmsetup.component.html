@@ -1,4 +1,4 @@
-<div class="content-body-inner">
+<div class="content-body-inner" [formGroup]="cmsSetupForm" (submit)="saveCmdSetup()">
     <div class="page-title">
         <div>
             <h4>
@@ -23,13 +23,13 @@
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <div class="accordion-header" id="headingOne">
-                    <div class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         Promissory Notes
                     </div>
                 </div>
-                <div id="collapseOne" class="accordion-collapse collapse show"
-                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                    data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="edit-row">
                             <div class="row">
@@ -41,8 +41,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault1">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Days
                                             </label>
@@ -55,8 +55,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault2">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Months
                                             </label>
@@ -78,8 +78,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault3">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault3">
                                             <label class="form-check-label" for="flexRadioDefault3">
                                                 Days
                                             </label>
@@ -92,8 +92,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault4">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault4">
                                             <label class="form-check-label" for="flexRadioDefault4">
                                                 Months
                                             </label>
@@ -115,8 +115,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault5">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault5">
                                             <label class="form-check-label" for="flexRadioDefault5">
                                                 Branch working hours
                                             </label>
@@ -127,8 +127,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                name="flexRadioDefault" id="flexRadioDefault6">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault6">
                                             <label class="form-check-label" for="flexRadioDefault6">
                                                 Employee working hours
                                             </label>
@@ -146,8 +146,8 @@
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
                 <div class="accordion-header" id="headingOne">
-                    <div class="accordion-button" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapsetwo" aria-expanded="true" aria-controls="collapsetwo">
+                    <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsetwo"
+                        aria-expanded="true" aria-controls="collapsetwo">
                         Credit Management Setup
                     </div>
                 </div>
@@ -161,32 +161,31 @@
                                         Period between Promissory Notes
                                     </h5>
                                 </div>
-                              
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" [value]="'Days'"
-                                                name="periodBetweenPNType" id="periodBetweenPNTypeDays" [(ngModel)]="cmsSetup.periodBetweenPNType">
+                                            <input class="form-check-input" type="radio" [value]="'Days'"  (change)="onPeriodTypeChange($event)" formControlName="periodBetweenPNType" 
+                                                 id="periodBetweenPNTypeDays" >
                                             <label class="form-check-label" for="periodBetweenPNTypeDays">
                                                 Days
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" [value]="cmsSetup?.periodBetweenPNValue">
+                                            <input type="text" class="form-control"  formControlName="periodBetweenPNValue">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" [value]="'Months'"  [(ngModel)]="cmsSetup.periodBetweenPNType"
-                                                name="periodBetweenPNType" id="periodBetweenPNTypeMonths">
+                                            <input class="form-check-input" type="radio" [value]="'Months'" (change)="onPeriodTypeChange($event)"   formControlName="periodBetweenPNType"
+                                                id="periodBetweenPNTypeMonths">
                                             <label class="form-check-label" for="periodBetweenPNTypeMonths">
                                                 Months
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="periodBetweenPNValueMonth" >
                                         </div>
                                     </div>
                                 </div>
@@ -202,28 +201,26 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"  [value]="'Days'" [value]="cmsSetup?.overDueAlertType"
-                                                name="overDueAlertType" id="overDueAlertTypeDays"  [(ngModel)]="cmsSetup.overDueAlertType">
-                                            <label class="form-check-label" for="overDueAlertTypeDays">
-                                                Days
-                                            </label>
+                                            <input class="form-check-input" type="radio" name="overDueAlertType" [value]="'Days'" (change)="onAlertTypeChange($event)"
+                                                formControlName="overDueAlertType" id="overDueAlertTypeDays">
+                                            <label class="form-check-label" for="overDueAlertTypeDays">Days</label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" [value]="cmsSetup?.overDueAlertTypeValue">
+                                            <input type="number" class="form-control"
+                                                formControlName="overDueAlertTypeValue">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio"  [value]="'Months'" 
-                                                name="overDueAlertType" id="overDueAlertTypeMonths" [(ngModel)]="cmsSetup.overDueAlertType">
-                                            <label class="form-check-label" for="overDueAlertTypeMonths">
-                                                Months
-                                            </label>
+                                            <input class="form-check-input" type="radio" name="overDueAlertType" [value]="'Months'"  (change)="onAlertTypeChange($event)"
+                                                formControlName="overDueAlertType" id="overDueAlertTypeMonths">
+                                            <label class="form-check-label" for="overDueAlertTypeMonths">Months</label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control">
+                                            <input type="number" class="form-control"
+                                                formControlName="overDueAlertTypeValueMonth">
                                         </div>
                                     </div>
                                 </div>
@@ -239,8 +236,9 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" [value]="'Branch Working hours'"
-                                                name="flexRadioDefault" id="flexRadioDefault5"  [(ngModel)]="cmsSetup.managePNWithin">
+                                            <input class="form-check-input" type="radio"
+                                                [value]="'Branch Working hours'" formControlName="managePNWithin"
+                                                id="flexRadioDefault5">
                                             <label class="form-check-label" for="flexRadioDefault5">
                                                 Branch working hours
                                             </label>
@@ -251,8 +249,8 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="Employee working hours" 
-                                                name="managePNWithin" id="flexRadioDefault6"  [(ngModel)]="cmsSetup.managePNWithin">
+                                            <input class="form-check-input" type="radio" value="Employee working hours"
+                                                formControlName="managePNWithin" id="flexRadioDefault6">
                                             <label class="form-check-label" for="flexRadioDefault6">
                                                 Employee working hours
                                             </label>
