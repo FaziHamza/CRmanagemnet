@@ -1,0 +1,28 @@
+User Page
+<br />
+<a routerLink="/">Go to Main</a>
+
+<div class="images-section ">
+    <div class="tab-content" id="pills-tabContent">
+        <div class="admin-create-form-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group-row">
+                        <label for="exampleFormControlInput1" class="form-label">Description</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-select [addTagText]="true"    (add)="addTag($event)">
+    <ng-option  *ngFor="let car of cars" [value]="car.id">{{car.name}}</ng-option>
+ </ng-select>
+
+ <ng-select [items]="optionsEmail"
+          bindLabel="email"
+          [multiple]="true"
+          [addTag]="addEmail"
+          (add)="addTag1($event)"
+          >
+</ng-select>

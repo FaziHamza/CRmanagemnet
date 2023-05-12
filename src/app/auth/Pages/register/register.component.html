@@ -1,0 +1,120 @@
+<div class="center-title">
+    <h2>
+        Sign up
+    </h2>
+</div>
+<form [formGroup]="registerForm" (ngSubmit)="registerForm">
+    <div class="row">
+        <div class="mb-3 col-lg-12">
+            <label for="FormControlEmailInput" class="form-label">e-mail</label>
+            <input type="email" class="form-control" id="FormControlEmailInput" formControlName="email"
+                placeholder="Enter your e-mail">
+            <div class="text-danger">
+                <div *ngIf="isRequiredField(formControls['email'])">
+                    This field is required.
+                </div>
+                <div *ngIf="isEmailField(formControls['email'])">
+                    Invalid email address
+                </div>
+            </div>
+        </div>
+        <div class="mb-3 col-lg-6">
+            <label for="FormControlFirstNameInput" class="form-label">first name</label>
+            <input type="text" class="form-control" id="FormControlFirstNameInput" formControlName="firstName"
+                placeholder="Your first name">
+            <div class="text-danger" *ngIf="isRequiredField(formControls['firstName'])">
+                This field is required.
+            </div>
+        </div>
+        <div class="mb-3 col-lg-6">
+            <label for="FormControlLastNameInput" class="form-label">last name</label>
+            <input type="text" class="form-control" id="FormControlLastNameInput" formControlName="lastName"
+                placeholder="Your last name">
+            <div class="text-danger" *ngIf="isRequiredField(formControls['lastName'])">
+                This field is required.
+            </div>
+        </div>
+
+        <label for="FormControlPhoneInput" class="form-label">phone number</label>
+        <div class="mb-3 col-lg-4">
+            <ng-select [items]="countryCodeList" bindLabel="countryName" bindValue="countryCode"
+            formControlName="countryCode"
+            placeholder="C.code"
+                aria-label="Default select example">
+            </ng-select>
+            <div class="text-danger" *ngIf="isRequiredField(formControls['countryCode'])">
+                <small>Country Code is required.</small>
+            </div>
+        </div>
+        <div class="mb-3 col-lg-8">
+            <input type="text" class="form-control" id="FormControlPhoneInput" mask="(000) 000-0000"
+                formControlName="phoneNumber" placeholder="Enter your phone number">
+            <div class="text-danger" *ngIf="isRequiredField(formControls['phoneNumber'])">
+                This field is required.
+            </div>
+        </div>
+
+
+        <div class="mb-3 col-lg-12">
+            <label for="FormControlNewPassInput" class="form-label">create your password</label>
+            <input type="password" class="form-control" id="FormControlNewPassInput" formControlName="password"
+                placeholder="Create your password">
+            <div class="text-danger" *ngIf="isRequiredField(formControls['password'])">
+                This field is required.
+            </div>
+            <div class="text-danger" *ngIf="isValidLength(formControls['password'])">
+                Minimum {{formControls['password']?.errors?.['minlength'].requiredLength}} characters required.
+            </div>
+        </div>
+        <div class="mb-3 col-lg-12">
+            <label for="FormControlConfirmPassInput" class="form-label">confirm your password</label>
+            <input type="password" class="form-control" id="FormControlConfirmPassInput"
+                formControlName="confirmPassword" placeholder="Confirm your password">
+            <div class="text-danger" *ngIf="isRequiredField(formControls['confirmPassword'])">
+                This field is required.
+            </div>
+            <div class="text-danger" *ngIf="isValidLength(formControls['confirmPassword'])">
+                Minimum {{formControls['confirmPassword']?.errors?.['minlength'].requiredLength}} characters required.
+            </div>
+        </div>
+
+        <div class="mb-3 col-lg-12">
+            <div class="form-check input-group-row">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    formControlName="privacyCheck">
+                <label class="form-check-label" for="flexCheckDefault">
+                    I accept Terms of use and <a routerLink="/auth/privacypolicy"> Privacy Policy</a>
+                </label>
+                <div class="text-danger f-2" *ngIf="isRequiredField(formControls['privacyCheck'])">
+                    <small> Accept Terms of use and privacy policy required.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- -->
+
+    <button class="btn btn-dark"  [disabled]="registerForm.invalid"  (click)="signup()">
+        create an account
+    </button>
+</form>
+<!-- <div class="other-login">
+    <h5>sign up with</h5>
+    <div class="social-icons">
+        <a routerLink="/">
+            <img src="assets/images/google.png" alt="">
+        </a>
+        <a routerLink="/">
+            <img src="assets/images/facebook-12.png" alt="">
+        </a>
+        <a routerLink="/">
+            <img src="assets/images/apple-2.png" alt="">
+        </a>
+    </div>
+</div> -->
+
+<div class="switch mt-3">
+    <h6>
+        Already have an account?<a routerLink="/auth/login"> Log in</a>
+    </h6>
+</div>
+

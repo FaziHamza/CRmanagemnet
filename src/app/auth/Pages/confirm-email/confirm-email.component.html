@@ -1,0 +1,48 @@
+<div class="center-title">
+    <h2>
+        Confirm your e-mail
+    </h2>
+    <h5>
+        enter the 4-digit code that was sent to your e-mail
+    </h5>
+</div>
+<div class="confirmation-box">
+    <form [formGroup]="confirmEmailForm" (ngSubmit)="confirmEmail()">
+        <div class="row mb-4">
+            <div class="col-lg-3">
+                <input type="text" mask="0" formControlName="firstDigit" class="form-control" id="firstDigit">
+                <div class="text-danger text-center" *ngIf="isRequiredField(formControls['firstDigit'])">
+                    *
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" mask="0" formControlName="secondDigit" class="form-control" id="secondDigit">
+                <div class="text-danger text-center" *ngIf="isRequiredField(formControls['secondDigit'])">
+                    *
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" mask="0" formControlName="thirdDigit" class="form-control" id="thirdDigit">
+                <div class="text-danger text-center" *ngIf="isRequiredField(formControls['thirdDigit'])">
+                    *
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" mask="0" formControlName="forthDigit" class="form-control" id="forthDigit">
+                <div class="text-danger text-center" *ngIf="isRequiredField(formControls['forthDigit'])">
+                    *
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-dark" type="submit" [disabled]="confirmEmailForm.invalid">
+            confirm
+        </button>
+    </form>
+</div>
+
+<div class="switch mt-4">
+    <h6>
+        Didn’t receive a code? <a (click)="sendEmail()" class="cursor"> Send again</a>
+    </h6>
+</div>

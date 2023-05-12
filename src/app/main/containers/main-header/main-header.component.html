@@ -1,0 +1,24 @@
+<div class="content-header">
+    <div class="heading">
+        <h4>
+            <span *ngFor="let item of commonService.breadcrumb; let last = last" [routerLink]="item.routeLink">
+                <span *ngIf="!last">{{item.title}} < </span>
+                <span *ngIf="last">{{item.title}}</span>
+            </span>
+        </h4>
+    </div>
+    <div class="user-dropdown">
+        <div class="dropdown">
+            <div class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+
+                <div class="profile">JN</div><span> Jaber Nabil</span>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
