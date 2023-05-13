@@ -1,0 +1,68 @@
+<div class="layout">
+    <div class="login-body">
+        <div class="form-section">
+            <div class="login-card">
+                <div class="logo">
+                    <img src="assets/images/logo.svg" alt="">
+                </div>
+                <div class="discription">
+                    Please fill your detail to access your account.
+                </div>
+                <div class="form">
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="Example@markazia.jo"
+                                formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <div class="text-danger">
+                                <div *ngIf="isRequiredField(formControls['email'])">
+                                    <div *ngIf="formControls['email'].errors?.['required']">
+                                        This field is required.
+                                    </div>
+                                </div>
+                                <div *ngIf="isEmailField(formControls['email'])">
+                                    <div *ngIf="formControls['email'].errors?.['email']">
+                                        Invalid email address.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="form-label">Password</label>
+                            <input name="password" [type]="passwordVisible ? 'text' : 'password'"
+                                formControlName="password" class=" form-control" id="password"
+                                placeholder="Enter Password" required="true" aria-label="password"
+                                aria-describedby="basic-addon1" />
+                            <span class="eye" (click)="togglePasswordVisibility()">
+                                <i class="fa"
+                                    [ngClass]="{ 'fa-eye-slash': !passwordVisible, 'fa-eye': passwordVisible }"></i>
+                            </span>
+                            <div class="text-danger">
+                                <div *ngIf="isRequiredField(formControls['password'])">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="remember">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="rememberMe">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Remember Me
+                                </label>
+                            </div>
+                            <div>
+                                <a href="#" class="f-pass">
+                                    Forget your password ?
+                                </a>
+                            </div>
+                        </div>
+                        <button class="o-btn hvr-bounce-to-right" type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="image-section">
+            <img src="assets/images/login-bg.png" alt="">
+        </div>
+    </div>
+</div>

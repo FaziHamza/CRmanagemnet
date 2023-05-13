@@ -11,12 +11,13 @@
 }
 @media only screen and (max-width: 991px) {
     .content-header .heading h4 {
-    font-size: 14px;
+        font-size: 14px;
     }
     .content-header .user-dropdown .dropdown-toggle {
         font-size: 13px;
     }
-    .card .card-box .title, .card .card-box .detail {
+    .card .card-box .title,
+    .card .card-box .detail {
         font-size: 14px;
     }
     .nav-bar-body .nav-link {
@@ -39,9 +40,14 @@
     .sidebar-collapsed {
         width: 60px;
     }
-
 }
 @media screen and (max-width: 768px) {
+    .login-body .image-section {
+        display: none;
+    }
+    .login-body .form-section {
+        width: 100%;
+    }
     .content-header .heading h4 {
         font-size: 12px;
     }
@@ -63,7 +69,7 @@
     .content-header {
         height: 55px;
     }
-    .coll-icon{
+    .coll-icon {
         top: 15px;
     }
     .card {
@@ -92,4 +98,17 @@
     }
 }
 @media screen and (max-width: 450px) {
+    .login-card {
+        width: 100%;
+    }
+    .login-card .logo img {
+        height: 30px;
+    }
+    .login-card .discription {
+        font-size: 14px;
+    }
+    .login-card .remember .f-pass,
+    .login-card .remember .form-check-label {
+        font-size: 12px !important;
+    }
 }

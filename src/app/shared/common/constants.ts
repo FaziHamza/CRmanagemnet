@@ -1,7 +1,7 @@
 export class ApiConstants {
     public static apiEndPoints = {
         auth: {
-            login: 'Account/Login',
+            login: 'Login',
             resetPassword: 'Account/ResetPassword',
             forgot: 'Account/ForgotPassword',
             register: 'Account/register',

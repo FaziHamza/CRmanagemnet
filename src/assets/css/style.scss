@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;500;600;700;800;900&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 $primary: #dc3545;
 $bg-light: #f8f8f8;
 $text-light: #929eae;
@@ -25,7 +25,7 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: Lato !important;
+    font-family: Kumbh Sans !important;
 }
 
 body {
@@ -89,11 +89,12 @@ html {
 }
 
 .o-btn {
-    background: $primary-bg;
+    background: $primary;
     font-size: 15px;
-    height: 50px;
-    width: 160px;
+    height: 48px;
+    width: 100%;
     border: none;
+    overflow: hidden;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -121,13 +122,13 @@ html {
     position: absolute;
     z-index: -1;
     top: 0px;
-    height: 50px;
+    height: 48px;
     width: 100%;
-    border-radius: 7px;
+    border-radius: 8px;
     // border: 1px solid white !important;
     left: 0px;
     bottom: 0;
-    background: white !important;
+    background: #ac2a37 !important;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
     -webkit-transform-origin: 0 50%;
@@ -142,7 +143,7 @@ html {
 .hvr-bounce-to-right:hover,
 .hvr-bounce-to-right:focus,
 .hvr-bounce-to-right:active {
-    color: $primary !important;
+    color: white !important;
     box-shadow: $card-shadow !important;
 }
 .hvr-bounce-to-right:hover:before,
@@ -487,6 +488,7 @@ html {
                 width: 100%;
                 margin-left: 20px;
                 input {
+                    font-size: 14px;
                     width: 100%;
                     height: 40px;
                     background: #ffffff;
@@ -504,4 +506,103 @@ html {
 input[type="radio"]:checked {
     background-color: $primary;
     border: 1px solid $primary;
+}
+input[type="checkbox"]:checked {
+    background-color: $primary;
+    border: 1px solid $primary;
+}
+.login-body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+
+    .form-section {
+        padding: 20px;
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .image-section {
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            height: 100%;
+            width: 100%;
+            object-position: center;
+            object-fit: cover;
+        }
+    }
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 340px;
+    .logo {
+        img {
+            height: 40px;
+        }
+    }
+    .discription {
+        text-align: center;
+        padding: 20px 0px;
+        color: $text-light;
+        font-size: 16px;
+    }
+    .form {
+        width: 100%;
+    }
+    .form-group {
+        position: relative;
+        margin-bottom: 25px;
+        .form-label {
+            font-weight: 600;
+            color: black;
+        }
+        input {
+            font-size: 14px;
+            width: 100%;
+            height: 40px;
+            background: #ffffff;
+            border: 1px solid #d1d1d1;
+            border-radius: 8px;
+        }
+        .eye {
+            position: absolute;
+            top: 31px;
+            // bottom: 0px;
+            height: 40px;
+            right: 0px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $text-light;
+        }
+    }
+    .remember {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 25px;
+        .form-check-label {
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+        .f-pass {
+            font-size: 14px;
+            font-weight: 600;
+            color: $primary;
+        }
+    }
+   
 }

@@ -8,10 +8,12 @@ import { MainSideBarComponent } from './containers/main-side-bar/main-side-bar.c
 import { CMSetupComponent } from './pages/main-page/cmsetup/cmsetup.component';
 import { EnvService } from '../shared/services/envoirment.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PromissoryNoteComponent } from './pages/promissory-note/promissory-note.component';
+import { PromissoryNoteOrderComponent } from './pages/promissory-note-order/promissory-note-order.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule],
-  declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent],
+  declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent],
   providers: [
     EnvService,
   ]

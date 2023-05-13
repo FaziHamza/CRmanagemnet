@@ -3,11 +3,11 @@
         <i class="fa-solid fa-arrow-left"></i>
     </a>
     <div class="logo-header">
-        <img src="assets/images/logo.svg" alt="">
+        <img src="/assets/images/logo.svg" alt="">
     </div>
     <div class="nav-bar-body">
         <div class="nav-item">
-            <a class="nav-link" routerLink="/home"
+            <a class="nav-link" routerLink="dashboard"
             routerLinkActive="active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
@@ -16,27 +16,28 @@
                 <span>Dashboard</span>
 
             </a>
-            <a class="nav-link ">
+            <a class="nav-link " routerLink="promissory-note"
+            routerLinkActive="active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6m4 18H6V4h7v5h5v11m-9-7v6H7v-6h2m6 2v4h2v-4h-2m-4-4v8h2v-8h-2Z" />
                 </svg>
                 <span>Promissory Notes </span>
             </a>
-            <a class="nav-link">
+            <a class="nav-link" routerLink="promissory-order" routerLinkActive="active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M8 12h8v2H8v-2m2 8H6V4h7v5h5v3.1l2-2V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4v-2m-2-2h4.1l.9-.9V16H8v2m12.2-5c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1l-2.1-2.1l1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1l2.1 2.1Z" />
                 </svg>
                 <span>Promissory Notes Orders</span>
             </a>
-            <a class="nav-link">
+            <!-- <a class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M6 17q-.425 0-.713-.288T5 16v-5.025q0-.425.288-.7T6 10q.425 0 .713.288T7 11v5.025q0 .425-.288.7T6 17Zm6 0q-.425 0-.713-.288T11 16v-5.025q0-.425.288-.7T12 10q.425 0 .713.288T13 11v5.025q0 .425-.288.7T12 17Zm-9.025 4q-.425 0-.7-.288T2 20q0-.425.288-.713T3 19h18.025q.425 0 .7.288T22 20q0 .425-.288.713T21 21H2.975ZM18 17q-.425 0-.713-.288T17 16v-5.025q0-.425.288-.7T18 10q.425 0 .713.288T19 11v5.025q0 .425-.288.7T18 17ZM12.9 1.45l8.425 4.2q.325.175.5.487t.175.688q0 .5-.362.837T20.775 8H3.25q-.5 0-.875-.338T2 6.825q0-.375.163-.688t.512-.462L11.1 1.45q.425-.2.9-.2t.9.2ZM6.45 6h11.1h-11.1Zm0 0h11.1L12 3.25L6.45 6Z" />
                 </svg>
                 <span>Promissory Notes Orders</span>
-            </a>
+            </a> -->
             <a class="nav-link"  [routerLink]="'cm-setup'"
             routerLinkActive="active">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

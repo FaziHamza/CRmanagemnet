@@ -12,7 +12,7 @@ import { VerifyPasswordComponent } from './Pages/verify-password/verify-password
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: AuthLayoutComponent,
     children: [
       {
@@ -48,7 +48,7 @@ const routes: Routes = [
         component: ConfirmEmailComponent,
       },
        {
-        path: 'auth',
+        path: '',
         redirectTo: 'login', pathMatch: 'full'
       }
     ],

@@ -4,6 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   // {
+  //   path:'',
+  //   component:LoginComponent
+  // },
+  // {
   //   path: '',
   //   loadChildren: () => import('./auth/auth.module').then(t => t.AuthModule),
   // },
@@ -11,12 +15,12 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
   },
-  // {
-  //   path: 'auth',
-  //   loadChildren: () => import('./auth/auth.module').then(t => t.AuthModule),
-  // },
   {
     path: '',
+    loadChildren: () => import('./auth/auth.module').then(t => t.AuthModule),
+  },
+  {
+    path: 'home',
     loadChildren: () => import('./main/main.module').then(t => t.MainModule),
   },
 ];
