@@ -15,12 +15,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EnvService } from './shared/services/envoirment.service';
 import { ShareModule } from './shared/module/share.module';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { NgZorroAntdModule } from './zorro-module/ng-zorro-antd.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    NgZorroAntdModule,
     NgbModalModule,
     ToastrModule.forRoot(),
     ToastNoAnimationModule.forRoot(),

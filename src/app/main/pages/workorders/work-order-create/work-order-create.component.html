@@ -1,0 +1,139 @@
+<div class="content-body-inner">
+
+    <div class="create-order-row">
+        <h5>
+            Create Order
+        </h5>
+    </div>
+    <div class="create-form">
+        <div class="form-title">
+            <h4>
+                Customer
+            </h4>
+        </div>
+        <div class="form">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Full Name* </label>
+                        <input type="text" class="form-control" id="exampleInputEmail1"
+                            placeholder="Type name or Phone No National ID...">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">National ID </label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="National ID ">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Card No, *</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Type Number">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="card">
+        <div class="card-heading">
+            <div class="head-left">
+                <h5 class="card-subheading">Added Spare Parts</h5>
+            </div>
+            <div class="head-right"></div>
+        </div>
+        <button class="btn btn-primary" (click)="addRow()">Add</button>
+       
+        <div class="table-responsive">
+            <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed"  [nzPageSize]="pageSize">
+                <thead>
+                    <tr>
+                        <th >Part No</th>
+                        <th nzWidth="20%">Description</th>
+                        <th >Qty</th>
+                        <th >Unit Price</th>
+                        <th >Discount</th>
+                        <th >Net</th>
+                        <th >Tax</th>
+                        <th >Total Price</th>
+                        <th ></th>
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of editRowTable.data">
+                        <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
+                            <td>{{ data.partNo }}</td>
+                            <td>{{ data.description }}</td>
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.unitPrice }}</td>
+                            <td>{{ data.discount }}</td>
+                            <td>{{ data.netAmount }}</td>
+                            <td>{{ data.tax }} %</td>
+                            <td>{{ data.totalPrice }}</td>
+                            <td><a (click)="startEdit(data.id)">Edit</a></td>
+                            <td> <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                (nzOnConfirm)="deleteRow(data.id)">Delete</a></td>
+                        </ng-container>
+                        <ng-template #editTemplate>
+                            <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.partNo" /></td>
+                            <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.description" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.qty" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.unitPrice" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.discount" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.netAmount" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.tax" /></td>
+                            <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.totalPrice" /></td>
+                            <td>
+                                <a (click)="saveEdit(data.id)" class="save">Save</a>
+                                <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
+                                    (nzOnConfirm)="cancelEdit(data.id)">Cancel</a>
+                            </td>
+                            <td></td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="grand-amount-card">
+            <div class="add-note">
+                <h4>Add Note</h4>
+                <textarea name="" id="" rows="3"></textarea>
+            </div>
+            <div class="total-amount">
+                <h4 class="card-subheading">Grand Amount</h4>
+                <button class="btn btn-secondary">27.000 JD</button>
+            </div>
+        </div>
+    </div>
+    <div class="card payment-method-card ">
+        <h4 class="card-subheading">Add Note</h4>
+        <div class="radio-btns">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Cash
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    PN
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-buttons">
+        <button class="btn btn-white hvr-bounce-to-right2">Cancel</button>
+        <button class="btn o-btn hvr-bounce-to-right">Create</button>
+    </div>
+</div>

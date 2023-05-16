@@ -40,7 +40,7 @@ export class LoginComponent extends FormBaseComponent  implements OnInit {
   login() {
     
     if (this.loginForm.valid) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home/createorders']);
       // this.commonService.startLoader();
       // this.authService.login(this.loginForm.value).subscribe(
       //   (response: any) => {
