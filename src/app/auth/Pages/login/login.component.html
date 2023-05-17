@@ -21,7 +21,7 @@
                                     </div>
                                 </div>
                                 <div *ngIf="isEmailField(formControls['email'])">
-                                    <div *ngIf="formControls['email'].errors?.['email']">
+                                    <div class="error-msg" *ngIf="formControls['email'].errors?.['email']">
                                         Invalid email address.
                                     </div>
                                 </div>
