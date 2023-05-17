@@ -893,3 +893,6 @@ input {
 .ant-input-disabled, .ant-input[disabled] {
     color: $primary-bg;
 }
+.ant-input:hover {
+    border: 1px solid $border !important;
+}
