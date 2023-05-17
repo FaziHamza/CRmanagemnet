@@ -217,20 +217,40 @@
             <h4 class="card-subheading">Payment Method</h4>
             <div class="radio-btns">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" formControlName="paymentType" value="cash"
+                    <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio" formControlName="paymentType" value="cash"
                         id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1">
                         Cash
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" formControlName="paymentType" value="pn"
+                    <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio" formControlName="paymentType" value="pn"
                         id="flexRadioDefault2">
                     <label class="form-check-label" for="flexRadioDefault2">
                         PN
                     </label>
                 </div>
             </div>
+            <div  *ngIf="paymentMethodName == 'pn'">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="mb-3">
+                            <h4 class="card-subheading">Start Date *</h4>
+                            <input type="text" class="form-control" disabled placeholder="Phone Number"
+                                formControlName="mobile">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="mb-3">
+                            <h4 class="card-subheading">End Date *</h4>
+                            <input type="text" class="form-control" disabled placeholder="Phone Number"
+                                formControlName="mobile">
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			
             <div class="bottom-buttons">
                 <button type="button" class="btn btn-white hvr-bounce-to-right2">Cancel</button>
                 <button class="btn o-btn hvr-bounce-to-right" type="submit">Create</button>
