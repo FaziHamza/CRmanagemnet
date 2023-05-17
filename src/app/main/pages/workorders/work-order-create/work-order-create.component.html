@@ -55,16 +55,15 @@
             <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed"  [nzPageSize]="pageSize">
                 <thead>
                     <tr>
-                        <th >Part No</th>
-                        <th nzWidth="20%">Description</th>
+                        <th nzWidth="15%">Part No</th>
+                        <th nzWidth="15%">Description</th>
                         <th >Qty</th>
-                        <th >Unit Price</th>
+                        <th nzWidth="10%">Unit Price</th>
                         <th >Discount</th>
                         <th >Net</th>
                         <th >Tax</th>
-                        <th >Total Price</th>
-                        <th ></th>
-                        <th ></th>
+                        <th nzWidth="10%">Total Price</th>
+                        <th nzWidth="10%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,12 +77,26 @@
                             <td>{{ data.netAmount }}</td>
                             <td>{{ data.tax }} %</td>
                             <td>{{ data.totalPrice }}</td>
-                            <td><a (click)="startEdit(data.id)">Edit</a></td>
-                            <td> <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
-                                (nzOnConfirm)="deleteRow(data.id)">Delete</a></td>
+                            <td><a (click)="startEdit(data.id)" class="px-2"><i class="fa-solid fa-pen text-green fa-2x"></i></a>
+                                <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                                (nzOnConfirm)="deleteRow(data.id)"><i class="fa-solid fa-trash-can-xmark text-danger fa-2x"></i></a>
+                            </td>
+                            
                         </ng-container>
                         <ng-template #editTemplate>
-                            <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.partNo" /></td>
+                            <td><div class="example-input">
+                                <input
+                                  placeholder="input here"
+                                  nz-input
+                                  [(ngModel)]="editCache[data.id].data.partNo"
+                                  (input)="onInput($event)"
+                                  [nzAutocomplete]="auto"
+                                />
+                                <nz-autocomplete #auto>
+                                  <nz-auto-option *ngFor="let option of partNoList" [nzValue]="option.name">{{ option.name }}</nz-auto-option>
+                                </nz-autocomplete>
+                              </div></td>
+                            <!-- <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.partNo" /></td> -->
                             <td><input type="text" nz-input [(ngModel)]="editCache[data.id].data.description" /></td>
                             <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.qty" /></td>
                             <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.unitPrice" /></td>
@@ -92,11 +105,10 @@
                             <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.tax" /></td>
                             <td><input type="number" nz-input [(ngModel)]="editCache[data.id].data.totalPrice" /></td>
                             <td>
-                                <a (click)="saveEdit(data.id)" class="save">Save</a>
+                                <a (click)="saveEdit(data.id)" class="save" class="px-2"><i class="fa-solid fa-floppy-disk text-success fa-2x"></i></a>
                                 <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
-                                    (nzOnConfirm)="cancelEdit(data.id)">Cancel</a>
+                                    (nzOnConfirm)="cancelEdit(data.id)"><i class="fa-solid fa-xmark text-danger fa-2x"></i></a>
                             </td>
-                            <td></td>
                         </ng-template>
                     </tr>
                 </tbody>

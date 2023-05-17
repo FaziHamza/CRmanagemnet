@@ -48,7 +48,32 @@ export class WorkOrderCreateComponent implements OnInit {
       edit: false
     };
   }
-  
+  partNoList :any[] = [];
+  onInput(e: Event): void {
+    debugger
+    const value = (e.target as HTMLInputElement).value;
+    if(value.length >=3){
+      this.partNoList =[
+        {
+          id:1,
+          name:'abc'
+        },
+        {
+          id:2,
+          name:'abc 1'
+        },
+        {
+          id:3,
+          name:'abc 3'
+        },
+      ]
+    }
+    // if (!value || value.indexOf('@') >= 0) {
+    //   this.options = [];
+    // } else {
+    //   this.options = ['gmail.com', '163.com', 'qq.com'].map(domain => `${value}@${domain}`);
+    // }
+  }
   addRow(): void {
     this.listOfData = [
       ...this.listOfData,
@@ -64,7 +89,7 @@ export class WorkOrderCreateComponent implements OnInit {
         totalPrice:0
       }
     ];
-    this.updateEditCache();
+    this.enableEditCache();
   }
   saveEdit(id: string): void {
     debugger
@@ -80,6 +105,19 @@ export class WorkOrderCreateComponent implements OnInit {
         data: { ...item }
       };
     });
+  }
+  enableEditCache(): void {
+    this.listOfData.forEach(item => {
+      this.editCache[item.id] = {
+        edit: false,
+        data: { ...item }
+      };
+    });
+    let item = this.listOfData[this.listOfData.length -1];
+    this.editCache[item.id] = {
+      edit: true,
+      data: { ...item }
+    };
   }
 
 }

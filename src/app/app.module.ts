@@ -16,6 +16,9 @@ import { EnvService } from './shared/services/envoirment.service';
 import { ShareModule } from './shared/module/share.module';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgZorroAntdModule } from './zorro-module/ng-zorro-antd.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { NZ_ICONS } from 'ng-zorro-antd/icon';
 
 @NgModule({
   imports: [
@@ -28,11 +31,16 @@ import { NgZorroAntdModule } from './zorro-module/ng-zorro-antd.module';
     ToastNoAnimationModule.forRoot(),
     HttpClientModule,
     NgxUiLoaderModule,
+    BrowserAnimationsModule,
     NgSelectModule,
     ShareModule,
   ],
   declarations: [AppComponent, FormBaseComponent],
   bootstrap: [AppComponent],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    // { provide: NZ_ICONS, useValue: icons },
+  ],
   // providers: [
   //   {
   //     provide: HTTP_INTERCEPTORS,
