@@ -20,6 +20,7 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
   grandTotal = 0;
   customerList: any[] = [];
   inputValue: string | null = null;
+  paymentMethodName:string;
   constructor(private commonService: CommonService, private apiService: ApiService,
     private formBuilder: FormBuilder) {
     super();
