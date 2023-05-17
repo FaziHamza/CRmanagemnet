@@ -3,7 +3,10 @@ export const environment = {
   // Url: 'https://localhost:44394/api/',
   // imageUrl: 'https://localhost:44394/',
   GOOGLE_MAPS_API_KEY: 'AIzaSyAYyPkMoH478DfxCo0khzrVoKiy73ezuVY',
-  Url: 'https://creditmanagement.azurewebsites.net/POSAPI/api/',
-  imageUrl: 'https://creditmanagement.azurewebsites.net/',
+  intermediate: 'https://intermediatelayerspareparts.azurewebsites.net/posapi/api/',
+  imageUrl: 'https://intermediatelayerspareparts.azurewebsites.net/',
   
+  administration: 'https://dx-admimistration.azurewebsites.net/POSAPI/',
+  administration2: 'https://dx-admimistration.azurewebsites.net/',
+
 };

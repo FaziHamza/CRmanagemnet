@@ -26,11 +26,19 @@ export class ApiService {
   }
 
   saveCmsSetup(obj:any) :Observable<AppResponse> {
-    let url = environment.Url + "Setup/UpdateSetup";
+    let url = environment.intermediate + "Setup/UpdateSetup";
     return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
   }
   getCMSSetup():Observable<AppResponse> {
-    let url = environment.Url + "Setup/GetCMSetup";
+    let url = environment.intermediate + "Setup/GetCMSetup";
+    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+  }
+  getParts(partno:any):Observable<AppResponse> {
+    let url = environment.intermediate + "Parts/GetParts?part="+partno;
+    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+  }
+  getCustomer():Observable<AppResponse> {
+    let url = environment.intermediate + "Customer/GetCustomers";
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
 }
