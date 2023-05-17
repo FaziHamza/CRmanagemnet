@@ -83,153 +83,106 @@
                 </div>
             </div>
 
-            <div class="table-responsive">
-                <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="pageSize">
-                    <thead>
-                        <tr>
-                            <th nzWidth="15%">Part No</th>
-                            <th nzWidth="15%">Description</th>
-                            <th>Qty</th>
-                            <th nzWidth="10%">Unit Price</th>
-                            <th>Discount</th>
-                            <th>Net</th>
-                            <th>Tax</th>
-                            <th nzWidth="10%">Total Price</th>
-                            <th nzWidth="10%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of editRowTable.data;let index = index">
-                            <ng-container *ngIf="!editCache[index].edit; else editTemplate">
-                                <td>{{ data.partQtyConcat }}</td>
-                                <td>{{ data.description }}</td>
-                                <td>{{ data.qty }}</td>
-                                <td>{{ data.unitPrice }}</td>
-                                <td>{{ data.discount }} %</td>
-                                <td>{{ data.netAmount }}</td>
-                                <td>{{ data.tax }} %</td>
-                                <td>{{ data.totalPrice }}</td>
-                                <td>
-                                    <a (click)="startEdit(index)" class="pen-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-width="1.5"
-                                                d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966c1.39 1.39 2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891c-.3.234-.625.435-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5" />
-                                        </svg>
-                                    </a>
-                                    <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data)"
-                                        class="delete-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-width="1.5">
-                                                <path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5" />
-                                                <path
-                                                    d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9" />
-                                                <path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5" />
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </td>
+        <div class="table-responsive">
+            <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="pageSize">
+                <thead>
+                    <tr>
+                        <th nzWidth="15%">Part No</th>
+                        <th nzWidth="15%">Description</th>
+                        <th>Qty</th>
+                        <th nzWidth="10%">Unit Price</th>
+                        <th>Discount</th>
+                        <th>Net</th>
+                        <th>Tax</th>
+                        <th nzWidth="10%">Total Price</th>
+                        <th nzWidth="10%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of editRowTable.data;let index = index">
+                        <ng-container *ngIf="!editCache[index].edit; else editTemplate">
+                            <td>{{ data.partQtyConcat }}</td>
+                            <td>{{ data.description }}</td>
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.unitofMeasure }}</td>
+                            <td>{{ data.discount }} %</td>
+                            <td>{{ data.net | number:'1.2-2'}}</td>
+                            <td>{{ data.tax }} %</td>
+                            <td>{{ data.totalPrice | number:'1.2-2'}}</td>
+                            <td><a (click)="startEdit(index)" class="px-2"><i
+                                        class="fa-solid fa-pen text-green fa-2x"></i></a>
+                                <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data)"><i
+                                        class="fa-solid fa-trash-can-xmark text-danger fa-2x"></i></a>
+                            </td>
 
-                            </ng-container>
-                            <ng-template #editTemplate>
-                                <td>
-                                    <div class="example-input">
-                                        <input placeholder='Part No' nz-input
-                                            [(ngModel)]="editCache[index].data.partQtyConcat"
-                                            [ngModelOptions]="{ standalone: true }"
-                                            (ngModelChange)="onChange($event,index)" [nzAutocomplete]="auto" />
-                                        <nz-autocomplete #auto>
-                                            <nz-auto-option *ngFor="let option of filteredOptions" [nzValue]="option.id"
-                                                [nzLabel]="option.partQtyConcat">
-                                                {{ option.partQtyConcat }}
-                                            </nz-auto-option>
-                                        </nz-autocomplete>
-                                    </div>
-                                </td>
-                                <td><input type="text" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.description"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" (ngModelChange)="onChangeQty($event,index)" nz-input
-                                        [(ngModel)]="editCache[index].data.qty"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.unitPrice"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,index)"
-                                        [(ngModel)]="editCache[index].data.discount"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.netAmount"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,index)"
-                                        [(ngModel)]="editCache[index].data.tax"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.totalPrice"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td>
-                                    <a (click)="saveEdit(index)" class="save pen-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-width="1.5"
-                                                d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966c1.39 1.39 2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891c-.3.234-.625.435-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5" />
-                                        </svg>
-
-                                    </a>
-                                    <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
-                                        (nzOnConfirm)="cancelEdit(index)" class="delete-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                stroke-width="1.5">
-                                                <path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5" />
-                                                <path
-                                                    d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9" />
-                                                <path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5" />
-                                            </g>
-                                        </svg>
-
-                                    </a>
-                                </td>
-                            </ng-template>
-                        </tr>
-                    </tbody>
-                </nz-table>
+                        </ng-container>
+                        <ng-template #editTemplate>
+                            <td>
+                                <div class="example-input">
+                                    <input placeholder='Part No' nz-input
+                                        [(ngModel)]="editCache[index].data.partQtyConcat" [ngModelOptions]="{ standalone: true }"
+                                        (ngModelChange)="onChange($event,index)" [nzAutocomplete]="auto" />
+                                    <nz-autocomplete #auto>
+                                        <nz-auto-option *ngFor="let option of filteredOptions" [nzValue]="option.id"
+                                            [nzLabel]="option.partQtyConcat">
+                                            {{ option.partQtyConcat }}
+                                        </nz-auto-option>
+                                    </nz-autocomplete>
+                                </div>
+                            </td>
+                            <td><input type="text" [disabled]="true" nz-input
+                                    [(ngModel)]="editCache[index].data.description" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" (ngModelChange)="onChangeQty($event,index)" nz-input
+                                    [(ngModel)]="editCache[index].data.qty" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" [disabled]="true" nz-input
+                                    [(ngModel)]="editCache[index].data.unitofMeasure"  [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,index)"
+                                    [(ngModel)]="editCache[index].data.discount" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" [disabled]="true" nz-input
+                                    [(ngModel)]="editCache[index].data.net" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,index)"
+                                    [(ngModel)]="editCache[index].data.tax" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td><input type="number" [disabled]="true" nz-input
+                                    [(ngModel)]="editCache[index].data.totalPrice" [ngModelOptions]="{ standalone: true }" /></td>
+                            <td>
+                                <a (click)="saveEdit(index)" class="save" class="px-2"><i
+                                        class="fa-solid fa-floppy-disk text-success fa-2x"></i></a>
+                                <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
+                                    (nzOnConfirm)="cancelEdit(index)"><i
+                                        class="fa-solid fa-xmark text-danger fa-2x"></i></a>
+                            </td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="grand-amount-card">
+            <div class="add-note">
+                <h4>Add Note</h4>
+                <textarea name="" id="" rows="3" formControlName="salesNote"></textarea>
+            </div>
+            <div class="total-amount">
+                <h4 class="card-subheading">Grand Amount</h4>
+                <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.2-2'}} JD</button>
             </div>
         </div>
-        <div class="card">
-            <div class="grand-amount-card">
-                <div class="add-note">
-                    <h4>Add Note</h4>
-                    <textarea name="" id="" rows="3" formControlName="notes"></textarea>
-                </div>
-                <div class="total-amount">
-                    <h4 class="card-subheading">Grand Amount</h4>
-                    <button type="button" class="btn btn-secondary">{{grandTotal}} JD</button>
-                </div>
+    </div>
+    <div class="card payment-method-card ">
+        <h4 class="card-subheading">Payment Method</h4>
+        <div class="radio-btns">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" formControlName="paymentType"  value="cash" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Cash
+                </label>
             </div>
-        </div>
-        <div class="card payment-method-card ">
-            <h4 class="card-subheading">Payment Method</h4>
-            <div class="radio-btns">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" formControlName="method" value="cash"
-                        id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Cash
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" formControlName="method" value="pn"
-                        id="flexRadioDefault2">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        PN
-                    </label>
-                </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio"  formControlName="paymentType"  value="pn" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    PN
+                </label>
             </div>
         </div>
         <div class="bottom-buttons">

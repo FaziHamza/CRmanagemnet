@@ -41,4 +41,8 @@ export class ApiService {
     let url = environment.intermediate + "Customer/GetCustomers";
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
+  createWorkOrder(obj:any) :Observable<AppResponse> {
+    let url = environment.intermediate + "SalesOrders/CreateWorkOrder";
+    return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
+  }
 }
