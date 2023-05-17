@@ -101,11 +101,11 @@
                             <td>{{ data.partQtyConcat }}</td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.qty }}</td>
-                            <td>{{ data.unitPrice }}</td>
+                            <td>{{ data.unitofMeasure }}</td>
                             <td>{{ data.discount }} %</td>
-                            <td>{{ data.netAmount }}</td>
+                            <td>{{ data.net | number:'1.2-2'}}</td>
                             <td>{{ data.tax }} %</td>
-                            <td>{{ data.totalPrice }}</td>
+                            <td>{{ data.totalPrice | number:'1.2-2'}}</td>
                             <td><a (click)="startEdit(index)" class="px-2"><i
                                         class="fa-solid fa-pen text-green fa-2x"></i></a>
                                 <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data)"><i
@@ -132,11 +132,11 @@
                             <td><input type="number" (ngModelChange)="onChangeQty($event,index)" nz-input
                                     [(ngModel)]="editCache[index].data.qty" [ngModelOptions]="{ standalone: true }" /></td>
                             <td><input type="number" [disabled]="true" nz-input
-                                    [(ngModel)]="editCache[index].data.unitPrice"  [ngModelOptions]="{ standalone: true }" /></td>
+                                    [(ngModel)]="editCache[index].data.unitofMeasure"  [ngModelOptions]="{ standalone: true }" /></td>
                             <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,index)"
                                     [(ngModel)]="editCache[index].data.discount" [ngModelOptions]="{ standalone: true }" /></td>
                             <td><input type="number" [disabled]="true" nz-input
-                                    [(ngModel)]="editCache[index].data.netAmount" [ngModelOptions]="{ standalone: true }" /></td>
+                                    [(ngModel)]="editCache[index].data.net" [ngModelOptions]="{ standalone: true }" /></td>
                             <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,index)"
                                     [(ngModel)]="editCache[index].data.tax" [ngModelOptions]="{ standalone: true }" /></td>
                             <td><input type="number" [disabled]="true" nz-input
@@ -158,11 +158,11 @@
         <div class="grand-amount-card">
             <div class="add-note">
                 <h4>Add Note</h4>
-                <textarea name="" id="" rows="3" formControlName="notes"></textarea>
+                <textarea name="" id="" rows="3" formControlName="salesNote"></textarea>
             </div>
             <div class="total-amount">
                 <h4 class="card-subheading">Grand Amount</h4>
-                <button type="button" class="btn btn-secondary">{{grandTotal}} JD</button>
+                <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.2-2'}} JD</button>
             </div>
         </div>
     </div>
@@ -170,13 +170,13 @@
         <h4 class="card-subheading">Payment Method</h4>
         <div class="radio-btns">
             <div class="form-check">
-                <input class="form-check-input" type="radio" formControlName="method"  value="cash" id="flexRadioDefault1">
+                <input class="form-check-input" type="radio" formControlName="paymentType"  value="cash" id="flexRadioDefault1">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Cash
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio"  formControlName="method"  value="pn" id="flexRadioDefault2">
+                <input class="form-check-input" type="radio"  formControlName="paymentType"  value="pn" id="flexRadioDefault2">
                 <label class="form-check-label" for="flexRadioDefault2">
                     PN
                 </label>
