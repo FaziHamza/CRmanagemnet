@@ -194,7 +194,9 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
     this.orderForm.value['pnStartDate'] = new Date();
     this.orderForm.value['pnEndDate'] = new Date();
     this.orderForm.value['customerId'] = customerData?.customerId;
-
+    if(this.listOfData.length == 0){
+      return this.commonService.showError("Please Enter at least one product","Error");
+    }
     if (this.orderForm.valid) {
       this.apiService.createWorkOrder(this.orderForm.value).subscribe(res => {
         if (res.isSuccess) {
