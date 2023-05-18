@@ -694,12 +694,32 @@ input[type="checkbox"]:checked {
 
 .create-form {
     input {
-        padding: 15px;
+        padding: 10px 15px;
         height: 48px;
         font-size: 14px;
         background: #ffffff;
         border: 1px solid #d1d1d1;
         border-radius: 12px;
+    }
+    select {
+        padding: 10px 15px;
+        height: 48px;
+        font-size: 14px;
+        border: 1px solid #d1d1d1;
+        border-radius: 12px;
+    }
+}
+
+.input-search {
+    position: relative;
+    svg {
+        position: absolute;
+        top: 12px;
+        left: 10px;
+    }
+    input,
+    select {
+        padding-left: 45px;
     }
 }
 
