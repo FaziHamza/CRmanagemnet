@@ -1,21 +1,22 @@
-<div id="sidebar-container" class="sidebar-expanded ">
-    <a href="#" data-toggle="sidebar-colapse" class="coll-icon">
+<div id="sidebar-container" [ngClass]="{'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
+
+    <button data-toggle="sidebar-collapse" class="coll-icon" (click)="toggleSidebar()">
         <i class="fa-solid fa-arrow-left"></i>
-    </a>
+    </button>
     <div class="logo-header">
         <img src="/assets/images/logo.svg" alt="">
     </div>
     <div class="nav-bar-body">
         <div class="nav-item">
-        
-            <a class="nav-link"  [routerLink]="'/home/allorder'"
-            routerLinkActive="active">
+            <a class="nav-link"  [routerLink]="'/home/allorder'" [class.active]="isWorkOrderActive()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M22 6v12q0 .825-.588 1.413T20 20H4q-.825 0-1.413-.588T2 18V6q0-.825.588-1.413T4 4h16q.825 0 1.413.588T22 6ZM4 8h16V6H4v2Zm0 4v6h16v-6H4Zm0 6V6v12Z" />
                 </svg>
                 <span>Service Work Order</span>
             </a>
+            
+            
 
         </div>
 
