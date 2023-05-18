@@ -90,6 +90,7 @@ export class WorkOrderCreateComponent implements OnInit {
   }
   onChange(value: any, id: any): void {
     if (value.length >= 3) {
+      debugger
       this.apiService.getParts(value).subscribe(res => {
         if (res.isSuccess) {
           if (res.data.length > 0) {
@@ -109,7 +110,7 @@ export class WorkOrderCreateComponent implements OnInit {
       if (data) {
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
-        this.editCache[id].data.partNo = data.part10;
+        this.editCache[id].data.partNo = data.part;
         this.editCache[id].data.qty = 1;
         this.editCache[id].data.tax = 0;
         this.editCache[id].data.discount = 0;
@@ -206,13 +207,13 @@ export class WorkOrderCreateComponent implements OnInit {
     if (this.orderForm.valid) {
       this.apiService.createWorkOrder(this.orderForm.value).subscribe(res => {
         if (res.isSuccess) {
-          this.commonService.showSuccess(res.message, "Success");
+          this.commonService.showSuccess("Data save successfully..!","Success");
           this.orderForm.reset();
           this.listOfData = [];
           this.updateEditCache();
           this.getGrandTotal();
-        } else {
-          this.commonService.showError(res.message, "Error");
+        }else{
+          this.commonService.showError("found some error..!","Error");
         }
       })
     }
