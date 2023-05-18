@@ -9,10 +9,10 @@ import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/fo
   templateUrl: './work-order-create.component.html',
   styleUrls: ['./work-order-create.component.scss']
 })
-export class WorkOrderCreateComponent extends FormBaseComponent implements OnInit {
+export class WorkOrderCreateComponent implements OnInit {
 
   filteredOptions: any[] = [];
-  orderForm!: FormGroup;
+  orderForm: FormGroup;
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
   listOfData: any[] = [];
   pageSize = 6;
@@ -20,10 +20,10 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
   grandTotal = 0;
   customerList: any[] = [];
   inputValue: string | null = null;
-  paymentMethodName:string;
+  saveSubmitted: boolean = false;
+  paymentMethodName: string;
   constructor(private commonService: CommonService, private apiService: ApiService,
     private formBuilder: FormBuilder) {
-    super();
   }
 
   ngOnInit() {
@@ -32,16 +32,6 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
       { title: ' Create Order ', routeLink: 'order' },
     ]
     this.initForm();
-    this.getCustomer();
-  }
-  getCustomer() {
-    this.apiService.getCustomer().subscribe(res => {
-      if (res.data.length > 0) {
-        this.customerList = res.data;
-      } else {
-        this.customerList = [];
-      }
-    })
   }
   initForm() {
     this.orderForm = this.formBuilder.group({
@@ -49,6 +39,8 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
       mobile: [''],
       nationalId: [''],
       salesNote: [''],
+      pnStartDate: [''],
+      pnEndDate: [''],
       paymentType: [''],
       cardNo: ['', [Validators.required]],
     });
@@ -69,6 +61,9 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
     this.getGrandTotal();
   }
   updateData() {
+    this.listOfData.forEach((record, index) => {
+      record.id = index + 1;
+    });
     this.listOfData = [...this.listOfData];
   }
   cancelEdit(index: number): void {
@@ -79,9 +74,19 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
   }
 
   onChangeName(event: any) {
-
-    let obj = this.customerList.find(a => a.customerName == event);
-    this.orderForm.patchValue(obj);
+    if (event.length >= 3) {
+      this.apiService.getCustomer(event).subscribe(res => {
+        if (res.data.length > 0) {
+          this.customerList = res.data;
+        }
+      })
+    }
+    if (typeof event === 'number') {
+      let obj = this.customerList.find(a => a.customerId == event);
+      if(obj)
+        this.orderForm.patchValue(obj);
+    }
+    
   }
   onChange(value: any, id: any): void {
     if (value.length >= 3) {
@@ -106,6 +111,8 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
         this.editCache[id].data.partNo = data.part10;
         this.editCache[id].data.qty = 1;
+        this.editCache[id].data.tax = 0;
+        this.editCache[id].data.discount = 0;
         this.editCache[id].data.unitofMeasure = parseFloat(data.price);
         this.editCache[id].data.net = parseFloat(data.price);
         this.editCache[id].data.totalPrice = parseFloat(data.price);
@@ -153,15 +160,15 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
     this.enableEditCache();
   }
   saveEdit(id: number): void {
-
-    Object.assign(this.listOfData[id], this.editCache[id].data);
+    const index = this.listOfData.findIndex(item => item.id === id);
+    Object.assign(this.listOfData[index], this.editCache[id].data);
     this.editCache[id].edit = false;
     this.getGrandTotal();
   }
 
   updateEditCache(): void {
     this.listOfData.forEach((item, index) => {
-      this.editCache[index] = {
+      this.editCache[index + 1] = {
         edit: false,
         data: { ...item }
       };
@@ -169,13 +176,13 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
   }
   enableEditCache(): void {
     this.listOfData.forEach((item, index) => {
-      this.editCache[index] = {
+      this.editCache[index + 1] = {
         edit: false,
         data: { ...item }
       };
     });
-    let item = this.listOfData[this.listOfData.length - 1];
-    this.editCache[this.listOfData.length - 1] = {
+    let item = this.listOfData[this.listOfData.length];
+    this.editCache[this.listOfData.length] = {
       edit: true,
       data: { ...item }
     };
@@ -191,22 +198,21 @@ export class WorkOrderCreateComponent extends FormBaseComponent implements OnIni
     let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
     this.orderForm.value['spareParts'] = this.listOfData;
     this.orderForm.value['grandAmount'] = this.grandTotal;
-    this.orderForm.value['pnStartDate'] = new Date();
-    this.orderForm.value['pnEndDate'] = new Date();
     this.orderForm.value['customerId'] = customerData?.customerId;
-    if(this.listOfData.length == 0){
-      return this.commonService.showError("Please Enter at least one product","Error");
+    this.saveSubmitted = true;
+    if (this.listOfData.length == 0) {
+      return this.commonService.showError("Please Enter at least one product", "Error");
     }
     if (this.orderForm.valid) {
       this.apiService.createWorkOrder(this.orderForm.value).subscribe(res => {
         if (res.isSuccess) {
-          this.commonService.showSuccess(res.message,"Success");
+          this.commonService.showSuccess(res.message, "Success");
           this.orderForm.reset();
           this.listOfData = [];
           this.updateEditCache();
           this.getGrandTotal();
-        }else{
-          this.commonService.showError(res.message,"Error");
+        } else {
+          this.commonService.showError(res.message, "Error");
         }
       })
     }

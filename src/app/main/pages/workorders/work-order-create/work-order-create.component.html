@@ -20,16 +20,16 @@
                             <label for="exampleInputEmail1" class="form-label">Full Name <span
                                     class="text-danger">*</span></label>
                             <input type="text" placeholder="Type name or Phone No National ID..." class="form-control"
-                                id="exampleInputEmail1" nz-input formControlName="customerName"
-                                (ngModelChange)="onChangeName($event)" [nzAutocomplete]="auto" />
-                            <nz-autocomplete #auto>
-                                <nz-auto-option *ngFor="let option of customerList" [nzValue]="option.customerName"
+                                id="exampleInputEmail1" nz-input  [ngModelOptions]="{ standalone: true }" [(ngModel)]="customerId"
+                                (ngModelChange)="onChangeName($event)" [nzAutocomplete]="customerName" />
+                            <nz-autocomplete #customerName>
+                                <nz-auto-option *ngFor="let option of customerList" [nzValue]="option.customerId"
                                     [nzLabel]="option.customerName">
                                     {{ option.customerName }}
                                 </nz-auto-option>
                             </nz-autocomplete>
                             <div class="text-danger">
-                                <div *ngIf="isRequiredField(formControls['customerName'])">
+                                <div *ngIf="(orderForm.get('customerName').invalid && (orderForm.get('customerName').touched || saveSubmitted)) || (!orderForm.get('customerName').value && saveSubmitted)">
                                     <div *ngIf="formControls['customerName'].errors?.['required']">
                                         This field is required.
                                     </div>
@@ -57,8 +57,9 @@
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="exampleInputCardNo" formControlName="cardNo"
                                 placeholder="Type Number">
+                               
                             <div class="text-danger">
-                                <div *ngIf="isRequiredField(formControls['cardNo'])">
+                                <div *ngIf="(orderForm.get('cardNo').invalid && (orderForm.get('cardNo').touched || saveSubmitted)) || (!orderForm.get('cardNo').value && saveSubmitted)">
                                     <div *ngIf="formControls['cardNo'].errors?.['required']">
                                         This field is required.
                                     </div>
@@ -100,7 +101,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of editRowTable.data;let index = index">
-                            <ng-container *ngIf="!editCache[index].edit; else editTemplate">
+                            <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
                                 <td>{{ data.partQtyConcat }}</td>
                                 <td>{{ data.description }}</td>
                                 <td>{{ data.qty }}</td>
@@ -110,7 +111,7 @@
                                 <td>{{ data.tax }} %</td>
                                 <td>{{ data.totalPrice | number:'1.2-2'}}</td>
                                 <td>
-                                    <a (click)="startEdit(index)" class="pen-icon">
+                                    <a (click)="startEdit(data.id)" class="pen-icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24">
                                             <path fill="none" stroke="currentColor" stroke-linecap="round"
@@ -138,9 +139,9 @@
                                 <td>
                                     <div class="example-input">
                                         <input placeholder='Part No' nz-input
-                                            [(ngModel)]="editCache[index].data.partQtyConcat"
+                                            [(ngModel)]="editCache[data.id].data.partQtyConcat"
                                             [ngModelOptions]="{ standalone: true }"
-                                            (ngModelChange)="onChange($event,index)" [nzAutocomplete]="auto" />
+                                            (ngModelChange)="onChange($event,data.id)" [nzAutocomplete]="auto" />
                                         <nz-autocomplete #auto>
                                             <nz-auto-option *ngFor="let option of filteredOptions" [nzValue]="option.id"
                                                 [nzLabel]="option.partQtyConcat">
@@ -150,28 +151,28 @@
                                     </div>
                                 </td>
                                 <td><input type="text" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.description"
+                                        [(ngModel)]="editCache[data.id].data.description"
                                         [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" (ngModelChange)="onChangeQty($event,index)" nz-input
-                                        [(ngModel)]="editCache[index].data.qty"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.unitofMeasure"
-                                        [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,index)"
-                                        [(ngModel)]="editCache[index].data.discount"
+                                <td><input type="number" (ngModelChange)="onChangeQty($event,data.id)" nz-input
+                                        [(ngModel)]="editCache[data.id].data.qty"
                                         [ngModelOptions]="{ standalone: true }" /></td>
                                 <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.net"
+                                        [(ngModel)]="editCache[data.id].data.unitofMeasure"
                                         [ngModelOptions]="{ standalone: true }" /></td>
-                                <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,index)"
-                                        [(ngModel)]="editCache[index].data.tax"
+                                <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,data.id)"
+                                        [(ngModel)]="editCache[data.id].data.discount"
                                         [ngModelOptions]="{ standalone: true }" /></td>
                                 <td><input type="number" [disabled]="true" nz-input
-                                        [(ngModel)]="editCache[index].data.totalPrice"
+                                        [(ngModel)]="editCache[data.id].data.net"
+                                        [ngModelOptions]="{ standalone: true }" /></td>
+                                <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,data.id)"
+                                        [(ngModel)]="editCache[data.id].data.tax"
+                                        [ngModelOptions]="{ standalone: true }" /></td>
+                                <td><input type="number" [disabled]="true" nz-input
+                                        [(ngModel)]="editCache[data.id].data.totalPrice"
                                         [ngModelOptions]="{ standalone: true }" /></td>
                                         <td>
-                                            <a (click)="saveEdit(index)" class="save pen-icon">
+                                            <a (click)="saveEdit(data.id)" class="save pen-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="none" stroke="currentColor" stroke-linecap="round"
@@ -181,7 +182,7 @@
         
                                             </a>
                                             <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?"
-                                                (nzOnConfirm)="cancelEdit(index)" class="delete-icon">
+                                                (nzOnConfirm)="cancelEdit(data.id)" class="delete-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <g fill="none" stroke="currentColor" stroke-linecap="round"
@@ -236,15 +237,15 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="mb-3">
                             <h4 class="card-subheading">Start Date *</h4>
-                            <input type="text" class="form-control" disabled placeholder="Phone Number"
-                                formControlName="mobile">
+                            <input type="date" class="form-control"  placeholder="Start Date"
+                                formControlName="pnStartDate">
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="mb-3">
                             <h4 class="card-subheading">End Date *</h4>
-                            <input type="text" class="form-control" disabled placeholder="Phone Number"
-                                formControlName="mobile">
+                            <input type="date" class="form-control"  placeholder="End Date"
+                                formControlName="pnEndDate">
                         </div>
                     </div>
                 </div>
