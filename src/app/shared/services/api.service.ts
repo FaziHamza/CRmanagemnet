@@ -46,13 +46,13 @@ export class ApiService {
     return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
   }
 
-  getStatusLookup():Observable<AppResponse> {
-    let url = environment.intermediate + "Lookups/GetLookups?lookupTypeId=10";
+  getStatusLookup(id:number):Observable<AppResponse> {
+    let url = environment.intermediate + "Lookups/GetLookups?lookupTypeId="+id;
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
 
-  getSparePartsWorkOrder():Observable<AppResponse> {
-    let url = environment.intermediate + "SalesOrders/GetSparePartsWorkOrders";
+  getSparePartsWorkOrder(param:string=null):Observable<AppResponse> {
+    let url = environment.intermediate + "SalesOrders/GetSparePartsWorkOrders?"+param;
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
 
