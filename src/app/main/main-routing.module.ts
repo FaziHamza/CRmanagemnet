@@ -7,6 +7,7 @@ import { PromissoryNoteComponent } from './pages/promissory-note/promissory-note
 import { PromissoryNoteOrderComponent } from './pages/promissory-note-order/promissory-note-order.component';
 import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/work-order-create.component';
+import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'createorders',
         component: WorkOrderCreateComponent,
+      },
+      {
+        path: 'allorder',
+        component: AllorderComponent,
       },
       {
         path: '',

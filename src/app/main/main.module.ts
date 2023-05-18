@@ -13,12 +13,13 @@ import { PromissoryNoteOrderComponent } from './pages/promissory-note-order/prom
 import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { NgZorroAntdModule } from '../zorro-module/ng-zorro-antd.module';
 import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/work-order-create.component';
+import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
     NgZorroAntdModule,],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
-    WorkOrderCreateComponent,WorkordersComponent],
+    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent],
   providers: [
     EnvService,
   ]
