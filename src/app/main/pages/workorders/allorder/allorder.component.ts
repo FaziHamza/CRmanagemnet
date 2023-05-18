@@ -64,17 +64,17 @@ export class AllorderComponent implements OnInit {
     //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
     //   }
     if(columnName=='date'){
-      this.orderParamObj.Sort = sortType === "ascend" ? 6 : 7;
+      this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
       this.getAllOrderList();
       this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
       }
     if(columnName=='amount'){
-      this.orderParamObj.Sort = sortType === "ascend" ? 8 : 9;
+      this.orderParamObj.Sort = sortType === "ascend" ? 6 : 7;
       this.getAllOrderList();
       this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
       }
     if(columnName=='status'){
-      this.orderParamObj.Sort = sortType === "ascend" ? 10 : 11;
+      this.orderParamObj.Sort = sortType === "ascend" ? 8 : 9;
       this.getAllOrderList();
       this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
       }
