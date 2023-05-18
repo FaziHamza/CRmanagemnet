@@ -875,12 +875,9 @@ input {
     border: none !important;
 }
 
-.ant-pagination-item button {
+.ant-pagination-item {
     border: 2px solid #bdbdbd !important;
     border-radius: 8px !important;
-}
-
-.ant-pagination-item {
     a {
         color: black !important;
     }
@@ -913,5 +910,4 @@ input {
     font-size: 15px;
     letter-spacing: 1.5px;
     font-weight: 600;
-
 }
