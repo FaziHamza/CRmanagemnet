@@ -18,11 +18,10 @@ export class MainSideBarComponent implements OnInit {
   }
   isWorkOrderActive() {
     const currentRoute = this.router.url;
-    return currentRoute.includes('/createorders') || currentRoute.includes('/allorder');
+    return currentRoute.includes('/createorders') || currentRoute.includes('/allorder') || currentRoute.includes('/orde-details');
   }
   ngOnInit(): void {
-
-
+    this.checkWidth();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -31,7 +30,7 @@ export class MainSideBarComponent implements OnInit {
   }
 
   private checkWidth(): void {
-    if (window.innerWidth < 560) {
+    if (window.innerWidth < 760) {
       this.sidebarExpanded = false;
     }else{
       this.sidebarExpanded = true
