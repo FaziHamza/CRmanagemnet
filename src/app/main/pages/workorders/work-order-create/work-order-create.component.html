@@ -238,6 +238,14 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="text-danger">
+                            <div
+                                *ngIf="(orderForm.get('paymentType').invalid && (orderForm.get('paymentType').touched || saveSubmitted)) || (!orderForm.get('paymentType').value && saveSubmitted)">
+                                <div *ngIf="formControls['paymentType'].errors?.['required']">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-8">
                         <div *ngIf="paymentMethodName == 'pn'">

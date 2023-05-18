@@ -26,7 +26,7 @@ export class WorkOrderCreateComponent implements OnInit {
   saveLoader: any = false;
   tableLoader: any = false;
   constructor(private commonService: CommonService, private apiService: ApiService,
-    private formBuilder: FormBuilder,private router:Router) {
+    private formBuilder: FormBuilder, private router: Router) {
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class WorkOrderCreateComponent implements OnInit {
       salesNote: [''],
       pnStartDate: [''],
       pnEndDate: [''],
-      paymentType: [''],
+      paymentType: ['', [Validators.required]],
       cardNo: ['', [Validators.required]],
     });
   }
@@ -87,10 +87,10 @@ export class WorkOrderCreateComponent implements OnInit {
     }
     if (typeof event === 'number') {
       let obj = this.customerList.find(a => a.customerId == event);
-      if(obj)
+      if (obj)
         this.orderForm.patchValue(obj);
     }
-    
+
   }
   onChange(value: any, id: any): void {
     if (value.length >= 3) {
@@ -150,9 +150,9 @@ export class WorkOrderCreateComponent implements OnInit {
     }
   }
   addRow(): void {
-    let data = this.listOfData.find(a=>a.partNo == '');
-    if(data){
-      return this.commonService.showError("Please fill all the products first!","Error");
+    let data = this.listOfData.find(a => a.partNo == '');
+    if (data) {
+      return this.commonService.showError("Please fill all the products first!", "Error");
     }
     const newRow = {
       id: 0,
@@ -217,20 +217,26 @@ export class WorkOrderCreateComponent implements OnInit {
       this.saveLoader = true;
       this.orderForm.value.pnStartDate = this.orderForm.value.pnStartDate ? this.orderForm.value.pnStartDate : new Date();
       this.orderForm.value.pnEndDate = this.orderForm.value.pnEndDate ? this.orderForm.value.pnEndDate : new Date();
-      this.apiService.createWorkOrder(this.orderForm.value).subscribe(res => {
-        if (res.isSuccess) {
+      this.apiService.createWorkOrder(this.orderForm.value).subscribe(
+        (response) => {
+          if (response.isSuccess) {
+            this.saveLoader = false;
+            this.commonService.showSuccess("Data save successfully..!", "Success");
+            this.router.navigateByUrl('home/allorder')
+            this.orderForm.reset();
+            this.listOfData = [];
+            this.updateEditCache();
+            this.getGrandTotal();
+          } else {
+            this.saveLoader = false;
+            this.commonService.showError("found some error..!", "Error");
+          }
+        },
+        (error) => {
           this.saveLoader = false;
-          this.commonService.showSuccess("Data save successfully..!","Success");
-          this.router.navigateByUrl('home/allorder')
-          this.orderForm.reset();
-          this.listOfData = [];
-          this.updateEditCache();
-          this.getGrandTotal();
-        }else{
-          this.saveLoader = false;
-          this.commonService.showError("found some error..!","Error");
+          this.commonService.showError("found some error..!", "Error");
         }
-      })
+      )
     }
     console.log(JSON.stringify(this.orderForm.value))
   }

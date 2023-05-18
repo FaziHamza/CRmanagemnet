@@ -16,6 +16,8 @@ export class AllorderComponent implements OnInit {
   orderParamObj: orderParam = { BranchId: 1, Customer: '', Status: 0, Sort: 0 }
   sortType;
   searchByCustomer: string;
+  statusType: number = 0;
+  saveLoader : boolean = false;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -27,14 +29,13 @@ export class AllorderComponent implements OnInit {
 
   }
   getAllOrderList() {
-    debugger
-
-
     const queryString = Object.entries(this.orderParamObj)
       .filter(([key, value]) => !(key === "Status" && value === 0))
       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
       .join("&");
-    this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
+      this.saveLoader = true;
+      this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
+      this.saveLoader = false;
       if (res.isSuccess) {
         this.orderList = res.data;
       } else {
@@ -44,8 +45,10 @@ export class AllorderComponent implements OnInit {
   }
 
   customerChange() {
-    this.orderParamObj.Customer = this.searchByCustomer;
-    this.getAllOrderList();
+    if(this.searchByCustomer.length >=3){
+      this.orderParamObj.Customer = this.searchByCustomer;
+      this.getAllOrderList();
+    }
   }
   getSortFunction(sortType:string, columnName:string, ) {
     if(columnName=='customer'){
@@ -53,15 +56,30 @@ export class AllorderComponent implements OnInit {
     this.getAllOrderList();
     this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
     }
-    if(columnName=='customer'){
-      this.orderParamObj.Sort = sortType === "ascend" ? 2 : 3;
+    if(columnName=='phone'){
+      this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
+      this.getAllOrderList();
+      this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+      }
+    if(columnName=='date'){
+      this.orderParamObj.Sort = sortType === "ascend" ? 6 : 7;
+      this.getAllOrderList();
+      this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+      }
+    if(columnName=='amount'){
+      this.orderParamObj.Sort = sortType === "ascend" ? 8 : 9;
+      this.getAllOrderList();
+      this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+      }
+    if(columnName=='status'){
+      this.orderParamObj.Sort = sortType === "ascend" ? 10 : 11;
       this.getAllOrderList();
       this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
       }
   }
 
   statusChange() {
-    this.orderParamObj.Status = null;
+    this.orderParamObj.Status = this.statusType;
     this.getAllOrderList();
   }
   getStatusLookup() {
