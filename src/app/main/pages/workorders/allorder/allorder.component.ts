@@ -1,5 +1,6 @@
 import { ApiService } from './../../../../shared/services/api.service';
 import { Component, OnInit } from '@angular/core';
+import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-allorder',
@@ -12,10 +13,7 @@ export class AllorderComponent implements OnInit {
   pageSize = 6;
   statusList: any[] = [];
   sparePartOrder: any[] = [];
-  filterValue = "";
-  statusValue = "";
-  sortDir = -1;
-  sortingDesc = false;
+
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -54,43 +52,7 @@ export class AllorderComponent implements OnInit {
     })
   }
   
-  filterByCustomer() {
-    debugger;
-    if (this.filterValue) {
-      const inputValue = this.filterValue.toLowerCase();
-      this.orderList = this.orderList.filter((item) => {
-      return item.customer.customerName.toLowerCase().includes(inputValue);
-      });
-    }
-  }
 
-  // filterByStatus() {
-  //   debugger;
-  //   if (this.statusValue) {
-  //     const inputValue = this.filterValue.toLowerCase();
-  //     this.orderList = this.orderList.filter((item) => {
-  //     return item.statusObj[0].statusName.toLowerCase().includes(inputValue);
-  //     });
-  //   }
-  // }  
-  
-  onSort(colName:string){
-    this.sortingDesc = !this.sortingDesc;
-    if (!this.sortingDesc) {
-      this.sortDir = 1
-    } else {
-      this.sortDir = -1
-    }
-    this.sortArr(this.orderList, colName, this.sortDir)
-  }
-
-  sortArr(arr:any[], colName:string, sortDir: number ){
-    arr.sort((a,b) =>{
-      const aVal = a[colName].toLowerCase();
-      const bVal = b[colName].toLowerCase();
-      return aVal.localCompare(bVal) * sortDir
-    })
-  }
 }
 
 
