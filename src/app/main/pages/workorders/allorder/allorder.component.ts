@@ -15,7 +15,7 @@ export class AllorderComponent implements OnInit {
   statusList: any[] = [];
   orderParamObj: orderParam = { BranchId: 1, Customer: '', Status: 0, Sort: 0 }
   sortType;
-  searchByCustomer: string;
+  searchByCustomer: string='';
   statusType: number = 0;
   saveLoader : boolean = false;
   constructor(private apiService: ApiService) { }
@@ -45,9 +45,17 @@ export class AllorderComponent implements OnInit {
   }
   clearInput() {
     this.searchByCustomer = '';
+    this.orderParamObj.Customer = this.searchByCustomer;
+
+    this.getAllOrderList();
+  }
+  clearStatus() {
+    this.statusType = 0;
+    this.orderParamObj.Status = 0;
+    this.getAllOrderList();
   }
   customerChange() {
-    if(this.searchByCustomer.length >=3){
+    if(this.searchByCustomer.length >=2){
       this.orderParamObj.Customer = this.searchByCustomer;
       this.getAllOrderList();
     }
