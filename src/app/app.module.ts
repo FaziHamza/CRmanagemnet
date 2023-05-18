@@ -18,7 +18,9 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { NgZorroAntdModule } from './zorro-module/ng-zorro-antd.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { NZ_ICONS } from 'ng-zorro-antd/icon';
+import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
+import { DecimalPipe } from '@angular/common';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @NgModule({
   imports: [
@@ -33,12 +35,15 @@ import { NZ_ICONS } from 'ng-zorro-antd/icon';
     NgxUiLoaderModule,
     BrowserAnimationsModule,
     NgSelectModule,
+    NzIconModule  ,
+    NzInputModule,
     ShareModule,
   ],
   declarations: [AppComponent, FormBaseComponent],
   bootstrap: [AppComponent],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
+    DecimalPipe 
     // { provide: NZ_ICONS, useValue: icons },
   ],
   // providers: [

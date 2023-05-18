@@ -43,7 +43,9 @@ export class AllorderComponent implements OnInit {
       }
     })
   }
-
+  clearInput() {
+    this.searchByCustomer = '';
+  }
   customerChange() {
     if(this.searchByCustomer.length >=3){
       this.orderParamObj.Customer = this.searchByCustomer;
@@ -56,11 +58,11 @@ export class AllorderComponent implements OnInit {
     this.getAllOrderList();
     this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
     }
-    if(columnName=='phone'){
-      this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
-      this.getAllOrderList();
-      this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
-      }
+    // if(columnName=='phone'){
+    //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
+    //   this.getAllOrderList();
+    //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+    //   }
     if(columnName=='date'){
       this.orderParamObj.Sort = sortType === "ascend" ? 6 : 7;
       this.getAllOrderList();

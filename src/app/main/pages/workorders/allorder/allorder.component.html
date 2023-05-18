@@ -53,7 +53,7 @@
                     <tr>
                         <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'customer')">Customer</th>
 
-                        <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'phone')">Phone No</th>
+                        <th >Phone No</th>
                         <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">Date</th>
                         <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">Grand Amount</th>
                         <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">Status</th>
@@ -64,12 +64,12 @@
                     <tr *ngFor="let data of editRowTable.data;let index = index">
                         <td>{{ data.customer.customerName }}</td>
                         <td>{{ data.customer.mobile }}</td>
-                        <td>{{ data.orderDate }}</td>
-                        <td>{{ data.grandAmount }}</td>
+                        <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
+                        <td>{{ data.grandAmount | number }} JD</td>
                         <td>{{ data.statusObj[0].statusName }}</td>
                         <td>
                             <a [routerLink]="'/home/orde-details'" class="pen-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="color: rgb(168 168 168)">
                                     <path fill="currentColor"
                                         d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                                 </svg>

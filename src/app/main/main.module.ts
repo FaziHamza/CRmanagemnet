@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { MainLayoutComponent } from './containers/main-layout/main-layout.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { MainRoutingModule } from './main-routing.module';
@@ -22,7 +22,7 @@ import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
     WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent],
   providers: [
-    EnvService,
+    EnvService,DecimalPipe
   ]
 })
 export class MainModule {}
