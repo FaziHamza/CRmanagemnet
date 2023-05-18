@@ -1,7 +1,8 @@
-<div id="sidebar-container" class="sidebar-expanded ">
-    <a href="#" data-toggle="sidebar-colapse" class="coll-icon">
+<div id="sidebar-container" [ngClass]="{'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
+
+    <button data-toggle="sidebar-collapse" class="coll-icon" (click)="toggleSidebar()">
         <i class="fa-solid fa-arrow-left"></i>
-    </a>
+    </button>
     <div class="logo-header">
         <img src="/assets/images/logo.svg" alt="">
     </div>

@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class MainSideBarComponent implements OnInit {
 
   constructor() { }
-
+  sidebarExpanded = true; 
+  toggleSidebar() {
+    this.sidebarExpanded = !this.sidebarExpanded;
+  }
   ngOnInit(): void {
   }
 
