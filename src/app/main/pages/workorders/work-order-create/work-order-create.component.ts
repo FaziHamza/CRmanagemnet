@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/form-base.component';
@@ -22,8 +23,10 @@ export class WorkOrderCreateComponent implements OnInit {
   inputValue: string | null = null;
   saveSubmitted: boolean = false;
   paymentMethodName: string;
+  saveLoader: any = false;
+  tableLoader: any = false;
   constructor(private commonService: CommonService, private apiService: ApiService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,private router:Router) {
   }
 
   ngOnInit() {
@@ -91,7 +94,9 @@ export class WorkOrderCreateComponent implements OnInit {
   onChange(value: any, id: any): void {
     if (value.length >= 3) {
       debugger
+      this.tableLoader = true;
       this.apiService.getParts(value).subscribe(res => {
+        this.tableLoader = false;
         if (res.isSuccess) {
           if (res.data.length > 0) {
             const newData = res.data.map(item => {
@@ -144,6 +149,10 @@ export class WorkOrderCreateComponent implements OnInit {
     }
   }
   addRow(): void {
+    let data = this.listOfData.find(a=>a.partNo == '');
+    if(data){
+      return this.commonService.showError("Please fill all the products first!","Error");
+    }
     const newRow = {
       id: 0,
       partNo: '',
@@ -204,14 +213,20 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Please Enter at least one product", "Error");
     }
     if (this.orderForm.valid) {
+      this.saveLoader = true;
+      this.orderForm.value.pnStartDate = this.orderForm.value.pnStartDate ? this.orderForm.value.pnStartDate : new Date();
+      this.orderForm.value.pnEndDate = this.orderForm.value.pnEndDate ? this.orderForm.value.pnEndDate : new Date();
       this.apiService.createWorkOrder(this.orderForm.value).subscribe(res => {
         if (res.isSuccess) {
+          this.saveLoader = false;
           this.commonService.showSuccess("Data save successfully..!","Success");
+          this.router.navigateByUrl('home/allorder')
           this.orderForm.reset();
           this.listOfData = [];
           this.updateEditCache();
           this.getGrandTotal();
         }else{
+          this.saveLoader = false;
           this.commonService.showError("found some error..!","Error");
         }
       })

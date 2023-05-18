@@ -45,4 +45,8 @@ export class ApiService {
     let url = environment.intermediate + "SalesOrders/CreateWorkOrder";
     return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
   }
+  getAllOrders():Observable<AppResponse> {
+    let url = environment.intermediate + "Setup/GetCMSetup";
+    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+  }
 }
