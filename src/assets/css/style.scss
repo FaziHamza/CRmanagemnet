@@ -781,7 +781,7 @@ input[type="checkbox"]:checked {
 .payment-method-card {
     .radio-btns {
         display: flex;
-        padding: 20px 0px;
+        padding: 5px 0px;
 
         .form-check {
             margin-right: 20px;
@@ -826,37 +826,33 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered>.ant-table-container {
+.ant-table.ant-table-bordered > .ant-table-container {
     border-left: none !important;
 }
 
 .ant-table-content {
-
-    
     th {
         border: none !important;
         font-weight: 700 !important;
         font-size: 15px !important;
         line-height: 19px !important;
-        color: #1B212D !important;
+        color: #1b212d !important;
 
         input {
             border-radius: 4px !important;
         }
     }
-    td
-     {
+    td {
         border: none !important;
         font-weight: 400 !important;
         font-size: 14px !important;
         line-height: 19px !important;
-        color: #1B212D !important;
+        color: #1b212d !important;
 
         input {
             border-radius: 4px !important;
         }
     }
-
 
     td {
         border-bottom: 1px solid $border !important;
@@ -872,7 +868,6 @@ input {
     padding: 0px 5px;
 
     color: black;
-
 }
 
 .ant-pagination-next button,
@@ -881,10 +876,8 @@ input {
 }
 
 .ant-pagination-item button {
-    border: 2px solid #BDBDBD !important;
+    border: 2px solid #bdbdbd !important;
     border-radius: 8px !important;
-
-
 }
 
 .ant-pagination-item {
@@ -894,8 +887,8 @@ input {
 }
 
 .ant-pagination-item-active {
-    border: 2px solid #BDBDBD !important;
-    background: #9F9C9C !important;
+    border: 2px solid #bdbdbd !important;
+    background: #9f9c9c !important;
     box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.14) !important;
     border-radius: 8px !important;
 
@@ -909,6 +902,16 @@ input {
     color: $primary-bg;
 }
 
-.ant-input:hover {
+input {
     border: 1px solid $border !important;
+}
+.date-input {
+    height: 48px;
+    background: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 12px;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+
 }
