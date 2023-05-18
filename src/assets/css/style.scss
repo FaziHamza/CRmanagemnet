@@ -468,6 +468,7 @@ html {
     .card-box {
         height: 100%;
         margin-bottom: 15px;
+
         .title {
             font-weight: 600;
             font-size: 14px;
@@ -704,6 +705,7 @@ input[type="checkbox"]:checked {
         border: 1px solid #d1d1d1;
         border-radius: 12px;
     }
+
     select {
         padding: 10px 15px;
         height: 48px;
@@ -715,13 +717,46 @@ input[type="checkbox"]:checked {
 
 .input-search {
     position: relative;
-    svg {
+
+    .search {
         position: absolute;
         top: 12px;
         left: 10px;
     }
-    input,
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        height: 18px;
+        width: 18px;
+    }
+
+    input {
+        padding-right: 30px;
+        padding-left: 45px;
+    }
+}
+
+.select-search {
+    position: relative;
+
+    .search {
+        position: absolute;
+        top: 12px;
+        left: 10px;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        height: 18px;
+        width: 18px;
+    }
+
     select {
+        padding-right: 50px;
         padding-left: 45px;
     }
 }
@@ -849,8 +884,16 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
     border-left: none !important;
+}
+
+tr:hover {
+    background-color: #ac2a3706 !important;
+td {
+    background-color: #ac2a3706 !important;
+
+}
 }
 
 .ant-table-content {
@@ -865,9 +908,11 @@ input {
             border-radius: 4px !important;
         }
     }
+
     td {
         border: none !important;
-        font-weight: 400 !important;
+        font-weight: 700 !important;
+
         font-size: 14px !important;
         line-height: 19px !important;
         color: #1b212d !important;
@@ -901,6 +946,7 @@ input {
 .ant-pagination-item {
     border: 2px solid #bdbdbd !important;
     border-radius: 8px !important;
+
     a {
         color: black !important;
     }
@@ -925,6 +971,7 @@ input {
 input {
     border: 1px solid $border !important;
 }
+
 .date-input {
     height: 48px;
     background: #ffffff;
@@ -938,6 +985,7 @@ input {
 .ant-spin-dot-item {
     background-color: #ff1818 !important;
 }
+
 .page-title-DT {
     display: flex;
     width: 100%;
@@ -948,28 +996,35 @@ input {
     .title-right {
         display: flex;
         align-items: center;
+
         .dt {
             margin-right: 15px;
+
             h6 {
                 font-size: 16px;
                 font-weight: 500;
                 margin-bottom: 0px;
             }
+
             span {
                 color: $primary;
             }
         }
     }
+
     .title-left {
         display: flex;
         align-items: center;
+
         .dt {
             margin-left: 15px;
+
             h6 {
                 font-size: 14px;
                 font-weight: 500;
                 margin-bottom: 0px;
             }
+
             span {
                 color: $primary;
             }
@@ -982,15 +1037,18 @@ input {
     border: 0.5px solid #f5f5f5;
     box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+
     .profile-section {
         display: flex;
         width: 100%;
         padding-top: 5px;
+
         .profile {
             height: 60px;
             width: 60px;
             background: $border;
             border-radius: 100px;
+
             img {
                 height: 60px;
                 width: 60px;
@@ -998,17 +1056,20 @@ input {
                 object-fit: cover;
             }
         }
+
         .detail {
             width: calc(100% - 70px);
             padding-left: 20px;
+
             h5 {
-              margin-bottom: 10px;
+                margin-bottom: 10px;
                 font-weight: 600;
                 font-size: 16px;
                 color: #1b212d;
             }
+
             p {
-              margin-bottom: 10px;
+                margin-bottom: 10px;
 
                 font-weight: 400;
                 font-size: 16px;
@@ -1021,15 +1082,19 @@ input {
 .border-left {
     border-left: 1px solid $border;
 }
+
 .border-top {
     border-top: 1px solid $border;
 }
+
 .border-right {
     border-right: 1px solid $border;
 }
+
 .border-bottom {
     border-bottom: 1px solid $border;
 }
+
 .coll-icon {
     border: none !important;
 }
