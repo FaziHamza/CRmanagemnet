@@ -27,14 +27,6 @@ const routes: Routes = [
         path: 'promissory-note',
         component: PromissoryNoteComponent,
       },
-      // {
-      //   path: 'promissory-order',
-      //   component: PromissoryNoteOrderComponent,
-      // },
-      // {
-      //   path: 'workorders',
-      //     loadChildren: () => import('./pages/workorders/workorder.module').then((m) => m.WorkOrderModule),
-      // },
       {
         path: 'workorders',
         component: WorkordersComponent,

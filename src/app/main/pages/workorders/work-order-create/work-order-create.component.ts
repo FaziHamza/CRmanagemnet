@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/form-base.component';
@@ -36,6 +36,7 @@ export class WorkOrderCreateComponent implements OnInit {
     ]
     this.initForm();
   }
+
   initForm() {
     this.orderForm = this.formBuilder.group({
       customerName: ['', [Validators.required]],
