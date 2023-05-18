@@ -4,7 +4,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="input-search">
                     <input type="text" class="form-control " placeholder="Search by customer details ..."
-                        formControlName="mobile">
+                        >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd"
                             d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
@@ -16,7 +16,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="input-search">
                     <input type="text" class="form-control " placeholder="Search by plate number ..."
-                        formControlName="mobile">
+                        >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd"
                             d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
@@ -40,9 +40,48 @@
 
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6 text-right mt-1">
+                <button type="button" class="btn btn-danger" [routerLink]="'/home/createorders'"> Create Order</button>
+            </div>
         </div>
     </div>
-    <div class="mt-3">
-        <button type="button" class="btn btn-danger" [routerLink]="'/home/createorders'"> Craete Order</button>
+
+    <div class="table-responsive mt-4 pt-4">
+        <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
+            [nzPageSize]="pageSize" [nzLoading]="tableLoader">
+            <thead>
+                <tr>
+                    <th >Customer</th>
+                    <th >Phone No</th>
+                    <th>Date</th>
+                    <th >Grand Amount</th>
+                    <th>Status</th>
+                    <th nzWidth="10%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of editRowTable;let index = index">
+                    <td>{{ data.partQtyConcat }}</td>
+                    <td>{{ data.description }}</td>
+                    <td>{{ data.qty }}</td>
+                    <td>{{ data.unitofMeasure }}</td>
+                    <td>{{ data.discount }} %</td>
+                    <td>{{ data.net | number:'1.2-2'}}</td>
+                    <td>{{ data.tax }} %</td>
+                    <td>{{ data.totalPrice | number:'1.2-2'}}</td>
+                    <td>
+                        <a (click)="detail(data.id)" class="pen-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                    stroke-width="1.5"
+                                    d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966c1.39 1.39 2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891c-.3.234-.625.435-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
     </div>
 </div>
+
