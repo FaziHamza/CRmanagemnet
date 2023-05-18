@@ -10,6 +10,35 @@
     }
 }
 @media only screen and (max-width: 991px) {
+    .grand-amount-card {
+        flex-direction: column;
+    }
+    .page-title-DT .title-right .dt h6 {
+        font-size: 14px !important;
+    }
+    .border-left {
+        border: none !important;
+    }
+    .page-title-DT {
+        flex-direction: column !important;
+        align-items: flex-end !important;
+    }
+    .page-title-DT .title-left {
+        margin-bottom: 10px;
+    }
+    .grand-amount-card .total-amount {
+        justify-content: flex-start;
+        margin-top: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .grand-amount-card .total-amount h4 {
+        margin-bottom: 10px;
+    }
+    .add-note textarea {
+        width: 100% !important;
+    }
+
     .content-header .heading h4 {
         font-size: 14px;
     }
@@ -72,8 +101,15 @@
     .coll-icon {
         top: 15px;
     }
+
+    .bottom-buttons {
+        justify-content: center;
+        .btn {
+            margin: 0px 5px !important;
+        }
+    }
     .card {
-        padding: 15px 20px 8px !important;
+        padding: 15px !important;
     }
     .content-header .user-dropdown .dropdown-toggle span {
         display: none;
@@ -111,4 +147,13 @@
     .login-card .remember .form-check-label {
         font-size: 12px !important;
     }
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    min-width: 100px;
 }

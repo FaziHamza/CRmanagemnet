@@ -4,7 +4,7 @@
             <div class="col-lg-3 col-md-6">
                 <div class="input-search">
                     <input type="text" class="form-control " placeholder="Search by customer details ..."
-                        >
+                     [(ngModel)]="filterValue"  (keyup)="filterByCustomer()" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd"
                             d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
@@ -26,11 +26,10 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="input-search">
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select"  aria-label="Default select example">
                         <option selected>Search by status...</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option [value]="data.id" *ngFor="let data of statusList">{{data.description}}</option>
+                     
                     </select>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentColor" fill-rule="evenodd"
@@ -60,15 +59,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of editRowTable;let index = index">
-                    <td>{{ data.partQtyConcat }}</td>
-                    <td>{{ data.description }}</td>
-                    <td>{{ data.qty }}</td>
-                    <td>{{ data.unitofMeasure }}</td>
-                    <td>{{ data.discount }} %</td>
-                    <td>{{ data.net | number:'1.2-2'}}</td>
-                    <td>{{ data.tax }} %</td>
-                    <td>{{ data.totalPrice | number:'1.2-2'}}</td>
+                <tr *ngFor="let data of orderList;let index = index">
+                    <td>{{ data.customer.customerName }}</td>
+                    <td>{{ data.customer.mobile }}</td>
+                    <td>{{ data.orderDate }}</td>
+                    <td>{{ data.grandAmount }}</td>
+                    <td>{{ data.statusObj[0].statusName }}</td> 
                     <td>
                         <a (click)="detail(data.id)" class="pen-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
