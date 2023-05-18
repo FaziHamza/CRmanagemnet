@@ -8,23 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllorderComponent implements OnInit {
   tableLoader: any = false;
-  orderList :any[] = [];
+  orderList: any[] = [];
   pageSize = 10;
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     // this.getAllOrderList();
   }
-  getAllOrderList(){
-    this.apiService.getAllOrders().subscribe(res=>{
-      if(res.isSuccess){
+  getAllOrderList() {
+    this.apiService.getAllOrders().subscribe(res => {
+      if (res.isSuccess) {
         this.orderList = res.data;
-      }else{
+      } else {
         this.orderList = [];
       }
     })
   }
-  detail(id:number){
+  detail(id: number) {
 
   }
 }
