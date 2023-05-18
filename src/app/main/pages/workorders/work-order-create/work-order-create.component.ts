@@ -144,20 +144,19 @@ export class WorkOrderCreateComponent implements OnInit {
     }
   }
   addRow(): void {
-    this.listOfData = [
-      ...this.listOfData,
-      {
-        id: this.listOfData.length + 1,
-        partNo: '',
-        qty: 1,
-        description: '',
-        unitofMeasure: 0,
-        discount: 0,
-        net: 0,
-        tax: 0,
-        totalPrice: 0
-      }
-    ];
+    const newRow = {
+      id: 0,
+      partNo: '',
+      qty: 1,
+      description: '',
+      unitofMeasure: 0,
+      discount: 0,
+      net: 0,
+      tax: 0,
+      totalPrice: 0
+    }
+    this.listOfData.unshift(newRow);
+    this.updateData();
     this.enableEditCache();
   }
   saveEdit(id: number): void {
@@ -182,8 +181,8 @@ export class WorkOrderCreateComponent implements OnInit {
         data: { ...item }
       };
     });
-    let item = this.listOfData[this.listOfData.length];
-    this.editCache[this.listOfData.length] = {
+    let item = this.listOfData[0];
+    this.editCache[1] = {
       edit: true,
       data: { ...item }
     };
