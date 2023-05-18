@@ -18,7 +18,7 @@ export class MainSideBarComponent implements OnInit {
   }
   isWorkOrderActive() {
     const currentRoute = this.router.url;
-    return currentRoute.includes('/createorders') || currentRoute.includes('/allorder');
+    return currentRoute.includes('/createorders') || currentRoute.includes('/allorder') || currentRoute.includes('/orde-details');
   }
   ngOnInit(): void {
     this.checkWidth();
