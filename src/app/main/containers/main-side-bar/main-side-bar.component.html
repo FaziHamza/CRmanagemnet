@@ -1,6 +1,6 @@
 <div id="sidebar-container" [ngClass]="{'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
 
-    <button data-toggle="sidebar-collapse" class="coll-icon" (click)="toggleSidebar()">
+    <button data-toggle="sidebar-collapse" class="coll-icon" (click)="toggleSidebar()" style="border:none ;">
         <i class="fa-solid fa-arrow-left"></i>
     </button>
     <div class="logo-header">
@@ -15,11 +15,7 @@
                 </svg>
                 <span>Service Work Order</span>
             </a>
-            
-            
-
         </div>
-
         <div class="nav-item">
             <a class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

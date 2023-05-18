@@ -21,8 +21,7 @@ export class MainSideBarComponent implements OnInit {
     return currentRoute.includes('/createorders') || currentRoute.includes('/allorder');
   }
   ngOnInit(): void {
-
-
+    this.checkWidth();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -31,7 +30,7 @@ export class MainSideBarComponent implements OnInit {
   }
 
   private checkWidth(): void {
-    if (window.innerWidth < 560) {
+    if (window.innerWidth < 760) {
       this.sidebarExpanded = false;
     }else{
       this.sidebarExpanded = true
