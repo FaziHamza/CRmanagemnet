@@ -68,7 +68,7 @@ export class WorkOrderCreateComponent implements OnInit {
       pnStartDate: [''],
       pnEndDate: [''],
       paymentType: ['', [Validators.required]],
-      cardNo: ['', [Validators.required]],
+      cardNo: [''],
     });
   }
   get formControls() {
@@ -213,6 +213,7 @@ export class WorkOrderCreateComponent implements OnInit {
       tax: 0,
       totalPrice: 0,
       allowTax : false,
+
     }
     this.listOfData.unshift(newRow);
     this.updateData();
@@ -238,6 +239,7 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Tax must be greater than 0 or equal to 0", "Error");
   }
   saveEdit(id: number): void {
+    this.avalaibeQty =-1;
     if (!this.editCache[id].data.partNo)
       return this.commonService.showError("Please fill detail first!", "Error");
 
