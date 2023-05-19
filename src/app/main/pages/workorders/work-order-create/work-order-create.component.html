@@ -111,12 +111,12 @@
                                     <td>{{ data.partNo }}</td>
                                     <td>{{ data.description }}</td>
                                     <td>{{ data.qty }}</td>
-                                    <td>{{ data.total | number:'1.3-3'}} JD</td>
-                                    <td>{{ data.unitofMeasure | number:'1.3-3'}}  JD</td>
-                                    <td>{{ data.discount | number:'1.3-3'}} %</td>
-                                    <td>{{ data.net | number:'1.3-3'}}  JD</td>
-                                    <td>{{ data.tax }} %</td>
-                                    <td>{{ data.totalPrice | number:'1.3-3'}}  JD</td>
+                                    <td>{{ data.total | number:'1.3-3'}} <span> JD</span></td>
+                                    <td>{{ data.unitofMeasure | number:'1.3-3'}} <span> JD</span></td>
+                                    <td>{{ data.discount | number:'1.3-3'}} <span>%</span></td>
+                                    <td>{{ data.net | number:'1.3-3'}} <span> JD</span></td>
+                                    <td>{{ data.tax }} <span>%</span></td>
+                                    <td>{{ data.totalPrice | number:'1.3-3'}} <span> JD</span></td>
                                     <td>
                                         <a (click)="startEdit(data.id)" class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -157,7 +157,7 @@
                                             </nz-autocomplete>
                                         </div>
                                     </td>
-                                    <td><input type="text" [disabled]="true" nz-input
+                                    <td><input type="text" title="Discription Here" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.description"
                                             [ngModelOptions]="{ standalone: true }" /></td>
                                     <td><input type="number" (ngModelChange)="onChangeQty($event,data.id)" nz-input
@@ -166,17 +166,17 @@
                                             [ngModelOptions]="{ standalone: true }" /></td>
                                     <td class="flex"><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.unitofMeasure"
-                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
+                                            [ngModelOptions]="{ standalone: true }" /> <span> JD</span></td>
                                     <td><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.total"
-                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
+                                            [ngModelOptions]="{ standalone: true }" /> <span> JD</span></td>
                                     <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,data.id)"
                                             [(ngModel)]="editCache[data.id].data.discount"
                                             (input)="checkDiscountValidation(data.id)"
-                                            [ngModelOptions]="{ standalone: true }" /> %</td>
+                                            [ngModelOptions]="{ standalone: true }" /><span>%</span></td>
                                     <td><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.net"
-                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
+                                            [ngModelOptions]="{ standalone: true }" /> <span> JD</span></td>
                                     <td>
                                         <select class="form-select" [(ngModel)]="editCache[data.id].data.tax"
                                             (change)="onChangeTax($event.target.value,data.id)"
@@ -188,11 +188,11 @@
                                         <input type="number" nz-input (ngModelChange)="onChangeTax($event,data.id)"
                                             *ngIf="!editCache[data.id].data.allowTax"
                                             [(ngModel)]="editCache[data.id].data.tax" [disabled]="true"
-                                            [ngModelOptions]="{ standalone: true }" /> %
+                                            [ngModelOptions]="{ standalone: true }" /> <span>%</span>
                                     </td>
                                     <td><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.totalPrice"
-                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
+                                            [ngModelOptions]="{ standalone: true }" /> <span> JD</span></td>
                                     <td>
                                         <a (click)="saveEdit(data.id)" class="save pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -229,7 +229,8 @@
                         <h4>Add Note</h4>
                         <textarea name="" id="" rows="3" formControlName="salesNote"></textarea>
                         <div class="text-danger">
-                            <div *ngIf="orderForm.get('salesNote').invalid && orderForm.get('salesNote').errors?.maxlength || saveSubmitted">
+                            <div
+                                *ngIf="orderForm.get('salesNote').invalid && orderForm.get('salesNote').errors?.maxlength || saveSubmitted">
                                 Maximum character limit exceeded ({{
                                 orderForm.get('salesNote').errors?.maxlength?.requiredLength }} characters allowed)
                             </div>
@@ -238,7 +239,8 @@
                     </div>
                     <div class="total-amount">
                         <h4 class="card-subheading">Grand Amount</h4>
-                        <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.3-3'}} JD</button>
+                        <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.3-3'}} <span>
+                                JD</span></button>
                     </div>
                 </div>
             </div>

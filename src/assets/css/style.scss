@@ -97,7 +97,7 @@ html {
 .o-btn {
     background: $primary;
     font-size: 15px;
-    height: 48px;
+    height: 42px;
     width: 100%;
     border: none;
     overflow: hidden;
@@ -129,7 +129,7 @@ html {
     position: absolute;
     z-index: -1;
     top: 0px;
-    height: 48px;
+    height: 42px;
     width: 100%;
     border-radius: 8px;
     // border: 1px solid white !important;
@@ -167,7 +167,7 @@ html {
 .btn-white {
     background: white;
     font-size: 15px;
-    height: 50px;
+    height: 42px;
     width: 160px;
     border-radius: 8px;
     border: none !important;
@@ -197,7 +197,7 @@ html {
     position: absolute;
     z-index: -1;
     top: 0px;
-    height: 50px;
+    height: 42px;
     width: 100%;
     border-radius: 7px;
     // border: 1px solid $primary !important;
@@ -884,16 +884,15 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered>.ant-table-container {
+.ant-table.ant-table-bordered > .ant-table-container {
     border-left: none !important;
 }
 
 tr:hover {
     background-color: #ac2a3706 !important;
-td {
-    background-color: #ac2a3706 !important;
-
-}
+    td {
+        background-color: #ac2a3706 !important;
+    }
 }
 
 .ant-table-content {
@@ -1097,4 +1096,62 @@ input {
 
 .coll-icon {
     border: none !important;
+}
+.logout-model {
+    width: 100%;
+    .content {
+        width: 100%;
+        min-height: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        svg {
+            height: 80px;
+            width: 80px;
+            color: $primary;
+        }
+        h5 {
+            margin-top: 10px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+    }
+    .btns {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .btn {
+            width: 47%;
+        }
+    }
+}
+
+.ant-modal-content {
+    border-radius: 8px !important;
+}
+
+.ant-table-row {
+    .ant-table-cell {
+        position: relative;
+        input {
+            padding-right: 25px !important;
+        }
+        span {
+            position: absolute;
+            bottom: 22px;
+            right: 22px;
+        }
+    }
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
 }

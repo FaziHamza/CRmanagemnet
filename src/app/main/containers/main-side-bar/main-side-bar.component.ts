@@ -46,7 +46,7 @@ export class MainSideBarComponent implements OnInit {
       nzContent: LogoutComponent,
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: []
+      nzFooter: null
     });
     modal.afterClose.subscribe(res => {
       if (res) {
