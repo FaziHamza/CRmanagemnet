@@ -23,7 +23,7 @@ import { LogoutComponent } from './containers/logout/logout.component';
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
     WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent],
   providers: [
-    EnvService,DecimalPipe
+    DecimalPipe
   ]
 })
 export class MainModule {}

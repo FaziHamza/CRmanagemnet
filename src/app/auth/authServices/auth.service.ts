@@ -21,10 +21,11 @@ export class AuthService {
 
   // 1  Set Auth
   setAuth(user: any) {
+    debugger
     // saving JWT sent from Server, in LocalStorage
-    this.jwtService.saveToken(user.authToken);
+    this.jwtService.saveToken(user.token);
     window.localStorage['user'] = JSON.stringify(user);
-    window.localStorage['authToken'] = JSON.stringify(user?.authToken);
+    window.localStorage['authToken'] = JSON.stringify(user?.token);
 
     // set current user data into  Observable
     this.currentUserSubject.next(user)
