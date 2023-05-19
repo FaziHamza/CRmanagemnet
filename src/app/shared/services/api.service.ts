@@ -52,5 +52,8 @@ export class ApiService {
     let url = environment.intermediate + "SalesOrders/GetSparePartsWorkOrders?"+param;
     return this.http.get<AppResponse>(url);
   }
-
+  getSparePartsWorkParts(param:string=null):Observable<AppResponse> {
+    let url = environment.intermediate + "SalesOrders/GetSparePartsWorkParts?sparePartsSalesOrderOpportunityId="+param;
+    return this.http.get<AppResponse>(url);
+  }
 }
