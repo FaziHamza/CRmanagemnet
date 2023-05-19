@@ -20,40 +20,32 @@ export class ApiService {
   getUser(){
     return JSON.parse(localStorage.getItem('userDetail'))
   }
-  get Authorised_HttpOptions() {
-    const authToken = JSON.parse(localStorage.getItem('userDetail'));
-    const httpOptions = new HttpHeaders({
-      Authorization: `Bearer ${authToken?.token}`
-    });
-    return { headers: httpOptions };
-  }
-
   saveCmsSetup(obj:any) :Observable<AppResponse> {
     let url = environment.intermediate + "Setup/UpdateSetup";
-    return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
+    return this.http.post<AppResponse>(url,obj);
   }
   getCMSSetup():Observable<AppResponse> {
     let url = environment.intermediate + "Setup/GetCMSetup";
-    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+    return this.http.get<AppResponse>(url);
   }
   getParts(partno:any):Observable<AppResponse> {
-    partno = partno + "&BranchId=" +this.getUser().branch.branchId
+    partno = partno //+ "&BranchId=" +this.getUser().branch.branchId
     let url = environment.intermediate + "Parts/GetParts?part="+partno;
-    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+    return this.http.get<AppResponse>(url);
   }
   getCustomer(name:string):Observable<AppResponse> {
     let obj = "&PageNo=0&PageSize=10000"
     let url = environment.intermediate + "Customer/GetCustomers?Search=" + name + obj;
-    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+    return this.http.get<AppResponse>(url);
   }
   createWorkOrder(obj:any) :Observable<AppResponse> {
     let url = environment.intermediate + "SalesOrders/CreateWorkOrder";
-    return this.http.post<AppResponse>(url,obj,this.Authorised_HttpOptions);
+    return this.http.post<AppResponse>(url,obj);
   }
 
   getStatusLookup(id:number):Observable<AppResponse> {
     let url = environment.intermediate + "Lookups/GetLookups?lookupTypeId="+id;
-    return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
+    return this.http.get<AppResponse>(url);
   }
 
   getSparePartsWorkOrder(param:string=null):Observable<AppResponse> {

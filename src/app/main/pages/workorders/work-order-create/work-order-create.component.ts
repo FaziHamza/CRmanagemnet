@@ -146,7 +146,7 @@ export class WorkOrderCreateComponent implements OnInit {
       if (data) {
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
-        this.editCache[id].data.partNo = data.part10;
+        this.editCache[id].data.partNo = data.part;
         this.editCache[id].data.qty = data.qty;
         this.editCache[id].data.tax = 0;
         this.editCache[id].data.discount = 0;
@@ -211,7 +211,7 @@ export class WorkOrderCreateComponent implements OnInit {
     if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0)
       return this.commonService.showError("Qty must be greater than 0", "Error");
 
-    const item = this.filteredOptions.find(item => item.part10 === this.editCache[id].data.partNo);
+    const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
     if (item.qty < this.editCache[id].data.qty)
       return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
   }
@@ -230,7 +230,7 @@ export class WorkOrderCreateComponent implements OnInit {
     if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0)
       return this.commonService.showError("Qty must be greater than 0", "Error");
 
-    const item = this.filteredOptions.find(item => item.part10 === this.editCache[id].data.partNo);
+    const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
     if (item.qty < this.editCache[id].data.qty)
       return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
     const index = this.listOfData.findIndex(item => item.id === id);
