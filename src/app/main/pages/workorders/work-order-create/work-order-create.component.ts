@@ -161,11 +161,13 @@ export class WorkOrderCreateComponent implements OnInit {
   onChangeQty(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
+      debugger
       this.editCache[id].data.qty = value;
       this.editCache[id].data.total = value * this.editCache[id].data.unitofMeasure;
       this.onChangeDiscount(this.editCache[id].data.discount, id);
     }
   }
+  avalaibeQty:number=0;
   onChangeDiscount(value: any, id: any) {
     if (value >= 100) {
 
