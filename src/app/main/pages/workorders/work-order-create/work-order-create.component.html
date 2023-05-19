@@ -108,7 +108,9 @@
                         <tbody>
                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                 <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
-                                    <td>{{ data.partNo }}</td>
+                                    <td>{{ data.partNo }}
+                                        avalaibe qty :8
+                                    </td>
                                     <td>{{ data.description }}</td>
                                     <td>{{ data.qty }}</td>
                                     <td>{{ data.total | number:'1.3-3'}} <small> JD</small></td>
@@ -155,6 +157,7 @@
                                                     {{ option.partQtyConcat }}
                                                 </nz-auto-option>
                                             </nz-autocomplete>
+                                            Avalaibe qty: 5
                                         </div>
                                     </td>
                                     <td><input type="text" title="Discription Here" [disabled]="true" nz-input
