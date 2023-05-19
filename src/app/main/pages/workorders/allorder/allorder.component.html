@@ -75,7 +75,7 @@
                         <td>{{ data.customer.customerName }}</td>
                         <td>{{ data.customer.mobile }}</td>
                         <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
-                        <td>{{ data.grandAmount | number }} <span> JD</span></td>
+                        <td>{{ data.grandAmount | number }} <small> JD</small></td>
                         <td>{{ data.statusObj[0].statusName }}</td>
                         <td>
                             <a [routerLink]="'/home/orde-details'" class="pen-icon">
