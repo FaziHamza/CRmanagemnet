@@ -18,7 +18,8 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private commonService: CommonService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    ) {
     super();
   }
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
             this.commonService.stopLoader();
             localStorage.setItem('userDetail', JSON.stringify(response.data));
           this.commonService.showSuccess("Login Successfully!", "Success");
+          this.authService.setAuth(response.data);
           this.router.navigate(['/home/allorder']);
           } else {
             this.commonService.stopLoader();

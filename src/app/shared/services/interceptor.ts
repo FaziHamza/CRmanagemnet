@@ -10,10 +10,12 @@ export class AuthInterceptor implements HttpInterceptor {
     
     authReq: any;
     
-    constructor(private router: Router, private envService: EnvService) { }
+    constructor(private router: Router, private envService: EnvService) {
+        debugger
+     }
 
     private handleAuthError(err: HttpErrorResponse): Observable<any> {
-        
+        debugger
         if (err.status === 401|| err.status === 403) {
             this.clearStorage();
             this.envService.showWarning();

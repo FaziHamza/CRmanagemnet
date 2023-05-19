@@ -10,12 +10,10 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class CommonService {
   breadcrumb: any[] = [];
   constructor(private toastr: ToastrService,private ngxService: NgxUiLoaderService) { }
-
   // Success
   showSuccess(message: string, title: string) {
     this.toastr.success(message, title);
   }
-
   // Error
   showError(message: string, title: string) {
     this.toastr.error(message, title);

@@ -1,5 +1,5 @@
 import { AuthIntercepter } from './utility/services/authIntercepter';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
@@ -21,6 +21,11 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { DecimalPipe } from '@angular/common';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { ApiService } from './shared/services/api.service';
+import { AuthInterceptor } from './shared/services/interceptor';
+import { SharedModule } from './shared/shared.module';
+import { MainModule } from './main/main.module';
+import { AuthGuard } from './utility/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -38,23 +43,26 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     NzIconModule  ,
     NzInputModule,
     ShareModule,
+    SharedModule,
+    MainModule,
   ],
   declarations: [AppComponent, FormBaseComponent],
   bootstrap: [AppComponent],
   providers: [
+    AuthGuard,
     { provide: NZ_I18N, useValue: en_US },
-    DecimalPipe 
+    DecimalPipe ,
+    ApiService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: function (router: Router, env:EnvService) {
+        return new AuthInterceptor(router, env);
+      },
+      multi: true,
+      deps: [Router,EnvService],
+    }
+    
     // { provide: NZ_ICONS, useValue: icons },
   ],
-  // providers: [
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useFactory: function (router: Router, env: EnvService) {
-  //       return new AuthIntercepter(router, env);
-  //     },
-  //     multi: true,
-  //     deps: [Router, EnvService],
-  //   },
-  // ]
 })
 export class AppModule { }

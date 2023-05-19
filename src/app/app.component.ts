@@ -14,7 +14,7 @@ export class AppComponent  {
   }
   ngOnInit(): void {
     this.config={
-      "bgsColor": "#c39c52",
+      "bgsColor": "#dc3545",
       "bgsOpacity": 0.5,
       "bgsPosition": "bottom-right",
       "bgsSize": 60,
@@ -22,7 +22,7 @@ export class AppComponent  {
       "blur": 5,
       "delay": 0,
       "fastFadeOut": true,
-      "fgsColor": "#c39c52",
+      "fgsColor": "#dc3545",
       "fgsPosition": "center-center",
       "fgsSize": 60,
       "fgsType": "ball-spin-clockwise",
