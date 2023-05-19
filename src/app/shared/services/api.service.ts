@@ -38,7 +38,8 @@ export class ApiService {
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
   getCustomer(name:string):Observable<AppResponse> {
-    let url = environment.intermediate + "Customer/GetCustomers?Search="+name;
+    let obj = "&PageNo=0&PageSize=10000"
+    let url = environment.intermediate + "Customer/GetCustomers?Search=" + name + obj;
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
   createWorkOrder(obj:any) :Observable<AppResponse> {

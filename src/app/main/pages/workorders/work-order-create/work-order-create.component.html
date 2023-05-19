@@ -79,7 +79,7 @@
             <div class="card">
                 <div class="card-heading">
                     <div class="head-left">
-                        <h5 class="card-subheading">Added Spare Parts</h5>
+                        <h5 class="card-subheading">Spare Parts</h5>
                     </div>
                     <div class="head-right">
                         <button class="btn btn-round" type="button" (click)="addRow()">
@@ -97,6 +97,7 @@
                                 <th nzWidth="15%">Description</th>
                                 <th>Qty</th>
                                 <th nzWidth="10%">Unit Price</th>
+                                <th>Total</th>
                                 <th>Discount</th>
                                 <th>Net</th>
                                 <th>Tax</th>
@@ -107,14 +108,15 @@
                         <tbody>
                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                 <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
-                                    <td>{{ data.partQtyConcat }}</td>
+                                    <td>{{ data.partNo }}</td>
                                     <td>{{ data.description }}</td>
                                     <td>{{ data.qty }}</td>
-                                    <td>{{ data.unitofMeasure }}</td>
-                                    <td>{{ data.discount }} %</td>
-                                    <td>{{ data.net | number:'1.2-2'}}</td>
+                                    <td>{{ data.total | number:'1.3-3'}}</td>
+                                    <td>{{ data.unitofMeasure | number:'1.3-3'}}</td>
+                                    <td>{{ data.discount | number:'1.3-3'}} %</td>
+                                    <td>{{ data.net | number:'1.3-3'}}</td>
                                     <td>{{ data.tax }} %</td>
-                                    <td>{{ data.totalPrice | number:'1.2-2'}}</td>
+                                    <td>{{ data.totalPrice | number:'1.3-3'}}</td>
                                     <td>
                                         <a (click)="startEdit(data.id)" class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -159,27 +161,42 @@
                                             [(ngModel)]="editCache[data.id].data.description"
                                             [ngModelOptions]="{ standalone: true }" /></td>
                                     <td><input type="number" (ngModelChange)="onChangeQty($event,data.id)" nz-input
-                                            [(ngModel)]="editCache[data.id].data.qty"
+                                            [(ngModel)]="editCache[data.id].data.qty" min="1" pattern="[1-9][0-9]*"
+                                            (input)="checkQtyValidation(data.id)"
                                             [ngModelOptions]="{ standalone: true }" /></td>
+                                    <td class="flex"><input type="number" [disabled]="true" nz-input
+                                            [(ngModel)]="editCache[data.id].data.unitofMeasure"
+                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
                                     <td><input type="number" [disabled]="true" nz-input
-                                            [(ngModel)]="editCache[data.id].data.unitofMeasure "
-                                            [ngModelOptions]="{ standalone: true }" /></td>
+                                            [(ngModel)]="editCache[data.id].data.total"
+                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
                                     <td><input type="number" nz-input (ngModelChange)="onChangeDiscount($event,data.id)"
                                             [(ngModel)]="editCache[data.id].data.discount"
-                                            [ngModelOptions]="{ standalone: true }" /></td>
+                                            (input)="checkDiscountValidation(data.id)"
+                                            [ngModelOptions]="{ standalone: true }" /> %</td>
                                     <td><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.net"
-                                            [ngModelOptions]="{ standalone: true }" /></td>
-                                    <td><input type="number" nz-input (ngModelChange)="onChangeTax($event,data.id)"
-                                            [(ngModel)]="editCache[data.id].data.tax"
-                                            [ngModelOptions]="{ standalone: true }" /></td>
+                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
+                                    <td>
+                                        <select class="form-select" [(ngModel)]="editCache[data.id].data.tax"
+                                            (change)="onChangeTax($event.target.value,data.id)"
+                                            aria-label="Default select example" [ngModelOptions]="{ standalone: true }"
+                                            *ngIf="editCache[data.id].data.allowTax">
+                                            <option [value]="item.name[0].lookupName" *ngFor="let item of taxList">
+                                                {{item.name[0].lookupName}}</option>
+                                        </select>
+                                        <input type="number" nz-input (ngModelChange)="onChangeTax($event,data.id)"
+                                            *ngIf="!editCache[data.id].data.allowTax"
+                                            [(ngModel)]="editCache[data.id].data.tax" [disabled]="true"
+                                            [ngModelOptions]="{ standalone: true }" /> %
+                                    </td>
                                     <td><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.totalPrice"
-                                            [ngModelOptions]="{ standalone: true }" /></td>
+                                            [ngModelOptions]="{ standalone: true }" /> JD</td>
                                     <td>
                                         <a (click)="saveEdit(data.id)" class="save pen-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="color:#49a1bb"
-                                                viewBox="0 0 24 24">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                style="color:#49a1bb" viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3s3-1.34 3-3s-1.34-3-3-3zM6 6h9v4H6z" />
                                             </svg>
@@ -211,10 +228,17 @@
                     <div class="add-note">
                         <h4>Add Note</h4>
                         <textarea name="" id="" rows="3" formControlName="salesNote"></textarea>
+                        <div class="text-danger">
+                            <div *ngIf="orderForm.get('salesNote').invalid && orderForm.get('salesNote').errors?.maxlength || saveSubmitted">
+                                Maximum character limit exceeded ({{
+                                orderForm.get('salesNote').errors?.maxlength?.requiredLength }} characters allowed)
+                            </div>
+                        </div>
+
                     </div>
                     <div class="total-amount">
                         <h4 class="card-subheading">Grand Amount</h4>
-                        <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.2-2'}} JD</button>
+                        <button type="button" class="btn btn-secondary">{{grandTotal | number:'1.3-3'}} JD</button>
                     </div>
                 </div>
             </div>
@@ -272,7 +296,8 @@
 
 
                 <div class="bottom-buttons">
-                    <button type="button" class="btn btn-white hvr-bounce-to-right2" [routerLink]="'/home/allorder'">Cancel</button>
+                    <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                        [routerLink]="'/home/allorder'">Cancel</button>
                     <button class="btn o-btn hvr-bounce-to-right" type="submit">Create</button>
                 </div>
             </div>

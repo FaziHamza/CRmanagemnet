@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, debounceTime } from 'rxjs';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/form-base.component';
@@ -11,7 +12,8 @@ import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/fo
   styleUrls: ['./work-order-create.component.scss']
 })
 export class WorkOrderCreateComponent implements OnInit {
-
+  searchInput$ = new Subject<any>();
+  searchPartNo$ = new Subject<any>();
   filteredOptions: any[] = [];
   orderForm: FormGroup;
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
@@ -25,6 +27,7 @@ export class WorkOrderCreateComponent implements OnInit {
   paymentMethodName: string;
   saveLoader: any = false;
   tableLoader: any = false;
+  taxList :any[] = [];
   constructor(private commonService: CommonService, private apiService: ApiService,
     private formBuilder: FormBuilder, private router: Router) {
   }
@@ -35,14 +38,33 @@ export class WorkOrderCreateComponent implements OnInit {
       { title: ' Create Order ', routeLink: 'order' },
     ]
     this.initForm();
+    this.getTaxLookup();
+    this.searchInput$
+      .pipe(debounceTime(500)) // Adjust the debounce time as needed
+      .subscribe(value => {
+        this.getCustomer(value);
+      });
+    this.searchPartNo$
+      .pipe(debounceTime(500)) // Adjust the debounce time as needed
+      .subscribe(value => {
+        this.getPartNo(value.value,value.id);
+      });
   }
-
+  getTaxLookup() {
+    this.apiService.getStatusLookup(23).subscribe(res => {
+      if (res.isSuccess) {
+        this.taxList = res.data;
+      } else {
+        this.taxList = [];
+      }
+    })
+  }
   initForm() {
     this.orderForm = this.formBuilder.group({
       customerName: ['', [Validators.required]],
       mobile: [''],
       nationalId: [''],
-      salesNote: [''],
+      salesNote: ['', [Validators.maxLength(150)]],
       pnStartDate: [''],
       pnEndDate: [''],
       paymentType: ['', [Validators.required]],
@@ -78,6 +100,9 @@ export class WorkOrderCreateComponent implements OnInit {
   }
 
   onChangeName(event: any) {
+    this.searchInput$.next(event);
+  }
+  getCustomer(event: any) {
     if (event.length >= 3) {
       this.apiService.getCustomer(event).subscribe(res => {
         if (res.data.length > 0) {
@@ -90,11 +115,16 @@ export class WorkOrderCreateComponent implements OnInit {
       if (obj)
         this.orderForm.patchValue(obj);
     }
-
   }
   onChange(value: any, id: any): void {
+    let obj = {
+      value:value,
+      id:id
+    }
+    this.searchPartNo$.next(obj);
+  }
+  getPartNo(value: any, id: any){
     if (value.length >= 3) {
-      debugger
       this.tableLoader = true;
       this.apiService.getParts(value).subscribe(res => {
         this.tableLoader = false;
@@ -116,10 +146,12 @@ export class WorkOrderCreateComponent implements OnInit {
       if (data) {
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
-        this.editCache[id].data.partNo = data.part;
-        this.editCache[id].data.qty = 1;
+        this.editCache[id].data.partNo = data.part10;
+        this.editCache[id].data.qty = data.qty;
         this.editCache[id].data.tax = 0;
         this.editCache[id].data.discount = 0;
+        this.editCache[id].data.allowTax = data.tax;
+        this.editCache[id].data.total = parseFloat(data.price);
         this.editCache[id].data.unitofMeasure = parseFloat(data.price);
         this.editCache[id].data.net = parseFloat(data.price);
         this.editCache[id].data.totalPrice = parseFloat(data.price);
@@ -130,6 +162,7 @@ export class WorkOrderCreateComponent implements OnInit {
     let data = this.editCache[id].data;
     if (data) {
       this.editCache[id].data.qty = value;
+      this.editCache[id].data.total = value * this.editCache[id].data.unitofMeasure;
       this.onChangeDiscount(this.editCache[id].data.discount, id);
     }
   }
@@ -146,7 +179,7 @@ export class WorkOrderCreateComponent implements OnInit {
   onChangeTax(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      this.editCache[id].data.totalPrice = parseFloat(this.editCache[id].data.net) + ((value / 100) * data.unitofMeasure * this.editCache[id].data.qty);
+      this.editCache[id].data.totalPrice = parseFloat(this.editCache[id].data.net) + ((parseFloat(value) / 100) * data.unitofMeasure * this.editCache[id].data.qty);
     }
   }
   addRow(): void {
@@ -157,19 +190,49 @@ export class WorkOrderCreateComponent implements OnInit {
     const newRow = {
       id: 0,
       partNo: '',
-      qty: 1,
+      qty: 0,
+      total: 0,
       description: '',
       unitofMeasure: 0,
       discount: 0,
       net: 0,
       tax: 0,
-      totalPrice: 0
+      totalPrice: 0,
+      allowTax : false,
     }
     this.listOfData.unshift(newRow);
     this.updateData();
     this.enableEditCache();
   }
+  checkQtyValidation(id: number) {
+    if (!this.editCache[id].data.partNo)
+      return this.commonService.showError("Please fill detail first!", "Error");
+
+    if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0)
+      return this.commonService.showError("Qty must be greater than 0", "Error");
+
+    const item = this.filteredOptions.find(item => item.part10 === this.editCache[id].data.partNo);
+    if (item.qty < this.editCache[id].data.qty)
+      return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+  }
+  checkDiscountValidation(id: number) {
+    if (!this.editCache[id].data.discount || this.editCache[id].data.discount < 0)
+      return this.commonService.showError("Discount must be greater than 0 or equal to 0", "Error");
+  }
+  checkTaxValidation(id: number) {
+    if (!this.editCache[id].data.tax || this.editCache[id].data.tax < 0)
+      return this.commonService.showError("Tax must be greater than 0 or equal to 0", "Error");
+  }
   saveEdit(id: number): void {
+    if (!this.editCache[id].data.partNo)
+      return this.commonService.showError("Please fill detail first!", "Error");
+
+    if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0)
+      return this.commonService.showError("Qty must be greater than 0", "Error");
+
+    const item = this.filteredOptions.find(item => item.part10 === this.editCache[id].data.partNo);
+    if (item.qty < this.editCache[id].data.qty)
+      return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
     const index = this.listOfData.findIndex(item => item.id === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
     this.editCache[id].edit = false;

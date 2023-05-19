@@ -101,10 +101,6 @@ export class AllorderComponent implements OnInit {
       }
     })
   }
-
-
-
-
 }
 
 
