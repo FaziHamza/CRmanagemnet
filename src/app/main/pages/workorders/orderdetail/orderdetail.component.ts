@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-orderdetail',
@@ -6,13 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./orderdetail.component.scss']
 })
 export class OrderdetailComponent implements OnInit {
+  paramId:any;
   sparePartList: any[] = [];
-
-  pageSize = 2
-  constructor() { }
+  pageSize = 6
+  constructor(private activeRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
-this.getSparePartList()
+    this.activeRoute.params.subscribe(res=>{
+        if(res['id']){
+          this.paramId = res['id'];
+        }
+      this.getSparePartList()
+    })
   }
   getSparePartList() {
     debugger

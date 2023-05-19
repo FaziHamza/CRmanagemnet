@@ -17,6 +17,9 @@ export class ApiService {
   constructor(
     private http: HttpClient,
   ) { }
+  getUser(){
+    return JSON.parse(localStorage.getItem('userDetail'))
+  }
   get Authorised_HttpOptions() {
     const authToken = JSON.parse(localStorage.getItem('userDetail'));
     const httpOptions = new HttpHeaders({
@@ -34,6 +37,7 @@ export class ApiService {
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }
   getParts(partno:any):Observable<AppResponse> {
+    partno = partno + "&BranchId=" +this.getUser().branch.branchId
     let url = environment.intermediate + "Parts/GetParts?part="+partno;
     return this.http.get<AppResponse>(url,this.Authorised_HttpOptions);
   }

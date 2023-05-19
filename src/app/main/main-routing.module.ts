@@ -40,7 +40,7 @@ const routes: Routes = [
         component: AllorderComponent,
       },
       {
-        path: 'orde-details',
+        path: 'orde-details/:id',
         component: OrderdetailComponent,
       },
       {

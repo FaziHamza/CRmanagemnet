@@ -104,7 +104,8 @@
                     <h5>Spare Parts</h5>
                 </div>
 
-                <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartList" nzTableLayout="fixed">
+                <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartList"
+                    nzTableLayout="fixed">
                     <thead>
                         <tr>
                             <th>Part No</th>
@@ -127,81 +128,11 @@
                             <td>{{data.net}}</td>
                             <td>{{data.tax}}</td>
                             <td>{{data.totalPrice}}</td>
-                          
                         </tr>
                     </tbody>
                 </nz-table>
             </div>
 
         </div>
-<!-- Start Labour -->
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-heading">
-            <h5>Labour</h5>
-        </div>
-
-        <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartList" nzTableLayout="fixed">
-            <thead>
-                <tr>
-                    <th>Job Code</th>
-                    <th>Desctiption</th>
-                    <th>Job Qty</th>
-                    <th>Discount</th>
-                    <th>Net</th>
-                    <th>Tax</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of editRowTable.data;let index = index">
-                    <td>{{data.partNo}}</td>
-                    <td>{{data.description}}</td>
-                    <td>{{data.qty}}</td>
-                    <td>{{data.discount}}</td>
-                    <td>{{data.net}}</td>
-                    <td>{{data.tax}}</td>
-                    <td>{{data.totalPrice}}</td>
-                  
-                </tr>
-            </tbody>
-        </nz-table>
     </div>
-
-</div>
-<!-- Sublet -->
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-heading">
-            <h5>Sublet</h5>
-        </div>
-
-        <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartList" nzTableLayout="fixed">
-            <thead>
-                <tr>
-                    <th>Sublet Code</th>
-                    <th>Sublet Desctiption</th>
-                    <th>Job Qty</th>
-                    <th>Unit Price</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of editRowTable.data;let index = index">
-                    <td>{{data.partNo}}</td>
-                    <td>{{data.description}}</td>
-                    <td>{{data.qty}}</td>
-                    <td>{{data.unitPrice}}</td>
-                    <td>{{data.totalPrice}}</td>
-                  
-                </tr>
-            </tbody>
-        </nz-table>
-    </div>
-
-</div>
-
-    </div>
-
-
 </div>
