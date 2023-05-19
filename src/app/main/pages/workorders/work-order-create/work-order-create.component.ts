@@ -141,9 +141,15 @@ export class WorkOrderCreateComponent implements OnInit {
         }
       })
     }
+  
+
     if (typeof value === 'number') {
       let data = this.filteredOptions.find(a => a.id == value);
       if (data) {
+        debugger
+       
+        this.avalaibeQty= this.getLastDigit(data.partQtyConcat);
+      //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
         this.editCache[id].data.partNo = data.part;
@@ -158,6 +164,12 @@ export class WorkOrderCreateComponent implements OnInit {
       }
     }
   }
+
+   getLastDigit = (str) => {
+    const lastIndex = str.lastIndexOf('-');
+    const lastDigit = str.substring(lastIndex + 1).trim();
+    return lastDigit;
+  };
   onChangeQty(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
@@ -167,7 +179,7 @@ export class WorkOrderCreateComponent implements OnInit {
       this.onChangeDiscount(this.editCache[id].data.discount, id);
     }
   }
-  avalaibeQty:number=0;
+  avalaibeQty:number=-1;
   onChangeDiscount(value: any, id: any) {
     if (value >= 100) {
 
