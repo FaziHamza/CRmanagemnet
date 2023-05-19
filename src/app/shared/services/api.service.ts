@@ -29,7 +29,7 @@ export class ApiService {
     return this.http.get<AppResponse>(url);
   }
   getParts(partno:any):Observable<AppResponse> {
-    partno = partno //+ "&BranchId=" +this.getUser().branch.branchId
+    partno = partno + "&BranchId=" +this.getUser().branch.branchId
     let url = environment.intermediate + "Parts/GetParts?part="+partno;
     return this.http.get<AppResponse>(url);
   }
@@ -52,8 +52,5 @@ export class ApiService {
     let url = environment.intermediate + "SalesOrders/GetSparePartsWorkOrders?"+param;
     return this.http.get<AppResponse>(url);
   }
-  getSparePartsWorkParts(param:string=null):Observable<AppResponse> {
-    let url = environment.intermediate + "SalesOrders/GetSparePartsWorkParts?sparePartsSalesOrderOpportunityId="+param;
-    return this.http.get<AppResponse>(url);
-  }
+
 }
