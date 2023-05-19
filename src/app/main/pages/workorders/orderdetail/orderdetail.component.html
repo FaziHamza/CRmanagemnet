@@ -2,18 +2,19 @@
     <div class="page-title-DT">
         <div class="title-left">
             <div class="dt">
-                <h6>Date <span> 14 Apr 2022</span></h6>
+                <h6>Date <span *ngIf="customerDetail.length > 0"> {{customerDetail[0].orderDate | date}}</span></h6>
             </div>
             <div class="dt">
-                <h6>Time <span> 10:00 PM</span></h6>
+                <h6>Time <span *ngIf="customerDetail.length > 0"> {{customerDetail[0].orderDate | date:'h:mm a'}}</span>
+                </h6>
             </div>
         </div>
         <div class="title-right">
             <div class="dt">
-                <h6>Status : Issued</h6>
+                <h6 *ngIf="customerDetail.length > 0">Status : {{customerDetail[0].statusObj[0].statusName}}</h6>
             </div>
             <div class="dt">
-                <h6><span>Order No.50000 </span></h6>
+                <h6><span>Order No. {{paramId}} </span></h6>
             </div>
         </div>
     </div>
@@ -25,18 +26,18 @@
                     <div class="profile">
                         <img src="https://www.pngmart.com/files/21/Admin-Profile-Vector-PNG-Clipart.png" alt="">
                     </div>
-                    <div class="detail">
+                    <div class="detail" *ngIf="customerDetail.length > 0">
                         <h5>
-                            Saleh Rahman
+                            {{customerDetail[0].customer.customerName}}
                         </h5>
                         <p>
-                            S.rahman@uihut.com
+                            {{customerDetail[0].customer.customerName}}
                         </p>
                         <h5>
                             Customer No
                         </h5>
                         <p>
-                            00 962 796829 093
+                            {{customerDetail[0].customer.mobile}}
                         </p>
                     </div>
                 </div>
@@ -50,9 +51,9 @@
                     </div>
                     <div class="head-right"></div>
                 </div>
-                <div class="card-content">
+                <div class="card-content" *ngIf="customerDetail.length > 0">
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-9" *ngIf="customerDetail[0].vinId">
                             <div class="row">
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card-box">
@@ -66,12 +67,12 @@
                                         <h4 class="detail">Yaris 2015</h4>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
+                                <!-- <div class="col-lg-4 col-md-6">
                                     <div class="card-box">
                                         <h4 class="title">Card No</h4>
                                         <h4 class="detail">R 2212 04908</h4>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card-box">
                                         <h4 class="title">Vin No</h4>
@@ -86,10 +87,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 border-left">
-                            <div class="card-box">
-                                <h4 class="title">Service Advisor</h4>
-                                <h4 class="detail">Murad Muhmad</h4>
+                        <div class="col-lg-3 border-left" *ngIf="customerDetail.length > 0">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card-box">
+                                        <h4 class="title">Service Advisor</h4>
+                                        <h4 class="detail">{{customerDetail[0].createdBy.fullName}}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card-box">
+                                        <h4 class="title">&nbsp;</h4>
+                                        <h4 class="detail">&nbsp;</h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +115,7 @@
                     <h5>Spare Parts</h5>
                 </div>
 
-                <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartList"
+                <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartDetailList"
                     nzTableLayout="fixed">
                     <thead>
                         <tr>
@@ -123,11 +134,11 @@
                             <td>{{data.partNo}}</td>
                             <td>{{data.description}}</td>
                             <td>{{data.qty}}</td>
-                            <td>{{data.unitPrice}}</td>
-                            <td>{{data.discount}}</td>
-                            <td>{{data.net}}</td>
-                            <td>{{data.tax}}</td>
-                            <td>{{data.totalPrice}}</td>
+                            <td>{{data.unitPrice}} JD</td>
+                            <td>{{data.discount}} %</td>
+                            <td>{{data.net}} JD</td>
+                            <td>{{data.tax}} %</td>
+                            <td>{{data.totalPrice}} JD</td>
                         </tr>
                     </tbody>
                 </nz-table>

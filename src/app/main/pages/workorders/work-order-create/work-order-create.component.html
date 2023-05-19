@@ -230,7 +230,7 @@
                         <textarea name="" id="" rows="3" formControlName="salesNote"></textarea>
                         <div class="text-danger">
                             <div
-                                *ngIf="orderForm.get('salesNote').invalid && orderForm.get('salesNote').errors?.maxlength || saveSubmitted">
+                                *ngIf="orderForm.get('salesNote').errors?.maxlength && ( orderForm.get('salesNote').invalid || saveSubmitted)">
                                 Maximum character limit exceeded ({{
                                 orderForm.get('salesNote').errors?.maxlength?.requiredLength }} characters allowed)
                             </div>
