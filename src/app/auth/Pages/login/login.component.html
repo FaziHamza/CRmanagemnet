@@ -13,15 +13,15 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
                             <input type="email" class="form-control" placeholder="Example@markazia.jo"
-                                formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                formControlName="identity" id="exampleInputEmail1" aria-describedby="emailHelp">
                             <div class="text-danger">
-                                <div *ngIf="isRequiredField(formControls['email'])">
-                                    <div *ngIf="formControls['email'].errors?.['required']">
+                                <div *ngIf="isRequiredField(formControls['identity'])">
+                                    <div *ngIf="formControls['identity'].errors?.['required']">
                                         This field is required.
                                     </div>
                                 </div>
-                                <div *ngIf="isEmailField(formControls['email'])">
-                                    <div class="error-msg" *ngIf="formControls['email'].errors?.['email']">
+                                <div *ngIf="isEmailField(formControls['identity'])">
+                                    <div class="error-msg" *ngIf="formControls['identity'].errors?.['identity']">
                                         Invalid email address.
                                     </div>
                                 </div>

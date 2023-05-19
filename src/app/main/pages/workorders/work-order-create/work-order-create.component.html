@@ -111,12 +111,12 @@
                                     <td>{{ data.partNo }}</td>
                                     <td>{{ data.description }}</td>
                                     <td>{{ data.qty }}</td>
-                                    <td>{{ data.total | number:'1.3-3'}}</td>
-                                    <td>{{ data.unitofMeasure | number:'1.3-3'}}</td>
+                                    <td>{{ data.total | number:'1.3-3'}} JD</td>
+                                    <td>{{ data.unitofMeasure | number:'1.3-3'}}  JD</td>
                                     <td>{{ data.discount | number:'1.3-3'}} %</td>
-                                    <td>{{ data.net | number:'1.3-3'}}</td>
+                                    <td>{{ data.net | number:'1.3-3'}}  JD</td>
                                     <td>{{ data.tax }} %</td>
-                                    <td>{{ data.totalPrice | number:'1.3-3'}}</td>
+                                    <td>{{ data.totalPrice | number:'1.3-3'}}  JD</td>
                                     <td>
                                         <a (click)="startEdit(data.id)" class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"

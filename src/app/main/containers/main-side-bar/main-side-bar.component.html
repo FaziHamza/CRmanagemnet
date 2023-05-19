@@ -8,7 +8,7 @@
     </div>
     <div class="nav-bar-body">
         <div class="nav-item">
-            <a class="nav-link"  [routerLink]="'/home/allorder'" [class.active]="isWorkOrderActive()">
+            <a class="nav-link" [routerLink]="'/home/allorder'" [class.active]="isWorkOrderActive()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="currentColor"
                         d="M22 6v12q0 .825-.588 1.413T20 20H4q-.825 0-1.413-.588T2 18V6q0-.825.588-1.413T4 4h16q.825 0 1.413.588T22 6ZM4 8h16V6H4v2Zm0 4v6h16v-6H4Zm0 6V6v12Z" />
@@ -17,7 +17,7 @@
             </a>
         </div>
         <div class="nav-item">
-            <a class="nav-link">
+            <a class="nav-link" (click)="showConfirm()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <g fill="currentColor">
                         <path d="M12 20a8 8 0 1 1 0-16v16Z" opacity=".5" />
@@ -33,3 +33,11 @@
         </div>
     </div>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" >
+    <ng-container *nzModalContent>
+      <p>Content one</p>
+      <p>Content two</p>
+      <p>Content three</p>
+    </ng-container>
+  </nz-modal>
