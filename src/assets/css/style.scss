@@ -1139,11 +1139,20 @@ input {
         }
         small {
             position: absolute;
-            bottom: 22px;
-            right: 22px;
+            bottom: 23px;
+            right: 21px;
         }
     }
+    .bottom-text {
+        position: absolute !important;
+        bottom: -2px !important;
+        left: 18px !important;
+    }
+    .form-select {
+        height: 32px !important;
+    }
 }
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
