@@ -164,7 +164,7 @@
                                             [(ngModel)]="editCache[data.id].data.qty" min="1" pattern="[1-9][0-9]*"
                                             (input)="checkQtyValidation(data.id)"
                                             [ngModelOptions]="{ standalone: true }" /></td>
-                                    <td class="flex"><input type="number" [disabled]="true" nz-input
+                                    <td ><input type="number" [disabled]="true" nz-input
                                             [(ngModel)]="editCache[data.id].data.unitofMeasure"
                                             [ngModelOptions]="{ standalone: true }" /> <span> JD</span></td>
                                     <td><input type="number" [disabled]="true" nz-input
