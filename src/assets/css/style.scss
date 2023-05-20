@@ -1164,3 +1164,13 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+.ant-avatar {
+    color: $bg-light !important;
+    background: $primary !important;
+    width: 60px !important;
+    height: 60px !important;
+    font-size: large !important;
+    line-height: 58px !important;
+    font-weight: 600;
+}

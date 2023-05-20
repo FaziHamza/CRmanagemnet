@@ -9,7 +9,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class CommonService {
   breadcrumb: any[] = [];
-  constructor(private toastr: ToastrService,private ngxService: NgxUiLoaderService) { }
+  constructor(private toastr: ToastrService, private ngxService: NgxUiLoaderService) { }
   // Success
   showSuccess(message: string, title: string) {
     this.toastr.success(message, title);
@@ -29,7 +29,7 @@ export class CommonService {
 
   }
   selectedAvatar = '';
- 
+
   getUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
@@ -48,11 +48,11 @@ export class CommonService {
 
   //JSON-Beautify    
   // This Method add 4 indentation into json to make readability.
-  jsonBeautify(json: any){
-      alert(JSON.stringify(json, null, 4));
+  jsonBeautify(json: any) {
+    alert(JSON.stringify(json, null, 4));
   }
 
-  
+
   formatBytes(bytes, decimals = 2) {
     if (!+bytes) return '0 Bytes'
 
@@ -64,37 +64,37 @@ export class CommonService {
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
   }
-  getTime(data:any){
+  getTime(data: any) {
     let hour = new Date(data).getHours();
     let min = new Date(data).getMinutes();
-    return hour +":"+min
+    return hour + ":" + min
   }
-  getDate(data:any){
-    
+  getDate(data: any) {
+
     let day = new Date(data).getDate();
     let mon = new Date(data).getMonth() + 1;
     let year = new Date(data).getFullYear();
-    let  month  = mon < 10 ? '0' + mon : mon;
-    let  days  = day < 10 ? '0' + day : day;
+    let month = mon < 10 ? '0' + mon : mon;
+    let days = day < 10 ? '0' + day : day;
 
-    return year + '-'+ month +'-'+days
+    return year + '-' + month + '-' + days
   }
 
-  getDayLeft(endtime:any){
+  getDayLeft(endtime: any) {
     const total = Date.parse(endtime) - Date.parse(new Date().toString());
-    const days = Math.floor( total/(1000*60*60*24));
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
     return days;
   }
-  getHourLeft(endtime:any){
+  getHourLeft(endtime: any) {
     let hours = new Date(endtime).getHours() - new Date().getHours();
-    if(hours <0){
-      hours = 24 -new Date().getHours() + new Date(endtime).getHours();
+    if (hours < 0) {
+      hours = 24 - new Date().getHours() + new Date(endtime).getHours();
     }
     let result = hours < 10 ? '0' + hours : hours;
     return result;
   }
-  getMinuteLeft(endtime:any){
-    
+  getMinuteLeft(endtime: any) {
+
     let minutes = new Date(endtime).getMinutes() - new Date().getMinutes();
     if (minutes < 0) {
       minutes = 60 - new Date().getMinutes() + new Date(endtime).getMinutes();
@@ -103,41 +103,41 @@ export class CommonService {
 
     return result
   }
-  getTimeEnd(endtime:any){
+  getTimeEnd(endtime: any) {
     let total = Date.parse(endtime) - Date.parse(new Date().toString());
     let minutes = new Date(endtime).getMinutes() - new Date().getMinutes();
     if (minutes < 0) {
       minutes = 60 - new Date().getMinutes() + new Date(endtime).getMinutes();
     }
     let hours = new Date(endtime).getHours() - new Date().getHours();
-    if(hours <0){
-      hours = 24 -new Date().getHours() + new Date(endtime).getHours();
+    if (hours < 0) {
+      hours = 24 - new Date().getHours() + new Date(endtime).getHours();
     }
-    let minuResult = minutes < 10 ? '0' + minutes : minutes; 
+    let minuResult = minutes < 10 ? '0' + minutes : minutes;
     let resultHour = hours < 10 ? '0' + hours : hours;
 
-    return resultHour + ':'+ minuResult
+    return resultHour + ':' + minuResult
   }
- 
-  estDateTime(){
+
+  estDateTime() {
     const date = new Date();
-   let datetime =  date.toLocaleString('en-US', {timeZone: 'America/New_York',});
-    return  datetime;
+    let datetime = date.toLocaleString('en-US', { timeZone: 'America/New_York', });
+    return datetime;
   }
-  getPercentage(total:any,amount:any){
+  getPercentage(total: any, amount: any) {
     let data = amount / total * 100
     return data.toFixed(0);
   }
-  makeDateFormat(format:any){
+  makeDateFormat(format: any) {
     var date = new Date();
     let day = date.getDate();
-    let month = date.getMonth()+1;
+    let month = date.getMonth() + 1;
     let year = date.getFullYear();
-    let days = day < 10 ? '0' + day : day; 
+    let days = day < 10 ? '0' + day : day;
     let months = month < 10 ? '0' + month : month;
-    return year + format + months +format + days +'T00:00:00'
+    return year + format + months + format + days + 'T00:00:00'
   }
-  getRemainingMonths(start:any,end:any) {
+  getRemainingMonths(start: any, end: any) {
     const startDate = new Date(start);
     const endDate = new Date(end);
 
@@ -152,17 +152,27 @@ export class CommonService {
       event.preventDefault();
     }
   }
-  getCountryName(code){
-    let data = countries.filter(a=>a.countryCode==code);
-    if(data.length > 0)
+  getCountryName(code) {
+    let data = countries.filter(a => a.countryCode == code);
+    if (data.length > 0)
       return data[0].countryName;
     else
-        return code
+      return code
   }
-  startLoader(){
+  startLoader() {
     this.ngxService.start();
   }
-  stopLoader(){
-    this.ngxService.stop(); 
+  stopLoader() {
+    this.ngxService.stop();
   }
+  getInitialOfName = (data: any) => {
+    let avatar = "";
+    if (data) {
+      let arrayName = data.split(' ');
+      arrayName.forEach(element => {
+        avatar += element.charAt(0)
+      });
+    }
+    return avatar;
+  };
 }

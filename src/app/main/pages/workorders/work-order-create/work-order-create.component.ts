@@ -68,7 +68,7 @@ export class WorkOrderCreateComponent implements OnInit {
       pnStartDate: [''],
       pnEndDate: [''],
       paymentType: ['', [Validators.required]],
-      cardNo: [''],
+      // cardNo: [''],
     });
   }
   get formControls() {
@@ -153,7 +153,7 @@ export class WorkOrderCreateComponent implements OnInit {
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
         this.editCache[id].data.partNo = data.part;
-        this.editCache[id].data.qty = data.qty;
+        this.editCache[id].data.qty = 1;
         this.editCache[id].data.tax = 0;
         this.editCache[id].data.discount = 0;
         this.editCache[id].data.allowTax = data.tax;
@@ -231,7 +231,7 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
   }
   checkDiscountValidation(id: number) {
-    if (!this.editCache[id].data.discount || this.editCache[id].data.discount < 0)
+    if (this.editCache[id].data.discount < 0)
       return this.commonService.showError("Discount must be greater than 0 or equal to 0", "Error");
   }
   checkTaxValidation(id: number) {
