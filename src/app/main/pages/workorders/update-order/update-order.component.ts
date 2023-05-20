@@ -67,16 +67,20 @@ export class UpdateOrderComponent implements OnInit {
         this.customerDetail = res.data;
         this.customerList.push(this.customerDetail[0].customer)
         this.customerId = this.customerDetail[0].customer.customerId;
-        this.paymentMethodName =this.customerDetail[0].paymentType
+        this.paymentMethodName = this.customerDetail[0].paymentType
         let obj = {
-          mobile:this.customerDetail[0].customer.mobile,
-          nationalId:this.customerDetail[0].customer.nationalId,
-          salesNote:this.customerDetail[0].salesNote,
-          paymentType:this.customerDetail[0].paymentType,
-          pnStartDate:this.customerDetail[0].pnStartDate,
-          pnEndDate:this.customerDetail[0].pnEndDate,
+          mobile: this.customerDetail[0].customer.mobile,
+          nationalId: this.customerDetail[0].customer.nationalId,
+          salesNote: this.customerDetail[0].salesNote,
+          paymentType: this.customerDetail[0].paymentType,
+          pnStartDate: new Date(this.customerDetail[0].pnStartDate),
+          pnEndDate: new Date(this.customerDetail[0].pnEndDate),
         }
-        this.orderForm.patchValue(obj);
+        // this.orderForm.patchValue(obj);
+        // const dateValue = this.customerDetail[0].pnStartDate;
+        // const formattedDate = dateValue.substr(0, 10); // Extract 'yyyy-MM-dd'
+       
+        // this.orderForm.value.pnStartDate = formattedDate;
       } else {
         this.customerDetail = [];
       }
@@ -167,12 +171,14 @@ export class UpdateOrderComponent implements OnInit {
     this.searchInput$.next(event);
   }
   getCustomer(event: any) {
-    if (event.length >= 3) {
-      this.apiService.getCustomer(event).subscribe(res => {
-        if (res.data.length > 0) {
-          this.customerList = res.data;
-        }
-      })
+    if (event) {
+      if (event.length >= 3) {
+        this.apiService.getCustomer(event).subscribe(res => {
+          if (res.data.length > 0) {
+            this.customerList = res.data;
+          }
+        })
+      }
     }
     if (typeof event === 'number') {
       let obj = this.customerList.find(a => a.customerId == event);
@@ -383,6 +389,6 @@ export class UpdateOrderComponent implements OnInit {
         }
       )
     }
-    console.log(JSON.stringify(this.orderForm.value))
+    // console.log(JSON.stringify(this.orderForm.value))
   }
 }
