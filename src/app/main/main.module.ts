@@ -16,12 +16,13 @@ import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/w
 import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
 import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail.component';
 import { LogoutComponent } from './containers/logout/logout.component';
+import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
     NgZorroAntdModule,],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
-    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent],
+    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent],
   providers: [
     DecimalPipe
   ]

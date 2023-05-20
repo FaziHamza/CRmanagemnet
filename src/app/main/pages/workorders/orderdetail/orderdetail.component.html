@@ -112,6 +112,14 @@
             <div class="card">
                 <div class="card-heading">
                     <h5>Spare Parts</h5>
+                    <h5 class="text-right">
+                        <a class="pen-icon" [routerLink]="['/home/updateorders',paramId]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"
+                                    d="M4 22h4m12 0h-8m1.888-18.337l.742-.742a3.146 3.146 0 1 1 4.449 4.45l-.742.74m-4.449-4.448s.093 1.576 1.483 2.966c1.39 1.39 2.966 1.483 2.966 1.483m-4.449-4.45L7.071 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-.875 2.626m14.08-8.13L14.93 11.52m-3.41 3.41c-.462.462-.692.692-.947.891c-.3.234-.625.435-.969.599c-.291.139-.601.242-1.22.448l-2.626.876m0 0l-.641.213a.848.848 0 0 1-1.073-1.073l.213-.641m1.501 1.5l-1.5-1.5" />
+                            </svg>
+                        </a>
+                    </h5>
                 </div>
 
                 <nz-table #editRowTable nzBordered [nzPageSize]="pageSize" [nzData]="sparePartDetailList"
@@ -147,9 +155,9 @@
     </div>
     <div class="card">
         <div class="grand-amount-card">
-            <div class="add-note">
+            <div class="add-note" *ngIf="customerDetail.length  > 0">
                 <h4>Sales Note</h4>
-                <textarea name="" id="" rows="3"></textarea>
+                <textarea name="" id="" rows="3" [value]="customerDetail[0].salesNote" [disabled]="true"></textarea>
 
             </div>
             <div class="total-amount">
@@ -165,15 +173,15 @@
                 <h4 class="card-subheading">Payment Method</h4>
                 <div class="radio-btns">
                     <div class="form-check" *ngIf="customerDetail[0].paymentType =='Cash'">
-                        <input class="form-check-input" [disabled]="true" [(ngModel)]="customerDetail[0].paymentType" type="radio"
-                            value="Cash" id="flexRadioDefault1">
+                        <input class="form-check-input" [disabled]="true" [(ngModel)]="customerDetail[0].paymentType"
+                            type="radio" value="Cash" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
                             Cash
                         </label>
                     </div>
                     <div class="form-check" *ngIf="customerDetail[0].paymentType !='Cash'">
-                        <input class="form-check-input" [disabled]="true" [(ngModel)]="customerDetail[0].paymentType" type="radio"
-                            value="PN" id="flexRadioDefault2">
+                        <input class="form-check-input" [disabled]="true" [(ngModel)]="customerDetail[0].paymentType"
+                            type="radio" value="PN" id="flexRadioDefault2">
                         <label class="form-check-label" for="flexRadioDefault2">
                             PN
                         </label>
@@ -182,28 +190,30 @@
             </div>
             <div class="col-lg-8" *ngIf="customerDetail[0].paymentType !='Cash'">
                 <div class="row">
-                    
+
                     <div class="col-lg-6 col-md-6">
                         <div class="mb-3">
                             <h4 class="card-subheading">Start Date *</h4>
                             <input type="text" class="form-control date-input" [disabled]="true"
-                             [value]="customerDetail[0].pnStartDate | date:'dd MMM yyyy'"  placeholder="Start Date">
+                                [value]="customerDetail[0].pnStartDate | date:'dd MMM yyyy'" placeholder="Start Date">
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="mb-3">
                             <h4 class="card-subheading">End Date *</h4>
                             <input type="text" class="form-control date-input" [disabled]="true"
-                              [value]="customerDetail[0].pnEndDate | date:'dd MMM yyyy'"  placeholder="End Date">
+                                [value]="customerDetail[0].pnEndDate | date:'dd MMM yyyy'" placeholder="End Date">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- <div class="bottom-buttons">
-            <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                [routerLink]="'/home/allorder'">Cancel</button>
-            <button class="btn o-btn hvr-bounce-to-right" type="submit">Update</button>
-        </div> -->
+        <div class="bottom-buttons" *ngIf="customerDetail.length > 0">
+            <div *ngIf="customerDetail[0].statusObj[0].statusName =='Waiting'">
+                <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                    [routerLink]="'/home/allorder'">Cancel</button>
+                <button class="btn o-btn hvr-bounce-to-right" type="submit">Update</button>
+            </div>
+        </div>
     </div>
 </div>

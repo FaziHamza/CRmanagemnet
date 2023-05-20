@@ -9,6 +9,7 @@ import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/work-order-create.component';
 import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
 import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail.component';
+import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: 'createorders',
         component: WorkOrderCreateComponent,
+      },
+      {
+        path: 'updateorders/:id',
+        component: UpdateOrderComponent,
       },
       {
         path: 'allorder',

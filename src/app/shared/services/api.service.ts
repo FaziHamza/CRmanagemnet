@@ -42,6 +42,10 @@ export class ApiService {
     let url = environment.intermediate + "SalesOrders/CreateWorkOrder";
     return this.http.post<AppResponse>(url,obj);
   }
+  updateWorkOrder(obj:any) :Observable<AppResponse> {
+    let url = environment.intermediate + "SalesOrders/UpdateWorkOrder";
+    return this.http.post<AppResponse>(url,obj);
+  }
 
   getStatusLookup(id:number):Observable<AppResponse> {
     let url = environment.intermediate + "Lookups/GetLookups?lookupTypeId="+id;

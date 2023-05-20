@@ -21,8 +21,8 @@
                                 <label for="exampleInputEmail1" class="form-label">Full Name <span
                                         class="text-danger">*</span></label>
                                 <input type="text" placeholder="Type name or Phone No National ID..."
-                                    class="form-control" id="exampleInputEmail1" nz-input
-                                    [ngModelOptions]="{ standalone: true }" [(ngModel)]="customerId"
+                                    class="form-control" id="exampleInputEmail1" nz-input  formControlName="customerName"
+                                   [(ngModel)]="customerId"
                                     (ngModelChange)="onChangeName($event)" [nzAutocomplete]="customerName" />
                                 <nz-autocomplete #customerName>
                                     <nz-auto-option *ngFor="let option of customerList" [nzValue]="option.customerId"
@@ -109,7 +109,7 @@
                                     <td>{{ data.qty }}</td>
                                     <td>{{ data.unitofMeasure | number:'1.3-3'}} <small> JD</small></td>
                                     <td>{{ data.total | number:'1.3-3'}} <small> JD</small></td>
-                                    <td>{{ data.discount | number:'1.3-3'}} <small>%</small></td>
+                                    <td>{{ data.discount}} <small>%</small></td>
                                     <td>{{ data.net | number:'1.3-3'}} <small> JD</small></td>
                                     <td>{{ data.tax }} <small>%</small></td>
                                     <td>{{ data.totalPrice | number:'1.3-3'}} <small> JD</small></td>
@@ -248,14 +248,14 @@
                         <div class="radio-btns">
                             <div class="form-check">
                                 <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio"
-                                    formControlName="paymentType" value="cash" id="flexRadioDefault1">
+                                    formControlName="paymentType" value="Cash" id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Cash
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio"
-                                    formControlName="paymentType" value="pn" id="flexRadioDefault2">
+                                    formControlName="paymentType" value="PN" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     PN
                                 </label>
@@ -271,7 +271,7 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <div *ngIf="paymentMethodName == 'pn'">
+                        <div *ngIf="paymentMethodName == 'PN'">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="mb-3">
@@ -291,13 +291,10 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="bottom-buttons">
                     <button type="button" class="btn btn-white hvr-bounce-to-right2"
                         [routerLink]="'/home/allorder'">Cancel</button>
-                    <button class="btn o-btn hvr-bounce-to-right" type="submit">Create</button>
+                    <button class="btn o-btn hvr-bounce-to-right" type="submit">Update</button>
                 </div>
             </div>
         </div>
