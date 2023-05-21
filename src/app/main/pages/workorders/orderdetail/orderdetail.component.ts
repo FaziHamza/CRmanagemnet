@@ -52,7 +52,7 @@ export class OrderdetailComponent implements OnInit {
     })
   }
   // getSparePartList() {
-  //   debugger
+  //   
   //   this.sparePartList = [
   //     {
   //       id: 1,

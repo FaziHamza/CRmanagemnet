@@ -21,7 +21,7 @@ export class AuthService {
 
   // 1  Set Auth
   setAuth(user: any) {
-    debugger
+    
     // saving JWT sent from Server, in LocalStorage
     this.jwtService.saveToken(user.token);
     window.localStorage['user'] = JSON.stringify(user);

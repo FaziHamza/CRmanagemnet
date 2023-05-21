@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { MainLayoutComponent } from './containers/main-layout/main-layout.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { MainRoutingModule } from './main-routing.module';
@@ -20,11 +20,11 @@ import { UpdateOrderComponent } from './pages/workorders/update-order/update-ord
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
-    NgZorroAntdModule,],
+    NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
     WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent],
   providers: [
-    DecimalPipe
+    DecimalPipe,DatePipe
   ]
 })
 export class MainModule {}

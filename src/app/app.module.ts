@@ -19,7 +19,7 @@ import { NgZorroAntdModule } from './zorro-module/ng-zorro-antd.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ApiService } from './shared/services/api.service';
 import { AuthInterceptor } from './shared/services/interceptor';
@@ -45,6 +45,7 @@ import { AuthGuard } from './utility/guards/auth.guard';
     ShareModule,
     SharedModule,
     MainModule,
+    DatePipe,
   ],
   declarations: [AppComponent, FormBaseComponent],
   bootstrap: [AppComponent],

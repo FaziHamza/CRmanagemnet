@@ -146,7 +146,7 @@ export class WorkOrderCreateComponent implements OnInit {
     if (typeof value === 'number') {
       let data = this.filteredOptions.find(a => a.id == value);
       if (data) {
-        debugger
+        
        
         this.avalaibeQty= this.getLastDigit(data.partQtyConcat);
       //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
@@ -173,7 +173,7 @@ export class WorkOrderCreateComponent implements OnInit {
   onChangeQty(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      debugger
+      
       this.editCache[id].data.qty = value;
       this.editCache[id].data.total = value * this.editCache[id].data.unitofMeasure;
       this.onChangeDiscount(this.editCache[id].data.discount, id);

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,7 +32,8 @@ export class UpdateOrderComponent implements OnInit {
   customerDetail: any[] = [];
   constructor(private commonService: CommonService, private apiService: ApiService,
     private activeRoute: ActivatedRoute,
-    private formBuilder: FormBuilder, private router: Router) {
+    private formBuilder: FormBuilder, private router: Router
+    ,private datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -68,18 +70,24 @@ export class UpdateOrderComponent implements OnInit {
         this.customerList.push(this.customerDetail[0].customer)
         this.customerId = this.customerDetail[0].customer.customerId;
         this.paymentMethodName = this.customerDetail[0].paymentType
+        debugger
         let obj = {
           mobile: this.customerDetail[0].customer.mobile,
           nationalId: this.customerDetail[0].customer.nationalId,
           salesNote: this.customerDetail[0].salesNote,
           paymentType: this.customerDetail[0].paymentType,
-          pnStartDate: new Date(this.customerDetail[0].pnStartDate),
-          pnEndDate: new Date(this.customerDetail[0].pnEndDate),
+          pnStartDate: this.datePipe.transform(this.customerDetail[0].pnStartDate, 'yyyy-MM-dd'),
+          pnEndDate: this.datePipe.transform(this.customerDetail[0].pnEndDate, 'yyyy-MM-dd'),
         }
-        // this.orderForm.patchValue(obj);
+        this.orderForm.patchValue(obj);
+
+        // const initialEndDate = '2023-05-25T00:00:00';
+        // this.orderForm.patchValue({
+        //   pnEndDate: initialEndDate
+        // });
         // const dateValue = this.customerDetail[0].pnStartDate;
         // const formattedDate = dateValue.substr(0, 10); // Extract 'yyyy-MM-dd'
-       
+
         // this.orderForm.value.pnStartDate = formattedDate;
       } else {
         this.customerDetail = [];
@@ -135,6 +143,7 @@ export class UpdateOrderComponent implements OnInit {
       salesNote: ['', [Validators.maxLength(150)]],
       pnStartDate: [''],
       pnEndDate: [''],
+
       paymentType: ['', [Validators.required]],
       // cardNo: [''],
     });
@@ -216,7 +225,7 @@ export class UpdateOrderComponent implements OnInit {
     if (typeof value === 'number') {
       let data = this.filteredOptions.find(a => a.id == value);
       if (data) {
-        debugger
+
 
         this.avalaibeQty = this.getLastDigit(data.partQtyConcat);
         //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
@@ -243,7 +252,7 @@ export class UpdateOrderComponent implements OnInit {
   onChangeQty(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      debugger
+
       this.editCache[id].data.qty = value;
       this.editCache[id].data.total = value * this.editCache[id].data.unitofMeasure;
       this.onChangeDiscount(this.editCache[id].data.discount, id);
@@ -326,7 +335,7 @@ export class UpdateOrderComponent implements OnInit {
   }
 
   updateEditCache(): void {
-    debugger
+
     this.listOfData.forEach((item, index) => {
       this.editCache[index + 1] = {
         edit: false,
