@@ -103,7 +103,7 @@
                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                 <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
                                     <td>{{ data.partNo }}
-                                      
+
                                     </td>
                                     <td>{{ data.description }}</td>
                                     <td>{{ data.qty }}</td>
@@ -151,7 +151,8 @@
                                                     {{ option.partQtyConcat }}
                                                 </nz-auto-option>
                                             </nz-autocomplete>
-                                            <small *ngIf="avalaibeQty>=0" class="bottom-text"> Avalaibe qty: {{avalaibeQty}}</small>
+                                            <small *ngIf="avalaibeQty>=0" class="bottom-text"> Avalaibe qty:
+                                                {{avalaibeQty}}</small>
                                         </div>
                                     </td>
                                     <td><input type="text" title="Discription Here" [disabled]="true" nz-input
@@ -261,6 +262,11 @@
                                 </label>
                             </div>
                         </div>
+                        <ul *ngIf="errorsList" style="color: red;">
+                            <li *ngFor="let item of errorsList">
+                                {{item?.ErrorMessageEn}}
+                            </li>
+                        </ul>
                         <div class="text-danger">
                             <div
                                 *ngIf="(orderForm.get('paymentType').invalid && (orderForm.get('paymentType').touched || saveSubmitted)) || (!orderForm.get('paymentType').value && saveSubmitted)">

@@ -261,6 +261,11 @@
                                 </label>
                             </div>
                         </div>
+                        <ul *ngIf="errorsList" style="color: red;">
+                            <li *ngFor="let item of errorsList">
+                                {{item?.ErrorMessageEn}}
+                            </li>
+                        </ul>
                         <div class="text-danger">
                             <div
                                 *ngIf="(orderForm.get('paymentType').invalid && (orderForm.get('paymentType').touched || saveSubmitted)) || (!orderForm.get('paymentType').value && saveSubmitted)">

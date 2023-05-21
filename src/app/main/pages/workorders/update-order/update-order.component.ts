@@ -28,6 +28,7 @@ export class UpdateOrderComponent implements OnInit {
   saveLoader: any = false;
   tableLoader: any = false;
   taxList: any[] = [];
+  errorsList:any[] = [];
   paramId: any;
   customerDetail: any[] = [];
   constructor(private commonService: CommonService, private apiService: ApiService,
@@ -272,7 +273,8 @@ export class UpdateOrderComponent implements OnInit {
   onChangeTax(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      this.editCache[id].data.totalPrice = parseFloat(this.editCache[id].data.net) + ((parseFloat(value) / 100) * data.unitofMeasure * this.editCache[id].data.qty);
+      var textvalue = this.editCache[id].data.net.toFixed(3)*parseFloat(value) / 100;
+      this.editCache[id].data.totalPrice = parseFloat(textvalue.toFixed(3))+parseFloat(this.editCache[id].data.net.toFixed(3))
     }
   }
   addRow(): void {
@@ -364,6 +366,7 @@ export class UpdateOrderComponent implements OnInit {
     this.grandTotal = grandTotal;
   }
   saveForm() {
+    this.errorsList=[];
     let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
     this.orderForm.value['spareParts'] = this.listOfData;
     this.orderForm.value['grandAmount'] = this.grandTotal;
@@ -374,6 +377,14 @@ export class UpdateOrderComponent implements OnInit {
       return this.commonService.showError("Please Enter at least one product", "Error");
     }
     if (this.orderForm.valid) {
+      this.listOfData.forEach((item) => {
+        item.tax = parseInt(item.tax);
+        item.total = parseFloat(item.total.toFixed(3));
+        item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
+
+        delete item.partQtyConcat;
+        delete item.unitofMeasure
+      });
       this.saveLoader = true;
       this.orderForm.value.pnStartDate = this.orderForm.value.pnStartDate ? this.orderForm.value.pnStartDate : new Date();
       this.orderForm.value.pnEndDate = this.orderForm.value.pnEndDate ? this.orderForm.value.pnEndDate : new Date();
@@ -389,11 +400,14 @@ export class UpdateOrderComponent implements OnInit {
             this.getGrandTotal();
           } else {
             this.saveLoader = false;
+            this.errorsList=response["Errors"];
+
             this.commonService.showError("found some error..!", "Error");
           }
         },
         (error) => {
           this.saveLoader = false;
+          this.errorsList=[];
           this.commonService.showError("found some error..!", "Error");
         }
       )
