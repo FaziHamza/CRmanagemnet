@@ -287,14 +287,17 @@ export class WorkOrderCreateComponent implements OnInit {
   }
   saveForm() {
     this.errorsList = [];
-    let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
-    this.orderForm.value['spareParts'] = this.listOfData;
-    this.orderForm.value['grandAmount'] = this.grandTotal;
-    this.orderForm.value['customerId'] = customerData?.customerId;
-    this.saveSubmitted = true;
     if (this.listOfData.length == 0) {
       return this.commonService.showError("Please Enter at least one product", "Error");
     }
+    this.listOfData.forEach((item) => {
+      this.saveEdit(item.id);
+    });
+    let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
+    this.orderForm.value['spareParts'] = this.listOfData;
+    this.orderForm.value['grandAmount'] = parseFloat(this.grandTotal.toFixed(3));
+    this.orderForm.value['customerId'] = customerData?.customerId;
+    this.saveSubmitted = true;
     if (this.paymentMethodName == 'pn') {
       if (!this.orderForm.value.pnStartDate)
         return this.commonService.showError("Please select start date!", "Error");
@@ -310,6 +313,7 @@ export class WorkOrderCreateComponent implements OnInit {
         item.tax = parseInt(item.tax);
         item.total = parseFloat(item.total.toFixed(3));
         item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
+        item.net = parseFloat(item.net.toFixed(3));
 
         delete item.partQtyConcat;
         delete item.unitofMeasure
