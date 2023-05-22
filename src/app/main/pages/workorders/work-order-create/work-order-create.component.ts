@@ -248,6 +248,7 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Qty must be greater than 0", "Error");
 
     const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
+    if(item)
     if (item.qty < this.editCache[id].data.qty)
       return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
     const index = this.listOfData.findIndex(item => item.id === id);

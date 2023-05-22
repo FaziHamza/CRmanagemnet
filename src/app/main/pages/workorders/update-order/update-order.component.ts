@@ -328,6 +328,7 @@ export class UpdateOrderComponent implements OnInit {
       return this.commonService.showError("Qty must be greater than 0", "Error");
 
     const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
+    if(item)
     if (item.qty < this.editCache[id].data.qty)
       return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
     const index = this.listOfData.findIndex(item => item.id === id);
@@ -367,27 +368,40 @@ export class UpdateOrderComponent implements OnInit {
   }
   saveForm() {
     this.errorsList=[];
+    if (this.listOfData.length == 0) {
+      return this.commonService.showError("Please Enter at least one product", "Error");
+    }
+    this.listOfData.forEach((item) => {
+      this.saveEdit(item.id);
+    });
     let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
     this.orderForm.value['spareParts'] = this.listOfData;
     this.orderForm.value['grandAmount'] = this.grandTotal;
     this.orderForm.value['customerId'] = customerData?.customerId;
     this.orderForm.value['orderId'] = parseInt(this.paramId);
     this.saveSubmitted = true;
-    if (this.listOfData.length == 0) {
-      return this.commonService.showError("Please Enter at least one product", "Error");
+    if (this.paymentMethodName == 'pn') {
+      if (!this.orderForm.value.pnStartDate)
+        return this.commonService.showError("Please select start date!", "Error");
+      if (!this.orderForm.value.pnEndDate)
+        return this.commonService.showError("Please select end date!", "Error");
     }
     if (this.orderForm.valid) {
+      if (this.paymentMethodName != 'pn') {
+        this.orderForm.value.pnStartDate = new Date();
+        this.orderForm.value.pnEndDate = new Date();
+      }
+
       this.listOfData.forEach((item) => {
         item.tax = parseInt(item.tax);
         item.total = parseFloat(item.total.toFixed(3));
         item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
+        item.net = parseFloat(item.net.toFixed(3));
 
         delete item.partQtyConcat;
         delete item.unitofMeasure
       });
       this.saveLoader = true;
-      this.orderForm.value.pnStartDate = this.orderForm.value.pnStartDate ? this.orderForm.value.pnStartDate : new Date();
-      this.orderForm.value.pnEndDate = this.orderForm.value.pnEndDate ? this.orderForm.value.pnEndDate : new Date();
       this.apiService.updateWorkOrder(this.orderForm.value).subscribe(
         (response) => {
           if (response.isSuccess) {
