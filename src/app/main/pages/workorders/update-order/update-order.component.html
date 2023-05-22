@@ -112,7 +112,7 @@
                                     <td>{{ data.discount}} <small>%</small></td>
                                     <td>{{ data.net | customRound: 3}} <small> JD</small></td>
                                     <td>{{ data.tax }} <small>%</small></td>
-                                    <td>{{ data.totalPrice | customRound: 3}} <small> JD</small></td>
+                                    <td>{{ data.totalPrice | round: 3}} <small> JD</small></td>
                                     <td>
                                         <a (click)="startEdit(data.id)" class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -236,7 +236,7 @@
                     </div>
                     <div class="total-amount">
                         <h4 class="card-subheading">Grand Amount</h4>
-                        <button type="button" class="btn btn-secondary">{{grandTotal | customRound: 3}} <small>
+                        <button type="button" class="btn btn-secondary">{{grandTotal | round: 3}} <small>
                                 JD</small></button>
                     </div>
                 </div>
