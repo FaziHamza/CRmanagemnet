@@ -17,12 +17,14 @@ import { AllorderComponent } from './pages/workorders/allorder/allorder.componen
 import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail.component';
 import { LogoutComponent } from './containers/logout/logout.component';
 import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
+import { CustomRoundPipe } from '../pipe/custom-round-pipe';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
-    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent],
+    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent
+  ,CustomRoundPipe],
   providers: [
     DecimalPipe,DatePipe
   ]

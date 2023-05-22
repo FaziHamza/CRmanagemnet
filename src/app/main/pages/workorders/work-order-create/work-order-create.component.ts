@@ -4,12 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
-import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/form-base.component';
 
 @Component({
   selector: 'app-work-order-create',
   templateUrl: './work-order-create.component.html',
-  styleUrls: ['./work-order-create.component.scss']
+  styleUrls: ['./work-order-create.component.scss'],
 })
 export class WorkOrderCreateComponent implements OnInit {
   searchInput$ = new Subject<any>();
@@ -27,8 +26,8 @@ export class WorkOrderCreateComponent implements OnInit {
   paymentMethodName: string;
   saveLoader: any = false;
   tableLoader: any = false;
-  taxList :any[] = [];
-  errorsList:any[] = [];
+  taxList: any[] = [];
+  errorsList: any[] = [];
   constructor(private commonService: CommonService, private apiService: ApiService,
     private formBuilder: FormBuilder, private router: Router) {
   }
@@ -48,7 +47,7 @@ export class WorkOrderCreateComponent implements OnInit {
     this.searchPartNo$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        this.getPartNo(value.value,value.id);
+        this.getPartNo(value.value, value.id);
       });
   }
   getTaxLookup() {
@@ -119,12 +118,12 @@ export class WorkOrderCreateComponent implements OnInit {
   }
   onChange(value: any, id: any): void {
     let obj = {
-      value:value,
-      id:id
+      value: value,
+      id: id
     }
     this.searchPartNo$.next(obj);
   }
-  getPartNo(value: any, id: any){
+  getPartNo(value: any, id: any) {
     if (value.length >= 3) {
       this.tableLoader = true;
       this.apiService.getParts(value).subscribe(res => {
@@ -142,15 +141,15 @@ export class WorkOrderCreateComponent implements OnInit {
         }
       })
     }
-  
+
 
     if (typeof value === 'number') {
       let data = this.filteredOptions.find(a => a.id == value);
       if (data) {
-        
-       
-        this.avalaibeQty= this.getLastDigit(data.partQtyConcat);
-      //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
+
+
+        this.avalaibeQty = this.getLastDigit(data.partQtyConcat);
+        //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
         this.editCache[id].data.partNo = data.part;
@@ -166,7 +165,7 @@ export class WorkOrderCreateComponent implements OnInit {
     }
   }
 
-   getLastDigit = (str) => {
+  getLastDigit = (str) => {
     const lastIndex = str.lastIndexOf('-');
     const lastDigit = str.substring(lastIndex + 1).trim();
     return lastDigit;
@@ -174,28 +173,28 @@ export class WorkOrderCreateComponent implements OnInit {
   onChangeQty(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      
+
       this.editCache[id].data.qty = value;
       this.editCache[id].data.total = value * this.editCache[id].data.unitofMeasure;
       this.onChangeDiscount(this.editCache[id].data.discount, id);
     }
   }
-  avalaibeQty:number=-1;
+  avalaibeQty: number = -1;
   onChangeDiscount(value: any, id: any) {
     if (value >= 100) {
 
     }
     let data = this.editCache[id].data;
     if (data) {
-      this.editCache[id].data.net = (this.editCache[id].data.qty * data.unitofMeasure) - ((value / 100) * data.unitofMeasure * this.editCache[id].data.qty);
+      this.editCache[id].data.net = (this.editCache[id].data.qty * data.unitofMeasure) - ((value / 100) * this.editCache[id].data.total);
       this.onChangeTax(this.editCache[id].data.tax, id);
     }
   }
   onChangeTax(value: any, id: any) {
     let data = this.editCache[id].data;
     if (data) {
-      var textvalue = this.editCache[id].data.net.toFixed(3)*parseFloat(value) / 100;
-      this.editCache[id].data.totalPrice = parseFloat(textvalue.toFixed(3))+parseFloat(this.editCache[id].data.net.toFixed(3))
+      var textvalue = this.editCache[id].data.net.toFixed(3) * parseFloat(value) / 100;
+      this.editCache[id].data.totalPrice = parseFloat(textvalue.toFixed(3)) + parseFloat(this.editCache[id].data.net.toFixed(3))
     }
   }
   addRow(): void {
@@ -214,7 +213,7 @@ export class WorkOrderCreateComponent implements OnInit {
       net: 0,
       tax: 0,
       totalPrice: 0,
-      allowTax : false,
+      allowTax: false,
 
     }
     this.listOfData.unshift(newRow);
@@ -241,7 +240,7 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Tax must be greater than 0 or equal to 0", "Error");
   }
   saveEdit(id: number): void {
-    this.avalaibeQty =-1;
+    this.avalaibeQty = -1;
     if (!this.editCache[id].data.partNo)
       return this.commonService.showError("Please fill detail first!", "Error");
 
@@ -287,7 +286,7 @@ export class WorkOrderCreateComponent implements OnInit {
     this.grandTotal = grandTotal;
   }
   saveForm() {
-    this.errorsList=[];
+    this.errorsList = [];
     let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
     this.orderForm.value['spareParts'] = this.listOfData;
     this.orderForm.value['grandAmount'] = this.grandTotal;
@@ -296,7 +295,17 @@ export class WorkOrderCreateComponent implements OnInit {
     if (this.listOfData.length == 0) {
       return this.commonService.showError("Please Enter at least one product", "Error");
     }
+    if (this.paymentMethodName == 'pn') {
+      if (!this.orderForm.value.pnStartDate)
+        return this.commonService.showError("Please select start date!", "Error");
+      if (!this.orderForm.value.pnEndDate)
+        return this.commonService.showError("Please select end date!", "Error");
+    }
     if (this.orderForm.valid) {
+      if (this.paymentMethodName != 'pn') {
+        this.orderForm.value.pnStartDate = new Date();
+        this.orderForm.value.pnEndDate = new Date();
+      }
       this.listOfData.forEach((item) => {
         item.tax = parseInt(item.tax);
         item.total = parseFloat(item.total.toFixed(3));
@@ -306,8 +315,7 @@ export class WorkOrderCreateComponent implements OnInit {
         delete item.unitofMeasure
       });
       this.saveLoader = true;
-      this.orderForm.value.pnStartDate = this.orderForm.value.pnStartDate ? this.orderForm.value.pnStartDate : new Date();
-      this.orderForm.value.pnEndDate = this.orderForm.value.pnEndDate ? this.orderForm.value.pnEndDate : new Date();
+
       this.apiService.createWorkOrder(this.orderForm.value).subscribe(
         (response) => {
           if (response.isSuccess) {
@@ -320,13 +328,13 @@ export class WorkOrderCreateComponent implements OnInit {
             this.getGrandTotal();
           } else {
             this.saveLoader = false;
-            this.errorsList=response["Errors"];
+            this.errorsList = response["Errors"];
             this.commonService.showError("found some error..!", "Error");
           }
         },
         (error) => {
           this.saveLoader = false;
-          this.errorsList=[];
+          this.errorsList = [];
 
           this.commonService.showError("found some error..!", "Error");
         }

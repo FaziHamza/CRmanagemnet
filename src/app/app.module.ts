@@ -26,6 +26,7 @@ import { AuthInterceptor } from './shared/services/interceptor';
 import { SharedModule } from './shared/shared.module';
 import { MainModule } from './main/main.module';
 import { AuthGuard } from './utility/guards/auth.guard';
+import { CustomRoundPipe } from './pipe/custom-round-pipe';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { AuthGuard } from './utility/guards/auth.guard';
     AuthGuard,
     { provide: NZ_I18N, useValue: en_US },
     DecimalPipe ,
+    CustomRoundPipe,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,

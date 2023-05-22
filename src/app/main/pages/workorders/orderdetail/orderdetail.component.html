@@ -162,7 +162,7 @@
             </div>
             <div class="total-amount">
                 <h4 class="card-subheading">Grand Amount</h4>
-                <button type="button" class="btn btn-secondary">{{ totalPriceSum | number:'1.3-3'}} <small>
+                <button type="button" class="btn btn-secondary">{{ totalPriceSum | customRound: 3}} <small>
                         JD</small></button>
             </div>
         </div>

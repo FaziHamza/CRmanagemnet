@@ -82,7 +82,7 @@
                         <td>{{ data.customer.customerName }}</td>
                         <td>{{ data.customer.mobile }}</td>
                         <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
-                        <td>{{ data.grandAmount | number:'1.3-3' }}  JD</td>
+                        <td>{{ data.grandAmount | customRound: 3 }}  JD</td>
                         <td>{{ data.statusObj[0].statusName }}</td>
                         <td>
                             <a [routerLink]="['/home/orde-details',data.sparePartsSalesOrderOpportunityNo]" class="pen-icon">
