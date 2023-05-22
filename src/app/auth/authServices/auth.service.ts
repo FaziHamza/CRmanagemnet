@@ -56,7 +56,6 @@ export class AuthService {
 
   //   Login:
   public loginUser(model: LoginModel) {
-    
     let url = environment.administration + ApiConstants.apiEndPoints.auth.login;
     return this.http.post(url, model)
   }

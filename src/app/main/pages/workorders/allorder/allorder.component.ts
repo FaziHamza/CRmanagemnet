@@ -17,7 +17,7 @@ export class AllorderComponent implements OnInit {
   orderList: any[] = [];
   pageSize = 6;
   statusList: any[] = [];
-  orderParamObj: orderParam = { BranchId: 1, Customer: '', Status: 0, Sort: 1, Part: '' }
+  orderParamObj: orderParam = {PageSize:1000, BranchId: 1, Customer: '', Status: 0, Sort: 1, Part: '' }
   
   searchByCustomer: string = '';
   searchByPartNo: string = '';

@@ -4,4 +4,5 @@ export interface orderParam {
   Sort: number,
   Status: number,
   Part:string
+  PageSize:number
 }
