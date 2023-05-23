@@ -21,7 +21,7 @@ export class ApiService {
     return JSON.parse(localStorage.getItem('userDetail'))
   }
   saveCmsSetup(obj:any) :Observable<AppResponse> {
-    let url = environment.intermediate + "Setup/UpdateSetup";
+    let url = environment.creditmanagement + "Setup/UpdateSetup";
     return this.http.post<AppResponse>(url,obj);
   }
   getCMSSetup():Observable<AppResponse> {
