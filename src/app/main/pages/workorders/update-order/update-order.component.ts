@@ -415,7 +415,8 @@ export class UpdateOrderComponent implements OnInit {
           item.total = parseFloat(item.total.toFixed(3));
           item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
           item.net = parseFloat(item.net.toFixed(3));
-  
+
+          delete item.isSaved;
           delete item.partQtyConcat;
           delete item.unitofMeasure
         });

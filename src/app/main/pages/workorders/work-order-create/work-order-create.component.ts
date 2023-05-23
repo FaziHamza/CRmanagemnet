@@ -338,9 +338,9 @@ export class WorkOrderCreateComponent implements OnInit {
           item.tax = parseInt(item.tax);
           item.total = parseFloat(item.total.toFixed(3));
           item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
-          delete item.net;
-          // item.net = parseFloat(item.net.toFixed(3));
-
+          item.net = parseFloat(item.net.toFixed(3));
+          
+          delete item.isSaved;
           delete item.partQtyConcat;
           delete item.unitofMeasure;
           delete item.availabeQty;
