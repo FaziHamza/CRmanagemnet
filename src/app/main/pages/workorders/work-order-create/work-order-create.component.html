@@ -151,8 +151,8 @@
                                                     {{ option.partQtyConcat }}
                                                 </nz-auto-option>
                                             </nz-autocomplete>
-                                            <small *ngIf="avalaibeQty>=0" class="bottom-text"> Avalaibe qty:
-                                                {{avalaibeQty}}</small>
+                                            <small *ngIf="editCache[data.id].data.availabeQty" class="bottom-text"> Avalaibe qty:
+                                                {{editCache[data.id].data.availabeQty}}</small>
                                         </div>
                                     </td>
                                     <td><input type="text" title="Discription Here" [disabled]="true" nz-input

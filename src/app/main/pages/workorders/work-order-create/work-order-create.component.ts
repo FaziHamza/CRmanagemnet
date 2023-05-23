@@ -146,16 +146,16 @@ export class WorkOrderCreateComponent implements OnInit {
     if (typeof value === 'number') {
       let data = this.filteredOptions.find(a => a.id == value);
       if (data) {
-
-
         this.avalaibeQty = this.getLastDigit(data.partQtyConcat);
         //  this.avalaibeQty= parseInt(data.partQtyConcat.split('-')[2]);
         this.editCache[id].data.description = data.description;
         this.editCache[id].data.partQtyConcat = data.partQtyConcat;
         this.editCache[id].data.partNo = data.part;
+        this.editCache[id].data.availabeQty = this.avalaibeQty;
         this.editCache[id].data.qty = 1;
         this.editCache[id].data.tax = 0;
         this.editCache[id].data.discount = 0;
+        this.editCache[id].data.isSaved = true;
         this.editCache[id].data.allowTax = data.tax;
         this.editCache[id].data.total = parseFloat(data.price);
         this.editCache[id].data.unitofMeasure = parseFloat(data.price);
@@ -228,8 +228,14 @@ export class WorkOrderCreateComponent implements OnInit {
       return this.commonService.showError("Qty must be greater than 0", "Error");
 
     const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
-    if (item.qty < this.editCache[id].data.qty)
-      return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+    if (item) {
+      if (item.qty < this.editCache[id].data.qty)
+        return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+    }
+    else {
+      if (this.editCache[id].data.qty > this.editCache[id].data.availabeQty)
+        return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+    }
   }
   checkDiscountValidation(id: number) {
     if (this.editCache[id].data.discount < 0)
@@ -241,16 +247,35 @@ export class WorkOrderCreateComponent implements OnInit {
   }
   saveEdit(id: number): void {
     this.avalaibeQty = -1;
-    if (!this.editCache[id].data.partNo)
+    let itemList = this.listOfData.find(item => item.id === id);
+    if (!this.editCache[id].data.partNo) {
+      this.editCache[id].data.isSaved = false;
+      itemList.isSaved = false;
       return this.commonService.showError("Please fill detail first!", "Error");
+    }
 
-    if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0)
+    if (!this.editCache[id].data.qty || this.editCache[id].data.qty <= 0) {
+      this.editCache[id].data.isSaved = false;
+      itemList.isSaved = false;
       return this.commonService.showError("Qty must be greater than 0", "Error");
+    }
 
     const item = this.filteredOptions.find(item => item.part === this.editCache[id].data.partNo);
-    if(item)
-    if (item.qty < this.editCache[id].data.qty)
-      return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+    if (item) {
+      if (item.qty < this.editCache[id].data.qty) {
+        this.editCache[id].data.isSaved = false;
+        itemList.isSaved = false;
+        return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+      }
+    }
+    else {
+      if (this.editCache[id].data.qty > this.editCache[id].data.availabeQty) {
+        this.editCache[id].data.isSaved = false;
+        itemList.isSaved = false;
+        return this.commonService.showError("Branch qty must not exceed to the available qty", "Error");
+      }
+    }
+    this.editCache[id].data.isSaved = true;
     const index = this.listOfData.findIndex(item => item.id === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
     this.editCache[id].edit = false;
@@ -258,7 +283,6 @@ export class WorkOrderCreateComponent implements OnInit {
   }
 
   updateEditCache(): void {
-    debugger
     this.listOfData.forEach((item, index) => {
       this.editCache[index + 1] = {
         edit: false,
@@ -294,57 +318,61 @@ export class WorkOrderCreateComponent implements OnInit {
     this.listOfData.forEach((item) => {
       this.saveEdit(item.id);
     });
-    let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
-    this.orderForm.value['spareParts'] = this.listOfData;
-    this.orderForm.value['grandAmount'] = parseFloat(this.grandTotal.toFixed(3));
-    this.orderForm.value['customerId'] = customerData?.customerId;
-    this.saveSubmitted = true;
-    if (this.paymentMethodName == 'pn') {
-      if (!this.orderForm.value.pnStartDate)
-        return this.commonService.showError("Please select start date!", "Error");
-      if (!this.orderForm.value.pnEndDate)
-        return this.commonService.showError("Please select end date!", "Error");
-    }
-    if (this.orderForm.valid) {
-      if (this.paymentMethodName != 'pn') {
-        this.orderForm.value.pnStartDate = new Date();
-        this.orderForm.value.pnEndDate = new Date();
+
+    let checkIsSaved = this.listOfData.find(a => a.isSaved == false);
+    if (!checkIsSaved) {
+      let customerData = this.customerList.find(a => a.customerName == this.orderForm.value.customerName);
+      this.saveSubmitted = true;
+      if (this.paymentMethodName == 'pn') {
+        if (!this.orderForm.value.pnStartDate)
+          return this.commonService.showError("Please select start date!", "Error");
+        if (!this.orderForm.value.pnEndDate)
+          return this.commonService.showError("Please select end date!", "Error");
       }
-      this.listOfData.forEach((item) => {
-        item.tax = parseInt(item.tax);
-        item.total = parseFloat(item.total.toFixed(3));
-        item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
-        item.net = parseFloat(item.net.toFixed(3));
+      if (this.orderForm.valid) {
+        if (this.paymentMethodName != 'pn') {
+          this.orderForm.value.pnStartDate = new Date();
+          this.orderForm.value.pnEndDate = new Date();
+        }
+        this.listOfData.forEach((item) => {
+          item.tax = parseInt(item.tax);
+          item.total = parseFloat(item.total.toFixed(3));
+          item.totalPrice = parseFloat(item.totalPrice.toFixed(3));
+          delete item.net;
+          // item.net = parseFloat(item.net.toFixed(3));
 
-        delete item.partQtyConcat;
-        delete item.unitofMeasure
-      });
-      this.saveLoader = true;
-
-      this.apiService.createWorkOrder(this.orderForm.value).subscribe(
-        (response) => {
-          if (response.isSuccess) {
+          delete item.partQtyConcat;
+          delete item.unitofMeasure;
+          delete item.availabeQty;
+        });
+        this.saveLoader = true;
+        this.orderForm.value['spareParts'] = this.listOfData;
+        this.orderForm.value['grandAmount'] = parseFloat(this.grandTotal.toFixed(3));
+        this.orderForm.value['customerId'] = customerData?.customerId;
+        this.apiService.createWorkOrder(this.orderForm.value).subscribe(
+          (response) => {
+            if (response.isSuccess) {
+              this.saveLoader = false;
+              this.commonService.showSuccess("Data save successfully..!", "Success");
+              this.router.navigateByUrl('home/allorder')
+              this.orderForm.reset();
+              this.listOfData = [];
+              this.updateEditCache();
+              this.getGrandTotal();
+            } else {
+              this.saveLoader = false;
+              this.errorsList = response["Errors"];
+              this.commonService.showError("found some error..!", "Error");
+            }
+          },
+          (error) => {
             this.saveLoader = false;
-            this.commonService.showSuccess("Data save successfully..!", "Success");
-            this.router.navigateByUrl('home/allorder')
-            this.orderForm.reset();
-            this.listOfData = [];
-            this.updateEditCache();
-            this.getGrandTotal();
-          } else {
-            this.saveLoader = false;
-            this.errorsList = response["Errors"];
+            this.errorsList = error.error.Errors;
             this.commonService.showError("found some error..!", "Error");
           }
-        },
-        (error) => {
-          this.saveLoader = false;
-          this.errorsList = [];
-
-          this.commonService.showError("found some error..!", "Error");
-        }
-      )
+        )
+      }
+      console.log(JSON.stringify(this.orderForm.value))
     }
-    console.log(JSON.stringify(this.orderForm.value))
   }
 }
