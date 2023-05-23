@@ -25,7 +25,7 @@ export class ApiService {
     return this.http.post<AppResponse>(url,obj);
   }
   getCMSSetup():Observable<AppResponse> {
-    let url = environment.intermediate + "Setup/GetCMSetup";
+    let url = environment.creditmanagement + "Setup/GetCMSetup";
     return this.http.get<AppResponse>(url);
   }
   getParts(partno:any):Observable<AppResponse> {
