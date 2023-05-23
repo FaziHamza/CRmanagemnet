@@ -23,6 +23,10 @@ export class MainSideBarComponent implements OnInit {
     const currentRoute = this.router.url;
     return currentRoute.includes('/createorders') || currentRoute.includes('/allorder') || currentRoute.includes('/orde-details') || currentRoute.includes('/updateorders');
   }
+  isCmActive(){
+    const currentRoute = this.router.url;
+    return currentRoute.includes('/cm-setup');
+  }
   ngOnInit(): void {
     this.checkWidth();
   }
