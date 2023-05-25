@@ -57,9 +57,9 @@ export class CMSetupComponent implements OnInit {
       controls.overDueAlertTypeValue = controls.overDueAlertType == "Days" ? controls.overDueAlertTypeValue : controls.overDueAlertTypeValueMonth
       this._apiService.saveCmsSetup(this.cmsSetupForm.value).subscribe(res => {
         if (res.isSuccess) {
-          this.commonService.showSuccess(res.message, "Success");
+          this.commonService.showSuccess("Data update successfully..!", "Success");
         } else {
-          this.commonService.showSuccess(res.message, "Error");
+          this.commonService.showSuccess("found some error..!", "Error");
         }
       })
     }
