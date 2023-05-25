@@ -1193,3 +1193,71 @@ input[type="number"] {
 hr{
     color: $primary-bg;
 }
+
+.Printed-status {
+    background: rgb(78, 78, 228);
+    font-size: 15px;
+    height: 42px;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: rgb(186, 234, 250);
+}
+
+.Signed-status {
+    background: rgb(175, 243, 175);
+    font-size: 15px;
+    height: 42px;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: green;
+}
+
+.Collected-status {
+    background: rgb(213, 235, 243);
+    font-size: 15px;
+    height: 42px;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: blue;
+}
+
+.Pending-status {
+    background: rgb(236, 214, 173);
+    font-size: 15px;
+    height: 42px;
+    width: 100%;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: orange;
+}

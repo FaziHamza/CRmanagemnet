@@ -166,45 +166,48 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
-                    <div class="card">
-                        <div class="card-heading">
-                            <div class="head-left">
-                                <h5>Promissory Notes Details</h5>
+                    <div *ngIf="!isGenerate">
+                        <div class="card">
+                            <div class="card-heading">
+                                <div class="head-left">
+                                    <h5>Promissory Notes Details</h5>
+                                </div>
+                                <div class="head-right"></div>
                             </div>
-                            <div class="head-right"></div>
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card-box">
+                                            <h4 class="title">Promissory Notes Amount :
+                                                <span class="detail">15,000</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card-box">
+                                            <h4 class="title">No. Of Installments :
+                                                <span class="detail">10</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card-box">
+                                            <h4 class="title">First Due Date :
+                                                <span class="detail">21-3-2023</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card-box">
-                                        <h4 class="title">Promissory Notes Amount :
-                                            <span class="detail">15,000</span>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card-box">
-                                        <h4 class="title">No. Of Installments :
-                                            <span class="detail">10</span>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card-box">
-                                        <h4 class="title">First Due Date :
-                                            <span class="detail">21-3-2023</span>
-                                        </h4>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="bottom-buttons">
+                            <button type="button" class="btn btn-white hvr-bounce-to-right2">Close</button>
+                            <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                (click)="this.isGenerate = true">Generate PNs Book</button>
                         </div>
                     </div>
-                    <div class="bottom-buttons">
-                        <button type="button" class="btn btn-white hvr-bounce-to-right2">Close</button>
-                        <button class="btn o-btn hvr-bounce-to-right" type="button"
-                            (click)="this.isGenerate = true">Generate PNs Book</button>
-                    </div>
+                   
                     <div *ngIf="isGenerate">
                         <nz-steps [nzCurrent]="current">
                             <nz-step nzTitle="Finished"></nz-step>
@@ -213,8 +216,49 @@
                         </nz-steps>
 
                         <div class="steps-content">
-                            <div *ngIf="current == 1">
-
+                            <div *ngIf="current == 0">
+                                <div class="table-responsive mt-4 pt-4">
+                                    <h5>Promissory Notes Orders List</h5>
+                                    <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
+                                        [nzPageSize]="6" >
+                                        <thead>
+                                            <tr>
+                                                <th nz-th nzSortFn="simpleSort" >
+                                                    Order No</th>
+            
+                                                <th>Customer Name</th>
+                                                <th nz-th nzSortFn="ascend" >Phone No</th>
+                                                <th nz-th nzSortFn="ascend" >Order Date
+                                                    Amount</th>
+                                                <th nz-th nzSortFn="ascend" >Status</th>
+                                                <th >Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of editRowTable.data;let index = index">
+                                                <td>{{ data.customer.customerName }}</td>
+                                                <td>{{ data.customer.mobile }}</td>
+                                                <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
+                                                <td>{{ data.grandAmount | customRound: 3 }} JD</td>
+                                                <td><button type="button" 
+                                                    [ngClass]="{
+                                                      'btn o-btn Printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
+                                                      'btn o-btn Signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
+                                                      'btn o-btn Collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
+                                                      'btn o-btn Pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
+                                                    }">
+                                              {{ data.statusObj[0].statusName }}
+                                            </button>
+                                            </td>
+                                                <td>
+                                                    <button type="button" class="btn o-btn hvr-bounce-to-right"
+                                                    > Generate
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </nz-table>
+                                </div>
                             </div>
                         </div>
                         <div class="steps-action">
