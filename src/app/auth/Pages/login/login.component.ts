@@ -48,7 +48,8 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
             localStorage.setItem('userDetail', JSON.stringify(response.data));
           this.commonService.showSuccess("Login Successfully!", "Success");
           this.authService.setAuth(response.data);
-          this.router.navigate(['/home/allorder']);
+          // this.router.navigate(['/home/allorder']);
+          this.router.navigate(['/home/dashboard']);
           } else {
             this.commonService.stopLoader();
           this.commonService.showError(response.Errors[0].ErrorMessageEn, "error");
