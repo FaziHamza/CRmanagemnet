@@ -21,7 +21,7 @@
                                 <label for="exampleInputEmail1" class="form-label">Full Name <span
                                         class="text-danger">*</span></label>
                                 <input type="text" placeholder="Type name or Phone No National ID..."
-                                    class="form-control" id="exampleInputEmail1" nz-input  formControlName="customerName"
+                                    class="form-control" id="update_order_full_name" nz-input  formControlName="customerName"
                                    [(ngModel)]="customerId"
                                     (ngModelChange)="onChangeName($event)" [nzAutocomplete]="customerName" />
                                 <nz-autocomplete #customerName>
@@ -43,14 +43,14 @@
                         <div class="col-lg-3 col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Phone Number</label>
-                                <input type="text" class="form-control" disabled placeholder="Phone Number"
+                                <input type="text" class="form-control" disabled placeholder="Phone Number" id="update_order_phone_number"
                                     formControlName="mobile">
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">National ID </label>
-                                <input type="text" class="form-control" disabled placeholder="National ID "
+                                <input type="text" class="form-control" disabled placeholder="National ID " id="update_order_national_id"
                                     formControlName="nationalId">
                             </div>
                         </div>
@@ -247,14 +247,14 @@
                         <h4 class="card-subheading">Payment Method</h4>
                         <div class="radio-btns">
                             <div class="form-check">
-                                <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio"
-                                    formControlName="paymentType" value="Cash" id="flexRadioDefault1">
+                                <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio" id="update_order_cash_radio"
+                                    formControlName="paymentType" value="Cash" >
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Cash
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio"
+                                <input class="form-check-input" [(ngModel)]="paymentMethodName" type="radio" id="update_order_pn_radio"
                                     formControlName="paymentType" value="PN" id="flexRadioDefault2">
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     PN
@@ -281,14 +281,14 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="mb-3">
                                         <h4 class="card-subheading">Start Date *</h4>
-                                        <input type="date" class="form-control date-input" placeholder="Start Date"
+                                        <input type="date" class="form-control date-input" placeholder="Start Date" id="update_order_start_date"
                                             formControlName="pnStartDate">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="mb-3">
                                         <h4 class="card-subheading">End Date *</h4>
-                                        <input type="date" class="form-control date-input" placeholder="End Date"
+                                        <input type="date" class="form-control date-input" placeholder="End Date" id="update_order_end_date"
                                             formControlName="pnEndDate">
                                     </div>
                                 </div>
