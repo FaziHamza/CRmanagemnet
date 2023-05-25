@@ -97,7 +97,7 @@ html {
 .o-btn {
     background: $primary;
     font-size: 15px;
-    height: 42px;
+    height: 48px;
     width: 100%;
     border: none;
     overflow: hidden;
@@ -129,7 +129,7 @@ html {
     position: absolute;
     z-index: -1;
     top: 0px;
-    height: 42px;
+    height: 48px;
     width: 100%;
     border-radius: 8px;
     // border: 1px solid white !important;
@@ -167,7 +167,7 @@ html {
 .btn-white {
     background: white;
     font-size: 15px;
-    height: 42px;
+    height: 48px;
     width: 160px;
     border-radius: 8px;
     border: none !important;
@@ -197,7 +197,7 @@ html {
     position: absolute;
     z-index: -1;
     top: 0px;
-    height: 42px;
+    height: 48px;
     width: 100%;
     border-radius: 7px;
     // border: 1px solid $primary !important;
@@ -1198,7 +1198,7 @@ input[type="number"] {
     .head-detail {
         font-weight: 600;
         font-size: 14px;
-        margin-left: 8px;
+        // margin-left: 8px;
         color: #929eae;
     }
 }
@@ -1208,7 +1208,7 @@ hr {
 }
 
 .Printed-status {
-    background: rgb(78, 78, 228);
+    background: #CCDDFF !important;
     font-size: 15px;
     height: 42px;
     width: 100%;
@@ -1221,11 +1221,11 @@ hr {
     align-items: center;
     font-size: 14px;
     letter-spacing: 0.3px;
-    color: rgb(186, 234, 250);
+    color: #0057FF !important;
 }
 
 .Signed-status {
-    background: rgb(175, 243, 175);
+    background: #BBF3E0 !important;
     font-size: 15px;
     height: 42px;
     width: 100%;
@@ -1238,11 +1238,11 @@ hr {
     align-items: center;
     font-size: 14px;
     letter-spacing: 0.3px;
-    color: green;
+    color: #12A474 !important;
 }
 
 .Collected-status {
-    background: rgb(213, 235, 243);
+    background: #F2F4FF !important;
     font-size: 15px;
     height: 42px;
     width: 100%;
@@ -1255,11 +1255,11 @@ hr {
     align-items: center;
     font-size: 14px;
     letter-spacing: 0.3px;
-    color: blue;
+    color: #0013BD !important;
 }
 
 .Pending-status {
-    background: rgb(236, 214, 173);
+    background: #FFF3DB !important;
     font-size: 15px;
     height: 42px;
     width: 100%;
@@ -1272,7 +1272,7 @@ hr {
     align-items: center;
     font-size: 14px;
     letter-spacing: 0.3px;
-    color: orange;
+    color: #FFB155 !important;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -1321,4 +1321,54 @@ hr {
     h5 {
         margin-bottom: 0px;
     }
+}
+
+.profileee {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .heading-box {
+        padding-left: 20px;
+
+        .head-title {
+            margin-bottom: 0px;
+
+            span {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.pdf-view-btn {
+    padding: 0px 16px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #11AF22;
+    border-radius: 4px;
+}
+
+.ant-table-cell button {
+    height: 40px !important;
+    border-radius: 6px;
+    padding: 0px !important;
+ }
+
+.table-edit {
+    color: #4E9AFF;
+}
+
+.ant-tabs-tab-btn {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+
+
+    color: #929EAE;
 }

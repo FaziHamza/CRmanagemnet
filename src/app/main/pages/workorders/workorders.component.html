@@ -6,91 +6,93 @@
     <button class="btn o-btn hvr-bounce-to-right" type="submit">Create</button>
 </div> -->
 <div class="container-fluid">
-    <nz-tabset>
-        <nz-tab nzTitle="Primissory Notes Order">
-            <div class="content-body-inner">
+    <div class="content-body-inner">
+        <nz-tabset>
+            <nz-tab nzTitle="Primissory Notes Order">
                 <div class="create-form">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="input-search">
-                                <input type="text" class="form-control " placeholder="Search by customer "
-                                    (input)="customerChange()" [(ngModel)]="searchByCustomer">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor" fill-rule="evenodd"
-                                        d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <svg (click)="clearInput()" *ngIf="this.searchByCustomer.length>0"
-                                    xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
-                                </svg>
+                        <div class="col-lg-9">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="input-search">
+                                        <input type="text" class="form-control " placeholder="Search by customer "
+                                            (input)="customerChange()" [(ngModel)]="searchByCustomer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <svg (click)="clearInput()" *ngIf="this.searchByCustomer.length>0"
+                                            xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
+                                        </svg>
 
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="input-search">
+                                        <input type="text" class="form-control " placeholder="Search by order desc ..."
+                                            (input)="searchPart()" [(ngModel)]="searchByPartNo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <svg (click)="clearPart()" *ngIf="this.searchByPartNo.length>0"
+                                            xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="input-search">
+                                        <input type="text" class="form-control "
+                                            placeholder="Search by order number ..." (input)="searchPart()"
+                                            [(ngModel)]="searchByPartNo">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <svg (click)="clearPart()" *ngIf="this.searchByPartNo.length>0"
+                                            xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="select-search">
+                                        <select class="form-select" [(ngModel)]="statusType" (change)="statusChange()"
+                                            aria-label="Default select example">
+                                            <option *ngIf="!statusType" selected value="">Search by status...</option>
+                                            <option [value]="data.id" *ngFor="let data of statusList">{{
+                                                data.description }}
+                                            </option>
+                                        </select>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path fill="currentColor" fill-rule="evenodd"
+                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        <svg (click)="clearStatus()" *ngIf="statusType"
+                                            xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
+                                        </svg>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        
                         <div class="col-lg-3 col-md-6">
-                            <div class="input-search">
-                                <input type="text" class="form-control " placeholder="Search by order desc ..."
-                                    (input)="searchPart()" [(ngModel)]="searchByPartNo">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor" fill-rule="evenodd"
-                                        d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <svg (click)="clearPart()" *ngIf="this.searchByPartNo.length>0"
-                                    xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="input-search">
-                                <input type="text" class="form-control " placeholder="Search by order number ..."
-                                    (input)="searchPart()" [(ngModel)]="searchByPartNo">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor" fill-rule="evenodd"
-                                        d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <svg (click)="clearPart()" *ngIf="this.searchByPartNo.length>0"
-                                    xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="select-search">
-                                <select class="form-select" [(ngModel)]="statusType" (change)="statusChange()"
-                                    aria-label="Default select example">
-                                    <option *ngIf="!statusType" selected value="">Search by status...</option>
-                                    <option [value]="data.id" *ngFor="let data of statusList">{{ data.description }}
-                                    </option>
-                                </select>
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                    viewBox="0 0 24 24">
-                                    <path fill="currentColor" fill-rule="evenodd"
-                                        d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                <svg (click)="clearStatus()" *ngIf="statusType" xmlns="http://www.w3.org/2000/svg"
-                                    class="close" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
-                                </svg>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-1">
-                        </div>
-                        <div class="col-lg-2 col-md-6  mt-1">
                             <button type="button" class="btn o-btn hvr-bounce-to-right"
                                 [routerLink]="'/home/createorders'"> Create
                                 Order</button>
@@ -99,7 +101,7 @@
                 </div>
                 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
                     <div class="table-responsive mt-4 pt-4">
-                        <h5>Promissory Notes Orders List</h5>
+                        <h5 class="card-subheading">Promissory Notes Orders List</h5>
                         <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
                             [nzPageSize]="pageSize" [nzLoading]="tableLoader">
                             <thead>
@@ -112,7 +114,7 @@
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">Order Date
                                         Amount</th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">Status</th>
-                                    <th >Action</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,19 +123,17 @@
                                     <td>{{ data.customer.mobile }}</td>
                                     <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
                                     <td>{{ data.grandAmount | customRound: 3 }} JD</td>
-                                    <td><button type="button" 
-                                        [ngClass]="{
+                                    <td><button type="button" [ngClass]="{
                                           'btn o-btn Printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
                                           'btn o-btn Signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
                                           'btn o-btn Collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
                                           'btn o-btn Pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
                                         }">
-                                  {{ data.statusObj[0].statusName }}
-                                </button>
-                                </td>
+                                            {{ data.statusObj[0].statusName }}
+                                        </button>
+                                    </td>
                                     <td>
-                                        <button type="button" class="btn o-btn hvr-bounce-to-right"
-                                        > Generate
+                                        <button type="button" class="btn o-btn hvr-bounce-to-right"> Generate
                                         </button>
                                     </td>
                                 </tr>
@@ -141,8 +141,8 @@
                         </nz-table>
                     </div>
                 </nz-spin>
-            </div>
-        </nz-tab>
-        <nz-tab nzTitle="Request"></nz-tab>
-    </nz-tabset>
+            </nz-tab>
+            <nz-tab nzTitle="Request"></nz-tab>
+        </nz-tabset>
+    </div>
 </div>

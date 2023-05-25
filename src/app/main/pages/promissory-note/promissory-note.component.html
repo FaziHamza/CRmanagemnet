@@ -67,26 +67,23 @@
                             <!-- <div class="head-right"></div> -->
                         </div>
                         <div class="card-content">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="card-box">
-                                        <nz-avatar [nzText]="'AM'"></nz-avatar>
-                                    </div>
+                            <div class="profileee">
+
+                                <div class="img-box">
+                                    <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
-                                <div class="col-lg-9 col-md-8">
-                                    <div class="heading-box">
-                                        <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
-                                        <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
-                                    </div>
+                                <div class="heading-box">
+                                    <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
-                                <div class="col-lg-5 ">
+                                <div class="col-lg-4 ">
                                     <p class="head-title ">ID</p>
                                     <p class="head-title ">Phone No.</p>
                                     <p class="head-title ">Address</p>
                                 </div>
-                                <div class="col-lg-7">
+                                <div class="col-lg-8">
                                     <p class="head-detail">74524824862</p>
                                     <p class="head-detail">0799999999</p>
                                     <p class="head-detail">Amman - Amman</p>
@@ -95,11 +92,11 @@
                                 </div>
                             </div>
                             <div class="row heading-box">
-                                <div class="col-lg-5 ">
+                                <div class="col-lg-4 ">
                                     <p class="head-title ">ID Attachment</p>
                                 </div>
-                                <div class="col-lg-7">
-                                    <button type="button" class="btn o-btn hvr-bounce-to-right"> document-name.PDF
+                                <div class="col-lg-8">
+                                    <button type="button" class="pdf-view-btn"> document-name.PDF
                                         <a class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" style="color: rgb(168 168 168)">
@@ -119,26 +116,22 @@
                             <!-- <div class="head-right"></div> -->
                         </div>
                         <div class="card-content">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="card-box">
-                                        <nz-avatar [nzText]="'AM'"></nz-avatar>
-                                    </div>
+                            <div class="profileee">
+                                <div class="img-box">
+                                    <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
-                                <div class="col-lg-9 col-md-8">
-                                    <div class="heading-box">
-                                        <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
-                                        <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
-                                    </div>
+                                <div class="heading-box">
+                                    <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
-                                <div class="col-lg-5 ">
+                                <div class="col-lg-4 ">
                                     <p class="head-title ">ID</p>
                                     <p class="head-title ">Phone No.</p>
                                     <p class="head-title ">Address</p>
                                 </div>
-                                <div class="col-lg-7">
+                                <div class="col-lg-8">
                                     <p class="head-detail">74524824862</p>
                                     <p class="head-detail">0799999999</p>
                                     <p class="head-detail">Amman - Amman</p>
@@ -147,11 +140,11 @@
                                 </div>
                             </div>
                             <div class="row heading-box">
-                                <div class="col-lg-5 ">
+                                <div class="col-lg-4 ">
                                     <p class="head-title ">ID Attachment</p>
                                 </div>
-                                <div class="col-lg-7">
-                                    <button type="button" class="btn o-btn hvr-bounce-to-right"> document-name.PDF
+                                <div class="col-lg-8">
+                                    <button type="button" class="pdf-view-btn"> document-name.PDF
                                         <a class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" style="color: rgb(168 168 168)">
@@ -213,9 +206,12 @@
                             <h5>Promissory Notes Orders List</h5>
                         </div>
                         <nz-steps [nzCurrent]="current">
-                            <nz-step nzTitle="Finished"></nz-step>
-                            <nz-step nzTitle="In Progress"></nz-step>
-                            <nz-step nzTitle="Waiting"></nz-step>
+                            <nz-step nzTitle="Generating"></nz-step>
+                            <nz-step nzTitle="Generated"></nz-step>
+                            <nz-step nzTitle="Printed"></nz-step>
+                            <nz-step nzTitle="Signed"></nz-step>
+                            <nz-step nzTitle="Under Collecting"></nz-step>
+                            <nz-step nzTitle="Collected"></nz-step>
                         </nz-steps>
 
                         <div class="steps-content">
@@ -227,7 +223,6 @@
                                             <tr>
                                                 <th nz-th nzSortFn="simpleSort">
                                                     Order No</th>
-
                                                 <th>Customer Name</th>
                                                 <th nz-th nzSortFn="ascend">Phone No</th>
                                                 <th nz-th nzSortFn="ascend">Order Date
@@ -242,7 +237,8 @@
                                                 <td>{{ data.customer.mobile }}</td>
                                                 <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
                                                 <td>{{ data.grandAmount | customRound: 3 }} JD</td>
-                                                <td><button type="button" [ngClass]="{
+                                                <td>
+                                                    <button type="button" [ngClass]="{
                                                       'btn o-btn Printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
                                                       'btn o-btn Signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
                                                       'btn o-btn Collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
@@ -252,9 +248,13 @@
                                                     </button>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn o-btn hvr-bounce-to-right">
-                                                        Generate
-                                                    </button>
+                                                    <a href="" class="table-edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                            viewBox="0 0 32 32">
+                                                            <path fill="currentColor"
+                                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4l15-15zm-5-5L24 7.6l-3 3L17.4 7l3-3zM6 22v-3.6l10-10l3.6 3.6l-10 10H6z" />
+                                                        </svg>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
