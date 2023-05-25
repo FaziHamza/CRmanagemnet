@@ -884,12 +884,13 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
     border-left: none !important;
 }
 
 tr:hover {
     background-color: #ac2a3706 !important;
+
     td {
         background-color: #ac2a3706 !important;
     }
@@ -1097,8 +1098,10 @@ input {
 .coll-icon {
     border: none !important;
 }
+
 .logout-model {
     width: 100%;
+
     .content {
         width: 100%;
         min-height: 180px;
@@ -1106,21 +1109,25 @@ input {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
         svg {
             height: 80px;
             width: 80px;
             color: $primary;
         }
+
         h5 {
             margin-top: 10px;
             font-size: 22px;
             font-weight: 600;
         }
     }
+
     .btns {
         display: flex;
         justify-content: space-between;
         width: 100%;
+
         .btn {
             width: 47%;
         }
@@ -1134,20 +1141,24 @@ input {
 .ant-table-row {
     .ant-table-cell {
         position: relative;
+
         input {
             padding-right: 22px !important;
         }
+
         small {
             position: absolute;
             bottom: 23px;
             right: 21px;
         }
     }
+
     .bottom-text {
         position: absolute !important;
         bottom: -2px !important;
         left: 18px !important;
     }
+
     .form-select {
         height: 32px !important;
     }
@@ -1175,14 +1186,15 @@ input[type="number"] {
     font-weight: 600;
 }
 
-.heading-box{
+.heading-box {
     margin-bottom: 15px;
+
     .head-title {
         font-weight: 600;
         font-size: 14px;
         color: #1b212d;
     }
-    
+
     .head-detail {
         font-weight: 600;
         font-size: 14px;
@@ -1190,7 +1202,8 @@ input[type="number"] {
         color: #929eae;
     }
 }
-hr{
+
+hr {
     color: $primary-bg;
 }
 
@@ -1260,4 +1273,52 @@ hr{
     font-size: 14px;
     letter-spacing: 0.3px;
     color: orange;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    line-height: 24px !important;
+    color: #1B212D !important;
+}
+
+
+
+.ant-steps-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+
+    .ant-steps-item-title {
+        padding-right: 0px !important;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: center;
+        color: #1B212D;
+    }
+}
+
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
+    border: none !important;
+    background: $primary !important;
+}
+
+.ant-steps-item-title::after {
+    top: -13px !important;
+}
+
+.lable-header {
+    margin-bottom: 20px;
+    height: 56px;
+    display: flex;
+    padding: 0px 20px;
+    align-items: center;
+    width: 100%;
+    background: #F8F8F8;
+    border-radius: 8px;
+
+    h5 {
+        margin-bottom: 0px;
+    }
 }
