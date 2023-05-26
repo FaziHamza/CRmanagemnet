@@ -10,6 +10,7 @@ import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/w
 import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
 import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail.component';
 import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
+import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
       {
         path: 'allorder',
         component: AllorderComponent,
+      },
+      {
+        path: 'credit-account',
+        component: CreditAccountComponent,
       },
       {
         path: 'orde-details/:id',
