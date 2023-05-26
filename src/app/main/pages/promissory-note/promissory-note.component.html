@@ -289,13 +289,13 @@
                             </div>
                         </div>
                         <div class="steps-action">
-                            <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+                            <button nz-button nzType="default" class="previous-btn hvr-bounce-to-right2" (click)="pre()" *ngIf="current > 0">
                                 <span>Previous</span>
                             </button>
-                            <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+                            <button nz-button nzType="default" class="next-btn hvr-bounce-to-right2" (click)="next()" *ngIf="current < 6">
                                 <span>Next</span>
                             </button>
-                            <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+                            <button nz-button nzType="primary" class="done-btn hvr-bounce-to-right2" (click)="done()" *ngIf="current === 6">
                                 <span>Done</span>
                             </button>
                         </div>

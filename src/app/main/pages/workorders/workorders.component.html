@@ -124,10 +124,10 @@
                                     <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
                                     <td>{{ data.grandAmount | customRound: 3 }} JD</td>
                                     <td><button type="button" [ngClass]="{
-                                          'btn o-btn Printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                          'btn o-btn Signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                          'btn o-btn Collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                          'btn o-btn Pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
+                                          'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
+                                          'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
+                                          'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
+                                          'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
                                         }">
                                             {{ data.statusObj[0].statusName }}
                                         </button>

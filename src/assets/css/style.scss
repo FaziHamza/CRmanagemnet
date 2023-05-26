@@ -886,7 +886,7 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
     border-left: none !important;
 }
 
@@ -1209,7 +1209,7 @@ hr {
     color: $primary-bg;
 }
 
-.Printed-status {
+.printed-status {
     background: #ccddff !important;
     font-size: 14px;
     height: 42px;
@@ -1226,7 +1226,7 @@ hr {
     color: #0057ff !important;
 }
 
-.Signed-status {
+.signed-status {
     background: #bbf3e0 !important;
     font-size: 14px;
     height: 42px;
@@ -1242,7 +1242,8 @@ hr {
     letter-spacing: 0.3px;
     color: #12a474 !important;
 }
-.Generating-status {
+
+.generating-status {
     background: #e6e5ff !important;
     font-size: 14px;
     height: 26px !important;
@@ -1260,7 +1261,8 @@ hr {
     letter-spacing: 0.3px;
     color: #5956e9 !important;
 }
-.Collected-status {
+
+.collected-status {
     background: #f2f4ff !important;
     font-size: 14px;
     height: 42px;
@@ -1316,21 +1318,25 @@ hr {
     }
 }
 
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
     border: none !important;
     background: $primary !important;
 }
+
 .ant-steps-item-icon {
     margin-right: 0px !important;
 }
+
 .ant-steps-item-container .ant-steps-item-title {
     font-weight: 500;
 }
+
 nz-tab-nav-operation,
 nz-tabs-nav,
 nz-tabset {
     overflow: visible !important;
 }
+
 .ant-steps-item-title::after {
     top: -13px !important;
 }
@@ -1380,13 +1386,16 @@ nz-tabset {
     background: #ffffff;
     border: 1px solid #11af22;
     border-radius: 4px;
+
     svg {
         height: 16px;
     }
+
     .eye {
         margin-left: 5px;
         color: #d1d1d1;
     }
+
     .download {
         color: #2eb93e;
     }
@@ -1394,9 +1403,10 @@ nz-tabset {
 
 .table-edit {
     color: #4e9aff;
-svg {
-    height: 22px;
-}
+
+    svg {
+        height: 22px;
+    }
 }
 
 .ant-tabs-tab-btn {
@@ -1407,13 +1417,102 @@ svg {
 
     color: #929eae;
 }
-.ant-table-thead > tr > th {
+
+.ant-table-thead>tr>th {
     white-space: nowrap;
 }
 
 .border-none {
     border: none !important;
 }
+
 .bb-none {
     border-bottom: none !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+    border: none !important;
+    background: #dc3545 !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
+    color: $bg-light !important;
+    top: -3.5px !important;
+}
+
+.steps-action {
+    .previous-btn {
+        background: $primary;
+        font-size: 14px;
+        height: 40px;
+        // width: 100%;
+        border: none;
+        font-weight: 500;
+        overflow: hidden;
+        border-radius: 8px;
+        // display: flex;
+        justify-content: center;
+        box-shadow: $card-shadow !important;
+        align-items: center;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        color: white;
+    }
+
+    .next-btn {
+        background: $primary;
+        font-size: 14px;
+        height: 40px;
+        // width: 100%;
+        border: none;
+        font-weight: 500;
+        overflow: hidden;
+        border-radius: 8px;
+        // display: flex;
+        justify-content: center;
+        box-shadow: $card-shadow !important;
+        align-items: center;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        color: white;
+        margin-left: 5px !important;
+    }
+
+    .done-btn {
+        background: $primary;
+        font-size: 14px;
+        height: 40px;
+        // width: 100%;
+        border: none;
+        font-weight: 500;
+        overflow: hidden;
+        border-radius: 8px;
+        // display: flex;
+        justify-content: center;
+        box-shadow: $card-shadow !important;
+        align-items: center;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+        color: white;
+        margin-left: 5px !important;
+    }
+
+    .ant-btn:focus,
+    .ant-btn:hover {
+        color: white !important;
+        border-color: $primary !important;
+        background: $primary;
+    }
+
+    .ant-btn:active,
+    .ant-btn:focus,
+    .ant-btn:hover {
+        color: white !important;
+        box-shadow: $card-shadow !important;
+        background: $primary;
+    }
+}
+
+.ant-tabs-ink-bar{
+    background: $primary !important;
 }
