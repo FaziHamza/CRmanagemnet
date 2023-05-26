@@ -1649,15 +1649,11 @@ nz-tabset {
     line-height: 24px;
 }
 
-// :host ::ng-deep .select-option {
-//     width: 534px !important; 
-//     height: 48px !important;
-//     padding: 12px, 16px, 12px, 16px !important;
-//     gap: 142px;
-//     /* Inside auto layout */ 
-
-//     flex: none !important;
-//     order: 0 !important;
-//     align-self: stretch !important;
-//     flex-grow: 0 !important;
-// }
+.cancelModal{
+    
+    background: $bg-light;
+    color: $primary;
+    margin-top: 4px;
+    // float: right;
+    // margin-bottom: 1px;
+}
