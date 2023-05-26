@@ -12,12 +12,48 @@
     <div class="card">
         <div class="card-heading">
             <div class="head-left">
-                <h5>Order Details</h5>
+                <h5 class="card-subheading">Spare Parts</h5>
             </div>
-            <div class="head-right"></div>
+            <div class="head-right header-btn-setup">
+                <button class="btn btn-round mb-2" *ngIf="current < 5" [ngClass]="{
+                    'pending-status':  current === 0,
+                    'generating-status':  current === 1,
+                    'printed-status':  current === 2,
+                    'signed-status':  current === 3,
+                    'under-collection':  current === 4
+                  }" type="button">
+                    <span *ngIf="current == 0">Pending</span>
+                    <span *ngIf="current == 1">Generated</span>
+                    <span *ngIf="current == 2">Printed</span>
+                    <span *ngIf="current == 3">Signed</span>
+                    <span *ngIf="current == 4">Under Collecting</span>
+                </button>
+                <!-- <button class="btn " *ngIf="current == 2 ">Printed</button>
+                <button class="btn printed-status"
+                    *ngIf="current == 4 && (index == 0 || index == 1)">Pending</button>
+                <button class="btn uncollected-status"
+                    *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button> -->
+            </div>
         </div>
         <div class="card-content">
             <div class="row">
+                <div class="col-lg-2">
+                    <div class="card-box">
+                        <h4 class="title">Order Link</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card-box">
+                        <a class="anchor-content">Link of order in source system to view</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-end">
+                    <div class="card-box">
+                        <h4 class="title">Opportunity Card No. :
+                            <span class="detail">ES 300 h - Ahmed Mohammad A</span>
+                        </h4>
+                    </div>
+                </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="card-box">
                         <h4 class="title">Brand Name</h4>
@@ -468,8 +504,7 @@
                                                     <button class="btn generating-status">Generating</button>
                                                 </td>
                                                 <td>
-                                                    <a 
-                                                        class="pen-icon">
+                                                    <a class="pen-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">
                                                             <path fill="currentColor"
@@ -488,7 +523,8 @@
                                         <h1 class="head-title "> List Of Promissory Notes</h1>
                                     </div>
                                     <div class="col-lg-6 text-end">
-                                        <h1 class="head-title ">Promissory Notes Book No.  <span class="detail">3698</span></h1>
+                                        <h1 class="head-title ">Promissory Notes Book No. <span
+                                                class="detail">3698</span></h1>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
@@ -500,7 +536,7 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 text-end">
                                             <div class="card-box">
-                                                <h4 class="title">Remaining Amount : 
+                                                <h4 class="title">Remaining Amount :
                                                     <span class="detail">15000</span>
                                                 </h4>
                                             </div>
@@ -552,13 +588,15 @@
                                                     }">
                                                         {{ data.statusObj[0].statusName }}
                                                     </button> -->
-                                                    <button class="btn pending-status-btn" *ngIf="current == 2 ">Pending</button>
-                                                    <button class="btn pending-status-btn" *ngIf="current == 4 && (index == 0 || index == 1)">Pending</button>
-                                                    <button class="btn uncollected-status" *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button>
+                                                    <button class="btn printed-status"
+                                                        *ngIf="current == 2 ">Printed</button>
+                                                    <button class="btn printed-status"
+                                                        *ngIf="current == 4 && (index == 0 || index == 1)">Collected</button>
+                                                    <button class="btn uncollected-status"
+                                                        *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button>
                                                 </td>
                                                 <td>
-                                                    <a 
-                                                        class="pen-icon">
+                                                    <a class="pen-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">
                                                             <path fill="currentColor"
@@ -598,11 +636,13 @@
                         </div>
                         <div class="bottom-buttons" *ngIf="current == 2">
                             <button type="button" class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">RePrint PN Book</button>
+                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">RePrint PN
+                                Book</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button">Mark As Signed</button>
                         </div>
                         <div class="bottom-buttons" *ngIf="current == 3 || current == 4">
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">Create Request</button>
+                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">Create
+                                Request</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button">Close</button>
                         </div>
                     </div>

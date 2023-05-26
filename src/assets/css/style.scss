@@ -917,7 +917,7 @@ tr:hover {
 
         font-size: 12px !important;
         line-height: 19px !important;
-        color: #1b212d ;
+        color: #1b212d;
 
         input {
             border-radius: 4px !important;
@@ -1261,6 +1261,7 @@ hr {
     letter-spacing: 0.3px;
     color: #5956e9 !important;
 }
+
 .uncollected-status {
     color: #00C2FF !important;
     font-size: 14px;
@@ -1279,7 +1280,8 @@ hr {
     letter-spacing: 0.3px;
     background: #E5F9FF !important;
 }
-.pending-status-btn {
+
+.printed-status {
     color: #0057FF !important;
     font-size: 14px;
     height: 26px !important;
@@ -1312,7 +1314,7 @@ hr {
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
-    color: #CCDDFF !important;
+    color: #4680f2 !important;
 }
 
 .pending-status {
@@ -1549,22 +1551,26 @@ nz-tabset {
     }
 }
 
-.ant-tabs-ink-bar{
+.ant-tabs-ink-bar {
     background: $primary !important;
 }
-.table-correct{
+
+.table-correct {
     svg {
         height: 22px;
     }
 }
-.table-cancel{
+
+.table-cancel {
     svg {
         height: 22px;
     }
 }
-.edit-data-status{
+
+.edit-data-status {
     color: $primary !important;
 }
+
 .undo-btn {
     background: #cacaca;
     font-size: 14px;
@@ -1582,3 +1588,50 @@ nz-tabset {
     letter-spacing: 0.3px;
     color: black;
 }
+
+.anchor-content {
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration-line: underline !important;
+    color: #2F80ED;
+}
+
+.header-btn-setup {
+    .btn{
+        font-size: 14px;
+        height: 26px !important;
+        width: 125px;
+        border: none;
+        overflow: hidden;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        box-shadow: $card-shadow !important;
+        align-items: center;
+        font-size: 12px;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.3px;
+    }
+    .pending-status-btn {
+        background: #fff3db !important;
+        color: #ffb155 !important;
+    }
+    .under-collection {
+        color: #00C2FF !important;
+        background: #E5F9FF !important;
+    }
+}
+
+/* Style the line between steps */
+// .nz-steps .ant-steps-item:not(:last-child)::after {
+//     content: "";
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     width: 40px; /* Adjust the width of the line */
+//     height: 2px; /* Adjust the height of the line */
+//     background-color: #fc0606; /* Adjust the color of the line */
+//     right: -20px; /* Adjust the position of the line */
+//   }
+  
