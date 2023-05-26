@@ -1281,24 +1281,24 @@ hr {
     background: #E5F9FF !important;
 }
 
-.printed-status {
-    color: #0057FF !important;
-    font-size: 14px;
-    height: 26px !important;
-    width: 90px;
-    border: none;
-    overflow: hidden;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    box-shadow: $card-shadow !important;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.3px;
-    background: #CCDDFF !important;
-}
+// .printed-status {
+//     color: #0057FF !important;
+//     font-size: 14px;
+//     height: 26px !important;
+//     width: 90px;
+//     border: none;
+//     overflow: hidden;
+//     border-radius: 8px;
+//     display: flex;
+//     justify-content: center;
+//     box-shadow: $card-shadow !important;
+//     align-items: center;
+//     font-size: 12px;
+//     font-weight: 600;
+//     font-size: 12px;
+//     letter-spacing: 0.3px;
+//     background: #CCDDFF !important;
+// }
 
 .collected-status {
     background: #f2f4ff !important;
@@ -1597,7 +1597,7 @@ nz-tabset {
 }
 
 .header-btn-setup {
-    .btn{
+    .btn {
         font-size: 14px;
         height: 26px !important;
         width: 125px;
@@ -1613,13 +1613,20 @@ nz-tabset {
         font-size: 12px;
         letter-spacing: 0.3px;
     }
+
     .pending-status-btn {
         background: #fff3db !important;
         color: #ffb155 !important;
     }
+
     .under-collection {
         color: #00C2FF !important;
         background: #E5F9FF !important;
+    }
+
+    .printed-status{
+        background: #ccddff !important;
+        color: #0057ff !important;
     }
 }
 
@@ -1634,4 +1641,23 @@ nz-tabset {
 //     background-color: #fc0606; /* Adjust the color of the line */
 //     right: -20px; /* Adjust the position of the line */
 //   }
-  
+
+.header {
+    color: $primary;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+// :host ::ng-deep .select-option {
+//     width: 534px !important; 
+//     height: 48px !important;
+//     padding: 12px, 16px, 12px, 16px !important;
+//     gap: 142px;
+//     /* Inside auto layout */ 
+
+//     flex: none !important;
+//     order: 0 !important;
+//     align-self: stretch !important;
+//     flex-grow: 0 !important;
+// }

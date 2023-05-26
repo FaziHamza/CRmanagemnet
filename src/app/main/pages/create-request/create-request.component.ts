@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-create-request',
@@ -8,21 +9,24 @@ import { Component, OnInit } from '@angular/core';
 export class CreateRequestComponent implements OnInit {
   statusList: any[] = [];
   statusType = 0;
-  constructor() { }
+  constructor(private modal: NzModalService,) { }
 
   ngOnInit(): void {
     this.makeStatusList();
   }
-  makeStatusList(){
+  makeStatusList() {
     this.statusList = [
       {
         name: 'Reschedule PNs',
-        id:1,
+        id: 1,
       },
       {
         name: 'Transfer PNs',
-        id:2,
+        id: 2,
       }
     ]
+  }
+  cancelModal() {
+    this.modal.closeAll();
   }
 }
