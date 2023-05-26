@@ -20,13 +20,14 @@ import { UpdateOrderComponent } from './pages/workorders/update-order/update-ord
 import { CustomRoundPipe } from '../pipe/custom-round-pipe';
 import { RoundPipe } from '../pipe/round-pipe';
 import { CreateRequestComponent } from './pages/create-request/create-request.component';
+import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
     WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent
-  ,CustomRoundPipe,RoundPipe, CreateRequestComponent],
+  ,CustomRoundPipe,RoundPipe, CreateRequestComponent, CreditAccountComponent],
   providers: [
     DecimalPipe,DatePipe
   ]
