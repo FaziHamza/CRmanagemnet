@@ -917,7 +917,7 @@ tr:hover {
 
         font-size: 12px !important;
         line-height: 19px !important;
-        color: #1b212d !important;
+        color: #1b212d ;
 
         input {
             border-radius: 4px !important;
@@ -1515,4 +1515,17 @@ nz-tabset {
 
 .ant-tabs-ink-bar{
     background: $primary !important;
+}
+.table-correct{
+    svg {
+        height: 22px;
+    }
+}
+.table-cancel{
+    svg {
+        height: 22px;
+    }
+}
+.edit-data-status{
+    color: $primary !important;
 }
