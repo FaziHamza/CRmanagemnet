@@ -1,0 +1,8 @@
+<select class="form-select" [(ngModel)]="statusType"  aria-label="Default select example">
+    <option [value]="data.id" *ngFor="let data of statusList">{{
+        data.name }}
+    </option>
+</select>
+
+<div *ngIf="statusType == 1"> Aman</div>
+<div *ngIf="statusType == 2"> Aman AMAN</div>

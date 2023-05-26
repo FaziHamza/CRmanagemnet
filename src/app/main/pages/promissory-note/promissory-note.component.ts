@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from 'src/app/utility/services/common.service';
+import { CreateRequestComponent } from '../create-request/create-request.component';
 
 @Component({
   selector: 'app-promissory-note',
@@ -8,7 +10,8 @@ import { CommonService } from 'src/app/utility/services/common.service';
 })
 export class PromissoryNoteComponent implements OnInit {
 
-  constructor(private commonService: CommonService) { }
+  constructor(private commonService: CommonService,
+    private modal: NzModalService) { }
   current = 0;
   isGenerate = false;
   promissoryist = [];
@@ -315,6 +318,7 @@ export class PromissoryNoteComponent implements OnInit {
   //#endregion
 
   //#region Printed Tab 3
+
   getPrintedList(){
     this.printedlist = [
       {
@@ -434,5 +438,21 @@ export class PromissoryNoteComponent implements OnInit {
         "collection": null
       }
     ]
+  }
+  //#endregion
+
+  createRequest(): void {
+    const modal = this.modal.create<CreateRequestComponent>({
+      // nzTitle: 'Change Control Value',
+      nzContent: CreateRequestComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
   }
 }

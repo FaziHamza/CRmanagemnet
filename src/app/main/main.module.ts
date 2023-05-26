@@ -19,13 +19,14 @@ import { LogoutComponent } from './containers/logout/logout.component';
 import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
 import { CustomRoundPipe } from '../pipe/custom-round-pipe';
 import { RoundPipe } from '../pipe/round-pipe';
+import { CreateRequestComponent } from './pages/create-request/create-request.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
     WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent
-  ,CustomRoundPipe,RoundPipe],
+  ,CustomRoundPipe,RoundPipe, CreateRequestComponent],
   providers: [
     DecimalPipe,DatePipe
   ]
