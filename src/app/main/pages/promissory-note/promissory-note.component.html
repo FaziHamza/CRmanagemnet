@@ -60,11 +60,8 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="card">
-                        <div class="card-heading">
-                            <div class="head-left">
-                                <h5>Customer Information</h5>
-                            </div>
-                            <!-- <div class="head-right"></div> -->
+                        <div class="card-heading bb-none">
+                            <h5>Customer Information</h5>
                         </div>
                         <div class="card-content">
                             <div class="profileee">
@@ -97,11 +94,18 @@
                                 </div>
                                 <div class="col-lg-8">
                                     <button type="button" class="pdf-view-btn"> document-name.PDF
-                                        <a class="pen-icon">
+                                        <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" style="color: rgb(168 168 168)">
+                                                viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                            </svg>
+                                        </a>
+                                        <a href="" class="download">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
                                             </svg>
                                         </a>
                                     </button>
@@ -109,7 +113,7 @@
                             </div>
                         </div>
                         <hr />
-                        <div class="card-heading">
+                        <div class="card-heading bb-none">
                             <div class="head-left">
                                 <h5>Guarantor Information</h5>
                             </div>
@@ -145,11 +149,18 @@
                                 </div>
                                 <div class="col-lg-8">
                                     <button type="button" class="pdf-view-btn"> document-name.PDF
-                                        <a class="pen-icon">
+                                        <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" style="color: rgb(168 168 168)">
+                                                viewBox="0 0 24 24">
                                                 <path fill="currentColor"
                                                     d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                            </svg>
+                                        </a>
+                                        <a href="" class="download">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
                                             </svg>
                                         </a>
                                     </button>
@@ -202,7 +213,7 @@
                     </div>
 
                     <div class="card" *ngIf="isGenerate">
-                        <div class="lable-header">
+                        <div class="card-heading lable-header">
                             <h5>Promissory Notes Orders List</h5>
                         </div>
                         <nz-steps [nzCurrent]="current">
@@ -214,7 +225,9 @@
                             <nz-step nzTitle="Collected"></nz-step>
                         </nz-steps>
 
+
                         <div class="steps-content">
+
                             <div *ngIf="current == 0">
                                 <div class="table-responsive mt-4 pt-4">
                                     <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
@@ -222,30 +235,43 @@
                                         <thead>
                                             <tr>
                                                 <th nz-th nzSortFn="simpleSort">
-                                                    Order No</th>
+                                                    No
+                                                </th>
                                                 <th>Customer Name</th>
-                                                <th nz-th nzSortFn="ascend">Phone No</th>
-                                                <th nz-th nzSortFn="ascend">Order Date
-                                                    Amount</th>
-                                                <th nz-th nzSortFn="ascend">Status</th>
+                                                <th nz-th nzSortFn="ascend">
+                                                    Amount
+                                                </th>
+                                                <th nz-th nzSortFn="ascend">
+                                                    Due Date
+                                                </th>
+                                                <th nz-th nzSortFn="ascend">
+                                                    PN Status
+                                                </th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let data of editRowTable.data;let index = index">
-                                                <td>{{ data.customer.customerName }}</td>
+                                                <td>
+                                                    01
+                                                    <!-- {{ data.customer.customerName }} -->
+                                                </td>
                                                 <td>{{ data.customer.mobile }}</td>
-                                                <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
                                                 <td>{{ data.grandAmount | customRound: 3 }} JD</td>
                                                 <td>
-                                                    <button type="button" [ngClass]="{
+                                                    <!-- {{ data.orderDate | date:'dd MMM yyyy h:mm a' }} -->
+                                                    23/4/2023
+                                                </td>
+                                                <td>
+                                                    <!-- <button type="button" [ngClass]="{
                                                       'btn o-btn Printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
                                                       'btn o-btn Signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
                                                       'btn o-btn Collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
                                                       'btn o-btn Pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
                                                     }">
                                                         {{ data.statusObj[0].statusName }}
-                                                    </button>
+                                                    </button> -->
+                                                    <button class="btn Generating-status">Generating</button>
                                                 </td>
                                                 <td>
                                                     <a href="" class="table-edit">
@@ -277,7 +303,7 @@
                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                 (click)="this.isGenerate = false">Close</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button"
-                                (click)="this.isGenerate = true">Confirm</button>
+                                (click)="this.isGenerate = true">Confirm Rescheduling</button>
                         </div>
                     </div>
                 </div>
