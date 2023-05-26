@@ -1261,6 +1261,42 @@ hr {
     letter-spacing: 0.3px;
     color: #5956e9 !important;
 }
+.uncollected-status {
+    color: #00C2FF !important;
+    font-size: 14px;
+    height: 26px !important;
+    width: 90px;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    background: #E5F9FF !important;
+}
+.pending-status-btn {
+    color: #0057FF !important;
+    font-size: 14px;
+    height: 26px !important;
+    width: 90px;
+    border: none;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    background: #CCDDFF !important;
+}
 
 .collected-status {
     background: #f2f4ff !important;
@@ -1276,10 +1312,10 @@ hr {
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
-    color: #0013bd !important;
+    color: #CCDDFF !important;
 }
 
-.Pending-status {
+.pending-status {
     background: #fff3db !important;
     font-size: 14px;
     height: 42px;
@@ -1528,4 +1564,21 @@ nz-tabset {
 }
 .edit-data-status{
     color: $primary !important;
+}
+.undo-btn {
+    background: #cacaca;
+    font-size: 14px;
+    height: 40px;
+    // width: 100%;
+    border: none;
+    font-weight: 700;
+    overflow: hidden;
+    border-radius: 8px;
+    // display: flex;
+    justify-content: center;
+    box-shadow: $card-shadow !important;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: black;
 }
