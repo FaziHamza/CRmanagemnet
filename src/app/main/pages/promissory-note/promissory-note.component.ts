@@ -443,6 +443,7 @@ export class PromissoryNoteComponent implements OnInit {
 
   createRequest(): void {
     const modal = this.modal.create<CreateRequestComponent>({
+      nzWidth:900,
       // nzTitle: 'Change Control Value',
       nzContent: CreateRequestComponent,
       // nzViewContainerRef: this.viewContainerRef,
