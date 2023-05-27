@@ -8,7 +8,7 @@ export class EnvService {
 
   // Dev URL
   public Url = 'https://creditmanagement.azurewebsites.net/POSAPI/api/';
-  public GeneralToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3NiIsInVuaXF1ZV9uYW1lIjoiQ3JlZGl0IE1hbmFnZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9tb2JpbGVwaG9uZSI6Ijc3NTg1NTA0NCIsIm5iZiI6MTY4Mzg3MDg5NCwiZXhwIjoxNjg2NTQ5Mjk0LCJpYXQiOjE2ODM4NzA4OTR9.iFh6Agey3Dg8mv4dg_Bb6BL-gfFn3p68RLHHKV5-rUo';
+  // public GeneralToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3NiIsInVuaXF1ZV9uYW1lIjoiQ3JlZGl0IE1hbmFnZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9tb2JpbGVwaG9uZSI6Ijc3NTg1NTA0NCIsIm5iZiI6MTY4Mzg3MDg5NCwiZXhwIjoxNjg2NTQ5Mjk0LCJpYXQiOjE2ODM4NzA4OTR9.iFh6Agey3Dg8mv4dg_Bb6BL-gfFn3p68RLHHKV5-rUo';
   
 
   public loginMode = '';

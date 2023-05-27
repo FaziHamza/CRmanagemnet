@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { FormBaseComponent } from 'src/app/utility/shared-component/base-form/form-base.component';
 import { AuthService } from '../../authServices/auth.service';
 import { MessageService } from '../message.service';
+import { JwtService } from 'src/app/shared/services/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -13,17 +14,36 @@ import { MessageService } from '../message.service';
 })
 export class LoginComponent extends FormBaseComponent implements OnInit {
   loginForm!: FormGroup;
+  token:string = '';
   passwordVisible = false;
   constructor(public messageService: MessageService,
     private authService: AuthService,
     private router: Router,
     private commonService: CommonService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private jwtService:JwtService
     ) {
     super();
   }
   ngOnInit(): void {
     this.initForm();
+    this.route.queryParams.subscribe(param => {
+      if (param) {
+        
+        const token = param['token'];
+        if (token) {
+          this.token = token;
+          let user = {
+            toekn:this.token,
+            branchId:1,
+          }
+          this.jwtService.saveToken(this.token);
+          this.authService.setAuth(user);
+          this.router.navigate(['/home/dashboard']);
+        }
+      }
+    });
   }
 
   initForm() {

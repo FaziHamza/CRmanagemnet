@@ -9,27 +9,25 @@ import { CMSetupComponent } from './pages/main-page/cmsetup/cmsetup.component';
 import { EnvService } from '../shared/services/envoirment.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PromissoryNoteComponent } from './pages/promissory-note/promissory-note.component';
-import { PromissoryNoteOrderComponent } from './pages/promissory-note-order/promissory-note-order.component';
 import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { NgZorroAntdModule } from '../zorro-module/ng-zorro-antd.module';
-import { WorkOrderCreateComponent } from './pages/workorders/work-order-create/work-order-create.component';
-import { AllorderComponent } from './pages/workorders/allorder/allorder.component';
-import { OrderdetailComponent } from './pages/workorders/orderdetail/orderdetail.component';
 import { LogoutComponent } from './containers/logout/logout.component';
-import { UpdateOrderComponent } from './pages/workorders/update-order/update-order.component';
 import { CustomRoundPipe } from '../pipe/custom-round-pipe';
 import { RoundPipe } from '../pipe/round-pipe';
 import { CreateRequestComponent } from './pages/create-request/create-request.component';
 import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
+import { TestComponent } from './pages/test/test.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
-  imports: [CommonModule, MainRoutingModule,FormsModule,ReactiveFormsModule,
+  imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
+    NgChartsModule,
     NgZorroAntdModule],
-  declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent, PromissoryNoteOrderComponent,
-    WorkOrderCreateComponent,WorkordersComponent, AllorderComponent, OrderdetailComponent, LogoutComponent, UpdateOrderComponent
-  ,CustomRoundPipe,RoundPipe, CreateRequestComponent, CreditAccountComponent],
+  declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
+    WorkordersComponent, LogoutComponent
+    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent],
   providers: [
-    DecimalPipe,DatePipe
+    DecimalPipe, DatePipe
   ]
 })
-export class MainModule {}
+export class MainModule { }

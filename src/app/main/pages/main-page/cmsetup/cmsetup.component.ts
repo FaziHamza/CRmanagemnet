@@ -38,7 +38,7 @@ export class CMSetupComponent implements OnInit {
   getCmsSetup() {
     this._apiService.getCMSSetup().subscribe(res => {
       if (res.isSuccess) {
-        debugger
+        
         this.cmsSetup = res.data[0];
         this.cmsSetupForm.patchValue(this.cmsSetup);
         if(this.cmsSetup){
