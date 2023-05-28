@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    canActivate: [AuthGuard],
+  
     loadChildren: () => import('./main/main.module').then(t => t.MainModule),
   },
 ];

@@ -57,14 +57,14 @@ import { RoundPipe } from './pipe/round-pipe';
     DecimalPipe ,
     CustomRoundPipe,RoundPipe,
     ApiService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useFactory: function (router: Router, env:EnvService) {
-        return new AuthInterceptor(router, env);
-      },
-      multi: true,
-      deps: [Router,EnvService],
-    }
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useFactory: function (router: Router, env:EnvService) {
+    //     return new AuthInterceptor(router, env);
+    //   },
+    //   multi: true,
+    //   deps: [Router,EnvService],
+    // }
     
     // { provide: NZ_ICONS, useValue: icons },
   ],
