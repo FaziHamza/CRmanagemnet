@@ -30,13 +30,13 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
     this.initForm();
     this.route.queryParams.subscribe(param => {
       if (param) {
-        
         const token = param['token'];
         if (token) {
           this.token = token;
+          let branchId = JSON.parse(window.atob(token.split(".")[1]))?.BranchId
           let user = {
-            toekn:this.token,
-            branchId:1,
+            token: this.token,
+            branchId: branchId,
           }
           this.jwtService.saveToken(this.token);
           this.authService.setAuth(user);
@@ -45,7 +45,7 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
       }
     });
   }
-
+  
   initForm() {
     this.loginForm = this.formBuilder.group({
       identity: ['', [Validators.required, Validators.email]],

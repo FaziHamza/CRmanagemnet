@@ -1,7 +1,7 @@
 <div class="content-header">
     <div class="heading">
         <h4>
-            <span *ngFor="let item of commonService.breadcrumb; let last = last" [routerLink]="item.routeLink">
+            <span *ngFor="let item of commonService.breadcrumb; let last = last" >
                 <span *ngIf="!last">{{item.title}} < </span>
                 <span *ngIf="last">{{item.title}}</span>
             </span>
@@ -16,8 +16,7 @@
             </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" >Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+             
             </ul>
         </div>
     </div>

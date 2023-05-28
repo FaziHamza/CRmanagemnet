@@ -16,7 +16,7 @@ export class LogoutComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.modal.closeAll();
-    this.router.navigateByUrl('/');
+    window.location.href ='https://dx-portalstest.azurewebsites.net/login';
   }
   close() {
     this.modal.closeAll();
