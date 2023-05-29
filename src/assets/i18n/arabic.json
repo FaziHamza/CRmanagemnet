@@ -1,6 +1,16 @@
 {
     "Dashboard":{
         "Customer_Information": "معلومات العميل",
-        "Name":"اسم"
+        "Name":"اسم",
+        "Phone":"هاتف",
+        "Order_Information":"معلومات الطلب",
+        "Order_No":"رقم الطلب",
+        "Order_Link":"رابط الطلب",
+        "Branch":"فرع",
+        "Order_Date":"تاريخ الطلب",
+        "Owner_Information":"معلومات المالك",
+        "Total_Amount":"المبلغ الإجمالي",
+        "Promissory_Notes_Amount":"مبلغ الكمبيالات",
+        "Remaining_Amount":"الكمية المتبقية"
     }
 }
