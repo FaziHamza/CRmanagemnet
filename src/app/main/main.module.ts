@@ -22,6 +22,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { NumberDirective } from '../directive/numbers-only.directive';
+import { DigitDirective } from '../directive/digit-only.directive';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -38,6 +39,7 @@ import { NumberDirective } from '../directive/numbers-only.directive';
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
+    ,DigitDirective
     , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent],
   providers: [
     DecimalPipe, DatePipe

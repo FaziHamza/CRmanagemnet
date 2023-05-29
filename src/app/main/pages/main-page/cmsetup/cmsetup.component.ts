@@ -12,6 +12,7 @@ import { CommonService } from 'src/app/utility/services/common.service';
 export class CMSetupComponent implements OnInit {
   cmsSetup: any = new CmsSetupDto('');
   cmsSetupForm: FormGroup;
+  promissoryNoteForm: FormGroup;
   constructor(private _apiService: ApiService, private commonService: CommonService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -34,6 +35,16 @@ export class CMSetupComponent implements OnInit {
       managePNWithin: [''],
       id: [0],
     })
+    // this.promissoryNoteForm = this.formBuilder.group({
+    //   periodBetweenPNType: [''],
+    //   periodBetweenPNValue: [''],
+    //   periodBetweenPNValueMonth: [''],
+    //   overDueAlertType: [''],
+    //   overDueAlertTypeValue: [''],
+    //   overDueAlertTypeValueMonth: [''],
+    //   managePNWithin: [''],
+    //   id: [0],
+    // })
   }
   getCmsSetup() {
     this._apiService.getCMSSetup().subscribe(res => {
