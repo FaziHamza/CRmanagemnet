@@ -27,7 +27,7 @@ export class WorkordersComponent implements OnInit {
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
-      { title: ' Primissory Notes Order', routeLink: '' },
+      { title: ' Promissory Notes Order', routeLink: '' },
     ];
     this.getStatusLookup()
     this.getAllOrderList();

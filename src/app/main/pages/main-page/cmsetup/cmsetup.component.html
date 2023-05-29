@@ -1,4 +1,4 @@
-<div class="content-body-inner" [formGroup]="cmsSetupForm" (submit)="saveCmdSetup()">
+<div class="content-body-inner">
     <div class="page-title">
         <div>
             <h4>
@@ -6,219 +6,177 @@
             </h4>
         </div>
         <div>
-            <a (click)="saveCmdSetup()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <g fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M3.25 22a.75.75 0 0 1 .75-.75h16a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75Z"
-                            clip-rule="evenodd" />
-                        <path
-                            d="m11.52 14.929l5.917-5.917a8.232 8.232 0 0 1-2.661-1.787a8.232 8.232 0 0 1-1.788-2.662L7.07 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-1.088 3.267a.848.848 0 0 0 1.073 1.073l3.266-1.088c.62-.207.93-.31 1.221-.45a5.19 5.19 0 0 0 .969-.598c.255-.199.485-.43.947-.891Zm7.559-7.559a3.146 3.146 0 0 0-4.45-4.449l-.71.71l.031.09c.26.749.751 1.732 1.674 2.655A7.003 7.003 0 0 0 18.37 8.08l.71-.71Z" />
-                    </g>
-                </svg>
-            </a>
+
         </div>
     </div>
-    <div class="collapse-card">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <div class="accordion-header" id="headingOne">
-                    <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                        {{"cmsetup.Promissory_Notes" | translate}}
+    <form [formGroup]="cmsSetupForm">
+        <div class="collapse-card">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <div class="accordion-header" id="headingOne">
+                        <div class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            {{"cmsetup.Promissory_Notes" | translate}}
+                        </div>
                     </div>
-                </div>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Period_between_Promissory_Notes" | translate}}
-                                    </h5>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample" [ngClass]="{'disabled-section':promissorySetup == false}">
+                        <div class="accordion-body">
+
+                            <div class="edit-row">
+                                <div class="text-end">
+                                    <a (click)="formdisablePromissory()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <g fill="none">
+                                                <path fill-rule="evenodd" stroke="#dc3545"
+                                                    d="M3.25 22a.75.75 0 0 1 .75-.75h16a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75Z"
+                                                    clip-rule="evenodd" />
+                                                <path stroke="#dc3545"
+                                                    d="m11.52 14.929l5.917-5.917a8.232 8.232 0 0 1-2.661-1.787a8.232 8.232 0 0 1-1.788-2.662L7.07 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-1.088 3.267a.848.848 0 0 0 1.073 1.073l3.266-1.088c.62-.207.93-.31 1.221-.45a5.19 5.19 0 0 0 .969-.598c.255-.199.485-.43.947-.891Zm7.559-7.559a3.146 3.146 0 0 0-4.45-4.449l-.71.71l.031.09c.26.749.751 1.732 1.674 2.655A7.003 7.003 0 0 0 18.37 8.08l.71-.71Z" />
+                                            </g>
+                                        </svg>
+                                    </a>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="periodbetween"
-                                                id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                {{"cmsetup.Days" | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_daysone_input"
-                                                numbersOnly>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Period_between_Promissory_Notes" | translate}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'days'"
+                                                    formControlName="periodBetweenPNType">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    {{ "cmsetup.Days" | translate }}
+                                                </label>
+                                            </div>
+                                            <div class="input-text">
+                                                <input type="number" class="form-control" id="cm_setup_daysone_input"
+                                                    digitsOnly formControlName="periodBetweenPNValue">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="periodbetween"
-                                                id="flexRadioDefault2">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                {{"cmsetup.Months" | translate}}
-                                            </label>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'months'"
+                                                    formControlName="periodBetweenPNType">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    {{ "cmsetup.Months" | translate }}
+                                                </label>
+                                            </div>
+                                            <div class="input-text">
+                                                <input type="number" class="form-control" id="cm_setup_monthsone_input"
+                                                    digitsOnly formControlName="periodBetweenPNValueMonth">
+                                            </div>
                                         </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_monthsone_input"
-                                                numbersOnly>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="edit-row">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Over_Due_Date_Alert_Activation" | translate}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'days'"
+                                                    id="flexRadioDefault3" formControlName="overDueAlertType">
+                                                <label class="form-check-label" for="flexRadioDefault3">
+                                                    {{"cmsetup.Days" | translate}}
+                                                </label>
+                                            </div>
+                                            <div class="input-text">
+                                                <input type="number" class="form-control" id="cm_setup_daystwo_input"
+                                                    digitsOnly formControlName="overDueAlertTypeValue">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'months'"
+                                                    id="flexRadioDefault4" formControlName="overDueAlertType">
+                                                <label class="form-check-label" for="flexRadioDefault4">
+                                                    {{"cmsetup.Months" | translate}}
+                                                </label>
+                                            </div>
+                                            <div class="input-text">
+                                                <input type="number" class="form-control" id="cm_setup_monthstwo_input"
+                                                    digitsOnly formControlName="overDueAlertTypeValueMonth">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Over_Due_Date_Alert_Activation" | translate}}
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="overDueDateAlert"
-                                                id="flexRadioDefault3">
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                {{"cmsetup.Days" | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_daystwo_input"
-                                                numbersOnly>
+                            <div class="edit-row">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Manage_Promissory_Notes_within" | translate}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'days'"
+                                                    id="flexRadioDefault5" formControlName="managePNWithin">
+                                                <label class="form-check-label" for="flexRadioDefault5">
+                                                    {{"cmsetup.Branch_working_hours" | translate}}
+                                                </label>
+                                            </div>
+
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="overDueDateAlert"
-                                                id="flexRadioDefault4">
-                                            <label class="form-check-label" for="flexRadioDefault4">
-                                                {{"cmsetup.Months" | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_monthstwo_input"
-                                                numbersOnly>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'months'"
+                                                    id="flexRadioDefault6" formControlName="managePNWithin">
+                                                <label class="form-check-label" for="flexRadioDefault6">
+                                                    {{"cmsetup.Employee_working_hours" | translate}}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Manage_Promissory_Notes_within" | translate}}
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="managerPromissory"
-                                                id="flexRadioDefault5">
-                                            <label class="form-check-label" for="flexRadioDefault5">
-                                                {{"cmsetup.Branch_working_hours" | translate}}
-                                            </label>
-                                        </div>
-
+                            <div class="edit-row">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Allow_no_of_Rescheduling_Request" | translate}}
+                                        </h5>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="managerPromissory"
-                                                id="flexRadioDefault6">
-                                            <label class="form-check-label" for="flexRadioDefault6">
-                                                {{"cmsetup.Employee_working_hours" | translate}}
-                                            </label>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="input-text">
+                                            <input type="number" class="form-control"
+                                                formControlName="allowNumberRescheduleRequest"
+                                                id="cm_setup_monthsRecheduling_input" digitsOnly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Allow_no_of_Rescheduling_Request" | translate}}
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="allowRescheduling"
-                                                id="flexRadioDefault3">
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                {{"cmsetup.Days" | translate}}
+                            <div class="edit-row">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Allow_no_of_Transfering_Request" | translate}}
 
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control"
-                                                id="cm_setup_daysRecheduling_input" numbersOnly>
-                                        </div>
+                                        </h5>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="allowRescheduling"
-                                                id="flexRadioDefault4">
-                                            <label class="form-check-label" for="flexRadioDefault4">
-                                                {{"cmsetup.Months" | translate}}
-
-                                            </label>
-                                        </div>
+                                    <div class="col-lg-3 col-md-6">
                                         <div class="input-text">
                                             <input type="number" class="form-control"
-                                                id="cm_setup_monthsRecheduling_input" numbersOnly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Allow_no_of_Transfering_Request" | translate}}
-
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="allowTransfering"
-                                                id="flexRadioDefault3">
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                {{"cmsetup.Days" | translate}}
-
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control"
-                                                id="cm_setup_daystransfering_input" numbersOnly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="allowTransfering"
-                                                id="flexRadioDefault4">
-                                            <label class="form-check-label" for="flexRadioDefault4">
-                                                {{"cmsetup.Months" | translate}}
-
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control"
-                                                id="cm_setup_monthstransfering_input" numbersOnly>
+                                                formControlName="allowNumberTransferRequest"
+                                                id="cm_setup_daystransfering_input" digitsOnly>
                                         </div>
                                     </div>
                                 </div>
@@ -228,140 +186,118 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="collapse-card">
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-                <div class="accordion-header" id="headingOne">
-                    <div class="accordion-button" type="button" id="cm_setup_credit_management_setup_input"
-                        data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="true"
-                        aria-controls="collapsetwo">
-                        {{"cmsetup.Credit_Management_Setup" | translate}}
+    </form>
+    <form [formGroup]="accountForm">
+        <div class="collapse-card">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <div class="accordion-header" id="headingOne">
+                        <div class="accordion-button" type="button" id="cm_setup_credit_management_setup_input"
+                            data-bs-toggle="collapse" data-bs-target="#collapsetwo" aria-expanded="true"
+                            aria-controls="collapsetwo">
+                            {{"cmsetup.Contact_AND_Credit_Account_setup" | translate}}
 
+                        </div>
                     </div>
-                </div>
-                <div id="collapsetwo" class="accordion-collapse collapse " aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Period_between_Promissory_Notes" | translate}}
-
-                                    </h5>
+                    <div id="collapsetwo" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample"
+                        [ngClass]="{'disabled-section':creditManagementSetup == false}">
+                        <div class="accordion-body">
+                            <div class="edit-row">
+                                <div class="text-end">
+                                    <a (click)="formdisableCreditManagement()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <g fill="none">
+                                                <path fill-rule="evenodd" stroke="#dc3545"
+                                                    d="M3.25 22a.75.75 0 0 1 .75-.75h16a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75Z"
+                                                    clip-rule="evenodd" />
+                                                <path stroke="#dc3545"
+                                                    d="m11.52 14.929l5.917-5.917a8.232 8.232 0 0 1-2.661-1.787a8.232 8.232 0 0 1-1.788-2.662L7.07 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-1.088 3.267a.848.848 0 0 0 1.073 1.073l3.266-1.088c.62-.207.93-.31 1.221-.45a5.19 5.19 0 0 0 .969-.598c.255-.199.485-.43.947-.891Zm7.559-7.559a3.146 3.146 0 0 0-4.45-4.449l-.71.71l.031.09c.26.749.751 1.732 1.674 2.655A7.003 7.003 0 0 0 18.37 8.08l.71-.71Z" />
+                                            </g>
+                                        </svg>
+                                    </a>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" [value]="'Days'"
-                                                (change)="onPeriodTypeChange($event)"
-                                                formControlName="periodBetweenPNType" id="periodBetweenPNTypeDays">
-                                            <label class="form-check-label" for="periodBetweenPNTypeDays">
-                                                {{"cmsetup.Days" | translate}}
+                                <div class="row  mt-2">
+                                    <div class="col-lg-6 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Maximum_Number_Of_Raise_Limit_Requests" | translate}}
 
-                                            </label>
-                                        </div>
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
                                         <div class="input-text">
                                             <input type="number" class="form-control" id="cm_setup_daysthree_input"
-                                                formControlName="periodBetweenPNValue">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" [value]="'Months'"
-                                                (change)="onPeriodTypeChange($event)"
-                                                formControlName="periodBetweenPNType" id="periodBetweenPNTypeMonths">
-                                            <label class="form-check-label" for="periodBetweenPNTypeMonths">
-                                                {{"cmsetup.Months" | translate}}
-
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_monthsthree_input"
-                                                formControlName="periodBetweenPNValueMonth">
+                                                numbersOnly formControlName="raiseLimitRequest">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="edit-row">
                             <div class="row">
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <h5>
-                                        {{"cmsetup.Over_Due_Date_Alert_Activation" | translate}}
+                                        {{"cmsetup.Maximum_Number_Of_Reduce_Limit_Requests" | translate}}
+
                                     </h5>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="overDueAlertType"
-                                                [value]="'Days'" (change)="onAlertTypeChange($event)"
-                                                formControlName="overDueAlertType" id="overDueAlertTypeDays">
-                                            <label class="form-check-label" for="overDueAlertTypeDays">
-                                                {{"cmsetup.Days" | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_daysfour_input"
-                                                formControlName="overDueAlertTypeValue">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="overDueAlertType"
-                                                [value]="'Months'" (change)="onAlertTypeChange($event)"
-                                                formControlName="overDueAlertType" id="overDueAlertTypeMonths">
-                                            <label class="form-check-label" for="overDueAlertTypeMonths">
-                                                {{"cmsetup.Months" | translate}}
-                                            </label>
-                                        </div>
-                                        <div class="input-text">
-                                            <input type="number" class="form-control" id="cm_setup_monthsfour_input"
-                                                formControlName="overDueAlertTypeValueMonth">
-                                        </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="input-text">
+                                        <input type="number" class="form-control" id="cm_setup_daysthree_input"
+                                            numbersOnly formControlName="reduceLimitRequest">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="edit-row">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h5>
-                                        {{"cmsetup.Manage_Promissory_Notes_within" | translate}}
-                                    </h5>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio"
-                                                [value]="'Branch Working hours'" formControlName="managePNWithin"
-                                                id="flexRadioDefault5">
-                                            <label class="form-check-label" for="flexRadioDefault5">
-                                                {{"cmsetup.Branch_working_hours" | translate}} 
-                                            </label>
-                                        </div>
-
+                            <div class="edit-row mt-2">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12">
+                                        <h5>
+                                            {{"cmsetup.Allow_The_Creation_New_Credit_Account" | translate}}
+                                        </h5>
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="days">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="Employee working hours"
-                                                formControlName="managePNWithin" id="flexRadioDefault6">
-                                            <label class="form-check-label" for="flexRadioDefault6">
-                                                {{"cmsetup.Employee_working_hours" | translate}}    
-                                            </label>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" [value]="'Yes'"
+                                                    id="flexRadioDefault5" formControlName="newAccount">
+                                                <label class="form-check-label" for="flexRadioDefault5">
+                                                    {{"Shared.Yes" | translate}}
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="days">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="No"
+                                                    id="flexRadioDefault6" formControlName="newAccount">
+                                                <label class="form-check-label" for="flexRadioDefault6">
+                                                    {{"Shared.No" | translate}}
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt-4">
+        <div class="col-lg-7"></div>
+        <div class="col-lg-5 ">
+            <div class="row">
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-lg-6">
+                    <button [ngClass]="{
+                        'btn o-btn hvr-bounce-to-right': promissorySetup || creditManagementSetup,
+                        'btn btn-white hvr-bounce-to-right2': !(promissorySetup || creditManagementSetup)
+                      }" class="btn o-btn hvr-bounce-to-right">Save</button>
+
                 </div>
             </div>
         </div>

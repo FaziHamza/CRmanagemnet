@@ -69,7 +69,7 @@
         "Status":"Status",
         "Action":"Action",
         "Generate":"Generate",
-        "Primissory_Notes_Order":"Primissory Notes Order"
+        "Promissory_Notes_Order":"Promissory Notes Order"
     },
     "cmsetup":{
         "Promissory_Notes_Setup":"Promissory Notes Setup",
@@ -83,7 +83,14 @@
         "Employee_working_hours":" Employee working hours",
         "Allow_no_of_Rescheduling_Request":"Allow no. of Rescheduling Request",
         "Allow_no_of_Transfering_Request":"Allow no. of Transfering Request",
-        "Credit_Management_Setup":"Credit Management Setup"
+        "Credit_Management_Setup":"Credit Management Setup",
+        "Contact_AND_Credit_Account_setup":"Contact & Credit Account Setup",
+        "Maximum_Number_Of_Raise_Limit_Requests":"Maximum Number Of Raise Limit Requests",
+        "Maximum_Number_Of_Reduce_Limit_Requests":"Maximum Number Of Reduce Limit Requests",
+        "Allow_The_Creation_New_Credit_Account":"Allow the Creation of a New Credit Account for Closed Accounts"
+    },
+    "Shared":{
+        "Yes":"Yes",
+        "No":"No"
     }
-
 }

@@ -12,7 +12,9 @@ import { CommonService } from 'src/app/utility/services/common.service';
 export class CMSetupComponent implements OnInit {
   cmsSetup: any = new CmsSetupDto('');
   cmsSetupForm: FormGroup;
-  promissoryNoteForm: FormGroup;
+  accountForm: FormGroup;
+  promissorySetup = false;
+  creditManagementSetup = false
   constructor(private _apiService: ApiService, private commonService: CommonService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -21,7 +23,7 @@ export class CMSetupComponent implements OnInit {
       { title: 'Edit Setup ', routeLink: '' },
     ]
     this.cmsSetupFormcontrol();
-    this.getCmsSetup();
+    // this.getCmsSetup();
 
   }
   cmsSetupFormcontrol() {
@@ -33,8 +35,18 @@ export class CMSetupComponent implements OnInit {
       overDueAlertTypeValue: [''],
       overDueAlertTypeValueMonth: [''],
       managePNWithin: [''],
+      allowNumberRescheduleRequest: [''],
+      allowNumberTransferRequest: [''],
       id: [0],
-    })
+    });
+    this.cmsSetupForm.disable();
+    this.accountForm = this.formBuilder.group({
+      id: [0],
+      raiseLimitRequest: [''],
+      reduceLimitRequest: [''],
+      newAccount: [null]
+    });
+    this.accountForm.disable();
     // this.promissoryNoteForm = this.formBuilder.group({
     //   periodBetweenPNType: [''],
     //   periodBetweenPNValue: [''],
@@ -49,13 +61,13 @@ export class CMSetupComponent implements OnInit {
   getCmsSetup() {
     this._apiService.getCMSSetup().subscribe(res => {
       if (res.isSuccess) {
-        
+
         this.cmsSetup = res.data[0];
         this.cmsSetupForm.patchValue(this.cmsSetup);
-        if(this.cmsSetup){
-          this.cmsSetupForm.value.periodBetweenPNValue = this.cmsSetupForm.value.periodBetweenPNType == 'Days' ? this.cmsSetupForm.value.periodBetweenPNValue : '' ;
+        if (this.cmsSetup) {
+          this.cmsSetupForm.value.periodBetweenPNValue = this.cmsSetupForm.value.periodBetweenPNType == 'Days' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
           this.cmsSetupForm.value.periodBetweenPNValueMonth = this.cmsSetupForm.value.periodBetweenPNType == 'Months' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
-          this.cmsSetupForm.value.overDueAlertTypeValue = this.cmsSetupForm.value.overDueAlertType == 'Days' ? this.cmsSetupForm.value.overDueAlertTypeValue : '' ;
+          this.cmsSetupForm.value.overDueAlertTypeValue = this.cmsSetupForm.value.overDueAlertType == 'Days' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
           this.cmsSetupForm.value.overDueAlertTypeValueMonth = this.cmsSetupForm.value.overDueAlertType == 'Months' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
         }
       }
@@ -83,5 +95,25 @@ export class CMSetupComponent implements OnInit {
     this.cmsSetupForm.get('periodBetweenPNValue').setValue('');
     this.cmsSetupForm.get('periodBetweenPNValueMonth').setValue('');
   }
-
+  formdisablePromissory() {
+    this.promissorySetup = !this.promissorySetup;
+    if (this.promissorySetup)
+      this.cmsSetupForm.enable();
+    else
+      this.cmsSetupForm.disable();
+  }
+  formdisableCreditManagement() {
+    this.creditManagementSetup = !this.creditManagementSetup;
+    if (this.creditManagementSetup)
+      this.accountForm.enable();
+    else
+      this.accountForm.disable();
+  }
+  cancel() {
+    this.creditManagementSetup = false;
+    this.promissorySetup = false;
+    this.accountForm.disable();
+    this.cmsSetupForm.disable();
+  }
 }
+

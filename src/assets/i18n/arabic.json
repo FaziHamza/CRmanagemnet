@@ -70,7 +70,7 @@
         "Status":"حالة",
         "Action":"فعل",
         "Generate":"يولد",
-        "Primissory_Notes_Order":"ترتيب الملاحظات الأولية"
+        "Promissory_Notes_Order":"أمر السندات الإذنية"
     },
     "cmsetup":{
         "Promissory_Notes_Setup":"إعداد السندات الإذنية",
@@ -84,6 +84,14 @@
         "Employee_working_hours":"ساعات عمل الموظف",
         "Allow_no_of_Rescheduling_Request":"السماح بعدم إعادة جدولة الطلب",
         "Allow_no_of_Transfering_Request":"لا تسمح بتحويل الطلب",
-        "Credit_Management_Setup":"إعداد إدارة الائتمان"
+        "Credit_Management_Setup":"إعداد إدارة الائتمان",
+        "Contact_AND_Credit_Account_setup":"إعداد حساب الاتصال والائتمان",
+        "Maximum_Number_Of_Raise_Limit_Requests":"العدد الأقصى لطلبات حد الرفع",
+        "Maximum_Number_Of_Reduce_Limit_Requests":"الحد الأقصى لعدد طلبات الحد",
+        "Allow_The_Creation_New_Credit_Account":"السماح بإنشاء حساب ائتمان جديد للحسابات المغلقة"
+    },
+    "Shared":{
+        "Yes":"نعم",
+        "No":"لا"
     }
 }
