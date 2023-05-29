@@ -1,18 +1,18 @@
 <div class="content-body-inner">
     <div class="row heading-box">
         <div class="col-lg-6">
-            <span class="head-title">Date: </span> <span class="head-detail">20/5/2023</span>
+            <span class="head-title">{{"Promissory_Notes.Date" | translate}}Date: </span> <span class="head-detail">20/5/2023</span>
         </div>
         <div class="col-lg-6 ">
             <div class="text-end">
-                <h1 class="head-title ">Order No: <span class="head-detail">123</span></h1>
+                <h1 class="head-title ">{{"Promissory_Notes.Order_No" | translate}}: <span class="head-detail">123</span></h1>
             </div>
         </div>
     </div>
     <div class="card">
         <div class="card-heading">
             <div class="head-left">
-                <h5 class="card-subheading">Spare Parts</h5>
+                <h5 class="card-subheading">{{"Promissory_Notes.Spare_Parts" | translate}}</h5>
             </div>
             <div class="head-right header-btn-setup">
                 <button class="btn btn-round mb-2" *ngIf="current < 5" [ngClass]="{
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="card-box">
-                        <h4 class="title">Order Link</h4>
+                        <h4 class="title">{{"Promissory_Notes.Order_Link" | translate}}</h4>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -49,38 +49,38 @@
                 </div>
                 <div class="col-lg-6 text-end">
                     <div class="card-box">
-                        <h4 class="title">Opportunity Card No. :
+                        <h4 class="title">{{"Promissory_Notes.Opportunity_Card_No" | translate}}. :
                             <span class="detail">ES 300 h - Ahmed Mohammad A</span>
                         </h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="card-box">
-                        <h4 class="title">Brand Name</h4>
+                        <h4 class="title">{{"Promissory_Notes.Brand_Name" | translate}}</h4>
                         <h4 class="detail">Toyota</h4>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <div class="card-box">
-                        <h4 class="title">Vehicle Model</h4>
+                        <h4 class="title">{{"Promissory_Notes.Vehicle_Model" | translate}}</h4>
                         <h4 class="detail">Prius 2015</h4>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <div class="card-box">
-                        <h4 class="title">VIN No.</h4>
+                        <h4 class="title">{{"Promissory_Notes.VIN_No" | translate}}.</h4>
                         <h4 class="detail">36987452145</h4>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-4">
                     <div class="card-box">
-                        <h4 class="title">Vehicle Price</h4>
+                        <h4 class="title">{{"Promissory_Notes.Vehicle_Price" | translate}}</h4>
                         <h4 class="detail">52000</h4>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4">
                     <div class="card-box">
-                        <h4 class="title">Sales Person</h4>
+                        <h4 class="title">{{"Promissory_Notes.Sales_Person" | translate}}</h4>
                         <h4 class="detail">Mohammad Ali</h4>
                     </div>
                 </div>
@@ -91,13 +91,13 @@
     <nz-tabset>
         <nz-tab [nzTitle]="titleTemplate">
             <ng-template #titleTemplate>
-                PN V1
+                {{"Promissory_Notes.PN_V1" | translate}}   
             </ng-template>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="card">
                         <div class="card-heading bb-none">
-                            <h5>Customer Information</h5>
+                            <h5>{{"Promissory_Notes.Customer_Information" | translate}}</h5>
                         </div>
                         <div class="card-content">
                             <div class="profileee">
@@ -106,15 +106,15 @@
                                     <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
                                 <div class="heading-box">
-                                    <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
-                                    <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
                                 <div class="col-lg-4 ">
-                                    <p class="head-title ">ID</p>
-                                    <p class="head-title ">Phone No.</p>
-                                    <p class="head-title ">Address</p>
+                                    <p class="head-title ">{{"Promissory_Notes.ID" | translate}}</p>
+                                    <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}}.</p>
+                                    <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
                                     <p class="head-detail">74524824862</p>
@@ -126,10 +126,10 @@
                             </div>
                             <div class="row heading-box">
                                 <div class="col-lg-4 ">
-                                    <p class="head-title ">ID Attachment</p>
+                                    <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
-                                    <button type="button" class="pdf-view-btn"> document-name.PDF
+                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" | translate}} 
                                         <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -151,7 +151,7 @@
                         <hr />
                         <div class="card-heading bb-none">
                             <div class="head-left">
-                                <h5>Guarantor Information</h5>
+                                <h5>{{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
                             </div>
                             <!-- <div class="head-right"></div> -->
                         </div>
@@ -161,15 +161,15 @@
                                     <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
                                 <div class="heading-box">
-                                    <p class="head-title ">Name<span class="head-detail">Ahmed Mohammad</span></p>
-                                    <p class="head-title ">Customer Account<span class="head-detail">8745</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
                                 <div class="col-lg-4 ">
-                                    <p class="head-title ">ID</p>
-                                    <p class="head-title ">Phone No.</p>
-                                    <p class="head-title ">Address</p>
+                                    <p class="head-title ">{{"Promissory_Notes.ID" | translate}}</p>
+                                    <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}}.</p>
+                                    <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
                                     <p class="head-detail">74524824862</p>
@@ -181,10 +181,10 @@
                             </div>
                             <div class="row heading-box">
                                 <div class="col-lg-4 ">
-                                    <p class="head-title ">ID Attachment</p>
+                                    <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
-                                    <button type="button" class="pdf-view-btn"> document-name.PDF
+                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" | translate}}
                                         <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -210,7 +210,7 @@
                         <div class="card">
                             <div class="card-heading">
                                 <div class="head-left lable-header">
-                                    <h5>Promissory Notes Details</h5>
+                                    <h5>{{"Promissory_Notes.Promissory_Notes_Details" | translate}}</h5>
                                 </div>
                                 <div class="head-right"></div>
                             </div>
@@ -218,21 +218,21 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6">
                                         <div class="card-box">
-                                            <h4 class="title">Promissory Notes Amount :
+                                            <h4 class="title">{{"Promissory_Notes.Promissory_Notes_Amount" | translate}}:
                                                 <span class="detail">15,000</span>
                                             </h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="card-box">
-                                            <h4 class="title">No. Of Installments :
+                                            <h4 class="title">{{"Promissory_Notes.No_Of_Installments" | translate}} :
                                                 <span class="detail">10</span>
                                             </h4>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="card-box">
-                                            <h4 class="title">First Due Date :
+                                            <h4 class="title">{{"Promissory_Notes.First_Due_Date" | translate}}:
                                                 <span class="detail">21-3-2023</span>
                                             </h4>
                                         </div>
@@ -242,9 +242,9 @@
                             </div>
                         </div>
                         <div class="bottom-buttons" *ngIf="!isGenerate">
-                            <button type="button" class="btn btn-white hvr-bounce-to-right2"  (click)="createRequest()">Close</button>
+                            <button type="button" class="btn btn-white hvr-bounce-to-right2"  (click)="createRequest()">{{"Promissory_Notes.Close" | translate}}</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button"
-                                (click)="this.isGenerate = true">Generate PNs Book</button>
+                                (click)="this.isGenerate = true">{{"Promissory_Notes.Generate_PNs_Book" | translate}}</button>
                         </div>
                     </div>
 
@@ -276,17 +276,17 @@
                                                     <path d="M3 13a9 9 0 1 0 3-7.7L3 8" />
                                                 </g>
                                             </svg>
-                                            Reset</button>
+                                            {{"Promissory_Notes.Reset" | translate}} </button>
                                     </div>
 
                                 </div>
                                 <div class="row heading-box">
                                     <div class="col-lg-6 ">
-                                        <h1 class="head-title "> List Of Promissory Notes</h1>
+                                        <h1 class="head-title ">{{"Promissory_Notes.List_Of_Promissory_Notes" | translate}} </h1>
 
                                     </div>
                                     <div class="col-lg-6 text-end">
-                                        <h1 class="head-title ">Difference amount: <span class="head-detail">-500</span>
+                                        <h1 class="head-title ">{{"Promissory_Notes.Difference_amount" | translate}}: <span class="head-detail">-500</span>
                                         </h1>
                                     </div>
                                 </div>
@@ -297,19 +297,19 @@
                                         <thead>
                                             <tr>
                                                 <th nz-th nzSortFn="simpleSort">
-                                                    No
+                                                    {{"Promissory_Notes.No" | translate}}  
                                                 </th>
-                                                <th>Customer Name</th>
+                                                <th> {{"Promissory_Notes.Customer_Name" | translate}}</th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    Amount
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    Due Date
+                                                    {{"Promissory_Notes.Amount" | translate}}  
                                                 </th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    PN Status
+                                                    {{"Promissory_Notes.Due_Date" | translate}} 
                                                 </th>
-                                                <th>Action</th>
+                                                <th nz-th nzSortFn="ascend">
+                                                    {{"Promissory_Notes.PN_Status" | translate}}  
+                                                </th>
+                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -336,7 +336,7 @@
                                                         }">
                                                             {{ data.statusObj[0].statusName }}
                                                         </button> -->
-                                                        <button class="btn generating-status">Generating</button>
+                                                        <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
                                                     </td>
                                                     <td>
                                                         <a class="table-edit" *ngIf="!data.edit"
@@ -396,7 +396,7 @@
                                                         }">
                                                             {{ data.statusObj[0].statusName }}
                                                         </button> -->
-                                                        <button class="btn generating-status">Generating</button>
+                                                        <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
                                                     </td>
                                                     <td>
                                                         <a class="table-correct"
@@ -428,27 +428,27 @@
                             <div *ngIf="current == 1">
                                 <div class="row heading-box mt-4 pt-4">
                                     <div class="col-lg-12">
-                                        <h1 class="head-title "> List Of Promissory Notes</h1>
+                                        <h1 class="head-title "> {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}</h1>
 
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="card-box">
-                                                <h4 class="title">Promissory Notes Amount :
+                                                <h4 class="title">{{"Promissory_Notes.Promissory_Notes_Amount" | translate}}:
                                                     <span class="detail">15,000</span>
                                                 </h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="card-box">
-                                                <h4 class="title">No. Of Installments :
+                                                <h4 class="title">{{"Promissory_Notes.No_Of_Installments" | translate}}:
                                                     <span class="detail">10</span>
                                                 </h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-6">
                                             <div class="card-box">
-                                                <h4 class="title">First Due Date :
+                                                <h4 class="title">{{"Promissory_Notes.First_Due_Date" | translate}}:
                                                     <span class="detail">21-3-2023</span>
                                                 </h4>
                                             </div>
@@ -463,19 +463,19 @@
                                         <thead>
                                             <tr>
                                                 <th nz-th nzSortFn="simpleSort">
-                                                    No
+                                                  {{"Promissory_Notes.No" | translate}}  
                                                 </th>
-                                                <th>Customer Name</th>
+                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}</th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    Amount
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    Due Date
+                                                  {{"Promissory_Notes.Amount" | translate}}  
                                                 </th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    PN Status
+                                                  {{"Promissory_Notes.Due_Date" | translate}}  
                                                 </th>
-                                                <th>Action</th>
+                                                <th nz-th nzSortFn="ascend">
+                                                  {{"Promissory_Notes.PN_Status" | translate}} 
+                                                </th>
+                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -501,7 +501,7 @@
                                                     }">
                                                         {{ data.statusObj[0].statusName }}
                                                     </button> -->
-                                                    <button class="btn generating-status">Generating</button>
+                                                    <button class="btn generating-status">{{"Promissory_Notes.Date" | translate}}Generating</button>
                                                 </td>
                                                 <td>
                                                     <a class="pen-icon">
@@ -520,23 +520,23 @@
                             <div *ngIf="current == 2 || current == 3 || current == 4">
                                 <div class="row heading-box mt-4 pt-4">
                                     <div class="col-lg-6">
-                                        <h1 class="head-title "> List Of Promissory Notes</h1>
+                                        <h1 class="head-title "> {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}</h1>
                                     </div>
                                     <div class="col-lg-6 text-end">
-                                        <h1 class="head-title ">Promissory Notes Book No. <span
+                                        <h1 class="head-title ">{{"Promissory_Notes.Promissory_Notes_Book_No" | translate}}. <span
                                                 class="detail">3698</span></h1>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6">
                                             <div class="card-box">
-                                                <h4 class="title">Promissory Notes Total Amount :
+                                                <h4 class="title">{{"Promissory_Notes.Promissory_Notes_Total_Amount" | translate}} 
                                                     <span class="detail">15,000</span>
                                                 </h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 text-end">
                                             <div class="card-box">
-                                                <h4 class="title">Remaining Amount :
+                                                <h4 class="title">{{"Promissory_Notes.Remaining_Amount" | translate}}:
                                                     <span class="detail">15000</span>
                                                 </h4>
                                             </div>
@@ -550,19 +550,19 @@
                                         <thead>
                                             <tr>
                                                 <th nz-th nzSortFn="simpleSort">
-                                                    No
+                                                  {{"Promissory_Notes.No" | translate}}  
                                                 </th>
-                                                <th>Customer Name</th>
+                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}</th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    Amount
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    Due Date
+                                                   {{"Promissory_Notes.Amount" | translate}} 
                                                 </th>
                                                 <th nz-th nzSortFn="ascend">
-                                                    PN Status
+                                                   {{"Promissory_Notes.Due_Date" | translate}}
                                                 </th>
-                                                <th>Action</th>
+                                                <th nz-th nzSortFn="ascend">
+                                                   {{"Promissory_Notes.PN_Status" | translate}} 
+                                                </th>
+                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
