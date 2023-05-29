@@ -34,7 +34,7 @@ export class CommonService {
   selectedAvatar = '';
 
   getUser() {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(localStorage.getItem('userDetail'));
   }
 
   getTimeRemaining(endtime: any) {

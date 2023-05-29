@@ -23,6 +23,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { NumberDirective } from '../directive/numbers-only.directive';
 import { DigitDirective } from '../directive/digit-only.directive';
+import { ProfileComponent } from './containers/profile/profile.component';
+import { ModalMessageComponent } from './containers/modal-message/modal-message.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -40,7 +42,7 @@ import { DigitDirective } from '../directive/digit-only.directive';
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
     ,DigitDirective
-    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent],
+    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent],
   providers: [
     DecimalPipe, DatePipe
   ]

@@ -1,4 +1,3 @@
-import { JwtService } from 'src/app/shared/services/jwt.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { Router } from '@angular/router';
@@ -11,8 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./main-header.component.scss']
 })
 export class MainHeaderComponent implements OnInit {
-  getToken: any = '';
   selectedLanguageObj: any | undefined;
+  userDetail:any;
   languages = [
     {
       id: 'en',
@@ -25,7 +24,7 @@ export class MainHeaderComponent implements OnInit {
       flag: 'arabic.png'
     }
   ];
-  constructor(public commonService: CommonService, private jwtService: JwtService, private storageService: StorageService,
+  constructor(public commonService: CommonService, private storageService: StorageService,
     private route: Router, private translate: TranslateService) {
     if (JSON.parse(this.storageService.getString("currentLanguage")))
       this.translate.setDefaultLang(JSON.parse(this.storageService.getString("currentLanguage")));
@@ -39,8 +38,8 @@ export class MainHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDetail = this.commonService.getUser();
     this.selectedLanguageObj = this.languages.find(language => language.id == JSON.parse(this.storageService.getString("currentLanguage")));
-    this.getToken = this.jwtService.getToken();
   }
   gotoSpareParts() {
     // const queryParams = { token: this.getToken };

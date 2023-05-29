@@ -12,23 +12,29 @@ export class ApiService {
   header: any;
   token!: string;
   headers!: HttpHeaders;
-  profilePic :string = '';
+  profilePic: string = '';
 
   constructor(
     private http: HttpClient,
   ) { }
-  getUser(){
+  getUser() {
     return JSON.parse(localStorage.getItem('userDetail'))
   }
-  saveCmsSetup(obj:any) :Observable<AppResponse> {
+  saveCmsSetup(obj: any): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/UpdateSetup";
-    return this.http.post<AppResponse>(url,obj);
+    return this.http.post<AppResponse>(url, obj);
   }
-  getCMSSetup():Observable<AppResponse> {
+  getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";
     return this.http.get<AppResponse>(url);
   }
-  
 
-  
+  GetUserDetails(id: number) {
+    let url = environment.administration + `User/GetUSERDetails?userId=${id}`;
+    return this.http.get<AppResponse>(url);
+  }
+  EditUser(body: any) {
+    let url = environment.administration + `User/EditUser`;
+    return this.http.post<AppResponse>(url,body);
+  }
 }

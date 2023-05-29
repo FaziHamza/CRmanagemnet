@@ -32,14 +32,13 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
       if (param) {
         const token = param['token'];
         if (token) {
+          debugger
           this.token = token;
-          let branchId = JSON.parse(window.atob(token.split(".")[1]))?.BranchId
-          let user = {
-            token: this.token,
-            branchId: branchId,
-          }
+          let getuser = JSON.parse(window.atob(token.split(".")[1]));
+          getuser['token'] = token;
+          localStorage.setItem('userDetail', JSON.stringify(getuser));
           this.jwtService.saveToken(this.token);
-          this.authService.setAuth(user);
+          this.authService.setAuth(getuser);
           this.router.navigate(['/home/dashboard']);
         }
       }

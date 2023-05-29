@@ -411,10 +411,12 @@ html {
         font-weight: 400;
         font-size: 1rem;
         border-radius: 8px;
+
         svg {
             height: 20px;
             width: 20px;
         }
+
         span {
             margin-left: 5px;
             line-height: 16px;
@@ -514,10 +516,12 @@ html {
     border: 0.5px solid #c4cdd5;
     box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
+
     .accordion-button:not(.collapsed) {
         box-shadow: none !important;
         // border-bottom: 1px solid $border !important;
     }
+
     .accordion-button {
         padding: 0px;
         font-weight: 600;
@@ -526,6 +530,7 @@ html {
         padding-bottom: 25px;
         background: transparent;
     }
+
     .accordion-button:after {
         background-size: 36px !important;
         height: 36px !important;
@@ -901,7 +906,7 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
     border-left: none !important;
 }
 
@@ -1371,7 +1376,7 @@ hr {
     }
 }
 
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
     border: none !important;
     background: $primary !important;
 }
@@ -1471,7 +1476,7 @@ nz-tabset {
     color: #929eae;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
     white-space: nowrap;
 }
 
@@ -1488,7 +1493,7 @@ nz-tabset {
     background: #dc3545 !important;
 }
 
-.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
     color: $bg-light !important;
     top: -3.5px !important;
 }
@@ -1672,10 +1677,180 @@ nz-tabset {
     // margin-bottom: 1px;
 }
 
-.disabled-section{
+.disabled-section {
     background-color: #F3F3F3;
     margin-left: -2.2%;
     margin-right: -2.3%;
     padding-right: 2.3%;
     padding-left: 2.2%;
+}
+
+.dropdown-avatar {
+    .ant-avatar {
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+    }
+}
+
+.card-form {
+    background: #ffffff;
+    border: 0.5px solid #c4cdd5;
+    box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    margin: 0px 20px 20px;
+    padding: 30px;
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+    label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1b212d;
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        border: 1px solid #d1d1d1;
+        border-radius: 12px;
+        font-size: 14px !important;
+        height: 46px;
+    }
+
+    .form-check-input:checked {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .form-check.form-switch {
+        display: flex;
+        align-items: end;
+        justify-content: end;
+
+        .form-check-input {
+            width: 3em !important;
+            height: 1.6em;
+        }
+
+        label {
+            margin-bottom: 0px;
+            margin: 0px 10px;
+        }
+    }
+
+    .error {
+        font-size: 14px;
+        color: #f44336;
+        font-weight: 500;
+        padding: 7px;
+        display: block;
+    }
+
+    .labelactive {
+        margin-right: 55px !important;
+    }
+
+    .edit-btn {
+        margin: 0px 15px;
+        z-index: 5;
+        position: relative;
+
+        .btn {
+            color: #dc3545;
+            font-size: 28px;
+            margin-top: -14px;
+            border: 0px;
+        }
+
+        i {
+            font-size: 22px;
+        }
+
+        img {
+            width: 22px;
+        }
+    }
+
+    .from-to-time {
+        display: flex;
+        margin-bottom: 15px;
+
+        p {
+            font-size: 16px;
+            color: #000;
+            padding: 10px;
+            font-weight: 600;
+        }
+    }
+}
+
+.btns-group {
+    margin: 30px 20px 50px;
+    display: flex;
+    justify-content: end;
+    gap: 30px;
+
+    .btn-save {
+        background: #dc3545;
+        color: #fff;
+        border-radius: 10px;
+        padding: 12px 35px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .btn-save:hover {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .btn-load {
+        font-size: 23px;
+        padding: 0px 52px;
+    }
+
+    .btn.btn-load:disabled {
+        background: #dc3545 !important;
+        color: #fff !important;
+    }
+
+    .btn-cancel {
+        background: #f8f8f8;
+        color: #dc3545;
+        border-radius: 10px;
+        padding: 12px 35px;
+        font-weight: 600;
+    }
+
+    .btn-cancel:hover {
+        background: #f8f8f8;
+        color: #dc3545;
+    }
+}
+
+.form-check-input:checked {
+    background-color: #dc3545 !important;
+    border-color: pink !important;
+}
+
+.form-check {
+    cursor: pointer;
+
+    label {
+        cursor: pointer;
+    }
+}
+
+.card-page {
+    padding: 5px;
+}
+
+.page-title {
+    h3 {
+        font-size: 18px;
+        font-weight: 600;
+        padding: 10px 10px 0px 20px;
+    }
 }

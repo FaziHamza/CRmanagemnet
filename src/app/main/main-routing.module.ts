@@ -7,6 +7,7 @@ import { PromissoryNoteComponent } from './pages/promissory-note/promissory-note
 import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
 import { TestComponent } from './pages/test/test.component';
+import { ProfileComponent } from './containers/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'credit-account',
         component: CreditAccountComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
       },
       {
         path: 'test',
