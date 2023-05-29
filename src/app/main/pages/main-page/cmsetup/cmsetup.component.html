@@ -41,28 +41,28 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="periodbetween"
                                                 id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Days
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" id="cm_setup_daysone_input">
+                                            <input type="number" class="form-control" id="cm_setup_daysone_input" numbersOnly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="periodbetween"
                                                 id="flexRadioDefault2">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Months
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" id="cm_setup_monthsone_input">
+                                            <input type="number" class="form-control" id="cm_setup_monthsone_input" numbersOnly>
                                         </div>
                                     </div>
                                 </div>
@@ -78,28 +78,28 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="overDueDateAlert"
                                                 id="flexRadioDefault3">
                                             <label class="form-check-label" for="flexRadioDefault3">
                                                 Days
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" id="cm_setup_daystwo_input">
+                                            <input type="number" class="form-control" id="cm_setup_daystwo_input" numbersOnly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="overDueDateAlert"
                                                 id="flexRadioDefault4">
                                             <label class="form-check-label" for="flexRadioDefault4">
                                                 Months
                                             </label>
                                         </div>
                                         <div class="input-text">
-                                            <input type="text" class="form-control" id="cm_setup_monthstwo_input">
+                                            <input type="number" class="form-control" id="cm_setup_monthstwo_input" numbersOnly>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="managerPromissory"
                                                 id="flexRadioDefault5">
                                             <label class="form-check-label" for="flexRadioDefault5">
                                                 Branch working hours
@@ -127,11 +127,85 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="days">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            <input class="form-check-input" type="radio" name="managerPromissory"
                                                 id="flexRadioDefault6">
                                             <label class="form-check-label" for="flexRadioDefault6">
                                                 Employee working hours
                                             </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="edit-row">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <h5>
+                                        Allow no. of Rescheduling Request
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="days">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="allowRescheduling"
+                                                id="flexRadioDefault3">
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Days
+                                            </label>
+                                        </div>
+                                        <div class="input-text">
+                                            <input type="number" class="form-control" id="cm_setup_daysRecheduling_input" numbersOnly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="days">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="allowRescheduling"
+                                                id="flexRadioDefault4">
+                                            <label class="form-check-label" for="flexRadioDefault4">
+                                                Months
+                                            </label>
+                                        </div>
+                                        <div class="input-text">
+                                            <input type="number" class="form-control" id="cm_setup_monthsRecheduling_input" numbersOnly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="edit-row">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <h5>
+                                        Allow no. of Transfering Request
+                                    </h5>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="days">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="allowTransfering"
+                                                id="flexRadioDefault3">
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Days
+                                            </label>
+                                        </div>
+                                        <div class="input-text">
+                                            <input type="number" class="form-control" id="cm_setup_daystransfering_input" numbersOnly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="days">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="allowTransfering"
+                                                id="flexRadioDefault4">
+                                            <label class="form-check-label" for="flexRadioDefault4">
+                                                Months
+                                            </label>
+                                        </div>
+                                        <div class="input-text">
+                                            <input type="number" class="form-control" id="cm_setup_monthstransfering_input" numbersOnly>
                                         </div>
                                     </div>
                                 </div>
