@@ -3,12 +3,15 @@ import { Injectable } from '@angular/core';
 import { CountryCodeList } from 'src/app/auth/Pages/register/countryCodes';
 import countries from 'src/app/shared/common/countryListWithCode';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
   breadcrumb: any[] = [];
+  private languageChange: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   constructor(private toastr: ToastrService, private ngxService: NgxUiLoaderService) { }
   // Success
   showSuccess(message: string, title: string) {
@@ -175,4 +178,10 @@ export class CommonService {
     }
     return avatar;
   };
+  getLanguageChange(): Observable<string> {
+    return this.languageChange.asObservable();
+  }
+  setLanguageChange(val: string): void {
+    this.languageChange.next(val);
+  }
 }

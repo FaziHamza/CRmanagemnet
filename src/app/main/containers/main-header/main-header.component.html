@@ -1,22 +1,38 @@
 <div class="content-header">
     <div class="heading">
         <h4>
-            <span *ngFor="let item of commonService.breadcrumb; let last = last" >
+            <span *ngFor="let item of commonService.breadcrumb; let last = last">
                 <span *ngIf="!last">{{item.title}} < </span>
-                <span *ngIf="last">{{item.title}}</span>
-            </span>
+                        <span *ngIf="last">{{item.title}}</span>
+                </span>
         </h4>
     </div>
     <div class="user-dropdown">
         <div class="dropdown">
-            <div class="dropdown-toggle" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">
 
                 <div class="profile">JN</div><span> Jaber Nabil</span>
             </div>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" >Action</a></li>
-             
+                <li><a class="dropdown-item">Action</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="user-dropdown">
+        <div class="dropdown">
+            <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <div *ngIf="selectedLanguageObj && selectedLanguageObj?.flag">
+                    {{selectedLanguageObj.id}}
+                    <img [src]="'assets/icons/flags/' + selectedLanguageObj.flag" alt="" />
+                </div>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li *ngFor="let language of languages">
+                    <a class="dropdown-item" (click)="setLanguage(language.id)"> {{ language?.title }}</a>
+                </li>
             </ul>
         </div>
     </div>
