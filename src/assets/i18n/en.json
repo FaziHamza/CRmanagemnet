@@ -51,6 +51,25 @@
         "Generating":"Generating",
         "Promissory_Notes_Book_No":"Promissory Notes Book No",
         "Promissory_Notes_Total_Amount":"Promissory Notes Total Amount",
-        "Remaining_Amount":"Remaining Amount"
+        "Remaining_Amount":"Remaining Amount",
+        "Generated":"Generated",
+        "Printed":"Printed",
+        "Signed":"Signed",
+        "Under_Collecting":"Under Collecting",
+        "Collected":"Collected"
+    },
+    "Promissory_Notes_orders":{
+        "Reset":"Reset",
+        "Promissory_Notes_Orders_List":"Promissory Notes Orders List",
+        "Total_No":"Total No",
+        "Order_No":"Order No",
+        "Customer_Name":"Customer Name",
+        "Phone_No":"Phone No",
+        "Order_Date_Amount":"Order Date Amount",
+        "Status":"Status",
+        "Action":"Action",
+        "Generate":"Generate",
+        "Primissory_Notes_Order":"Primissory Notes Order"
     }
+
 }

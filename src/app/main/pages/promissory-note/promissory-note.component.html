@@ -251,12 +251,12 @@
 
                     <div class="card" *ngIf="isGenerate">
                         <nz-steps [nzCurrent]="current" (nzIndexChange)="onIndexChange($event)">
-                            <nz-step nzTitle="Generating"></nz-step>
-                            <nz-step nzTitle="Generated"></nz-step>
-                            <nz-step nzTitle="Printed"></nz-step>
-                            <nz-step nzTitle="Signed"></nz-step>
-                            <nz-step nzTitle="Under Collecting"></nz-step>
-                            <nz-step nzTitle="Collected"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Generating' | translate}}"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Generated' | translate}}"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Printed' | translate}}"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Signed' | translate}}"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Under_Collecting' | translate}}"></nz-step>
+                            <nz-step nzTitle="{{'Promissory_Notes.Collected' | translate}}"></nz-step>
                         </nz-steps>
 
 

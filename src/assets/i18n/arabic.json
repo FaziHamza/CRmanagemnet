@@ -52,6 +52,24 @@
         "Generating":"التوليد",
         "Promissory_Notes_Book_No":"دفتر الكمبيالات رقم",
         "Promissory_Notes_Total_Amount":"المبلغ الإجمالي للسندات الإذنية",
-        "Remaining_Amount":"الكمية المتبقية"
+        "Remaining_Amount":"الكمية المتبقية",
+        "Generated":"ولدت",
+        "Printed":"مطبوعة",
+        "Signed":"وقعت",
+        "Under_Collecting":"تحت التحصيل",
+        "Collected":"جمعت"
+    },
+    "Promissory_Notes_orders":{
+        "Reset":"إعادة ضبط",
+        "Promissory_Notes_Orders_List":"قائمة أوامر السندات الإذنية",
+        "Total_No":"مجموع لا",
+        "Order_No":"رقم الطلب",
+        "Customer_Name":"اسم الزبون",
+        "Phone_No":"رقم الهاتف",
+        "Order_Date_Amount":"مبلغ تاريخ الطلب",
+        "Status":"حالة",
+        "Action":"فعل",
+        "Generate":"يولد",
+        "Primissory_Notes_Order":"ترتيب الملاحظات الأولية"
     }
 }
