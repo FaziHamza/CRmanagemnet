@@ -71,5 +71,19 @@
         "Action":"فعل",
         "Generate":"يولد",
         "Primissory_Notes_Order":"ترتيب الملاحظات الأولية"
+    },
+    "cmsetup":{
+        "Promissory_Notes_Setup":"إعداد السندات الإذنية",
+        "Promissory_Notes":"سندات إذنية",
+        "Period_between_Promissory_Notes":"الفترة بين الكمبيالات",
+        "Days":"أيام",
+        "Months":"شهور",
+        "Over_Due_Date_Alert_Activation":"تفعيل تنبيه تجاوز تاريخ الاستحقاق",
+        "Manage_Promissory_Notes_within":"إدارة السندات الإذنية داخل",
+        "Branch_working_hours":"ساعات عمل الفرع",
+        "Employee_working_hours":"ساعات عمل الموظف",
+        "Allow_no_of_Rescheduling_Request":"السماح بعدم إعادة جدولة الطلب",
+        "Allow_no_of_Transfering_Request":"لا تسمح بتحويل الطلب",
+        "Credit_Management_Setup":"إعداد إدارة الائتمان"
     }
 }
