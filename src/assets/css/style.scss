@@ -408,12 +408,16 @@ html {
         color: $text-light;
         display: flex;
         align-items: center;
-        font-weight: 500;
-        font-size: 13px;
+        font-weight: 400;
+        font-size: 1rem;
         border-radius: 8px;
-
+        svg {
+            height: 20px;
+            width: 20px;
+        }
         span {
             margin-left: 5px;
+            line-height: 16px;
         }
     }
 
