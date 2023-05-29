@@ -70,6 +70,20 @@
         "Action":"Action",
         "Generate":"Generate",
         "Primissory_Notes_Order":"Primissory Notes Order"
+    },
+    "cmsetup":{
+        "Promissory_Notes_Setup":"Promissory Notes Setup",
+        "Promissory_Notes":"Promissory Notes",
+        "Period_between_Promissory_Notes":"Period between Promissory Notes",
+        "Days":"Days",
+        "Months":"Months",
+        "Over_Due_Date_Alert_Activation":"Over Due Date Alert Activation",
+        "Manage_Promissory_Notes_within":"Manage Promissory Notes within",
+        "Branch_working_hours":"Branch working hours",
+        "Employee_working_hours":" Employee working hours",
+        "Allow_no_of_Rescheduling_Request":"Allow no. of Rescheduling Request",
+        "Allow_no_of_Transfering_Request":"Allow no. of Transfering Request",
+        "Credit_Management_Setup":"Credit Management Setup"
     }
 
 }
