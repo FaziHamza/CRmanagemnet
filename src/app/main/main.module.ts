@@ -21,10 +21,11 @@ import { NgChartsModule } from 'ng2-charts';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { NumberDirective } from '../directive/numbers-only.directive';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
-    NgChartsModule,
+    NgChartsModule, 
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -36,7 +37,7 @@ import { HttpClient } from '@angular/common/http';
     }),
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
-    WorkordersComponent, LogoutComponent
+    WorkordersComponent, LogoutComponent,NumberDirective
     , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent],
   providers: [
     DecimalPipe, DatePipe
