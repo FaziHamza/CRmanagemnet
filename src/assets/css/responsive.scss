@@ -1,4 +1,24 @@
+@media only screen and (max-width: 1400px) {
+    .sidebar-expanded {
+        width: 220px !important;
+        span {
+            line-height: 14px;
+            font-size: 12px;
+        }
+    }
+}
 @media only screen and (max-width: 1200px) {
+    .sidebar-expanded {
+        width: 180px !important;
+        .nav-bar-body .nav-link {
+            font-size: 12px;
+            padding: 8px 12px !important;
+            span {
+                font-size: 11px;
+            }
+        }
+    }
+
     .content-header .heading h4 {
         font-size: 18px;
     }
@@ -73,6 +93,11 @@
 @media screen and (max-width: 768px) {
     .login-body .image-section {
         display: none;
+    }
+    .collapse-card .accordion-button:after {
+        background-size: 30px !important;
+        height: 30px !important;
+        width: 30px !important;
     }
     .login-body .form-section {
         width: 100%;
