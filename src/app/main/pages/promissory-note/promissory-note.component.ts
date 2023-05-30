@@ -9,10 +9,10 @@ declare var $: any; // Use this line to tell TypeScript that $ is defined elsewh
   templateUrl: './promissory-note.component.html',
   styleUrls: ['./promissory-note.component.scss']
 })
-export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
+export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
   constructor(private commonService: CommonService,
-    private modal: NzModalService,private cdr: ChangeDetectorRef) { }
+    private modal: NzModalService, private cdr: ChangeDetectorRef) { }
   current = 0;
   isGenerate = false;
   promissoryist = [];
@@ -31,6 +31,7 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
   }
 
   next(): void {
+    debugger
     this.current += 1;
   }
 
@@ -180,8 +181,8 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
       };
     });
   }
- 
-  resetFirstList(){
+
+  resetFirstList() {
     const newData = this.promissoryist.map((item, index) => {
       return {
         ...item,
@@ -190,13 +191,13 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
     });
     this.promissoryist = newData
   }
-  checkReset(){
+  checkReset() {
     return this.promissoryist.find(item => item.edit === true);
   }
   //#endregion
-  
+
   //#region  generated tab 2
-  getGeneratedList(){
+  getGeneratedList() {
     this.generatedlist = [
       {
         "id": 1,
@@ -320,7 +321,7 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
 
   //#region Printed Tab 3
 
-  getPrintedList(){
+  getPrintedList() {
     this.printedlist = [
       {
         "id": 1,
@@ -444,7 +445,7 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
 
   createRequest(): void {
     const modal = this.modal.create<CreateRequestComponent>({
-      nzWidth:900,
+      nzWidth: 900,
       // nzTitle: 'Change Control Value',
       nzContent: CreateRequestComponent,
       // nzViewContainerRef: this.viewContainerRef,
@@ -459,79 +460,31 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
   }
   ngAfterViewInit() {
 
-  this.cdr.detectChanges()
+    this.cdr.detectChanges()
   }
   step: number = 1;
   showAlertBox: boolean = false;
   selectedCard
-
-
-
   steps = [
     {
-      title: 'Step 1',
-      cards: [
-        { icon: 'fas fa-building', title: 'Building', selected: false },
-        { icon: 'fas fa-globe', title: 'World Wide', selected: false },
-        { icon: 'fas fa-shield-virus', title: 'Web Design', selected: false },
-        //... more cards if needed
-      ]
+      title: 'Promissory_Notes.Generating'
     },
     {
-      title: 'Step 2',
-      cards: [
-        { icon: 'fas fa-atlas', title: 'Design', selected: false },
-        { icon: 'fas fa-blender-phone', title: 'Code', selected: false },
-        { icon: 'fas fa-city', title: 'Develop', selected: false },
-        //... more cards if needed
-      ]
+      title: 'Promissory_Notes.Generated'
     },
     {
-      title: 'Step 3',
-      cards: [
-        { icon: 'fas fa-atlas', title: 'Design', selected: false },
-        { icon: 'fas fa-blender-phone', title: 'Code', selected: false },
-        { icon: 'fas fa-city', title: 'Develop', selected: false },
-        //... more cards if needed
-      ]
+      title: 'Promissory_Notes.Printed'
     },
     {
-      title: 'Step 4',
-      cards: [
-        { icon: 'fas fa-building', title: 'Building', selected: false },
-        { icon: 'fas fa-globe', title: 'World Wide', selected: false },
-        { icon: 'fas fa-shield-virus', title: 'Web Design', selected: false },
-        //... more cards if needed
-      ]
+      title: 'Promissory_Notes.Signed'
     },
     {
-      title: 'Done',
-      cards: [
-        { icon: 'fas fa-atlas', title: 'Design', selected: false },
-        { icon: 'fas fa-blender-phone', title: 'Code', selected: false },
-        { icon: 'fas fa-city', title: 'Develop', selected: false },
-        //... more cards if needed
-      ]
+      title: 'Promissory_Notes.Under_Collecting'
     },
-    // ... more steps if needed
+    {
+      title: 'Promissory_Notes.Collected'
+    },
   ];
-  currentStep = 0;
 
-  selectCard(stepIndex: number, card: any) {
-    card.selected = !card.selected;
-  }
-  
-  nextStep() {
-    // if (this.steps[this.currentStep].cards.some(card => card.selected)) {
-    //   this.currentStep++;
-    // } else {
-    //   this.alertVisible = true;
-    // }
-    this.currentStep+=1
-  }
-  
-  previousStep() {
-    this.currentStep-=1;
-  }
-  
+
 }

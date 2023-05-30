@@ -266,321 +266,6 @@
                             <nz-step nzTitle="{{'Promissory_Notes.Collected' | translate}}"></nz-step>
                         </nz-steps>
 
-
-                        <div class="steps-content">
-
-                            <div *ngIf="current == 0">
-                                <div class="row mt-4 pt-4">
-                                    <div class="col-lg-10"></div>
-                                    <div class="col-lg-2">
-                                        <button type="button" class="btn o-btn hvr-bounce-to-right"
-                                            (click)="resetFirstList()" *ngIf="checkReset()">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M3 2v6h6" />
-                                                    <path d="M3 13a9 9 0 1 0 3-7.7L3 8" />
-                                                </g>
-                                            </svg>
-                                            {{"Promissory_Notes.Reset" | translate}} </button>
-                                    </div>
-
-                                </div>
-                                <div class="row heading-box">
-                                    <div class="col-lg-6 ">
-                                        <h1 class="head-title ">{{"Promissory_Notes.List_Of_Promissory_Notes" | translate}} </h1>
-
-                                    </div>
-                                    <div class="col-lg-6 text-end">
-                                        <h1 class="head-title ">{{"Promissory_Notes.Difference_amount" | translate}}: <span class="head-detail">-500</span>
-                                        </h1>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-
-                                    <nz-table #editRowTable nzBordered [nzData]="promissoryist" nzTableLayout="fixed"
-                                        [nzPageSize]="6">
-                                        <thead>
-                                            <tr>
-                                                <th nz-th nzSortFn="simpleSort">
-                                                    {{"Promissory_Notes.No" | translate}}  
-                                                </th>
-                                                <th> {{"Promissory_Notes.Customer_Name" | translate}}</th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    {{"Promissory_Notes.Amount" | translate}}  
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    {{"Promissory_Notes.Due_Date" | translate}} 
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                    {{"Promissory_Notes.PN_Status" | translate}}  
-                                                </th>
-                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of editRowTable.data;let index = index">
-                                                <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
-                                                    <td>
-                                                        {{ data.id }}
-                                                    </td>
-                                                    <td>{{ data.customer.mobile }}</td>
-                                                    <td [ngClass]="{
-                                                        'edit-data-status': data.edit === true
-                                                      }">{{ data.grandAmount | customRound: 3 }} JD</td>
-                                                    <td>
-                                                        23/4/2023
-                                                    </td>
-                                                    <td>
-                                                       
-                                                        <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
-                                                    </td>
-                                                    <td>
-                                                        <a class="table-edit" *ngIf="!data.edit"
-                                                            (click)="this.editCache[data.id].edit = true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" viewBox="0 0 32 32">
-                                                                <path fill="currentColor"
-                                                                    d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4l15-15zm-5-5L24 7.6l-3 3L17.4 7l3-3zM6 22v-3.6l10-10l3.6 3.6l-10 10H6z" />
-                                                            </svg>
-                                                        </a>
-                                                        <a class="table-edit">
-
-                                                        </a>
-                                                        <button type="button" class="undo-btn" *ngIf="data.edit"
-                                                            (click)="data.edit = false">
-                                                            Undo <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 24 24">
-                                                                <path fill="black"
-                                                                    d="M7 19v-2h7.1q1.575 0 2.738-1T18 13.5q0-1.5-1.163-2.5T14.1 10H7.8l2.6 2.6L9 14L4 9l5-5l1.4 1.4L7.8 8h6.3q2.425 0 4.163 1.575T20 13.5q0 2.35-1.738 3.925T14.1 19H7Z" />
-                                                            </svg>
-                                                        </button>
-                                                    </td>
-                                                </ng-container>
-                                                <ng-template #editTemplate>
-                                                    <td>{{data.id}} </td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control"
-                                                                [(ngModel)]="editCache[data.id].data.customer.mobile"
-                                                                [ngModelOptions]="{ standalone: true }"
-                                                                aria-describedby="basic-addon1">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control"
-                                                                [(ngModel)]="editCache[data.id].data.grandAmount"
-                                                                [ngModelOptions]="{ standalone: true }"
-                                                                aria-describedby="basic-addon1">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="date" class="form-control"
-                                                                aria-describedby="basic-addon1">
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                       
-                                                        <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
-                                                    </td>
-                                                    <td>
-                                                        <a class="table-correct"
-                                                            (click)="this.editCache[data.id].edit = false;data.edit = true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" viewBox="0 0 24 24">
-                                                                <path fill="#29a073"
-                                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                                                            </svg>
-                                                        </a>
-                                                        <a class="table-cancel"
-                                                            (click)="this.editCache[data.id].edit = false">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="32"
-                                                                height="32" viewBox="0 0 16 16">
-                                                                <g fill="none" stroke="red" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="1.5">
-                                                                    <path d="m10.25 5.75l-4.5 4.5m0-4.5l4.5 4.5" />
-                                                                    <circle cx="8" cy="8" r="6.25" />
-                                                                </g>
-                                                            </svg>
-                                                        </a>
-                                                    </td>
-                                                </ng-template>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </div>
-                            </div>
-                            <div *ngIf="current == 1">
-                                <div class="row heading-box mt-4 pt-4">
-                                    <div class="col-lg-12">
-                                        <h1 class="head-title "> {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}</h1>
-
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="card-box">
-                                                <h4 class="title">{{"Promissory_Notes.Promissory_Notes_Amount" | translate}}:
-                                                    <span class="detail">15,000</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="card-box">
-                                                <h4 class="title">{{"Promissory_Notes.No_Of_Installments" | translate}}:
-                                                    <span class="detail">10</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-6">
-                                            <div class="card-box">
-                                                <h4 class="title">{{"Promissory_Notes.First_Due_Date" | translate}}:
-                                                    <span class="detail">21-3-2023</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-
-                                    <nz-table #editRowTable nzBordered [nzData]="generatedlist" nzTableLayout="fixed"
-                                        [nzPageSize]="6">
-                                        <thead>
-                                            <tr>
-                                                <th nz-th nzSortFn="simpleSort">
-                                                  {{"Promissory_Notes.No" | translate}}  
-                                                </th>
-                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}</th>
-                                                <th nz-th nzSortFn="ascend">
-                                                  {{"Promissory_Notes.Amount" | translate}}  
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                  {{"Promissory_Notes.Due_Date" | translate}}  
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                  {{"Promissory_Notes.PN_Status" | translate}} 
-                                                </th>
-                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of editRowTable.data;let index = index">
-                                                <td>
-                                                    {{ data.id }}
-                                                </td>
-                                                <td>{{ data.customer.mobile }}</td>
-                                                <td [ngClass]="{
-                                                    'edit-data-status': data.edit === true
-                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
-                                                <td>
-                                                    23/4/2023
-                                                </td>
-                                                <td>
-                                                   
-                                                    <button class="btn generating-status">{{"Promissory_Notes.Date" | translate}}Generating</button>
-                                                </td>
-                                                <td>
-                                                    <a class="pen-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" style="color: rgb(168 168 168)">
-                                                            <path fill="currentColor"
-                                                                d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                                                        </svg>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </div>
-                            </div>
-                            <div *ngIf="current == 2 || current == 3 || current == 4">
-                                <div class="row heading-box mt-4 pt-4">
-                                    <div class="col-lg-6">
-                                        <h1 class="head-title "> {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}</h1>
-                                    </div>
-                                    <div class="col-lg-6 text-end">
-                                        <h1 class="head-title ">{{"Promissory_Notes.Promissory_Notes_Book_No" | translate}}. <span
-                                                class="detail">3698</span></h1>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="card-box">
-                                                <h4 class="title">{{"Promissory_Notes.Promissory_Notes_Total_Amount" | translate}} 
-                                                    <span class="detail">15,000</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 text-end">
-                                            <div class="card-box">
-                                                <h4 class="title">{{"Promissory_Notes.Remaining_Amount" | translate}}:
-                                                    <span class="detail">15000</span>
-                                                </h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-
-                                    <nz-table #editRowTable nzBordered [nzData]="generatedlist" nzTableLayout="fixed"
-                                        [nzPageSize]="6">
-                                        <thead>
-                                            <tr>
-                                                <th nz-th nzSortFn="simpleSort">
-                                                  {{"Promissory_Notes.No" | translate}}  
-                                                </th>
-                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}</th>
-                                                <th nz-th nzSortFn="ascend">
-                                                   {{"Promissory_Notes.Amount" | translate}} 
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                   {{"Promissory_Notes.Due_Date" | translate}}
-                                                </th>
-                                                <th nz-th nzSortFn="ascend">
-                                                   {{"Promissory_Notes.PN_Status" | translate}} 
-                                                </th>
-                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let data of editRowTable.data;let index = index">
-                                                <td>
-                                                    {{ data.id }}
-                                                </td>
-                                                <td>{{ data.customer.mobile }}</td>
-                                                <td [ngClass]="{
-                                                    'edit-data-status': data.edit === true
-                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
-                                                <td>
-                                                    23/4/2023
-                                                </td>
-                                                <td>
-                                                   
-                                                    
-                                                    <button class="btn printed-status"
-                                                        *ngIf="current == 2 ">Printed</button>
-                                                    <button class="btn printed-status"
-                                                        *ngIf="current == 4 && (index == 0 || index == 1)">Collected</button>
-                                                    <button class="btn uncollected-status"
-                                                        *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button>
-                                                </td>
-                                                <td>
-                                                    <a class="pen-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" style="color: rgb(168 168 168)">
-                                                            <path fill="currentColor"
-                                                                d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                                                        </svg>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </nz-table>
-                                </div>
-                            </div>
-                        </div>
                         <div class="steps-action">
                             <button nz-button nzType="default" class="previous-btn hvr-bounce-to-right2" (click)="pre()"
                                 *ngIf="current > 0">
@@ -595,27 +280,7 @@
                                 <span>Done</span>
                             </button>
                         </div>
-                        <div class="bottom-buttons" *ngIf="current == 0">
-                            <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                                (click)="this.isGenerate = false">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button"
-                                (click)="this.isGenerate = true">Confirm Rescheduling</button>
-                        </div>
-                        <div class="bottom-buttons" *ngIf="current == 1">
-                            <button type="button" class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button">Print PN Book</button>
-                        </div>
-                        <div class="bottom-buttons" *ngIf="current == 2">
-                            <button type="button" class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">RePrint PN
-                                Book</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button">Mark As Signed</button>
-                        </div>
-                        <div class="bottom-buttons" *ngIf="current == 3 || current == 4">
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">Create
-                                Request</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button">Close</button>
-                        </div>
+                       
                     </div> -->
 
                     <div class="promissory-notes-details-card">
@@ -631,34 +296,408 @@
                                     <ul id="progressBar" class="progressbar">
                                         <li *ngFor="let step of steps; let i = index" [id]="'progressList-' + (i+1)"
                                             class="d-inline-block fw-bold position-relative text-center float-start progressbar-list"
-                                            [ngClass]="{'active': currentStep === i}">
-                                            {{step.title}}
+                                            [ngClass]="{'active': current === i}">
+                                            {{step.title | translate}}
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="wizard-content">
+                                <div class="wizard-content card">
                                     <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
-                                        [hidden]="currentStep !== i">
+                                        [hidden]="current !== i">
                                         <div class="col-lg-12 col-md-8">
-                                            <h3 class="fw-bold pt-5">Select Card</h3>
-                                            <p class="small pb-5">Please select at least one card</p>
-                                            <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
-                                                <div *ngFor="let card of step.cards" class="col">
-                                                    <div (click)="selectCard(i, card)"
-                                                        class="card text-center h-100 py-5"
-                                                        [ngClass]="{'active-card': card.selected}">
-                                                        <i
-                                                            [class]="card.icon + ' card-img-top mx-auto img-light fs-1 pb-1'"></i>
-                                                        <div class="card-body px-0">
-                                                            <h5 class="card-title title-binding">{{card.title}}</h5>
+                                            <div *ngIf="current == 0">
+                                                <div class="row mt-4 pt-4">
+                                                    <div class="col-lg-10"></div>
+                                                    <div class="col-lg-2">
+                                                        <button type="button" class="btn o-btn hvr-bounce-to-right"
+                                                            (click)="resetFirstList()" *ngIf="checkReset()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24">
+                                                                <g fill="none" stroke="currentColor"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2">
+                                                                    <path d="M3 2v6h6" />
+                                                                    <path d="M3 13a9 9 0 1 0 3-7.7L3 8" />
+                                                                </g>
+                                                            </svg>
+                                                            {{"Promissory_Notes.Reset" | translate}} </button>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row heading-box">
+                                                    <div class="col-lg-6 ">
+                                                        <h1 class="head-title ">
+                                                            {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}
+                                                        </h1>
+
+                                                    </div>
+                                                    <div class="col-lg-6 text-end">
+                                                        <h1 class="head-title ">{{"Promissory_Notes.Difference_amount" |
+                                                            translate}}: <span class="head-detail">-500</span>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+
+                                                    <nz-table #editRowTable nzBordered [nzData]="promissoryist"
+                                                        nzTableLayout="fixed" [nzPageSize]="6">
+                                                        <thead>
+                                                            <tr>
+                                                                <th nz-th nzSortFn="simpleSort">
+                                                                    {{"Promissory_Notes.No" | translate}}
+                                                                </th>
+                                                                <th> {{"Promissory_Notes.Customer_Name" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Amount" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Due_Date" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.PN_Status" | translate}}
+                                                                </th>
+                                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let data of editRowTable.data;let index = index">
+                                                                <ng-container
+                                                                    *ngIf="!editCache[data.id].edit; else editTemplate">
+                                                                    <td>
+                                                                        {{ data.id }}
+                                                                    </td>
+                                                                    <td>{{ data.customer.mobile }}</td>
+                                                                    <td [ngClass]="{
+                                                                        'edit-data-status': data.edit === true
+                                                                      }">{{ data.grandAmount | customRound: 3 }} JD
+                                                                    </td>
+                                                                    <td>
+                                                                        23/4/2023
+                                                                    </td>
+                                                                    <td>
+
+                                                                        <button
+                                                                            class="btn generating-status">Generating</button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="table-edit" *ngIf="!data.edit"
+                                                                            (click)="this.editCache[data.id].edit = true">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="32" height="32"
+                                                                                viewBox="0 0 32 32">
+                                                                                <path fill="currentColor"
+                                                                                    d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4l15-15zm-5-5L24 7.6l-3 3L17.4 7l3-3zM6 22v-3.6l10-10l3.6 3.6l-10 10H6z" />
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a class="table-edit">
+
+                                                                        </a>
+                                                                        <button type="button" class="undo-btn"
+                                                                            *ngIf="data.edit"
+                                                                            (click)="data.edit = false">
+                                                                            Undo <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="20" height="20"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path fill="black"
+                                                                                    d="M7 19v-2h7.1q1.575 0 2.738-1T18 13.5q0-1.5-1.163-2.5T14.1 10H7.8l2.6 2.6L9 14L4 9l5-5l1.4 1.4L7.8 8h6.3q2.425 0 4.163 1.575T20 13.5q0 2.35-1.738 3.925T14.1 19H7Z" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </td>
+                                                                </ng-container>
+                                                                <ng-template #editTemplate>
+                                                                    <td>{{data.id}} </td>
+                                                                    <td>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control"
+                                                                                [(ngModel)]="editCache[data.id].data.customer.mobile"
+                                                                                [ngModelOptions]="{ standalone: true }"
+                                                                                aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control"
+                                                                                [(ngModel)]="editCache[data.id].data.grandAmount"
+                                                                                [ngModelOptions]="{ standalone: true }"
+                                                                                aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="input-group">
+                                                                            <input type="date" class="form-control"
+                                                                                aria-describedby="basic-addon1">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+
+                                                                        <button
+                                                                            class="btn generating-status">{{"Promissory_Notes.Generating"
+                                                                            | translate}}</button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="table-correct"
+                                                                            (click)="this.editCache[data.id].edit = false;data.edit = true">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="32" height="32"
+                                                                                viewBox="0 0 24 24">
+                                                                                <path fill="#29a073"
+                                                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a class="table-cancel"
+                                                                            (click)="this.editCache[data.id].edit = false">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="32" height="32"
+                                                                                viewBox="0 0 16 16">
+                                                                                <g fill="none" stroke="red"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="1.5">
+                                                                                    <path
+                                                                                        d="m10.25 5.75l-4.5 4.5m0-4.5l4.5 4.5" />
+                                                                                    <circle cx="8" cy="8" r="6.25" />
+                                                                                </g>
+                                                                            </svg>
+                                                                        </a>
+                                                                    </td>
+                                                                </ng-template>
+                                                            </tr>
+                                                        </tbody>
+                                                    </nz-table>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="current == 1">
+                                                <div class="row heading-box mt-4 pt-4">
+                                                    <div class="col-lg-12">
+                                                        <h1 class="head-title ">
+                                                            {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}
+                                                        </h1>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="card-box">
+                                                                <h4 class="title">
+                                                                    {{"Promissory_Notes.Promissory_Notes_Amount" |
+                                                                    translate}}:
+                                                                    <span class="detail">15,000</span>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="card-box">
+                                                                <h4 class="title">
+                                                                    {{"Promissory_Notes.No_Of_Installments" |
+                                                                    translate}}:
+                                                                    <span class="detail">10</span>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-6">
+                                                            <div class="card-box">
+                                                                <h4 class="title">{{"Promissory_Notes.First_Due_Date" |
+                                                                    translate}}:
+                                                                    <span class="detail">21-3-2023</span>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+
+                                                    <nz-table #editRowTable nzBordered [nzData]="generatedlist"
+                                                        nzTableLayout="fixed" [nzPageSize]="6">
+                                                        <thead>
+                                                            <tr>
+                                                                <th nz-th nzSortFn="simpleSort">
+                                                                    {{"Promissory_Notes.No" | translate}}
+                                                                </th>
+                                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Amount" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Due_Date" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.PN_Status" | translate}}
+                                                                </th>
+                                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let data of editRowTable.data;let index = index">
+                                                                <td>
+                                                                    {{ data.id }}
+                                                                </td>
+                                                                <td>{{ data.customer.mobile }}</td>
+                                                                <td [ngClass]="{
+                                                                    'edit-data-status': data.edit === true
+                                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
+                                                                <td>
+                                                                    23/4/2023
+                                                                </td>
+                                                                <td>
+
+                                                                    <button
+                                                                        class="btn generating-status">{{"Promissory_Notes.Date"
+                                                                        | translate}}</button>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="pen-icon">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            style="color: rgb(168 168 168)">
+                                                                            <path fill="currentColor"
+                                                                                d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                                                        </svg>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </nz-table>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="current == 2 || current == 3 || current == 4">
+                                                <div class="row heading-box mt-4 pt-4">
+                                                    <div class="col-lg-6">
+                                                        <h1 class="head-title ">
+                                                            {{"Promissory_Notes.List_Of_Promissory_Notes" | translate}}
+                                                        </h1>
+                                                    </div>
+                                                    <div class="col-lg-6 text-end">
+                                                        <h1 class="head-title ">
+                                                            {{"Promissory_Notes.Promissory_Notes_Book_No" | translate}}.
+                                                            <span class="detail">3698</span>
+                                                        </h1>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6">
+                                                            <div class="card-box">
+                                                                <h4 class="title">
+                                                                    {{"Promissory_Notes.Promissory_Notes_Total_Amount" |
+                                                                    translate}}
+                                                                    <span class="detail">15,000</span>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 text-end">
+                                                            <div class="card-box">
+                                                                <h4 class="title">{{"Promissory_Notes.Remaining_Amount"
+                                                                    | translate}}:
+                                                                    <span class="detail">15000</span>
+                                                                </h4>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="table-responsive">
+
+                                                    <nz-table #editRowTable nzBordered [nzData]="generatedlist"
+                                                        nzTableLayout="fixed" [nzPageSize]="6">
+                                                        <thead>
+                                                            <tr>
+                                                                <th nz-th nzSortFn="simpleSort">
+                                                                    {{"Promissory_Notes.No" | translate}}
+                                                                </th>
+                                                                <th>{{"Promissory_Notes.Customer_Name" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Amount" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.Due_Date" | translate}}
+                                                                </th>
+                                                                <th nz-th nzSortFn="ascend">
+                                                                    {{"Promissory_Notes.PN_Status" | translate}}
+                                                                </th>
+                                                                <th>{{"Promissory_Notes.Action" | translate}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let data of editRowTable.data;let index = index">
+                                                                <td>
+                                                                    {{ data.id }}
+                                                                </td>
+                                                                <td>{{ data.customer.mobile }}</td>
+                                                                <td [ngClass]="{
+                                                                    'edit-data-status': data.edit === true
+                                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
+                                                                <td>
+                                                                    23/4/2023
+                                                                </td>
+                                                                <td>
+
+
+                                                                    <button class="btn printed-status"
+                                                                        *ngIf="current == 2 ">Printed</button>
+                                                                    <button class="btn printed-status"
+                                                                        *ngIf="current == 4 && (index == 0 || index == 1)">Collected</button>
+                                                                    <button class="btn uncollected-status"
+                                                                        *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button>
+                                                                </td>
+                                                                <td>
+                                                                    <a class="pen-icon">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="24" height="24" viewBox="0 0 24 24"
+                                                                            style="color: rgb(168 168 168)">
+                                                                            <path fill="currentColor"
+                                                                                d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                                                        </svg>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </nz-table>
+                                                </div>
                                             </div>
-                                            <button (click)="previousStep()" *ngIf="i > 0"
-                                                class="btn btn-dark text-white float-start back mt-4 rounded-3">Back</button>
-                                            <button (click)="nextStep()"
-                                                class="btn text-white float-end next mt-4 rounded-3 bg-color-info">Next</button>
+                                            <div class="row">
+                                                <div class="col-lg-10">
+                                                    <button (click)="pre()" *ngIf="current > 0"
+                                                        class="btn hvr-bounce-to-right2 float-start back mt-4 rounded-3">Back</button>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button (click)="next()" *ngIf="current < 5"
+                                                        class="btn o-btn float-end next mt-4 rounded-3 ">Next</button>
+                                                    <button (click)="done()" *ngIf="current === 5"
+                                                        class="btn o-btn float-end next mt-4 rounded-3 ">Done</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="bottom-buttons" *ngIf="current == 0">
+                                                <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                                                    (click)="this.isGenerate = false">Close</button>
+                                                <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                                    (click)="this.isGenerate = true">Confirm Rescheduling</button>
+                                            </div>
+                                            <div class="bottom-buttons" *ngIf="current == 1">
+                                                <button type="button"
+                                                    class="btn btn-white hvr-bounce-to-right2">Close</button>
+                                                <button class="btn o-btn hvr-bounce-to-right" type="button">Print PN
+                                                    Book</button>
+                                            </div>
+                                            <div class="bottom-buttons" *ngIf="current == 2">
+                                                <button type="button"
+                                                    class="btn btn-white hvr-bounce-to-right2">Close</button>
+                                                <button class="btn o-btn btn-white hvr-bounce-to-right"
+                                                    type="button">RePrint PN
+                                                    Book</button>
+                                                <button class="btn o-btn hvr-bounce-to-right" type="button">Mark As
+                                                    Signed</button>
+                                            </div>
+                                            <div class="bottom-buttons" *ngIf="current == 3 || current == 4">
+                                                <button class="btn o-btn btn-white hvr-bounce-to-right"
+                                                    type="button">Create
+                                                    Request</button>
+                                                <button class="btn o-btn hvr-bounce-to-right"
+                                                    type="button">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
