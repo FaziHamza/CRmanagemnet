@@ -1908,7 +1908,10 @@ nz-tabset {
 }
 .wizard-form-body {
     padding: 20px;
-
+    .progressbar {
+        padding: 0px !important;
+        display: flex;
+    }
     .main-content .wizard-form .progressbar-list::before {
         content: " ";
         background-color: white;
@@ -1958,6 +1961,7 @@ nz-tabset {
     }
 
     .progressbar-list {
+        width: 100%;
         color: #6f787d;
     }
 
@@ -2007,11 +2011,14 @@ nz-tabset {
     .bg-success-color:focus {
         box-shadow: 0 0 0 0.25rem rgba(55, 197, 20, 0.25);
     }
-#cardSection {
-    clear: both;
-}
+    #cardSection {
+        clear: both;
+    }
 }
 
 .w-15 {
     width: 15%;
+}
+.wizard-content {
+    clear: both;
 }

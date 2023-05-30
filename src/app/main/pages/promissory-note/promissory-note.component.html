@@ -630,41 +630,40 @@
                                 <div class="wizard-form">
                                     <ul id="progressBar" class="progressbar">
                                         <li *ngFor="let step of steps; let i = index" [id]="'progressList-' + (i+1)"
-                                            class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list"
+                                            class="d-inline-block fw-bold position-relative text-center float-start progressbar-list"
                                             [ngClass]="{'active': currentStep === i}">
                                             {{step.title}}
                                         </li>
                                     </ul>
                                 </div>
-
-                                <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
-                                    [hidden]="currentStep !== i">
-                                    <div class="col-lg-12 col-md-8">
-                                        <h3 class="fw-bold pt-5">Select Card</h3>
-                                        <p class="small pb-5">Please select at least one card</p>
-                                        <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
-                                            <div *ngFor="let card of step.cards" class="col">
-                                                <div (click)="selectCard(i, card)" class="card text-center h-100 py-5"
-                                                    [ngClass]="{'active-card': card.selected}">
-                                                    <i
-                                                        [class]="card.icon + ' card-img-top mx-auto img-light fs-1 pb-1'"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">{{card.title}}</h5>
+                                <div class="wizard-content">
+                                    <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
+                                        [hidden]="currentStep !== i">
+                                        <div class="col-lg-12 col-md-8">
+                                            <h3 class="fw-bold pt-5">Select Card</h3>
+                                            <p class="small pb-5">Please select at least one card</p>
+                                            <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
+                                                <div *ngFor="let card of step.cards" class="col">
+                                                    <div (click)="selectCard(i, card)"
+                                                        class="card text-center h-100 py-5"
+                                                        [ngClass]="{'active-card': card.selected}">
+                                                        <i
+                                                            [class]="card.icon + ' card-img-top mx-auto img-light fs-1 pb-1'"></i>
+                                                        <div class="card-body px-0">
+                                                            <h5 class="card-title title-binding">{{card.title}}</h5>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <button (click)="previousStep()" *ngIf="i > 0"
+                                                class="btn btn-dark text-white float-start back mt-4 rounded-3">Back</button>
+                                            <button (click)="nextStep()"
+                                                class="btn text-white float-end next mt-4 rounded-3 bg-color-info">Next</button>
                                         </div>
-                                        <button (click)="previousStep()" *ngIf="i > 0"
-                                            class="btn btn-dark text-white float-start back mt-4 rounded-3">Back</button>
-                                        <button (click)="nextStep()"
-                                            class="btn text-white float-end next mt-4 rounded-3 bg-color-info">Next</button>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
             </div>
