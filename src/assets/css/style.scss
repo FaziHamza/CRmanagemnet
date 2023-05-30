@@ -741,7 +741,7 @@ input[type="checkbox"]:checked {
     select {
         padding: 10px 15px;
         height: 48px;
-        font-size: 12px;
+        // font-size: 12px;
         border: 1px solid #d1d1d1;
         border-radius: 12px;
     }
@@ -754,12 +754,15 @@ input[type="checkbox"]:checked {
         position: absolute;
         top: 12px;
         left: 10px;
+        height: 20px;
+        width: 20px;
     }
 
     .close {
+        background: white;
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 16px;
+        right: 12px;
         height: 18px;
         width: 18px;
     }
@@ -1173,7 +1176,9 @@ input {
 .ant-table-row {
     .ant-table-cell {
         position: relative;
-
+        .btn {
+            box-shadow: none !important;
+        }
         input {
             padding-right: 22px !important;
         }
@@ -1250,7 +1255,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
@@ -1267,7 +1272,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
@@ -1284,7 +1289,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     font-weight: 600;
@@ -1303,7 +1308,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     font-weight: 600;
@@ -1322,7 +1327,7 @@ hr {
 //     border-radius: 8px;
 //     display: flex;
 //     justify-content: center;
-//     box-shadow: $card-shadow !important;
+//
 //     align-items: center;
 //     font-size: 12px;
 //     font-weight: 600;
@@ -1341,7 +1346,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
@@ -1358,7 +1363,7 @@ hr {
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    box-shadow: $card-shadow !important;
+
     align-items: center;
     font-size: 12px;
     letter-spacing: 0.3px;
@@ -1690,10 +1695,11 @@ nz-tabset {
 
 .disabled-section {
     background-color: #f3f3f3;
-    margin-left: -2.2%;
-    margin-right: -2.3%;
-    padding-right: 2.3%;
-    padding-left: 2.2%;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 0px 10px;
+    border-radius: 5px !important;
+    margin-bottom: 10px;
 }
 
 .dropdown-avatar {

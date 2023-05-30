@@ -8,16 +8,17 @@
 <div class="container-fluid">
     <div class="content-body-inner">
         <nz-tabset>
-                <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}">
+            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}">
 
                 <div class="create-form">
                     <div class="row">
-                        <div class="col-lg-11">
+                        <div class="col-lg-10">
                             <div class="row">
                                 <div class="col-lg-3 col-md-6">
                                     <div class="input-search">
-                                        <input type="text" class="form-control " placeholder="Search by customer "
-                                            (input)="customerChange()" [(ngModel)]="searchByCustomer">
+                                        <input type="text" class="form-control "
+                                            placeholder="Search by customer name or phone" (input)="customerChange()"
+                                            [(ngModel)]="searchByCustomer">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
                                             viewBox="0 0 24 24">
                                             <path fill="currentColor" fill-rule="evenodd"
@@ -52,61 +53,34 @@
                                 <div class="col-lg-3 col-md-6">
                                     <div class="input-search form-control2">
                                         <nz-range-picker [nzDateRender]="tplRender"></nz-range-picker>
-
                                         <ng-template #tplRender let-current>
-                                          <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
-                                            {{ current.getDate() }}
-                                          </div>
+                                            <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
+                                                {{ current.getDate() }}
+                                            </div>
                                         </ng-template>
-                                        <!-- <input type="text" class="form-control "
-                                            placeholder="Search by order date" (input)="searchPart()"
-                                            [(ngModel)]="searchByPartNo"> -->
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor" fill-rule="evenodd"
-                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                                clip-rule="evenodd" />
-                                        </svg> -->
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                            viewBox="0 0 20 20">
-                                            <rect x="0" y="0" width="24" height="24" fill="none" stroke="none" />
-                                            <path fill="currentColor"
-                                                d="M5.673 0a.7.7 0 0 1 .7.7v1.309h7.517v-1.3a.7.7 0 0 1 1.4 0v1.3H18a2 2 0 0 1 2 1.999v13.993A2 2 0 0 1 18 20H2a2 2 0 0 1-2-1.999V4.008a2 2 0 0 1 2-1.999h2.973V.699a.7.7 0 0 1 .7-.699ZM1.4 7.742v10.259a.6.6 0 0 0 .6.6h16a.6.6 0 0 0 .6-.6V7.756L1.4 7.742Zm5.267 6.877v1.666H5v-1.666h1.667Zm4.166 0v1.666H9.167v-1.666h1.666Zm4.167 0v1.666h-1.667v-1.666H15Zm-8.333-3.977v1.666H5v-1.666h1.667Zm4.166 0v1.666H9.167v-1.666h1.666Zm4.167 0v1.666h-1.667v-1.666H15ZM4.973 3.408H2a.6.6 0 0 0-.6.6v2.335l17.2.014V4.008a.6.6 0 0 0-.6-.6h-2.71v.929a.7.7 0 0 1-1.4 0v-.929H6.373v.92a.7.7 0 0 1-1.4 0v-.92Z" />
-                                        </svg>
-                                        <svg (click)="clearPart()" *ngIf="this.searchByPartNo.length>0"
-                                            xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
-                                        </svg> -->
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
-                                    <div class="select-search">
+                                    <div class="input-search">
+
                                         <select class="form-select" [(ngModel)]="statusType" (change)="statusChange()"
                                             aria-label="Default select example">
-                                            <option *ngIf="!statusType" selected value="">Search by status...</option>
+                                            <option *ngIf="!statusType" selected value="">All Orders Statuses</option>
                                             <option [value]="data.id" *ngFor="let data of statusList">{{
                                                 data.description }}
                                             </option>
                                         </select>
 
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor" fill-rule="evenodd"
-                                                d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
-                                                clip-rule="evenodd" />
-                                        </svg> -->
                                         <svg (click)="clearStatus()" *ngIf="statusType"
                                             xmlns="http://www.w3.org/2000/svg" class="close" viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z" />
                                         </svg>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-1 ">
+                        <div class="col-lg-2 ">
                             <button type="button" class="btn o-btn hvr-bounce-to-right"
                                 [routerLink]="'/home/createorders'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -124,8 +98,10 @@
                 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
                     <div class="table-responsive mt-4 pt-4">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-subheading">{{"Promissory_Notes_orders.Promissory_Notes_Orders_List" | translate}} </h5>
-                            <h5 class="card-subheading">{{"Promissory_Notes_orders.Total_No" | translate}} : {{editRowTable.data.length}}</h5>
+                            <h5 class="card-subheading">{{"Promissory_Notes_orders.Promissory_Notes_Orders_List" |
+                                translate}} </h5>
+                            <h5 class="card-subheading">{{"Promissory_Notes_orders.Total_No" | translate}} :
+                                {{editRowTable.data.length}}</h5>
 
                         </div>
                         <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
@@ -133,13 +109,16 @@
                             <thead>
                                 <tr>
                                     <th nz-th nzSortFn="simpleSort" (click)="getSortFunction(sortType,'customer')">
-                                       {{"Promissory_Notes_orders.Order_No" | translate}} </th>
+                                        {{"Promissory_Notes_orders.Order_No" | translate}} </th>
 
                                     <th>{{"Promissory_Notes_orders.Customer_Name" | translate}}</th>
-                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">{{"Promissory_Notes_orders.Phone_No" | translate}}</th>
-                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">{{"Promissory_Notes_orders.Order_Date_Amount" | translate}}
-                                        </th>
-                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">{{"Promissory_Notes_orders.Status" | translate}}</th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
+                                        {{"Promissory_Notes_orders.Phone_No" | translate}}</th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
+                                        {{"Promissory_Notes_orders.Order_Date_Amount" | translate}}
+                                    </th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
+                                        {{"Promissory_Notes_orders.Status" | translate}}</th>
                                     <th>{{"Promissory_Notes_orders.Action" | translate}}</th>
                                 </tr>
                             </thead>
@@ -159,7 +138,8 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn o-btn hvr-bounce-to-right"> {{"Promissory_Notes_orders.Generate" | translate}}
+                                        <button type="button" class="btn o-btn hvr-bounce-to-right">
+                                            {{"Promissory_Notes_orders.Generate" | translate}}
                                         </button>
                                     </td>
                                 </tr>
