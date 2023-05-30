@@ -1988,37 +1988,7 @@ nz-tabset {
         box-shadow: none;
     }
 
-    .bg-color-info {
-        background-color: #00d69f;
-    }
-
-    .border-color {
-        border-color: #ececec;
-    }
-
-    .btn {
-        padding: 16px 30px;
-    }
-
-    .back-to-wizard {
-        transform: translate(-50%, -139%) !important;
-    }
-
-    .bg-success-color {
-        background-color: #87d185;
-    }
-
-    .bg-success-color:focus {
-        box-shadow: 0 0 0 0.25rem rgba(55, 197, 20, 0.25);
-    }
-    #cardSection {
+    .wizard-content {
         clear: both;
     }
-}
-
-.w-15 {
-    width: 15%;
-}
-.wizard-content {
-    clear: both;
 }

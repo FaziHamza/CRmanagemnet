@@ -301,7 +301,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="wizard-content card">
+                                <div class="wizard-content">
                                     <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
                                         [hidden]="current !== i">
                                         <div class="col-lg-12 col-md-8">
@@ -660,7 +660,7 @@
                                             <div class="row">
                                                 <div class="col-lg-10">
                                                     <button (click)="pre()" *ngIf="current > 0"
-                                                        class="btn hvr-bounce-to-right2 float-start back mt-4 rounded-3">Back</button>
+                                                        class="btn btn-white hvr-bounce-to-right2 float-start back mt-4 rounded-3">Back</button>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <button (click)="next()" *ngIf="current < 5"
