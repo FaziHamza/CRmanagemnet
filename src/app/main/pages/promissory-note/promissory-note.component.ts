@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { CreateRequestComponent } from '../create-request/create-request.component';
@@ -12,7 +12,7 @@ declare var $: any; // Use this line to tell TypeScript that $ is defined elsewh
 export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
 
   constructor(private commonService: CommonService,
-    private modal: NzModalService) { }
+    private modal: NzModalService,private cdr: ChangeDetectorRef) { }
   current = 0;
   isGenerate = false;
   promissoryist = [];
@@ -484,6 +484,7 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
                   $("#alertBox").removeClass("d-none");
               }
           }
+          
       });
       // back button
       $(".back").on({
@@ -518,10 +519,26 @@ export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
       //back to wizard
       $(".back-to-wizard").on({
           click: function () {
-              location.reload();
+              // location.reload();
           }
       });
   });
+  this.cdr.detectChanges()
+  }
+  step: number = 1;
+  showAlertBox: boolean = false;
+  selectedCard
 
+  nextStep(): void {
+      // if (this.step === 1) {
+      //     // this.showAlertBox = true;
+      //     return;
+      // }
+      this.step += 1;
+      // this.showAlertBox = false;
+  }
+
+  previousStep(): void {
+      this.step -= 1;
   }
 }
