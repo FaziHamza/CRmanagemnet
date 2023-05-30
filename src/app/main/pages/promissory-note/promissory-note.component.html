@@ -1,11 +1,13 @@
 <div class="content-body-inner">
     <div class="row heading-box">
         <div class="col-lg-6">
-            <span class="head-title">{{"Promissory_Notes.Date" | translate}}Date: </span> <span class="head-detail">20/5/2023</span>
+            <span class="head-title">{{"Promissory_Notes.Date" | translate}}Date: </span> <span
+                class="head-detail">20/5/2023</span>
         </div>
         <div class="col-lg-6 ">
             <div class="text-end">
-                <h1 class="head-title ">{{"Promissory_Notes.Order_No" | translate}}: <span class="head-detail">123</span></h1>
+                <h1 class="head-title ">{{"Promissory_Notes.Order_No" | translate}}: <span
+                        class="head-detail">123</span></h1>
             </div>
         </div>
     </div>
@@ -91,7 +93,7 @@
     <nz-tabset>
         <nz-tab [nzTitle]="titleTemplate">
             <ng-template #titleTemplate>
-                {{"Promissory_Notes.PN_V1" | translate}}   
+                {{"Promissory_Notes.PN_V1" | translate}}
             </ng-template>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -106,8 +108,10 @@
                                     <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
                                 <div class="heading-box">
-                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span class="head-detail">Ahmed Mohammad</span></p>
-                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span class="head-detail">8745</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span
+                                            class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span
+                                            class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
@@ -129,7 +133,8 @@
                                     <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
-                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" | translate}} 
+                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
+                                        translate}}
                                         <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -161,8 +166,10 @@
                                     <nz-avatar [nzText]="'AM'"></nz-avatar>
                                 </div>
                                 <div class="heading-box">
-                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span class="head-detail">Ahmed Mohammad</span></p>
-                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span class="head-detail">8745</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}<span
+                                            class="head-detail">Ahmed Mohammad</span></p>
+                                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}<span
+                                            class="head-detail">8745</span></p>
                                 </div>
                             </div>
                             <div class="row heading-box">
@@ -184,7 +191,8 @@
                                     <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                 </div>
                                 <div class="col-lg-8">
-                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" | translate}}
+                                    <button type="button" class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
+                                        translate}}
                                         <a href="" class="eye">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24">
@@ -206,7 +214,7 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
-                    <div>
+                    <!-- <div>
                         <div class="card">
                             <div class="card-heading">
                                 <div class="head-left lable-header">
@@ -246,10 +254,9 @@
                             <button class="btn o-btn hvr-bounce-to-right" type="button"
                                 (click)="this.isGenerate = true">{{"Promissory_Notes.Generate_PNs_Book" | translate}}</button>
                         </div>
-                    </div>
+                    </div> -->
 
-
-                    <div class="card" *ngIf="isGenerate">
+                    <!-- <div class="card" *ngIf="isGenerate">
                         <nz-steps [nzCurrent]="current" (nzIndexChange)="onIndexChange($event)">
                             <nz-step nzTitle="{{'Promissory_Notes.Generating' | translate}}"></nz-step>
                             <nz-step nzTitle="{{'Promissory_Notes.Generated' | translate}}"></nz-step>
@@ -316,7 +323,6 @@
                                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                                 <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
                                                     <td>
-                                                        <!-- 01 -->
                                                         {{ data.id }}
                                                     </td>
                                                     <td>{{ data.customer.mobile }}</td>
@@ -324,18 +330,10 @@
                                                         'edit-data-status': data.edit === true
                                                       }">{{ data.grandAmount | customRound: 3 }} JD</td>
                                                     <td>
-                                                        <!-- {{ data.orderDate | date:'dd MMM yyyy h:mm a' }} -->
                                                         23/4/2023
                                                     </td>
                                                     <td>
-                                                        <!-- <button type="button" [ngClass]="{
-                                                          'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                                          'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                                          'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                                          'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
-                                                        }">
-                                                            {{ data.statusObj[0].statusName }}
-                                                        </button> -->
+                                                       
                                                         <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
                                                     </td>
                                                     <td>
@@ -364,7 +362,6 @@
                                                     <td>{{data.id}} </td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
                                                             <input type="text" class="form-control"
                                                                 [(ngModel)]="editCache[data.id].data.customer.mobile"
                                                                 [ngModelOptions]="{ standalone: true }"
@@ -373,7 +370,6 @@
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
                                                             <input type="text" class="form-control"
                                                                 [(ngModel)]="editCache[data.id].data.grandAmount"
                                                                 [ngModelOptions]="{ standalone: true }"
@@ -382,20 +378,12 @@
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
                                                             <input type="date" class="form-control"
                                                                 aria-describedby="basic-addon1">
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <!-- <button type="button" [ngClass]="{
-                                                          'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                                          'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                                          'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                                          'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
-                                                        }">
-                                                            {{ data.statusObj[0].statusName }}
-                                                        </button> -->
+                                                       
                                                         <button class="btn generating-status">{{"Promissory_Notes.Generating" | translate}}</button>
                                                     </td>
                                                     <td>
@@ -481,7 +469,6 @@
                                         <tbody>
                                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                                 <td>
-                                                    <!-- 01 -->
                                                     {{ data.id }}
                                                 </td>
                                                 <td>{{ data.customer.mobile }}</td>
@@ -489,18 +476,10 @@
                                                     'edit-data-status': data.edit === true
                                                   }">{{ data.grandAmount | customRound: 3 }} JD</td>
                                                 <td>
-                                                    <!-- {{ data.orderDate | date:'dd MMM yyyy h:mm a' }} -->
                                                     23/4/2023
                                                 </td>
                                                 <td>
-                                                    <!-- <button type="button" [ngClass]="{
-                                                      'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                                      'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                                      'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                                      'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
-                                                    }">
-                                                        {{ data.statusObj[0].statusName }}
-                                                    </button> -->
+                                                   
                                                     <button class="btn generating-status">{{"Promissory_Notes.Date" | translate}}Generating</button>
                                                 </td>
                                                 <td>
@@ -568,7 +547,6 @@
                                         <tbody>
                                             <tr *ngFor="let data of editRowTable.data;let index = index">
                                                 <td>
-                                                    <!-- 01 -->
                                                     {{ data.id }}
                                                 </td>
                                                 <td>{{ data.customer.mobile }}</td>
@@ -576,18 +554,11 @@
                                                     'edit-data-status': data.edit === true
                                                   }">{{ data.grandAmount | customRound: 3 }} JD</td>
                                                 <td>
-                                                    <!-- {{ data.orderDate | date:'dd MMM yyyy h:mm a' }} -->
                                                     23/4/2023
                                                 </td>
                                                 <td>
-                                                    <!-- <button type="button" [ngClass]="{
-                                                      'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                                      'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                                      'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                                      'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
-                                                    }">
-                                                        {{ data.statusObj[0].statusName }}
-                                                    </button> -->
+                                                   
+                                                    
                                                     <button class="btn printed-status"
                                                         *ngIf="current == 2 ">Printed</button>
                                                     <button class="btn printed-status"
@@ -644,6 +615,17 @@
                             <button class="btn o-btn btn-white hvr-bounce-to-right" type="button">Create
                                 Request</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button">Close</button>
+                        </div>
+                    </div> -->
+
+                    <div class="promissory-notes-details-card">
+                        <div class="card-heading">
+                            <h5>
+                                Promissory Notes Details
+                            </h5>
+                        </div>
+                        <div class="wizard-form">
+                            0000
                         </div>
                     </div>
                 </div>
