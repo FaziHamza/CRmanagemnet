@@ -107,9 +107,14 @@ html {
     justify-content: center;
     box-shadow: $card-shadow !important;
     align-items: center;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.3px;
     color: white;
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .hvr-bounce-to-right {
@@ -177,8 +182,13 @@ html {
     justify-content: center;
     align-items: center;
     box-shadow: $card-shadow !important;
-    font-size: 12px;
+    font-size: 14px;
     color: $primary;
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .hvr-bounce-to-right2 {
@@ -1852,5 +1862,23 @@ nz-tabset {
         font-size: 18px;
         font-weight: 600;
         padding: 10px 10px 0px 20px;
+    }
+}
+.form-control2 {
+.ant-picker-range-separator {
+    margin-bottom: 10px;
+}
+    .ant-picker {
+        padding: 5px 8px !important;
+        border: 1px solid #d1d1d1;
+        border-radius: 12px;
+        font-size: 14px !important;
+        height: 46px;
+        width: 100%;
+        .ant-picker-input input{
+            height: 32px;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
     }
 }
