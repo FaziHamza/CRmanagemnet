@@ -100,7 +100,7 @@
                         <div class="d-flex justify-content-between">
                             <h5 class="card-subheading">{{"Promissory_Notes_orders.Promissory_Notes_Orders_List" |
                                 translate}} </h5>
-                            <h5 class="card-subheading">{{"Promissory_Notes_orders.Total_No" | translate}} :
+                            <h5 class="card-subheading-light">{{"Promissory_Notes_orders.Total_No" | translate}} :
                                 {{editRowTable.data.length}}</h5>
 
                         </div>
@@ -109,17 +109,59 @@
                             <thead>
                                 <tr>
                                     <th nz-th nzSortFn="simpleSort" (click)="getSortFunction(sortType,'customer')">
-                                        {{"Promissory_Notes_orders.Order_No" | translate}} </th>
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Order_No" | translate}}
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
+                                    </th>
 
-                                    <th>{{"Promissory_Notes_orders.Customer_Name" | translate}}</th>
+                                    <th>
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Customer_Name" | translate}}
+
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
+                                    </th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
-                                        {{"Promissory_Notes_orders.Phone_No" | translate}}</th>
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Phone_No" | translate}}
+
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
+                                    </th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
-                                        {{"Promissory_Notes_orders.Order_Date_Amount" | translate}}
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Order_Date_Amount" | translate}}
+
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
                                     </th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
-                                        {{"Promissory_Notes_orders.Status" | translate}}</th>
-                                    <th>{{"Promissory_Notes_orders.Action" | translate}}</th>
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Status" | translate}}
+
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="theader">
+                                            <div>
+                                                {{"Promissory_Notes_orders.Action" | translate}}
+
+                                            </div>
+                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
