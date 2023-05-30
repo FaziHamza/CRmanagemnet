@@ -627,219 +627,41 @@
                         <div class="wizard-form-body">
 
                             <div class="main-content">
-                                <!-- row -->
-                                    <div class="wizard-form ">
-                                        <!-- ul -->
-                                        <ul id="progressBar" class="progressbar">
-                                            <li id="progressList-1"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list active">
-                                                Step 1</li>
-                                            <li id="progressList-2"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list">
-                                                Step 2</li>
-                                            <li id="progressList-3"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list">
-                                                Step 3</li>
-                                            <li id="progressList-4"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list">
-                                                Done</li>
-                                            <li id="progressList-5"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list">
-                                                Done</li>
-                                            <li id="progressList-6"
-                                                class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list">
-                                                Done</li>
+                                <div class="wizard-form">
+                                    <ul id="progressBar" class="progressbar">
+                                        <li *ngFor="let step of steps; let i = index" [id]="'progressList-' + (i+1)"
+                                            class="d-inline-block fw-bold w-15 position-relative text-center float-start progressbar-list"
+                                            [ngClass]="{'active': currentStep === i}">
+                                            {{step.title}}
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                        </ul>
-                                        <!-- /ul -->
-                                    </div>
-                                <!-- /row -->
-                                <!-- row -->
-                                <div class="row justify-content-center" id="cardSection">
-                                    <!-- col -->
+                                <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
+                                    [hidden]="currentStep !== i">
                                     <div class="col-lg-12 col-md-8">
                                         <h3 class="fw-bold pt-5">Select Card</h3>
                                         <p class="small pb-5">Please select at least one card</p>
-                                        <!-- cards -->
                                         <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5 shadow-sm">
+                                            <div *ngFor="let card of step.cards" class="col">
+                                                <div (click)="selectCard(i, card)" class="card text-center h-100 py-5"
+                                                    [ngClass]="{'active-card': card.selected}">
                                                     <i
-                                                        class="fas fa-building card-img-top mx-auto img-light fs-1 pb-1"></i>
+                                                        [class]="card.icon + ' card-img-top mx-auto img-light fs-1 pb-1'"></i>
                                                     <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">Building</h5>
-                                                        <p class="card-text">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5"><i
-                                                        class="fas fa-globe card-img-top mx-auto img-light fs-1 pb-1"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">World Wide</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i
-                                                        class="fas fa-shield-virus card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0 pt-4">
-                                                        <h5 class="card-title title-binding">Web Design</h5>
+                                                        <h5 class="card-title title-binding">{{card.title}}</h5>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /cards -->
-                                        <!-- NEXT BUTTON-->
-                                        <button type="button"
-                                            class="btn text-white float-end next mt-4 rounded-3 bg-color-info">Next</button>
-                                        <!-- /NEXT BUTTON-->
-                                    </div>
-                                    <!-- /col -->
-                                </div>
-                                <!-- /row -->
-                                <!-- row -->
-                                <div class="row justify-content-center form-business">
-                                    <!-- col -->
-                                    <div class="col-lg-7 col-md-8">
-                                        <h3 class="fw-bold pt-5">Select Card</h3>
-                                        <p class="small pb-5">Please select at least one card</p>
-                                        <!-- cards -->
-                                        <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i class="fas fa-atlas card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">Design</h5>
-                                                        <p class="card-text">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i
-                                                        class="fas fa-blender-phone card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">Code</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i class="fas fa-city card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0 pt-4">
-                                                        <h5 class="card-title title-binding">Develop</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /cards -->
-                                        <!-- NEXT BUTTON-->
-                                        <button type="button"
+                                        <button (click)="previousStep()" *ngIf="i > 0"
                                             class="btn btn-dark text-white float-start back mt-4 rounded-3">Back</button>
-                                        <button type="button"
+                                        <button (click)="nextStep()"
                                             class="btn text-white float-end next mt-4 rounded-3 bg-color-info">Next</button>
-                                        <!-- /NEXT BUTTON-->
                                     </div>
-                                    <!-- /col -->
-                                </div>
-                                <!-- /row -->
-                                <!-- row -->
-                                <div class="row justify-content-center form-business">
-                                    <!-- col -->
-                                    <div class="col-lg-7 col-md-8">
-                                        <h3 class="fw-bold pt-5">Select Card</h3>
-                                        <p class="small pb-5">Please select at least one card</p>
-                                        <!-- cards -->
-                                        <div class="row row-cols-1 row-cols-lg-3 g-4 pb-5 border-bottom">
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i
-                                                        class="fas fa-hand-holding-medical card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">Design</h5>
-                                                        <p class="card-text">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i
-                                                        class="fas fa-people-carry card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0">
-                                                        <h5 class="card-title title-binding">Code</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card text-center h-100 py-5">
-                                                    <i
-                                                        class="fas fa-chalkboard-teacher card-img-top mx-auto img-light fs-1"></i>
-                                                    <div class="card-body px-0 pt-4">
-                                                        <h5 class="card-title title-binding">Develop</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /Step 2 -->
-                                            <!-- Step 3 and so on... -->
-                                        </div>
-                                        <!-- /cards -->
-                                        <!-- NEXT BUTTON-->
-                                        <button type="button"
-                                            class="btn btn-dark text-white float-start back mt-4 rounded-3">Back</button>
-                                        <button type="button"
-                                            class="btn text-white float-end next mt-4 rounded-3 bg-color-info confirm">Next</button>
-                                        <!-- /NEXT BUTTON-->
-                                    </div>
-                                    <!-- /col -->
-                                </div>
-                                <!-- /row -->
-                                <!-- row -->
-                                <div class="row justify-content-center py-5 form-business">
-                                    <!-- col -->
-                                    <div class="col-lg-7 col-md-8" id="successMessage">
-                                        <!-- success message -->
-                                        <div class="position-relative success-content">
-                                            <img src="https://uploads-ssl.webflow.com/5ef0df6b9272f7410180a013/60c0e28575cd7c21701806fd_q1cunpuhbdreMPFRSFLyfUXNzpqv_I5fz_plwv6gV3sMNXwUSPrq88pC2iJijEV7wERnKXtdTA0eE4HvdnntGo9AHAWn-IcMPKV-rZw1v75vlTEoLF4OdNqsRb7C6r7Mvzrm7fe4.png"
-                                                class="w-100" id="successImage" alt="success-message">
-                                            <a href="#" type="button"
-                                                class="btn bg-success-color py-2 back-to-wizard position-absolute top-100 start-50 translate-middle text-white">Back
-                                                to Wizad Form</a>
-                                        </div>
-                                        <!-- /success message -->
-                                    </div>
-                                    <!-- /col -->
-                                    <!-- col -->
-                                    <div class="col-lg-7 col-md-8" id="successForm">
-                                        <div class="mb-5 pb-5">
-                                            <!-- Final step -->
-                                            <div class="alert alert-primary text-center" role="alert">
-                                                <h5 class="p-4">Finally We are going to submit your information if you
-                                                    want to
-                                                    continue that
-                                                    please click on the finish button to finish up your Working process.
-                                                </h5>
-                                            </div>
-                                            <div class="form-check mt-4">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">
-                                                    I agree to the terms and conditions
-                                                </label>
-                                            </div>
-                                            <!-- /Final step -->
-                                        </div>
-                                        <!-- NEXT BUTTON-->
-                                        <button type="button"
-                                            class="btn btn-dark text-white float-start back rounded-3">Back</button>
-                                        <button type="submit"
-                                            class="btn text-white float-end submit-button rounded-3 bg-color-info">Finish</button>
-                                        <!-- /NEXT BUTTON-->
-                                    </div>
-                                    <!-- /col -->
                                 </div>
                             </div>
+
 
                         </div>
 
