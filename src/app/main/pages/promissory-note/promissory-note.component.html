@@ -296,10 +296,11 @@
                                     <ul id="progressBar" class="progressbar">
                                         <li *ngFor="let step of steps; let i = index" [id]="'progressList-' + (i+1)"
                                             class="d-inline-block fw-bold position-relative text-center float-start progressbar-list"
-                                            [ngClass]="{'active': current === i}">
+                                            [ngClass]="{'active': current >= i}">
                                             {{step.title | translate}}
                                         </li>
                                     </ul>
+                                    
                                 </div>
                                 <div class="wizard-content">
                                     <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
