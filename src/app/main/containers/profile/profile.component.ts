@@ -34,7 +34,7 @@ export class ProfileComponent {
     this.commonService.breadcrumb = [
       { title: 'Profile', routeLink: '' },
     ];
-    debugger
+    
     this.userDetail = this.commonService.getUser();
     this.getForm();
     this.GetUserDetails();

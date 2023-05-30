@@ -32,7 +32,6 @@ export class LoginComponent extends FormBaseComponent implements OnInit {
       if (param) {
         const token = param['token'];
         if (token) {
-          debugger
           this.token = token;
           let getuser = JSON.parse(window.atob(token.split(".")[1]));
           getuser['token'] = token;

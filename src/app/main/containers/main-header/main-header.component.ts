@@ -48,7 +48,7 @@ export class MainHeaderComponent implements OnInit {
     // window.open(url, '_blank');
   }
   setLanguage(lang: string): void {
-    debugger
+    
     this.selectedLanguageObj = this.languages.find(
       (record) => record.id === lang
     );

@@ -211,7 +211,7 @@ export class WorkordersComponent implements OnInit {
   sortType = null;
   sortCounter = 0;
   getSortFunction(sortType: string, columnName: string,) {
-    debugger
+    
     // if (columnName == 'customer') {
     //   this.orderParamObj.Sort = sortType === "ascend" ? 3 : 2;
     //   this.getAllOrderList();
