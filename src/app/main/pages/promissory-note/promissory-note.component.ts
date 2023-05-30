@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { CreateRequestComponent } from '../create-request/create-request.component';
+declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
   selector: 'app-promissory-note',
   templateUrl: './promissory-note.component.html',
   styleUrls: ['./promissory-note.component.scss']
 })
-export class PromissoryNoteComponent implements OnInit {
+export class PromissoryNoteComponent implements OnInit ,AfterViewInit  {
 
   constructor(private commonService: CommonService,
     private modal: NzModalService) { }
@@ -455,5 +456,72 @@ export class PromissoryNoteComponent implements OnInit {
         // this.controls(value, data, obj, res);
       }
     });
+  }
+  ngAfterViewInit() {
+    $(document).ready(function () {
+      debugger
+      // hidden things
+      $(".form-business").hide();
+      $("#successMessage").hide();
+      // next button
+      $(".next").on({
+          click: function () {
+              debugger
+              // select any card
+              var getValue = $(this)
+                  .parents(".row")
+                  .find(".card")
+                  .hasClass("active-card");
+              if (getValue) {
+                  $("#progressBar").find(".active").next().addClass("active");
+                  $("#alertBox").addClass("d-none");
+                  $(this)
+                      .parents(".row")
+                      .fadeOut("slow", function () {
+                          $(this).next(".row").fadeIn("slow");
+                      });
+              } else {
+                  $("#alertBox").removeClass("d-none");
+              }
+          }
+      });
+      // back button
+      $(".back").on({
+          click: function () {
+              $("#progressBar .active").last().removeClass("active");
+              $(this)
+                  .parents(".row")
+                  .fadeOut("slow", function () {
+                      $(this).prev(".row").fadeIn("slow");
+                  });
+          }
+      });
+      //finish button
+      $(".submit-button").on({
+          click: function () {
+              $("#wizardRow").fadeOut(300);
+              $(this).parents(".row").children("#successForm").fadeOut(300);
+              $(this).parents(".row").children("#successMessage").fadeIn(3000);
+          }
+      });
+      //Active card on click function
+      $(".card").on({
+          click: function () {
+              $(this).toggleClass("active-card");
+              $(this)
+                  .parent(".col")
+                  .siblings()
+                  .children(".card")
+                  .removeClass("active-card");
+          }
+      });
+      //back to wizard
+      $(".back-to-wizard").on({
+          click: function () {
+              location.reload();
+          }
+      });
+  });
+
   }
 }
