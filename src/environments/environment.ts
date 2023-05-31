@@ -8,5 +8,6 @@ export const environment = {
   creditmanagement:'https://creditmanagement.azurewebsites.net/POSAPI/api',
   administration: 'https://dx-admimistration.azurewebsites.net/POSAPI/',
   administration2: 'https://dx-admimistration.azurewebsites.net/',
+  creditmanagementtest:'https://creditmanagementtest.azurewebsites.net/POSAPI/api/',
 
 };

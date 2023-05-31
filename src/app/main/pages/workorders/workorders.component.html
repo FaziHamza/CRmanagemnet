@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="input-search form-control2">
-                                        <nz-range-picker [nzDateRender]="tplRender"></nz-range-picker>
+                                        <nz-range-picker [nzDateRender]="tplRender" [(ngModel)]="selectedDate" (ngModelChange)="changeDate($event)"></nz-range-picker>
                                         <ng-template #tplRender let-current>
                                             <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
                                                 {{ current.getDate() }}
@@ -81,8 +81,7 @@
                             </div>
                         </div>
                         <div class="col-lg-2 ">
-                            <button type="button" class="btn o-btn hvr-bounce-to-right"
-                                [routerLink]="'/home/createorders'">
+                            <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="resetParam()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2">
@@ -101,14 +100,14 @@
                             <h5 class="card-subheading">{{"Promissory_Notes_orders.Promissory_Notes_Orders_List" |
                                 translate}} </h5>
                             <h5 class="card-subheading-light">{{"Promissory_Notes_orders.Total_No" | translate}} :
-                                {{editRowTable.data.length}}</h5>
+                                {{orderList.length}}</h5>
 
                         </div>
                         <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
                             [nzPageSize]="pageSize" [nzLoading]="tableLoader">
                             <thead>
                                 <tr>
-                                    <th nz-th nzSortFn="simpleSort" (click)="getSortFunction(sortType,'customer')">
+                                    <th nz-th nzSortFn="simpleSort" (click)="getSortFunction(sortType,'orderno')">
                                         <div class="theader">
                                             <div>
                                                 {{"Promissory_Notes_orders.Order_No" | translate}}
@@ -117,7 +116,7 @@
                                         </div>
                                     </th>
 
-                                    <th>
+                                    <th nz-th nzSortFn="simpleSort" (click)="getSortFunction(sortType,'customer')">
                                         <div class="theader">
                                             <div>
                                                 {{"Promissory_Notes_orders.Customer_Name" | translate}}
@@ -126,16 +125,16 @@
                                             <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
                                         </div>
                                     </th>
-                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
+                                    <th >
                                         <div class="theader">
                                             <div>
                                                 {{"Promissory_Notes_orders.Phone_No" | translate}}
 
                                             </div>
-                                            <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div>
+                                            <!-- <div class="sorting"><i class="fa-regular fa-arrow-down-arrow-up"></i></div> -->
                                         </div>
                                     </th>
-                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
                                         <div class="theader">
                                             <div>
                                                 {{"Promissory_Notes_orders.Order_Date_Amount" | translate}}
@@ -166,17 +165,13 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let data of editRowTable.data;let index = index">
+                                    <td>{{ data.orderId }}</td>
                                     <td>{{ data.customer.customerName }}</td>
                                     <td>{{ data.customer.mobile }}</td>
                                     <td>{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
-                                    <td>{{ data.grandAmount | customRound: 3 }} JD</td>
-                                    <td><button type="button" [ngClass]="{
-                                          'btn o-btn printed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Printed',
-                                          'btn o-btn signed-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Signed',
-                                          'btn o-btn collected-status': data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Collected',
-                                          'btn o-btn pending-status':  data.statusObj && data.statusObj.length > 0 && data.statusObj[0].statusName === 'Pending'
-                                        }">
-                                            {{ data.statusObj[0].statusName }}
+                                    <td><button type="button" class="btn o-btn " [style.background-color]="data.statusObj.lookupBGColor"
+                                        [style.text-color]="data.statusObj.lookupTextColor">
+                                            {{ data.statusObj.description }}
                                         </button>
                                     </td>
                                     <td>

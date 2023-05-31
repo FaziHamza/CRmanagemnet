@@ -17,11 +17,12 @@ export class WorkordersComponent implements OnInit {
   orderList: any[] = [];
   pageSize = 6;
   statusList: any[] = [];
-  orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Customer: '', Status: 0, Sort: 1, Part: '' }
+  orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
 
   searchByCustomer: string = '';
   searchByPartNo: string = '';
   statusType: any = "";
+  selectedDate: any;
   saveLoader: boolean = false;
   constructor(private apiService: ApiService, private commonService: CommonService) { }
 
@@ -34,13 +35,13 @@ export class WorkordersComponent implements OnInit {
     this.searchByCustomerName$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        this.orderParamObj.Customer = value;
+        this.orderParamObj.Search = value;
         this.getAllOrderList();
       });
     this.searchPartNo$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        this.orderParamObj.Part = value;
+        this.orderParamObj.OrderNumber = value;
         this.getAllOrderList();
       });
   }
@@ -48,148 +49,29 @@ export class WorkordersComponent implements OnInit {
 
   }
   getAllOrderList() {
-    this.orderList = [
-      {
-        "sparePartsSalesOrderOpportunityNo": 33,
-        "customer": {
-          "customerId": 100531,
-          "customerName": "شركة الصادق لصناعة المطهرات والاكياس والفلاتر",
-          "email": null,
-          "mobile": "962790000091",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10006,
-            "statusName": "Pending"
-          }
-        ],
-        "status": 10006,
-        "grandAmount": 566.82,
-        "orderDate": "2023-05-25T16:36:20.372218",
-        "salesNote": "",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T13:36:20.263",
-        "pnEndDate": "2023-05-25T13:36:20.263",
-        "collection": null
-      },
-      {
-        "sparePartsSalesOrderOpportunityNo": 32,
-        "customer": {
-          "customerId": 100135,
-          "customerName": "شركة كلية القدس",
-          "email": null,
-          "mobile": "962790000012",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10002,
-            "statusName": "Printed"
-          }
-        ],
-        "status": 10002,
-        "grandAmount": 202.814,
-        "orderDate": "2023-05-25T15:32:10.1908768",
-        "salesNote": "",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:32:10.14",
-        "pnEndDate": "2023-05-25T12:32:10.14",
-        "collection": null
-      },
-      {
-        "sparePartsSalesOrderOpportunityNo": 31,
-        "customer": {
-          "customerId": 100252,
-          "customerName": "شركة الفاهوم وشركاه التعليمية /مدارس اكاديمية عمان",
-          "email": null,
-          "mobile": "962790000026",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10004,
-            "statusName": "Signed"
-          }
-        ],
-        "status": 10004,
-        "grandAmount": 37.676,
-        "orderDate": "2023-05-25T15:31:25.5362716",
-        "salesNote": "note order 2",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:31:25.49",
-        "pnEndDate": "2023-05-25T12:31:25.49",
-        "collection": null
-      },
-      {
-        "sparePartsSalesOrderOpportunityNo": 30,
-        "customer": {
-          "customerId": 101009,
-          "customerName": "عدنان سعيد سعود ابو ضريس وشركاه",
-          "email": null,
-          "mobile": "962790000187",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10006,
-            "statusName": "Collected"
-          }
-        ],
-        "status": 10006,
-        "grandAmount": 227.198,
-        "orderDate": "2023-05-25T15:29:32.6528327",
-        "salesNote": "notee",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:29:32.357",
-        "pnEndDate": "2023-05-25T12:29:32.357",
-        "collection": null
+    const queryString = Object.entries(this.orderParamObj)
+      .filter(([key, value]) => !(key === "Status" && value === 0))
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join("&");
+    this.saveLoader = true;
+    this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
+      this.saveLoader = false;
+      if (res.isSuccess) {
+        this.orderList = res.data?.data;
+      } else {
+        this.orderList = [];
       }
-    ]
-    // const queryString = Object.entries(this.orderParamObj)
-    //   .filter(([key, value]) => !(key === "Status" && value === 0))
-    //   .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    //   .join("&");
-    // this.saveLoader = true;
-    // this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
-    //   this.saveLoader = false;
-    //   if (res.isSuccess) {
-    //     this.orderList = res.data;
-    //   } else {
-    //     this.orderList = [];
-    //   }
-    // })
+    })
   }
   clearInput() {
     this.searchByCustomer = '';
-    this.orderParamObj.Customer = this.searchByCustomer;
+    this.orderParamObj.Search = this.searchByCustomer;
 
     this.getAllOrderList();
   }
   clearPart() {
     this.searchByPartNo = '';
-    this.orderParamObj.Part = this.searchByPartNo;
-
+    this.orderParamObj.OrderNumber = this.searchByPartNo;
     this.getAllOrderList();
   }
   clearStatus() {
@@ -211,13 +93,13 @@ export class WorkordersComponent implements OnInit {
   sortType = null;
   sortCounter = 0;
   getSortFunction(sortType: string, columnName: string,) {
-    
+
     // if (columnName == 'customer') {
     //   this.orderParamObj.Sort = sortType === "ascend" ? 3 : 2;
     //   this.getAllOrderList();
     //   this.sortType = this.sortType === "ascend" ? "descend" : 'ascend';
     // }
-    if (columnName === 'customer') {
+    if (columnName === 'orderno') {
       this.sortCounter++;
       switch (this.sortCounter % 3) {
         case 0: // no sort
@@ -235,7 +117,7 @@ export class WorkordersComponent implements OnInit {
       }
       this.getAllOrderList();
     }
-    if (columnName === 'date') {
+    if (columnName === 'customer') {
       this.sortCounter++;
       switch (this.sortCounter % 3) {
         case 0: // no sort
@@ -258,7 +140,7 @@ export class WorkordersComponent implements OnInit {
     //   this.getAllOrderList();
     //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
     // }
-    if (columnName == 'amount') {
+    if (columnName == 'date') {
       this.sortCounter++;
       switch (this.sortCounter % 3) {
         case 0: // no sort
@@ -298,6 +180,22 @@ export class WorkordersComponent implements OnInit {
   simpleSort = (a, b) => a - b; // simple sort function
   statusChange() {
     this.orderParamObj.Status = this.statusType;
+    this.getAllOrderList();
+  }
+  changeDate(date: any) {
+    if (this.selectedDate.length > 0) {
+      const fromDate = new Date(this.selectedDate[0].toString());
+      const toDate = new Date(this.selectedDate[1]);
+
+      const formattedFromDate = fromDate.toISOString();
+      const formattedToDate = toDate.toISOString(); 
+
+      this.orderParamObj.FromDate = formattedFromDate
+      this.orderParamObj.ToDate = formattedToDate
+    } else {
+      this.orderParamObj.FromDate = ''
+      this.orderParamObj.ToDate = ''
+    }
     this.getAllOrderList();
   }
   getStatusLookup() {
@@ -419,6 +317,12 @@ export class WorkordersComponent implements OnInit {
     //   }
     // })
   }
-
-  
+  resetParam() {
+    this.orderParamObj = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
+    this.searchByCustomer = '';
+    this.searchByPartNo = '';
+    this.selectedDate = [];
+    this.statusType = '';
+    this.getAllOrderList();
+  }
 }

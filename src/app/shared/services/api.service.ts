@@ -35,6 +35,14 @@ export class ApiService {
   }
   EditUser(body: any) {
     let url = environment.administration + `User/EditUser`;
-    return this.http.post<AppResponse>(url,body);
+    return this.http.post<AppResponse>(url, body);
+  }
+  getStatusLookup(id: number): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "Lookups/GetLookups?lookupTypeId=" + id;
+    return this.http.get<AppResponse>(url);
+  }
+  getSparePartsWorkOrder(param:string=null):Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?"+param;
+    return this.http.get<AppResponse>(url);
   }
 }

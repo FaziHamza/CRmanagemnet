@@ -1,8 +1,10 @@
 export interface orderParam {
-  Customer: string
   BranchId: number
   Sort: number,
   Status: number,
-  Part:string
+  FromDate: any,
+  ToDate: any,
+  OrderNumber:string
   PageSize:number
+  Search:string
 }
