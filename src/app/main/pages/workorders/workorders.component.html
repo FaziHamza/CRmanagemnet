@@ -164,7 +164,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of editRowTable.data;let index = index">
+                                <tr *ngFor="let data of editRowTable.data;let index = index" routerLink="/home/promissory-note">
                                     <td>{{ data.orderId }}</td>
                                     <td>{{ data.customer.customerName }}</td>
                                     <td>{{ data.customer.mobile }}</td>

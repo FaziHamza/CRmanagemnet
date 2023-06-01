@@ -40,9 +40,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Period_between_Promissory_Notes" | translate}}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
@@ -50,7 +50,7 @@
                                                 <input class="form-check-input" type="radio" [value]="'days'"
                                                     formControlName="periodBetweenPNType">
                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                    {{ "cmsetup.Days" | translate }}
+                                                 {{ "cmsetup.Days" | translate }}
                                                 </label>
                                             </div>
                                             <div class="input-text">
@@ -80,9 +80,9 @@
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Over_Due_Date_Alert_Activation" | translate}}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
@@ -90,7 +90,7 @@
                                                 <input class="form-check-input" type="radio" [value]="'days'"
                                                     id="flexRadioDefault3" formControlName="overDueAlertType">
                                                 <label class="form-check-label" for="flexRadioDefault3">
-                                                    {{"cmsetup.Days" | translate}}
+                                                {{"cmsetup.Days" | translate}}
                                                 </label>
                                             </div>
                                             <div class="input-text">
@@ -105,7 +105,7 @@
                                                 <input class="form-check-input" type="radio" [value]="'months'"
                                                     id="flexRadioDefault4" formControlName="overDueAlertType">
                                                 <label class="form-check-label" for="flexRadioDefault4">
-                                                    {{"cmsetup.Months" | translate}}
+                                               {{"cmsetup.Months" | translate}}
                                                 </label>
                                             </div>
                                             <div class="input-text">
@@ -119,14 +119,14 @@
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Manage_Promissory_Notes_within" | translate}}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" [value]="'days'"
+                                                <input class="form-check-input" type="radio" [value]="'Branch working hours'"
                                                     id="flexRadioDefault5" formControlName="managePNWithin">
                                                 <label class="form-check-label" for="flexRadioDefault5">
                                                     {{"cmsetup.Branch_working_hours" | translate}}
@@ -138,7 +138,7 @@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" [value]="'months'"
+                                                <input class="form-check-input" type="radio" [value]="'Employee working hours'"
                                                     id="flexRadioDefault6" formControlName="managePNWithin">
                                                 <label class="form-check-label" for="flexRadioDefault6">
                                                     {{"cmsetup.Employee_working_hours" | translate}}
@@ -151,14 +151,14 @@
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Allow_no_of_Rescheduling_Request" | translate}}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="input-text">
                                             <input type="number" class="form-control"
-                                                formControlName="allowNumberRescheduleRequest"
+                                                formControlName="allowedReschedulingRequestsLimit"
                                                 id="cm_setup_monthsRecheduling_input" digitsOnly>
                                         </div>
                                     </div>
@@ -167,15 +167,15 @@
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Allow_no_of_Transfering_Request" | translate}}
 
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="input-text">
                                             <input type="number" class="form-control"
-                                                formControlName="allowNumberTransferRequest"
+                                                formControlName="allowedTransferringRequestsLimit"
                                                 id="cm_setup_daystransfering_input" digitsOnly>
                                         </div>
                                     </div>
@@ -220,10 +220,10 @@
                                 </div>
                                 <div class="row  mt-2">
                                     <div class="col-lg-6 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Maximum_Number_Of_Raise_Limit_Requests" | translate}}
 
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="input-text">
@@ -235,10 +235,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
-                                    <h5>
+                                    <p>
                                         {{"cmsetup.Maximum_Number_Of_Reduce_Limit_Requests" | translate}}
 
-                                    </h5>
+                                    </p>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="input-text">
@@ -250,9 +250,9 @@
                             <div class="edit-row mt-2">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12">
-                                        <h5>
+                                        <p>
                                             {{"cmsetup.Allow_The_Creation_New_Credit_Account" | translate}}
-                                        </h5>
+                                        </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
@@ -293,7 +293,7 @@
                     <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancel()">Cancel</button>
                 </div>
                 <div class="col-lg-6">
-                    <button [ngClass]="{
+                    <button (click)="saveCmdSetup()" [ngClass]="{
                         'btn o-btn hvr-bounce-to-right': promissorySetup || creditManagementSetup,
                         'btn btn-white hvr-bounce-to-right2': !(promissorySetup || creditManagementSetup)
                       }" class="btn o-btn hvr-bounce-to-right">Save</button>

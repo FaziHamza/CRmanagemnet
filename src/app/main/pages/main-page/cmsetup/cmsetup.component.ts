@@ -23,7 +23,7 @@ export class CMSetupComponent implements OnInit {
       { title: 'Edit Setup ', routeLink: '' },
     ]
     this.cmsSetupFormcontrol();
-    // this.getCmsSetup();
+    this.getCmsSetup();
 
   }
   cmsSetupFormcontrol() {
@@ -35,8 +35,12 @@ export class CMSetupComponent implements OnInit {
       overDueAlertTypeValue: [''],
       overDueAlertTypeValueMonth: [''],
       managePNWithin: [''],
-      allowNumberRescheduleRequest: [''],
-      allowNumberTransferRequest: [''],
+
+      allowedReschedulingRequestsLimit: [''],
+      allowedTransferringRequestsLimit: [''],
+      //extra feild
+      periodBetweenPNTypeDay: [''],
+
       id: [0],
     });
     this.cmsSetupForm.disable();
@@ -65,28 +69,107 @@ export class CMSetupComponent implements OnInit {
         this.cmsSetup = res.data[0];
         this.cmsSetupForm.patchValue(this.cmsSetup);
         if (this.cmsSetup) {
-          this.cmsSetupForm.value.periodBetweenPNValue = this.cmsSetupForm.value.periodBetweenPNType == 'Days' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
-          this.cmsSetupForm.value.periodBetweenPNValueMonth = this.cmsSetupForm.value.periodBetweenPNType == 'Months' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
-          this.cmsSetupForm.value.overDueAlertTypeValue = this.cmsSetupForm.value.overDueAlertType == 'Days' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
-          this.cmsSetupForm.value.overDueAlertTypeValueMonth = this.cmsSetupForm.value.overDueAlertType == 'Months' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
+
+          const isDay = this.cmsSetup.periodBetweenPNType.toLowerCase() === 'days';
+
+          this.cmsSetupForm.patchValue({
+            periodBetweenPNType: isDay ? 'days' : 'months',
+            periodBetweenPNValue: isDay ? this.cmsSetup.periodBetweenPNValue : null,
+            periodBetweenPNValueMonth: isDay ? null : this.cmsSetup.periodBetweenPNValue,
+          });
+          
+          
+          const isDay2 = this.cmsSetup.overDueAlertType.toLowerCase() === 'days';
+
+          this.cmsSetupForm.patchValue({
+            overDueAlertType: isDay2 ? 'days' : 'months',
+            overDueAlertTypeValue: isDay2 ? this.cmsSetup.overDueAlertTypeValue : null,
+            overDueAlertTypeValueMonth: isDay2 ? null : this.cmsSetup.overDueAlertTypeValue,
+          });
+
+          
+          // this.cmsSetupForm.value.periodBetweenPNValue = this.cmsSetupForm.value.periodBetweenPNType == 'Days' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
+          // this.cmsSetupForm.value.periodBetweenPNValueMonth = this.cmsSetupForm.value.periodBetweenPNType == 'Months' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
+          // this.cmsSetupForm.value.overDueAlertTypeValue = this.cmsSetupForm.value.overDueAlertType == 'Days' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
+          // this.cmsSetupForm.value.overDueAlertTypeValueMonth = this.cmsSetupForm.value.overDueAlertType == 'Months' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
         }
       }
     })
   }
-  saveCmdSetup() {
+  saveCmdSetupv1() {
     if (this.cmsSetupForm.valid) {
       let controls = this.cmsSetupForm.value;
-      controls.periodBetweenPNValue = controls.periodBetweenPNType == "Days" ? controls.periodBetweenPNValue : controls.periodBetweenPNValueMonth
-      controls.overDueAlertTypeValue = controls.overDueAlertType == "Days" ? controls.overDueAlertTypeValue : controls.overDueAlertTypeValueMonth
-      this._apiService.saveCmsSetup(this.cmsSetupForm.value).subscribe(res => {
+  
+      if (controls.periodBetweenPNType == "Days") {
+        controls.periodBetweenPNValue = controls.periodBetweenPNValue;
+        controls.periodBetweenPNValueMonth = null;
+      } else {
+        controls.periodBetweenPNValue = controls.periodBetweenPNValueMonth;
+        controls.periodBetweenPNValueMonth = null;
+      }
+  
+      if (controls.overDueAlertType == "Days") {
+        controls.overDueAlertTypeValue = controls.overDueAlertTypeValue;
+        controls.overDueAlertTypeValueMonth = null;
+      } else {
+        controls.overDueAlertTypeValue = controls.overDueAlertTypeValueMonth;
+        controls.overDueAlertTypeValueMonth = null;
+      }
+  
+      this._apiService.saveCmsSetup(controls).subscribe(res => {
         if (res.isSuccess) {
           this.commonService.showSuccess("Data update successfully..!", "Success");
         } else {
-          this.commonService.showSuccess("found some error..!", "Error");
+          this.commonService.showSuccess("Found some error..!", "Error");
         }
       })
     }
   }
+  saveCmdSetup() {
+    if (this.cmsSetupForm.valid) {
+      let controls = this.cmsSetupForm.value;
+  
+      let formData = new FormData();
+      formData.append('PeriodBetweenPNType', controls.periodBetweenPNType);
+      formData.append('OverDueAlertType', controls.overDueAlertType);
+      formData.append('ManagePNWithin', controls.managePNWithin);
+      formData.append('AllowedReschedulingRequestsLimit', controls.allowedReschedulingRequestsLimit.toString());
+      formData.append('AllowedTransferringRequestsLimit', controls.allowedTransferringRequestsLimit.toString());
+  
+      if (controls.periodBetweenPNType.toLowerCase() === "days") {
+        formData.append('PeriodBetweenPNValue', controls.periodBetweenPNValue.toString());
+      } else {
+        formData.append('PeriodBetweenPNValue', controls.periodBetweenPNValueMonth.toString());
+      }
+  
+      if (controls.overDueAlertType.toLowerCase() === "days") {
+        formData.append('OverDueAlertTypeValue', controls.overDueAlertTypeValue.toString());
+      } else {
+        formData.append('OverDueAlertTypeValue', controls.overDueAlertTypeValueMonth.toString());
+      }
+  
+      // Capitalize the first letter
+      let capitalizedPeriodBetweenPNType = controls.periodBetweenPNType.charAt(0).toUpperCase() + controls.periodBetweenPNType.slice(1);
+      let capitalizedOverDueAlertType = controls.overDueAlertType.charAt(0).toUpperCase() + controls.overDueAlertType.slice(1);
+  
+      formData.set('PeriodBetweenPNType', capitalizedPeriodBetweenPNType);
+      formData.set('OverDueAlertType', capitalizedOverDueAlertType);
+  
+      this._apiService.saveCmsSetup(formData).subscribe(res => {
+        if (res.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+        } else {
+          this.commonService.showError("Found some error..!", "Error");
+        }
+      });
+    }
+  }
+  
+  
+  
+  
+
+  
   onAlertTypeChange(event: Event) {
     this.cmsSetupForm.get('overDueAlertTypeValue').setValue('');
     this.cmsSetupForm.get('overDueAlertTypeValueMonth').setValue('');

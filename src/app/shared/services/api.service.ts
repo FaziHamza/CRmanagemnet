@@ -20,10 +20,16 @@ export class ApiService {
   getUser() {
     return JSON.parse(localStorage.getItem('userDetail'))
   }
-  saveCmsSetup(obj: any): Observable<AppResponse> {
+  saveCmsSetupv1(obj: any): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/UpdateSetup";
     return this.http.post<AppResponse>(url, obj);
   }
+  saveCmsSetup(formData: FormData): Observable<AppResponse> {
+    let url = environment.creditmanagement + "Setup/UpdateSetup";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+}
+
   getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";
     return this.http.get<AppResponse>(url);
