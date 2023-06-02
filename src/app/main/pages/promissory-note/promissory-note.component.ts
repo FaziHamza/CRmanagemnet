@@ -62,7 +62,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
             this.getGeneratedList(2);
           }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'uncollected') {
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
             this.getGeneratedList(3);
           }
           else {
