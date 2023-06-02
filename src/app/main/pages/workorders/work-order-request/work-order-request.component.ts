@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, debounceTime } from 'rxjs';
 import { CommonService } from 'src/app/utility/services/common.service';
-import { orderParam } from './models/orderParam';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { orderParam } from '../models/orderParam';
 
 @Component({
-  selector: 'app-workorders',
-  templateUrl: './workorders.component.html',
-  styleUrls: ['./workorders.component.scss']
+  selector: 'app-work-order-request',
+  templateUrl: './work-order-request.component.html',
+  styleUrls: ['./work-order-request.component.scss']
 })
-export class WorkordersComponent implements OnInit {
+
+export class WorkOrderRequestComponent implements OnInit {
 
   searchByCustomerName$ = new Subject<any>();
   searchPartNo$ = new Subject<any>();
@@ -24,6 +25,8 @@ export class WorkordersComponent implements OnInit {
   statusType: any = "";
   selectedDate: any;
   saveLoader: boolean = false;
+  selectedRequestValue :any = 0;
+  tabs = [{id:1,name: 'All Requests'}, {id:2,name: 'Rescheduling Requests'}, {id:3,name: 'Transgerring Request'}];
   constructor(private apiService: ApiService, private commonService: CommonService) { }
 
   ngOnInit(): void {
@@ -41,10 +44,10 @@ export class WorkordersComponent implements OnInit {
     this.searchPartNo$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        if(value > 0){
+        if (value > 0) {
           this.orderParamObj.OrderNumber = value.toString();
           this.getAllOrderList();
-        }else{
+        } else {
           this.orderParamObj.OrderNumber = '';
           this.getAllOrderList();
         }
@@ -54,20 +57,171 @@ export class WorkordersComponent implements OnInit {
   mySort() {
 
   }
+  selectTab(tabId: number): void {
+    debugger
+    this.selectedRequestValue = tabId;
+  }
   getAllOrderList() {
-    const queryString = Object.entries(this.orderParamObj)
-      .filter(([key, value]) => !(key === "Status" && value === 0))
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-      .join("&");
-    this.saveLoader = true;
-    this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
-      this.saveLoader = false;
-      if (res.isSuccess) {
-        this.orderList = res.data?.data;
-      } else {
-        this.orderList = [];
+    this.orderList = [
+      {
+        "orderId": 1,
+        "customer": {
+          "customerId": 100289,
+          "customerName": "جمعية الحسين لرعاية وتاهيل ذوي التحديات الحركية",
+          "mobile": "962790000038"
+        },
+        "branch": null,
+        "orderDate": "2023-05-10T00:00:00",
+        "statusObj": {
+          "lookupId": 21002,
+          "lookupBGColor": null,
+          "lookupTextColor": null,
+          "description": "generated",
+          "translations": [
+            {
+              "languageId": 1001,
+              "lookupName": "Print"
+            }
+          ]
+        },
+        "actionId": 20002,
+        "actionToDo": [
+          {
+            "languageId": 1001,
+            "lookupName": "generated"
+          }
+        ]
+      },
+      {
+        "orderId": 4,
+        "customer": {
+          "customerId": 100293,
+          "customerName": "شركة الدخان والسجائر الدولية",
+          "mobile": "962790000039"
+        },
+        "branch": null,
+        "orderDate": "2023-01-05T00:00:00",
+        "statusObj": {
+          "lookupId": 21001,
+          "lookupBGColor": null,
+          "lookupTextColor": null,
+          "description": "pending",
+          "translations": [
+            {
+              "languageId": 1001,
+              "lookupName": "pending"
+            }
+          ]
+        },
+        "actionId": 20001,
+        "actionToDo": [
+          {
+            "languageId": 1001,
+            "lookupName": "Rescheduled"
+          }
+        ]
+      },
+      {
+        "orderId": 5,
+        "customer": {
+          "customerId": 100328,
+          "customerName": "عبد الله احمد خليف المناصير",
+          "mobile": "962790000048"
+        },
+        "branch": null,
+        "orderDate": "2023-01-05T00:00:00",
+        "statusObj": {
+          "lookupId": 21001,
+          "lookupBGColor": null,
+          "lookupTextColor": null,
+          "description": "pending",
+          "translations": [
+            {
+              "languageId": 1001,
+              "lookupName": "pending"
+            }
+          ]
+        },
+        "actionId": 20001,
+        "actionToDo": [
+          {
+            "languageId": 1001,
+            "lookupName": "Transfer"
+          }
+        ]
+      },
+      {
+        "orderId": 3,
+        "customer": {
+          "customerId": 100168,
+          "customerName": "سحر محمد حامد عكلوك",
+          "mobile": "962790000015"
+        },
+        "branch": null,
+        "orderDate": "2023-01-04T00:00:00",
+        "statusObj": {
+          "lookupId": 21001,
+          "lookupBGColor": null,
+          "lookupTextColor": null,
+          "description": "pending",
+          "translations": [
+            {
+              "languageId": 1001,
+              "lookupName": "Generated"
+            }
+          ]
+        },
+        "actionId": 20001,
+        "actionToDo": [
+          {
+            "languageId": 1001,
+            "lookupName": "Generated"
+          }
+        ]
+      },
+      {
+        "orderId": 2,
+        "customer": {
+          "customerId": 100135,
+          "customerName": "شركة كلية القدس",
+          "mobile": "962790000012"
+        },
+        "branch": null,
+        "orderDate": "2023-01-02T00:00:00",
+        "statusObj": {
+          "lookupId": 21001,
+          "lookupBGColor": null,
+          "lookupTextColor": null,
+          "description": "generated",
+          "translations": [
+            {
+              "languageId": 1001,
+              "lookupName": "generated"
+            }
+          ]
+        },
+        "actionId": 20001,
+        "actionToDo": [
+          {
+            "languageId": 1001,
+            "lookupName": "Generated"
+          }
+        ]
       }
-    })
+    ]
+    // const queryString = Object.entries(this.orderParamObj)
+    //   .filter(([key, value]) => !(key === "Status" && value === 0))
+    //   .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    //   .join("&");
+    // this.saveLoader = true;
+    // this.apiService.getSparePartsWorkOrder(queryString).subscribe(res => {
+    //   this.saveLoader = false;
+    //   if (res.isSuccess) {
+    //     this.orderList = res.data?.data;
+    //   } else {
+    //     this.orderList = [];
+    //   }
+    // })
   }
   clearInput() {
     this.searchByCustomer = '';
@@ -190,19 +344,18 @@ export class WorkordersComponent implements OnInit {
     this.orderParamObj.Status = this.statusType;
     this.getAllOrderList();
   }
+  clearDate() {
+    this.selectedDate = '';
+  }
   changeDate(date: any) {
-    if (this.selectedDate.length > 0) {
-      const fromDate = new Date(this.selectedDate[0].toString());
-      const toDate = new Date(this.selectedDate[1]);
-
+    debugger
+    if (this.selectedDate) {
+      const fromDate = new Date(this.selectedDate);
       const formattedFromDate = fromDate.toISOString();
-      const formattedToDate = toDate.toISOString();
 
       this.orderParamObj.FromDate = formattedFromDate
-      this.orderParamObj.ToDate = formattedToDate
     } else {
       this.orderParamObj.FromDate = ''
-      this.orderParamObj.ToDate = ''
     }
     this.getAllOrderList();
   }

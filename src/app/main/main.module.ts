@@ -25,6 +25,8 @@ import { NumberDirective } from '../directive/numbers-only.directive';
 import { DigitDirective } from '../directive/digit-only.directive';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ModalMessageComponent } from './containers/modal-message/modal-message.component';
+import { PDFViewComponent } from './pages/pdfview/pdfview.component';
+import { WorkOrderRequestComponent } from './pages/workorders/work-order-request/work-order-request.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -42,7 +44,7 @@ import { ModalMessageComponent } from './containers/modal-message/modal-message.
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
     ,DigitDirective
-    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent],
+    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent, WorkOrderRequestComponent],
   providers: [
     DecimalPipe, DatePipe
   ]

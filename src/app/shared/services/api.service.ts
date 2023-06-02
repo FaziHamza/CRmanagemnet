@@ -28,7 +28,7 @@ export class ApiService {
     let url = environment.creditmanagement + "Setup/UpdateSetup";
     return this.http.post<AppResponse>(url, formData, {
     });
-}
+  }
 
   getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";
@@ -47,8 +47,17 @@ export class ApiService {
     let url = environment.creditmanagementtest + "Lookups/GetLookups?lookupTypeId=" + id;
     return this.http.get<AppResponse>(url);
   }
-  getSparePartsWorkOrder(param:string=null):Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?"+param;
+  getPNOrders(id: number): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/GetPNOrderDetails?orderId=" + id;
     return this.http.get<AppResponse>(url);
   }
+  getSparePartsWorkOrder(param: string = null): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?" + param;
+    return this.http.get<AppResponse>(url);
+  }
+  saveGeneratingNotes(formData: any): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/GeneratePromissoryNotes";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+}
 }

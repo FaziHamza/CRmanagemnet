@@ -22,8 +22,12 @@ const routes: Routes = [
         path: 'cm-setup',
         component: CMSetupComponent,
       },
+      // {
+      //   path: 'promissory-note',
+      //   component: PromissoryNoteComponent,
+      // },
       {
-        path: 'promissory-note',
+        path: 'workorders/:id',
         component: PromissoryNoteComponent,
       },
       {
