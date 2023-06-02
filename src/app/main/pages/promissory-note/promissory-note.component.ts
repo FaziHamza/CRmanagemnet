@@ -27,12 +27,14 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   printedlist = [];
   orderDetail: any;
   orderId = 0;
-  errorsList:any[] = [];
+  pdfInfoData :any;
+  errorsList: any[] = [];
   differenceAmount = 0;
   cmsSetup: any = new CmsSetupDto('');
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
   stepSaveLoader = false;
   isVisible = false;
+  isPrintShow = false;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
       { title: ' Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
@@ -42,8 +44,6 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         this.orderId = res['id'];
         this.getPNOrderDetails();
         // this.getListofPromissoryNote();
-        this.getGeneratedList();
-        this.getCmsSetup();
         // console.log(this.orderId);
       }
     })
@@ -54,11 +54,23 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       debugger
       this.saveLoader = false;
       this.orderDetail = res.data;
-      if (this.orderDetail.statusObj) {
-        if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
-          this.isGenerate = true;
-          this.current = 1;
+      if (this.orderDetail) {
+        if (this.orderDetail.statusObj) {
+          if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+            this.getGeneratedList(1);
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+            this.getGeneratedList(2);
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'uncollected') {
+            this.getGeneratedList(3);
+          }
+          else {
+            if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'pending')
+              this.getCmsSetup();
+          }
         }
+
       }
     })
   }
@@ -143,10 +155,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         if (res.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
           this.ngOnInit();
-        } 
+        }
         else {
           this.isVisible = true;
-          this.errorsList=res["Errors"];
+          this.errorsList = res["Errors"];
           this.commonService.showError("found some error..!", "Error");
         }
       },
@@ -181,125 +193,32 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   //#endregion
 
   //#region  generated tab 2
-  getGeneratedList() {
-    this.generatedlist = [
-      {
-        "id": 1,
-        "customer": {
-          "customerId": 100531,
-          "customerName": "شركة الصادق لصناعة المطهرات والاكياس والفلاتر",
-          "email": null,
-          "mobile": "962790000091",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10006,
-            "statusName": "Pending"
-          }
-        ],
-        "status": 10006,
-        "grandAmount": 566.82,
-        "orderDate": "2023-05-25T16:36:20.372218",
-        "salesNote": "",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T13:36:20.263",
-        "pnEndDate": "2023-05-25T13:36:20.263",
-        "collection": null
-      },
-      {
-        "id": 2,
-        "customer": {
-          "customerId": 100135,
-          "customerName": "شركة كلية القدس",
-          "email": null,
-          "mobile": "962790000012",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10002,
-            "statusName": "Printed"
-          }
-        ],
-        "status": 10002,
-        "grandAmount": 202.814,
-        "orderDate": "2023-05-25T15:32:10.1908768",
-        "salesNote": "",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:32:10.14",
-        "pnEndDate": "2023-05-25T12:32:10.14",
-        "collection": null
-      },
-      {
-        "id": 3,
-        "customer": {
-          "customerId": 100252,
-          "customerName": "شركة الفاهوم وشركاه التعليمية /مدارس اكاديمية عمان",
-          "email": null,
-          "mobile": "962790000026",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10004,
-            "statusName": "Signed"
-          }
-        ],
-        "status": 10004,
-        "grandAmount": 37.676,
-        "orderDate": "2023-05-25T15:31:25.5362716",
-        "salesNote": "note order 2",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:31:25.49",
-        "pnEndDate": "2023-05-25T12:31:25.49",
-        "collection": null
-      },
-      {
-        "id": 4,
-        "customer": {
-          "customerId": 101009,
-          "customerName": "عدنان سعيد سعود ابو ضريس وشركاه",
-          "email": null,
-          "mobile": "962790000187",
-          "nationalId": null
-        },
-        "vinId": 99999,
-        "createdBy": {
-          "userId": 900088,
-          "fullName": "test 1"
-        },
-        "statusObj": [
-          {
-            "statusId": 10006,
-            "statusName": "Collected"
-          }
-        ],
-        "status": 10006,
-        "grandAmount": 227.198,
-        "orderDate": "2023-05-25T15:29:32.6528327",
-        "salesNote": "notee",
-        "paymentType": "Cash",
-        "pnStartDate": "2023-05-25T12:29:32.357",
-        "pnEndDate": "2023-05-25T12:29:32.357",
-        "collection": null
+  getGeneratedList(index:number) {
+    this.stepSaveLoader = true;
+    this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
+      this.stepSaveLoader = false;
+      if (res.isSuccess) {
+        debugger
+        this.pdfInfoData = res.data['info'];
+        let generatedlist = res.data['data'];
+        for (let index = 0; index < generatedlist.length; index++) {
+          const obj = {
+            id: generatedlist[index].pnBookNoteId,
+            customerName: this.orderDetail.customer.customerName,
+            amount: generatedlist[index].pnAmount,
+            dueDate: generatedlist[index].dueDate,
+            status: generatedlist[index].statusObj.description,
+            lookupBGColor: generatedlist[index].statusObj.lookupBGColor,
+            lookupTextColor: generatedlist[index].statusObj.lookupTextColor,
+            pnBookID: generatedlist[index].pnBookID,
+            pdfView: generatedlist[index].pNpdfFile
+          };
+          this.generatedlist.push(obj);
+        }
+        this.isGenerate = true;
+        this.current = index;
       }
-    ]
+    })
   }
   //#endregion
 
@@ -504,6 +423,24 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  printPNBook() {
+    this.isPrintShow = true;
+  }
+  printAll(status:any) {
+    let formData = new FormData();
+    formData.append('PNBookId', this.generatedlist[0].pnBookID);
+    formData.append('Status', status);
+    this.apiService.updatePNBookStatus(formData).subscribe(res => {
+      if (res.isSuccess) {
+        this.isPrintShow = false;
+        this.ngOnInit();
+      }
+    })
+  }
+  printClose() {
+    this.isPrintShow = false;
   }
 }
 

@@ -489,7 +489,7 @@ html {
 
         .title {
             font-weight: 600;
-            font-size: 12px;
+            font-size: 14px;
             color: #1b212d;
         }
 
@@ -763,7 +763,7 @@ input[type="checkbox"]:checked {
         background: white;
         position: absolute;
         top: 16px;
-        right: 12px;
+        right: 8px;
         height: 18px;
         width: 18px;
     }
@@ -1240,13 +1240,14 @@ input[type="number"] {
 
     .head-title {
         font-weight: 600;
-        font-size: 12px;
+        font-size: 14px;
         color: #1b212d;
     }
 
     .head-detail {
         font-weight: 600;
         font-size: 14px;
+        line-height: 28px;
         margin-bottom: 5px;
         // margin-left: 8px;
         color: #929eae;
@@ -2064,4 +2065,26 @@ nz-tabset {
 
 .table-cursor {
     cursor: pointer;
+}
+.ant-tabs-nav-list {
+    .ant-tabs-tab:first-child {
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+    .ant-tabs-tab:last-child {
+        border-top-left-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+    }
+}
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
+    border: 1px solid $border !important;
+}
+.ant-tabs-bottom>.ant-tabs-nav::before, .ant-tabs-bottom>div>.ant-tabs-nav::before, .ant-tabs-top>.ant-tabs-nav::before, .ant-tabs-top>div>.ant-tabs-nav::before {
+    border-bottom: none !important;
+}
+.ant-tabs-card.ant-tabs-bottom>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-card.ant-tabs-bottom>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab, .ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
+    margin-left: 0px !important;
+}
+.form-control2 .ant-picker .ant-picker-input input {
+    border: none !important;
 }

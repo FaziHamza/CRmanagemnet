@@ -55,9 +55,18 @@ export class ApiService {
     let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?" + param;
     return this.http.get<AppResponse>(url);
   }
+  getPNOrderBookNotes(id): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/GetPNOrderBookNotes?orderId=" + id;
+    return this.http.get<AppResponse>(url);
+  }
   saveGeneratingNotes(formData: any): Observable<AppResponse> {
     let url = environment.creditmanagementtest + "PNOrders/GeneratePromissoryNotes";
     return this.http.post<AppResponse>(url, formData, {
     });
-}
+  }
+  updatePNBookStatus(formData: any): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrders/UpdatePNBookStatus";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
 }

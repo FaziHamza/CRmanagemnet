@@ -2,6 +2,7 @@
     "Dashboard":{
         "Customer_Information": "Customer Information",
         "Name":"Name",
+        "No":"No.",
         "Phone":"Phone",
         "Order_Information":"Order Information",
         "Order_No":"Order No",
@@ -11,6 +12,7 @@
         "Owner_Information":"Owner Information",
         "Total_Amount":"Total Amount",
         "Promissory_Notes_Amount":"Promissory Notes Amount",
+        "Promissory_Notes_Total_Amount":"Promissory Notes Total Amount",
         "Remaining_Amount":"Remaining Amount"
     },
     "Promissory_Notes":{

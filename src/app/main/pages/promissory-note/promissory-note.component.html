@@ -1,5 +1,5 @@
 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
-    <div class="content-body-inner" *ngIf="orderDetail">
+    <div class="content-body-inner" *ngIf="orderDetail && !isPrintShow">
         <div class="row heading-box">
             <div class="col-lg-6">
                 <span class="head-title">{{"Promissory_Notes.Date" | translate}}Date: </span>
@@ -40,8 +40,8 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="card-box">
-                            <a class="anchor-content"
-                                *ngIf="orderDetail && orderDetail.orderQNTRLLink">{{orderDetail.orderQNTRLLink}}</a>
+                            <a class="anchor-content" *ngIf="orderDetail && orderDetail.orderQNTRLLink"
+                            href="{{ orderDetail.orderQNTRLLink }}" target="_blank">{{ orderDetail.orderQNTRLLink }}</a>                         
                             <a class="anchor-content" *ngIf="!orderDetail.orderQNTRLLink">---</a>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                                 <h4>
                                     Promissory Notes Details
                                 </h4>
-                                <div class="row heading-box">
+                                <div class="row heading-box" >
                                     <div class="col-lg-4 col-md-6">
                                         <div class="card-box">
                                             <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
@@ -308,7 +308,6 @@
                                     <div class="wizard-form">
                                         <ul id="progressBar" class="progressbar">
                                             <li *ngFor="let step of steps; let i = index" [id]="'progressList-' + (i+1)"
-                                                (click)="onIndexChange(i)"
                                                 class="d-inline-block fw-bold position-relative text-center float-start progressbar-list"
                                                 [ngClass]="{'active': current >= i}">
                                                 {{step.title | translate}}
@@ -495,7 +494,7 @@
                                                             </nz-table>
                                                         </div>
                                                     </div>
-                                                    <div *ngIf="current == 1">
+                                                    <div  *ngIf="current == 1 || current == 2 || current == 3 || current == 4">
                                                         <div class="row heading-box mt-4 pt-4">
                                                             <div class="col-lg-12">
                                                                 <h1 class="head-title ">
@@ -505,35 +504,43 @@
 
                                                             </div>
                                                             <div class="row heading-box">
-                                                                <div class="col-lg-4 col-md-6">
+                                                                <div class="col-lg-5 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.Promissory_Notes_Amount"
+                                                                            {{"Promissory_Notes.Promissory_Notes_Total_Amount"
                                                                             |
                                                                             translate}}:
                                                                             <span class="head-detail">15,000</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-4 col-md-6">
+                                                                <div class="col-lg-2 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.No_Of_Installments" |
+                                                                            {{"Promissory_Notes.No" |
                                                                             translate}}:
-                                                                            <span class="head-detail">10</span>
+                                                                            <span class="head-detail">10 PN</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-4 col-md-6">
+                                                                <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.First_Due_Date" |
+                                                                            {{"Promissory_Notes.Remaining_Amount" |
                                                                             translate}}:
-                                                                            <span class="head-detail">21-3-2023</span>
+                                                                            <span class="head-detail">150</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="col-lg-2 col-md-6">
+                                                                    <div class="card-box">
+                                                                        <h4 class="head-title">
+                                                                            {{"Promissory_Notes.No" |
+                                                                            translate}}:
+                                                                            <span class="head-detail">10 PN</span>
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="table-responsive">
@@ -542,19 +549,19 @@
                                                                 nzTableLayout="fixed" [nzPageSize]="6">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th nz-th nzSortFn="simpleSort">
+                                                                        <th>
                                                                             {{"Promissory_Notes.No" | translate}}
                                                                         </th>
                                                                         <th>{{"Promissory_Notes.Customer_Name" |
                                                                             translate}}
                                                                         </th>
-                                                                        <th nz-th nzSortFn="ascend">
+                                                                        <th  >
                                                                             {{"Promissory_Notes.Amount" | translate}}
                                                                         </th>
-                                                                        <th nz-th nzSortFn="ascend">
+                                                                        <th  >
                                                                             {{"Promissory_Notes.Due_Date" | translate}}
                                                                         </th>
-                                                                        <th nz-th nzSortFn="ascend">
+                                                                        <th  >
                                                                             {{"Promissory_Notes.PN_Status" | translate}}
                                                                         </th>
                                                                         <th>{{"Promissory_Notes.Action" | translate}}
@@ -567,21 +574,18 @@
                                                                         <td>
                                                                             {{ data.id }}
                                                                         </td>
-                                                                        <td>{{ data.customer.mobile }}</td>
-                                                                        <td [ngClass]="{
-                                                                    'edit-data-status': data.edit === true
-                                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
+                                                                        <td>{{ data.customerName }}</td>
+                                                                        <td >{{ data.amount | customRound: 0 }} JD</td>
                                                                         <td>
-                                                                            23/4/2023
+                                                                            {{data.dueDate | date : 'dd MMM yyyy'}}
                                                                         </td>
                                                                         <td>
 
-                                                                            <button
-                                                                                class="btn generating-status">{{"Promissory_Notes.Date"
-                                                                                | translate}}</button>
+                                                                            <button  class="btn generating-status"  [style.color]="data.lookupTextColor"
+                                                                             [style.background-color]="data.lookupBGColor">{{data.status}}</button>
                                                                         </td>
                                                                         <td>
-                                                                            <a class="pen-icon">
+                                                                            <a class="pen-icon"  href="{{ data.pdfView }}" target="_blank">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                                     width="24" height="24"
                                                                                     viewBox="0 0 24 24"
@@ -596,141 +600,27 @@
                                                             </nz-table>
                                                         </div>
                                                     </div>
-                                                    <div *ngIf="current == 2 || current == 3 || current == 4">
-                                                        <div class="row heading-box mt-4 pt-4">
-                                                            <div class="col-lg-6">
-                                                                <h1 class="head-title ">
-                                                                    {{"Promissory_Notes.List_Of_Promissory_Notes" |
-                                                                    translate}}
-                                                                </h1>
-                                                            </div>
-                                                            <div class="col-lg-6 text-end">
-                                                                <h1 class="head-title ">
-                                                                    {{"Promissory_Notes.Promissory_Notes_Book_No" |
-                                                                    translate}}.
-                                                                    <span class="detail">3698</span>
-                                                                </h1>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-6 col-md-6">
-                                                                    <div class="card-box">
-                                                                        <h4 class="title">
-                                                                            {{"Promissory_Notes.Promissory_Notes_Total_Amount"
-                                                                            |
-                                                                            translate}}
-                                                                            <span class="detail">15,000</span>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-6 col-md-6 text-end">
-                                                                    <div class="card-box">
-                                                                        <h4 class="title">
-                                                                            {{"Promissory_Notes.Remaining_Amount"
-                                                                            | translate}}:
-                                                                            <span class="detail">15000</span>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="table-responsive">
-
-                                                            <nz-table #editRowTable nzBordered [nzData]="generatedlist"
-                                                                nzTableLayout="fixed" [nzPageSize]="6">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th nz-th nzSortFn="simpleSort">
-                                                                            {{"Promissory_Notes.No" | translate}}
-                                                                        </th>
-                                                                        <th>{{"Promissory_Notes.Customer_Name" |
-                                                                            translate}}
-                                                                        </th>
-                                                                        <th nz-th nzSortFn="ascend">
-                                                                            {{"Promissory_Notes.Amount" | translate}}
-                                                                        </th>
-                                                                        <th nz-th nzSortFn="ascend">
-                                                                            {{"Promissory_Notes.Due_Date" | translate}}
-                                                                        </th>
-                                                                        <th nz-th nzSortFn="ascend">
-                                                                            {{"Promissory_Notes.PN_Status" | translate}}
-                                                                        </th>
-                                                                        <th>{{"Promissory_Notes.Action" | translate}}
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr
-                                                                        *ngFor="let data of editRowTable.data;let index = index">
-                                                                        <td>
-                                                                            {{ data.id }}
-                                                                        </td>
-                                                                        <td>{{ data.customer.mobile }}</td>
-                                                                        <td [ngClass]="{
-                                                                    'edit-data-status': data.edit === true
-                                                                  }">{{ data.grandAmount | customRound: 3 }} JD</td>
-                                                                        <td>
-                                                                            23/4/2023
-                                                                        </td>
-                                                                        <td>
-
-
-                                                                            <button class="btn printed-status"
-                                                                                *ngIf="current == 2 ">Printed</button>
-                                                                            <button class="btn printed-status"
-                                                                                *ngIf="current == 4 && (index == 0 || index == 1)">Collected</button>
-                                                                            <button class="btn uncollected-status"
-                                                                                *ngIf="current == 3 || (current == 4 && (index == 2 || index == 3))">Uncollected</button>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a class="pen-icon">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24"
-                                                                                    style="color: rgb(168 168 168)">
-                                                                                    <path fill="currentColor"
-                                                                                        d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                                                                                </svg>
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </nz-table>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="row">
-                                                    <div class="col-lg-10">
-                                                        <button (click)="pre()" *ngIf="current > 0"
-                                                            class="btn btn-white hvr-bounce-to-right2 float-start back mt-4 rounded-3">Back</button>
-                                                    </div>
-                                                    <div class="col-lg-2">
-                                                        <button (click)="next()" *ngIf="current < 5"
-                                                            class="btn o-btn float-end next mt-4 rounded-3 ">Next</button>
-                                                        <button (click)="done()" *ngIf="current === 5"
-                                                            class="btn o-btn float-end next mt-4 rounded-3 ">Done</button>
-                                                    </div>
-                                                </div> -->
-
                                                     <div class="bottom-buttons" *ngIf="current == 0">
                                                         <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                                                            (click)="this.isGenerate = false">Close</button>
+                                                        [routerLink]="['/home/workorders']">Close</button>
                                                         <button class="btn o-btn hvr-bounce-to-right" type="button"
                                                             (click)="saveGeneratingNotes()"
                                                             [ngClass]="{'disabled':differenceAmount != 0}">Confirm</button>
                                                     </div>
                                                     <div class="bottom-buttons" *ngIf="current == 1">
-                                                        <button type="button"
+                                                        <button type="button" [routerLink]="['/home/workorders']"
                                                             class="btn btn-white hvr-bounce-to-right2">Close</button>
                                                         <button class="btn o-btn hvr-bounce-to-right"
-                                                            type="button">Print PN
+                                                            type="button" (click)="printPNBook()">Print PN
                                                             Book</button>
                                                     </div>
                                                     <div class="bottom-buttons" *ngIf="current == 2">
-                                                        <button type="button"
+                                                        <button type="button" [routerLink]="['/home/workorders']"
                                                             class="btn btn-white hvr-bounce-to-right2">Close</button>
                                                         <button class="btn o-btn btn-white hvr-bounce-to-right"
-                                                            type="button">RePrint PN
+                                                            type="button" (click)="printPNBook()">RePrint PN
                                                             Book</button>
-                                                        <button class="btn o-btn hvr-bounce-to-right" type="button">Mark
+                                                        <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19005)">Mark
                                                             As
                                                             Signed</button>
                                                     </div>
@@ -752,6 +642,39 @@
                 </div>
             </nz-tab>
         </nz-tabset>
+    </div>
+    <div *ngIf="isPrintShow">
+        <div class="row heading-box">
+            <div class="col-lg-6 ">
+                <h1 class="header-content ">
+                    {{"Promissory_Notes.List_Of_Promissory_Notes" |
+                    translate}}
+                </h1>
+
+            </div>
+            <div class="col-lg-6 text-end">
+                <h1 class="header-content ">
+                    {{"Promissory_Notes.Difference_amount" |
+                    translate}} (JD) : <span
+                        class="head-detail" *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
+                </h1>
+            </div>
+        </div>
+        <embed src="{{pdfInfoData.allPNpdfFiles}}" *ngIf="pdfInfoData" frameborder="0" width="100%" height="700px">
+            <div class="row">
+            <div class="col-lg-7"></div>    
+            <div class="col-lg-4">
+                <div class="bottom-buttons" >
+                    <button type="button"
+                        class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
+                    <button class="btn o-btn hvr-bounce-to-right"
+                        type="button" (click)="printAll(19003)">Print All</button>
+                </div>
+            </div>    
+            <div class="col-lg-1"></div>    
+
+            </div>
+          
     </div>
 </nz-spin>
 

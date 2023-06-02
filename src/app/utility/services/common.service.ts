@@ -172,9 +172,14 @@ export class CommonService {
     let avatar = "";
     if (data) {
       let arrayName = data.split(' ');
-      arrayName.forEach(element => {
-        avatar += element.charAt(0)
-      });
+      // arrayName.forEach(element => {
+      //   avatar += element.charAt(0)
+      // });
+      if(arrayName[0]){
+        avatar +=  arrayName[0].charAt(0);
+      }
+      if(arrayName.length > 0)
+        avatar += " " +  arrayName[arrayName.length -1].charAt(0);
     }
     return avatar;
   };
