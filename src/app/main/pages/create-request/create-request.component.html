@@ -2,54 +2,73 @@
 <hr>
 <label class="mb-1"><b>Request Type</b></label>
 <select class="form-select" [(ngModel)]="statusType" aria-label="Default select example">
-    <option class="select-option" [value]="data.id" *ngFor="let data of statusList">{{
-        data.name }}
+    <option *ngIf="!statusType" selected value="">Select</option>
+    <option class="select-option" [value]="data.name[0].lookupName" *ngFor="let data of statusList">{{
+        data.name[0].lookupName }}
     </option>
 </select>
 
-<div *ngIf="statusType == 1">
+<div *ngIf="statusType == 'Reschedule Request'">
     <div class="row mt-3">
         <div class="col-lg-6">
             <label class="mb-1"><b>New No. of Installment</b></label>
-            <input type="text" class="form-control" placeholder="New No. of Installment">
+            <input type="text" class="form-control" placeholder="New No. of Installment" [(ngModel)]="noofInstallment" numbersOnly>
         </div>
 
         <div class="col-lg-6">
             <label class="mb-1"><b>New First Due Date</b></label>
-            <input type="date" class="form-control" placeholder="New First Due Date">
+            <div class="input-search1 form-control3">
+                <nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="firstDueDate" ></nz-date-picker>
+            </div>
+            <!-- <input type="date" class="form-control" placeholder="New First Due Date"> -->
             <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
         </div>
 
         <div class="col-lg-6">
-            <label class="mb-1"><b>insert</b></label>
-            <input type="date" class="form-control" placeholder="insert">
-            <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
+            <label class="mb-1"><b>Interest Percentage</b></label>
+            <div class="input-search1">
+                <input type="text" class="form-control" (input)="interestPercentage()" [(ngModel)]="interestPer" placeholder="Search by order number" numbersOnly>
+                <svg xmlns="http://www.w3.org/2000/svg"  class="close" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="#78778b"
+                        d="m18.501 3.5l-15 15.001l1.996 1.996l15-15zM7.002 5a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4zm10 10a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4z" />
+                </svg>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <label class="mb-1"><b>Interest Value (JD)</b></label>
+            <div class="input-search1">
+                <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal" placeholder="Search by order number" numbersOnly>
+            </div>
         </div>
 
-        <div class="col-lg-6 mt-4">
-            <button class="btn o-btn hvr-bounce-to-right">View Result </button>
+        <div class="col-lg-6">
+        </div>
+        <div class="col-lg-6 mt-4 text-end">
+            <button class="btn o-btn hvr-bounce-to-right" (click)="getPNOrderRemainingAmountforRescheduling()">View Result </button>
         </div>
 
     </div>
     <hr>
-    <p><b>New Remaining Amount </b></p>
-    <p>12,600</p>
+    <div *ngIf="remainingAmount">
+        <p><b>New Remaining Amount </b></p>
+        <p>{{remainingAmount}} JD</p>
+    </div>
     <div class="row">
-        <div class="col-lg-7"></div>
-        <div class="col-lg-5 mt-4">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-6 mt-4">
             <div class="row">
                 <div class="col-lg-6">
                     <button type="button" class="btn btn-white hvr-bounce-to-right2"
                         (click)="cancelModal()">Cancel</button>
                 </div>
                 <div class="col-lg-6">
-                    <button class="btn o-btn hvr-bounce-to-right">Request Approval </button>
+                    <button class="btn o-btn hvr-bounce-to-right" (click)="saveRequestApproval()">Request Approval </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div *ngIf="statusType == 2">
+<div *ngIf="statusType == 'Transfer Request'">
     <p class="mt-3"><b>New Customer Information </b></p>
     <div class="row">
         <div class="col-lg-8">
@@ -157,7 +176,12 @@
 </div>
 <div class="row">
     <div class="col-lg-12 text-end mt-4">
-        <button type="button" *ngIf="statusType == 0" class="btn btn-white hvr-bounce-to-right2"
+        <button type="button" *ngIf="!statusType" class="btn btn-white hvr-bounce-to-right2"
             (click)="cancelModal()">Cancel</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 text-danger" *ngFor="let item of errorsList">
+        {{item?.ErrorMessageEn}}
     </div>
 </div>

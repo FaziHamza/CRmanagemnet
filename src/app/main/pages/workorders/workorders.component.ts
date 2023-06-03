@@ -3,6 +3,9 @@ import { Subject, debounceTime } from 'rxjs';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { orderParam } from './models/orderParam';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { CreateRequestComponent } from '../create-request/create-request.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workorders',
@@ -24,7 +27,8 @@ export class WorkordersComponent implements OnInit {
   statusType: any = "";
   selectedDate: any;
   saveLoader: boolean = false;
-  constructor(private apiService: ApiService, private commonService: CommonService) { }
+  constructor(private apiService: ApiService, private commonService: CommonService,private router:Router,
+    private modal: NzModalService,) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -178,12 +182,6 @@ export class WorkordersComponent implements OnInit {
         this.getAllOrderList();
       }
     }
-    // if (columnName == 'customer') {
-    //   this.orderParamObj.Sort = sortType === "ascend" ? 3 : 2;
-    //   this.getAllOrderList();
-    //   this.sortType = this.sortType === "ascend" ? "descend" : 'ascend';
-    // }
-
   }
   simpleSort = (a, b) => a - b; // simple sort function
   statusChange() {
@@ -207,116 +205,6 @@ export class WorkordersComponent implements OnInit {
     this.getAllOrderList();
   }
   getStatusLookup() {
-    // this.statusList = [
-    //   {
-    //     "id": 10001,
-    //     "description": "Issued",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Printed"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "id": 10002,
-    //     "description": "Waiting",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Signed"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "id": 10003,
-    //     "description": "Updated",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Printed"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "id": 10004,
-    //     "description": "Collected",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Collected"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "id": 10005,
-    //     "description": "Partial",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Printed"
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     "id": 10006,
-    //     "description": "Cancelled",
-    //     "imagePath": "http://localhost:27360/",
-    //     "createdDateTime": null,
-    //     "createdByUser": {
-    //       "id": 7,
-    //       "fullName": "Full Admin ",
-    //       "email": "admin@markazia.jo",
-    //       "mobile": "0775855048"
-    //     },
-    //     "name": [
-    //       {
-    //         "languageId": 1001,
-    //         "lookupName": "Pending"
-    //       }
-    //     ]
-    //   }
-    // ]
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
         this.statusList = res.data;
@@ -332,5 +220,30 @@ export class WorkordersComponent implements OnInit {
     this.selectedDate = [];
     this.statusType = '';
     this.getAllOrderList();
+  }
+  createRequest(orderId:any): void {
+    const modal = this.modal.create<CreateRequestComponent>({
+      nzWidth: 700,
+      // nzTitle: 'Change Control Value',
+      nzContent: CreateRequestComponent,
+      // nzViewContainerRef: this.viewContainerRef,
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzComponentParams: {
+        data:orderId
+      },
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
+  }
+  gotoDetail(data:any){
+    let status = data.statusObj?.translations[0].lookupName.toLowerCase();
+    if( status == 'signed' || status == 'under collecting' || status == 'collected'){
+    }else{
+      this.router.navigate(['/home/workorders',data.orderId])
+    }
   }
 }

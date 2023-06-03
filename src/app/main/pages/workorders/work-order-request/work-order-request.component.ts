@@ -58,7 +58,7 @@ export class WorkOrderRequestComponent implements OnInit {
 
   }
   selectTab(tabId: number): void {
-    debugger
+    
     this.selectedRequestValue = tabId;
   }
   getAllOrderList() {
@@ -348,7 +348,7 @@ export class WorkOrderRequestComponent implements OnInit {
     this.selectedDate = '';
   }
   changeDate(date: any) {
-    debugger
+    
     if (this.selectedDate) {
       const fromDate = new Date(this.selectedDate);
       const formattedFromDate = fromDate.toISOString();

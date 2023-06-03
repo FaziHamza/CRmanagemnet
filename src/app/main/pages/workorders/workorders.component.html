@@ -146,7 +146,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of editRowTable.data;let index = index" [routerLink]="['/home/workorders',data.orderId]" class="table-cursor">
+                                <tr *ngFor="let data of editRowTable.data;let index = index" (click)="gotoDetail(data)" class="table-cursor">
                                     <td>{{ data.orderId }}</td>
                                     <td>{{ data?.customer?.customerName }}</td>
                                     <td>{{ data.customer?.mobile }}</td>
@@ -157,9 +157,44 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn o-btn hvr-bounce-to-right">
-                                          <span *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span> 
-                                        </button>
+                                        <div *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'signed' || data.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting'; else ifBlock">
+                                            <a nz-dropdown [nzDropdownMenu]="menu" >
+                                                <div class="dots">
+                                                    <p>.</p>
+                                                    <p>.</p>
+                                                    <p>.</p>
+                                                </div>
+                                               </a>
+                                               <nz-dropdown-menu #menu="nzDropdownMenu">
+                                                 <ul nz-menu nzSelectable>
+                                                   <li nz-menu-item (click)="createRequest(data.orderId)">Create Reschedule Request</li>
+                                                   <li nz-menu-item (click)="createRequest(data.orderId)">Create Transfer Request</li>
+                                                 </ul>
+                                               </nz-dropdown-menu>
+                                          </div>
+                                          
+                                          <ng-template #ifBlock>
+                                            <div *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'collected'; else elseBlock">
+                                                <a class="pen-icon" >
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        width="24" height="24"
+                                                        viewBox="0 0 24 24"
+                                                        style="color: rgb(168 168 168)">
+                                                        <path fill="currentColor"
+                                                            d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                                    </svg>
+                                                </a>
+                                            </div>
+                                          </ng-template>
+                                          
+                                          <ng-template #elseBlock>
+                                            <button type="button" class="btn o-btn hvr-bounce-to-right" >
+                                                <span *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span> 
+                                              </button>
+                                          </ng-template>
+                                          
+                                       
+                                    
                                     </td>
                                 </tr>
                             </tbody>
