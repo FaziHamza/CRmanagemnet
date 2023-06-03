@@ -41,7 +41,8 @@
                     <div class="col-lg-4">
                         <div class="card-box">
                             <a class="anchor-content" *ngIf="orderDetail && orderDetail.orderQNTRLLink"
-                            href="{{ orderDetail.orderQNTRLLink }}" target="_blank">{{ orderDetail.orderQNTRLLink }}</a>                         
+                                href="{{ orderDetail.orderQNTRLLink }}" target="_blank">{{ orderDetail.orderQNTRLLink
+                                }}</a>
                             <a class="anchor-content" *ngIf="!orderDetail.orderQNTRLLink">---</a>
                         </div>
                     </div>
@@ -103,6 +104,133 @@
                 <ng-template #titleTemplate>
                     {{"Promissory_Notes.PN_V1" | translate}}
                 </ng-template>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New No. Of Installments</h4>
+                                    <h4 class="detail">8</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New First Due Date</h4>
+                                    <h4 class="detail">1/6/2023</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">Interest</h4>
+                                    <h4 class="detail">5%</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New Remaining Amount</h4>
+                                    <h4 class="detail">12600</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-heading bb-none">
+                        <h5>Original Customer Information</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="row heading-box customer-info-card">
+                            <div class="col-lg-6">
+                                <div class="profileee">
+                                    <div class="img-box" *ngIf="orderDetail.customer.customerName">
+                                        <nz-avatar
+                                            [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
+                                    </div>
+                                    <div class="heading-box">
+                                        <p class="head-title ">Name : 
+                                            <span class="head-detail">Ahmed Mohammad</span>
+                                            <span class="head-detail"
+                                                *ngIf="!orderDetail.customer.customerName">---</span>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}} :
+                                    <span class="head-detail"
+                                        *ngIf="orderDetail && orderDetail.customer.customerId">{{orderDetail.customer.customerId}}</span>
+                                    <span class="head-detail" *ngIf="!orderDetail.customer.customerId">---</span>
+
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="head-title ">{{"Promissory_Notes.ID" | translate}} :
+
+                                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.nationalId">
+                                        {{orderDetail.customer.nationalId}}</span>
+                                    <span class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</span>
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}} :
+                                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.mobile">
+                                        {{orderDetail.customer.mobile}}</span>
+                                    <span class="head-detail" *ngIf="!orderDetail.customer.mobile">---</span>
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="head-title ">{{"Promissory_Notes.Address" | translate}} : 
+
+                                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.custAddress">
+                                        {{orderDetail.customer.custAddress}}</span>
+                                    <span class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</span>
+                                </p>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}} : 
+
+                                    <button type="button" class="pdf-view-btn"
+                                        *ngIf="orderDetail.customer.identityFile1"
+                                        (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
+                                        |
+                                        translate}}
+                                        <a href="" class="eye">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                            </svg>
+                                        </a>
+                                        <a href="" class="download">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <path fill="currentColor"
+                                                    d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
+                                            </svg>
+                                        </a>
+                                    </button>
+                                    <span class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row heading-box">
+                            <div class="col-lg-4 ">
+
+                            </div>
+                            <div class="col-lg-8">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="card">
@@ -259,7 +387,7 @@
                                 <h4>
                                     Promissory Notes Details
                                 </h4>
-                                <div class="row heading-box" >
+                                <div class="row heading-box">
                                     <div class="col-lg-4 col-md-6">
                                         <div class="card-box">
                                             <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
@@ -286,7 +414,8 @@
                                         <div class="card-box">
                                             <h4 class="head-title">{{"Promissory_Notes.First_Due_Date" | translate}}:
                                                 <span class="head-detail"
-                                                    *ngIf="orderDetail.startDate">{{orderDetail.startDate | date:'dd MMM yyyy' }}</span>
+                                                    *ngIf="orderDetail.startDate">{{orderDetail.startDate | date:'dd MMM
+                                                    yyyy' }}</span>
                                                 <span class="head-detail" *ngIf="!orderDetail.startDate">---</span>
                                             </h4>
                                         </div>
@@ -494,7 +623,8 @@
                                                             </nz-table>
                                                         </div>
                                                     </div>
-                                                    <div  *ngIf="current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
+                                                    <div
+                                                        *ngIf="current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
                                                         <div class="row heading-box mt-4 pt-4">
                                                             <div class="col-lg-6">
                                                                 <h1 class="head-title ">
@@ -506,7 +636,8 @@
                                                                 <h1 class="head-title ">
                                                                     {{"Promissory_Notes.PN_BOOK_NO" |
                                                                     translate}} :
-                                                                  <span  *ngIf="generatedlist.length  > 0 "  class="head-detail">{{generatedlist[0].pnBookID}}</span>
+                                                                    <span *ngIf="generatedlist.length  > 0 "
+                                                                        class="head-detail">{{generatedlist[0].pnBookID}}</span>
                                                                 </h1>
                                                             </div>
                                                             <div class="row heading-box">
@@ -561,13 +692,13 @@
                                                                         <th>{{"Promissory_Notes.Customer_Name" |
                                                                             translate}}
                                                                         </th>
-                                                                        <th  >
+                                                                        <th>
                                                                             {{"Promissory_Notes.Amount" | translate}}
                                                                         </th>
-                                                                        <th  >
+                                                                        <th>
                                                                             {{"Promissory_Notes.Due_Date" | translate}}
                                                                         </th>
-                                                                        <th  >
+                                                                        <th>
                                                                             {{"Promissory_Notes.PN_Status" | translate}}
                                                                         </th>
                                                                         <th>{{"Promissory_Notes.Action" | translate}}
@@ -575,42 +706,47 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <ng-container *ngFor="let data of editRowTable.data;let index = index">
-                                                                        <tr [ngClass]="{'hightlight-row': data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true}" >
-                                                                        <td>
-                                                                            {{ data.id }}
-                                                                        </td>
-                                                                        <td>{{ data.customerName }}</td>
-                                                                        <td >{{ data.amount | customRound: 0 }} JD</td>
-                                                                        <td>
-                                                                            {{data.dueDate | date : 'dd MMM yyyy'}}
-                                                                        </td>
-                                                                        <td>
+                                                                    <ng-container
+                                                                        *ngFor="let data of editRowTable.data;let index = index">
+                                                                        <tr
+                                                                            [ngClass]="{'hightlight-row': data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true}">
+                                                                            <td>
+                                                                                {{ data.id }}
+                                                                            </td>
+                                                                            <td>{{ data.customerName }}</td>
+                                                                            <td>{{ data.amount | customRound: 0 }} JD
+                                                                            </td>
+                                                                            <td>
+                                                                                {{data.dueDate | date : 'dd MMM yyyy'}}
+                                                                            </td>
+                                                                            <td>
 
-                                                                            <button  class="btn generating-status"  [style.color]="data.lookupTextColor"
-                                                                             [style.background-color]="data.lookupBGColor">{{data.status}}</button>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a class="pen-icon" (click)="pdfView(data.pdfView,data)">
-                                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                                    width="24" height="24"
-                                                                                    viewBox="0 0 24 24"
-                                                                                    style="color: rgb(168 168 168)">
-                                                                                    <path fill="currentColor"
-                                                                                        d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                                                                                </svg>
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
+                                                                                <button class="btn generating-status"
+                                                                                    [style.color]="data.lookupTextColor"
+                                                                                    [style.background-color]="data.lookupBGColor">{{data.status}}</button>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a class="pen-icon"
+                                                                                    (click)="pdfView(data.pdfView,data)">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                        width="24" height="24"
+                                                                                        viewBox="0 0 24 24"
+                                                                                        style="color: rgb(168 168 168)">
+                                                                                        <path fill="currentColor"
+                                                                                            d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                                                                    </svg>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
                                                                     </ng-container>
-                                                                   
+
                                                                 </tbody>
                                                             </nz-table>
                                                         </div>
                                                     </div>
                                                     <div class="bottom-buttons" *ngIf="current == 0">
                                                         <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                                                        [routerLink]="['/home/workorders']">Close</button>
+                                                            [routerLink]="['/home/workorders']">Close</button>
                                                         <button class="btn o-btn hvr-bounce-to-right" type="button"
                                                             (click)="saveGeneratingNotes()"
                                                             [ngClass]="{'disabled':differenceAmount != 0}">Confirm</button>
@@ -618,8 +754,8 @@
                                                     <div class="bottom-buttons" *ngIf="current == 1">
                                                         <button type="button" [routerLink]="['/home/workorders']"
                                                             class="btn btn-white hvr-bounce-to-right2">Close</button>
-                                                        <button class="btn o-btn hvr-bounce-to-right"
-                                                            type="button" (click)="printPNBook()">Print PN
+                                                        <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                                            (click)="printPNBook()">Print PN
                                                             Book</button>
                                                     </div>
                                                     <div class="bottom-buttons" *ngIf="current == 2">
@@ -628,13 +764,17 @@
                                                         <button class="btn o-btn btn-white hvr-bounce-to-right"
                                                             type="button" (click)="printPNBook()">RePrint PN
                                                             Book</button>
-                                                        <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19003)">Mark
+                                                        <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                                            (click)="printAll(19003)">Mark
                                                             As
                                                             Signed</button>
                                                     </div>
-                                                    <div class="bottom-buttons" *ngIf="current == 3 || current == 4 || current == 5">
-                                                        <button class="btn o-btn btn-white hvr-bounce-to-right" (click)="createRequest()"
-                                                        [disabled]="current == 5 ? true : false"  type="button">Create
+                                                    <div class="bottom-buttons"
+                                                        *ngIf="current == 3 || current == 4 || current == 5">
+                                                        <button class="btn o-btn btn-white hvr-bounce-to-right"
+                                                            (click)="createRequest()"
+                                                            [disabled]="current == 5 ? true : false"
+                                                            type="button">Create
                                                             Request</button>
                                                         <button class="btn o-btn hvr-bounce-to-right"
                                                             type="button">Close</button>
@@ -663,31 +803,31 @@
             <div class="col-lg-6 text-end">
                 <h1 class="header-content ">
                     {{"Promissory_Notes.Difference_amount" |
-                    translate}} (JD) : <span
-                        class="head-detail" *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
+                    translate}} (JD) : <span class="head-detail"
+                        *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
                 </h1>
             </div>
         </div>
         <embed [src]="safeUrl" *ngIf="safeUrl" type="application/pdf" width="100%" height="600px">
-            <div class="row">
-            <div class="col-lg-7"></div>    
+        <div class="row">
+            <div class="col-lg-7"></div>
             <div class="col-lg-4">
-                <div class="bottom-buttons" >
-                    <button type="button"
-                        class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
-                    <button class="btn o-btn hvr-bounce-to-right"
-                        type="button" (click)="printAll(19002)">Print All</button>
+                <div class="bottom-buttons">
+                    <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                        (click)="printClose()">Close</button>
+                    <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)">Print
+                        All</button>
                 </div>
-            </div>    
-            <div class="col-lg-1"></div>    
-
             </div>
-          
+            <div class="col-lg-1"></div>
+
+        </div>
+
     </div>
 </nz-spin>
 
-<nz-modal [(nzVisible)]="isVisible"  (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <ng-container *nzModalContent>
-    <p *ngFor="let item of errorsList" class="text-center text-danger">{{item?.ErrorMessageEn}}</p>
-  </ng-container>
+<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <p *ngFor="let item of errorsList" class="text-center text-danger">{{item?.ErrorMessageEn}}</p>
+    </ng-container>
 </nz-modal>
