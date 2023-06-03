@@ -148,7 +148,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.promissoryist.forEach(element => {
       const fromDate = new Date(element.dueDate.toString());
       let data = {
-        amount: element.amount,
+        amount: parseFloat(element.amount.toFixed(3)),
         dueDate: fromDate.toISOString()
       }
       notes.push(data);

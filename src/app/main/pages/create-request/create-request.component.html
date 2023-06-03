@@ -12,13 +12,14 @@
     <div class="row mt-3">
         <div class="col-lg-6">
             <label class="mb-1"><b>New No. of Installment</b></label>
-            <input type="text" class="form-control" placeholder="New No. of Installment" [(ngModel)]="noofInstallment" numbersOnly>
+            <input type="text" class="form-control" placeholder="New No. of Installment" [(ngModel)]="noofInstallment"
+                numbersOnly>
         </div>
 
         <div class="col-lg-6">
             <label class="mb-1"><b>New First Due Date</b></label>
             <div class="input-search1 form-control3">
-                <nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="firstDueDate" ></nz-date-picker>
+                <nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="firstDueDate"></nz-date-picker>
             </div>
             <!-- <input type="date" class="form-control" placeholder="New First Due Date"> -->
             <!-- <span class="input-group-text" id="basic-addon1">@</span> -->
@@ -27,8 +28,9 @@
         <div class="col-lg-6">
             <label class="mb-1"><b>Interest Percentage</b></label>
             <div class="input-search1">
-                <input type="text" class="form-control" (input)="interestPercentage()" [(ngModel)]="interestPer" placeholder="Search by order number" numbersOnly>
-                <svg xmlns="http://www.w3.org/2000/svg"  class="close" width="24" height="24" viewBox="0 0 24 24">
+                <input type="text" class="form-control" (input)="interestPercentage()" [(ngModel)]="interestPer"
+                    placeholder="Search by order number" numbersOnly>
+                <svg xmlns="http://www.w3.org/2000/svg" class="close" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="#78778b"
                         d="m18.501 3.5l-15 15.001l1.996 1.996l15-15zM7.002 5a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4zm10 10a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4z" />
                 </svg>
@@ -37,14 +39,16 @@
         <div class="col-lg-6">
             <label class="mb-1"><b>Interest Value (JD)</b></label>
             <div class="input-search1">
-                <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal" placeholder="Search by order number" numbersOnly>
+                <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal"
+                    placeholder="Search by order number" numbersOnly>
             </div>
         </div>
 
         <div class="col-lg-6">
         </div>
         <div class="col-lg-6 mt-4 text-end">
-            <button class="btn o-btn hvr-bounce-to-right" (click)="getPNOrderRemainingAmountforRescheduling()">View Result </button>
+            <button class="btn o-btn hvr-bounce-to-right" (click)="getPNOrderRemainingAmountforRescheduling()">View
+                Result </button>
         </div>
 
     </div>
@@ -62,126 +66,165 @@
                         (click)="cancelModal()">Cancel</button>
                 </div>
                 <div class="col-lg-6">
-                    <button class="btn o-btn hvr-bounce-to-right" (click)="saveRequestApproval()">Request Approval </button>
+                    <button class="btn o-btn hvr-bounce-to-right" (click)="saveRequestApproval()">Request Approval
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div *ngIf="statusType == 'Transfer Request'">
-    <p class="mt-3"><b>New Customer Information </b></p>
+<form [formGroup]="customerDetail">
+    <div *ngIf="statusType == 'Transfer Request'">
+        <p class="mt-3"><b>New Customer Information </b></p>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="img-box col-lg-2 mt-1">
+                        <nz-avatar [nzText]="'AM'"></nz-avatar>
+                    </div>
+                    <div class="col-lg-10">
+                        <label class="mb-1"><b>Name<span>*</span></b></label>
+                        <div class="input-search1">
+                            <input type="text" placeholder="Type Customer Name.." class="form-control"
+                                id="create_order_full_name" nz-input [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="customerId" (ngModelChange)="onChangeName($event)"
+                                [nzAutocomplete]="customerName" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                viewBox="0 0 24 24">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <nz-autocomplete #customerName>
+                            <nz-auto-option *ngFor="let option of customerList" [nzValue]="option.customerId"
+                                [nzLabel]="option.customerName">
+                                {{ option.customerName }}
+                            </nz-auto-option>
+                        </nz-autocomplete>
+                        <!-- <input type="text" class="form-control"> -->
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Customer Account</b></label>
+                        <input type="text" class="form-control" formControlName="customerAccount">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>ID</b></label>
+                        <input type="text" class="form-control" formControlName="customerId">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Phone </b></label>
+                        <input type="text" class="form-control" formControlName="customerPhone">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Address</b></label>
+                        <input type="text" class="form-control" formControlName="customerAddress">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <label class="mb-1"><b>ID Document <span>*</span></b></label>
+                <nz-upload nzType="drag" [nzMultiple]="true">
+
+                    <p><b>Drag & Drop files</b></p>
+                    <p> Supported formates; JPEG, PNG, PDF </p>
+
+                </nz-upload>
+            </div>
+        </div> <br>
+        <hr>
+        <p><b>New Guarantor Information </b></p>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="img-box col-lg-2 mt-1">
+                        <nz-avatar [nzText]="'AM'"></nz-avatar>
+                    </div>
+                    <div class="col-lg-10">
+                        <label class="mb-1"><b>Name<span>*</span></b></label>
+                        <div class="input-search1">
+                            <input type="text" placeholder="Type Customer Name.." class="form-control"
+                                id="create_order_full_name" nz-input [ngModelOptions]="{ standalone: true }"
+                                [(ngModel)]="gurantorId" (ngModelChange)="onChangeNameGurantor($event)"
+                                [nzAutocomplete]="gurantorName" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="search" width="24" height="24"
+                                viewBox="0 0 24 24">
+                                <path fill="currentColor" fill-rule="evenodd"
+                                    d="M11.5 2.75a8.75 8.75 0 1 0 0 17.5a8.75 8.75 0 0 0 0-17.5ZM1.25 11.5c0-5.66 4.59-10.25 10.25-10.25S21.75 5.84 21.75 11.5c0 2.56-.939 4.902-2.491 6.698l3.271 3.272a.75.75 0 1 1-1.06 1.06l-3.272-3.271A10.21 10.21 0 0 1 11.5 21.75c-5.66 0-10.25-4.59-10.25-10.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <nz-autocomplete #gurantorName>
+                            <nz-auto-option *ngFor="let option of gurantorList" [nzValue]="option.customerId"
+                                [nzLabel]="option.customerName">
+                                {{ option.customerName }}
+                            </nz-auto-option>
+                        </nz-autocomplete>
+                        <!-- <input type="text" class="form-control"> -->
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Customer Account</b></label>
+                        <input type="text" class="form-control" formControlName="guarantorAccount">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>ID</b></label>
+                        <input type="text" class="form-control" formControlName="guarantorId">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Phone </b></label>
+                        <input type="text" class="form-control" formControlName="guarantorPhone">
+                    </div>
+                    <div class="col-lg-6">
+                        <label class="mb-1"><b>Address</b></label>
+                        <input type="text" class="form-control" formControlName="guarantorAddress">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <label><b>ID Document <span>*</span></b></label>
+                <nz-upload nzType="drag" [nzMultiple]="true">
+
+                    <p><b>Drag & Drop files</b></p>
+                    <p> Supported formates; JPEG, PNG, PDF </p>
+
+                </nz-upload>
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-lg-7"></div>
+            <div class="col-lg-5 ">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                            (click)="cancelModal()">Cancel</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button class="btn o-btn hvr-bounce-to-right" [disabled]="!(customerId && gurantorId)" (click)="makeTransferRequest()">Request Approval </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
     <div class="row">
-        <div class="col-lg-8">
-            <div class="row">
-                <div class="img-box col-lg-2 mt-1">
-                    <nz-avatar [nzText]="'AM'"></nz-avatar>
-                </div>
-                <div class="col-lg-10">
-                    <label class="mb-1"><b>Name<span>*</span></b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Customer Account</b></label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>ID</b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Phone </b></label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Address</b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
+        <div class="col-lg-12 text-end mt-4">
+            <button type="button" *ngIf="!statusType" class="btn btn-white hvr-bounce-to-right2"
+                (click)="cancelModal()">Cancel</button>
         </div>
-        <div class="col-lg-4 mb-4">
-            <label class="mb-1"><b>ID Document <span>*</span></b></label>
-            <nz-upload nzType="drag" [nzMultiple]="true">
-
-                <p><b>Drag & Drop files</b></p>
-                <p> Supported formates; JPEG, PNG, PDF </p>
-
-            </nz-upload>
-        </div>
-    </div> <br>
-    <hr>
-    <p><b>New Guarantor Information </b></p>
+    </div>
     <div class="row">
-        <div class="col-lg-8">
-            <div class="row">
-                <div class="img-box col-lg-2 mt-1">
-                    <nz-avatar [nzText]="'AM'"></nz-avatar>
-                </div>
-                <div class="col-lg-10">
-                    <label class="mb-1"><b>Name<span>*</span></b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Customer Account</b></label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>ID</b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Phone </b></label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-lg-6">
-                    <label class="mb-1"><b>Address</b></label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-4">
-            <label><b>ID Document <span>*</span></b></label>
-            <nz-upload nzType="drag" [nzMultiple]="true">
-
-                <p><b>Drag & Drop files</b></p>
-                <p> Supported formates; JPEG, PNG, PDF </p>
-
-            </nz-upload>
-        </div>
-
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-lg-7"></div>
-        <div class="col-lg-5 ">
-            <div class="row">
-                <div class="col-lg-6">
-                    <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                        (click)="cancelModal()">Cancel</button>
-                </div>
-                <div class="col-lg-6">
-                    <button class="btn o-btn hvr-bounce-to-right">Request Approval </button>
-                </div>
-            </div>
+        <div class="col-lg-12 text-danger" *ngFor="let item of errorsList">
+            {{item?.ErrorMessageEn}}
         </div>
     </div>
-
-</div>
-<div class="row">
-    <div class="col-lg-12 text-end mt-4">
-        <button type="button" *ngIf="!statusType" class="btn btn-white hvr-bounce-to-right2"
-            (click)="cancelModal()">Cancel</button>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12 text-danger" *ngFor="let item of errorsList">
-        {{item?.ErrorMessageEn}}
-    </div>
-</div>
+</form>

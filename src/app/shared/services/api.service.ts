@@ -34,6 +34,11 @@ export class ApiService {
     return this.http.post<AppResponse>(url, formData, {
     });
   }
+  generatePNTransferOrderRequest(formData: FormData): Observable<AppResponse> {
+    let url = environment.creditmanagement + "PNOrdersRequests/GeneratePNTransferOrderRequest";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
 
   getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";
@@ -76,6 +81,11 @@ export class ApiService {
   }
   getPNOrderRemainingAmountforRescheduling(OrderId:number,InterestRate:number,InterestValue:number): Observable<AppResponse> {
     let url = environment.creditmanagementtest + "PNOrdersRequests/GetPNOrderRemainingAmountforRescheduling?OrderId="+OrderId+"&InterestRate="+InterestRate+"&InterestValue="+InterestValue;
+    return this.http.get<AppResponse>(url);
+  }
+  getCustomer(name:string):Observable<AppResponse> {
+    let obj = "&PageNo=0&PageSize=10000"
+    let url = environment.creditmanagementtest + "Customer/GetCustomers?Search=" + name + obj;
     return this.http.get<AppResponse>(url);
   }
 }
