@@ -2230,3 +2230,21 @@ nz-tabset {
         font-size: 12px;
     }
 }
+
+.table-action-btn {
+    display: flex;
+
+    a {
+        margin: 0px 8px;
+    }
+
+    .fa-circle-check {
+        color: #29A073;
+        font-size: 22px;
+    }
+
+    .fa-circle-xmark {
+        color: #DC3545;
+        font-size: 22px;
+    }
+}
