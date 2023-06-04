@@ -225,7 +225,7 @@ getAllRequestList() {
   clearDate() {
     this.selectedDate = '';
   }
-  changeDate(date: any) {
+  changeDateOld(date: any) {
 
     if (this.selectedDate) {
       const fromDate = new Date(this.selectedDate);
@@ -237,124 +237,31 @@ getAllRequestList() {
     }
     this.getAllRequestList();
   }
+  changeDate(date: any) {
+    if (this.selectedDate.length > 0) {
+      const fromDate = new Date(this.selectedDate[0].toString());
+      const toDate = new Date(this.selectedDate[1]);
+
+      const formattedFromDate = fromDate.toISOString();
+      const formattedToDate = toDate.toISOString();
+
+      this.orderParamObj.FromDate = formattedFromDate
+      this.orderParamObj.ToDate = formattedToDate
+    } else {
+      this.orderParamObj.FromDate = ''
+      this.orderParamObj.ToDate = ''
+    }
+    this.getAllRequestList();
+  }
   getStatusLookup() {
-    this.statusList = [
-      {
-        "id": 10001,
-        "description": "Issued",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Printed"
-          }
-        ]
-      },
-      {
-        "id": 10002,
-        "description": "Waiting",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Signed"
-          }
-        ]
-      },
-      {
-        "id": 10003,
-        "description": "Updated",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Printed"
-          }
-        ]
-      },
-      {
-        "id": 10004,
-        "description": "Collected",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Collected"
-          }
-        ]
-      },
-      {
-        "id": 10005,
-        "description": "Partial",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Printed"
-          }
-        ]
-      },
-      {
-        "id": 10006,
-        "description": "Cancelled",
-        "imagePath": "http://localhost:27360/",
-        "createdDateTime": null,
-        "createdByUser": {
-          "id": 7,
-          "fullName": "Full Admin ",
-          "email": "admin@markazia.jo",
-          "mobile": "0775855048"
-        },
-        "name": [
-          {
-            "languageId": 1001,
-            "lookupName": "Pending"
-          }
-        ]
+
+    this.apiService.getStatusLookup(21).subscribe(res => {
+      if (res.isSuccess) {
+        this.statusList = res.data;
+      } else {
+        this.statusList = [];
       }
-    ]
-    // this.apiService.getStatusLookup(10).subscribe(res => {
-    //   if (res.isSuccess) {
-    //     this.statusList = res.data;
-    //   } else {
-    //     this.statusList = [];
-    //   }
-    // })
+    })
   }
 
   getTabs():any {

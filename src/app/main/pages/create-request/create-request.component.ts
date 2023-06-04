@@ -98,6 +98,7 @@ export class CreateRequestComponent implements OnInit {
     })
   }
   saveRequestApproval() {
+    debugger
     this.errorsList = [];
     if(!this.firstDueDate)
     {
@@ -198,11 +199,12 @@ export class CreateRequestComponent implements OnInit {
     }
   }
   makeTransferRequest(){
-    if(this.customerId){
+    debugger
+    if(!this.customerId){
       this.commonService.showError("Please enter your customer","Error");
       return;
     }
-    if(this.gurantorId){
+    if(!this.gurantorId){
       this.commonService.showError("Please enter your Gurantor","Error");
       return;
     }
