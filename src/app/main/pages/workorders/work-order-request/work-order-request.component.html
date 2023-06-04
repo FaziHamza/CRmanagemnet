@@ -84,10 +84,10 @@
 
 <nz-tabset nzType="card" class="mt-4">
     <nz-tab *ngFor="let tab of tabs; let index = index" [nzTitle]="titleTemplate">
-      <ng-template #titleTemplate>
-        <label nz-radio [(ngModel)]="radioSelected[tab?.id]" (ngModelChange)="requestTabChange(tab?.id)"></label>
-        {{ tab.description }}
-      </ng-template>
+        <ng-template #titleTemplate>
+            <label nz-radio [(ngModel)]="radioSelected[tab?.id]" (ngModelChange)="requestTabChange(tab?.id)"></label>
+            {{ tab.description }}
+        </ng-template>
     </nz-tab>
 </nz-tabset>
 
@@ -115,7 +115,8 @@
                     <th *ngIf="requestList.length > 0">
                         {{"Promissory_Notes_orders.Phone_No" | translate}}
                     </th>
-                    <th nz-th nzSortFn="ascend" *ngIf="requestList.length > 0" (click)="getSortFunction(sortType,'date')">
+                    <th nz-th nzSortFn="ascend" *ngIf="requestList.length > 0"
+                        (click)="getSortFunction(sortType,'date')">
                         {{"Promissory_Notes_orders.Request_Date_Amount" | translate}}
                     </th>
                     <th nz-th nzSortFn="ascend" *ngIf="requestList.length > 0"
@@ -173,7 +174,14 @@
                                     d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                             </svg>
                         </a> -->
-
+                        <div class="table-action-btn">
+                            <a href="">
+                                <i class="fa-regular fa-circle-check"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa-regular fa-circle-xmark"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
