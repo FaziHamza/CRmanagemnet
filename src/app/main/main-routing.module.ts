@@ -8,6 +8,8 @@ import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
 import { TestComponent } from './pages/test/test.component';
 import { ProfileComponent } from './containers/profile/profile.component';
+import { WorkOrderRescheduleComponent } from './pages/work-order-reschedule/work-order-reschedule.component';
+import { WorkOrderTransferComponent } from './pages/work-order-transfer/work-order-transfer.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,14 @@ const routes: Routes = [
       {
         path: 'workorders/:id',
         component: PromissoryNoteComponent,
+      },
+      {
+        path: 'workorder-reschedule/:id',
+        component: WorkOrderRescheduleComponent,
+      },
+      {
+        path: 'workorder-transfer/:id',
+        component: WorkOrderTransferComponent,
       },
       {
         path: 'workorders',

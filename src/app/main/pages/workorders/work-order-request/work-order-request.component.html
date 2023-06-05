@@ -83,7 +83,7 @@
 </div>
 
 <nz-tabset nzType="card" class="mt-4">
-    <nz-tab *ngFor="let tab of tabs; let index = index" [nzTitle]="titleTemplate">
+    <nz-tab *ngFor="let tab of tabs; let index = index" [nzTitle]="titleTemplate" >
         <ng-template #titleTemplate>
             <label nz-radio [(ngModel)]="radioSelected[tab?.id]" (ngModelChange)="requestTabChange(tab?.id)"></label>
             {{ tab.description }}
@@ -147,8 +147,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of editRowTable.data;let index = index"
-                    [routerLink]="['/home/workorders',data.orderId]" class="table-cursor">
+                <tr *ngFor="let data of editRowTable.data;let index = index" (click)="gotoDetail(data.requestID)"
+                    class="table-cursor">
                     <td>{{ data.requestID }}</td>
                     <td>{{ data?.customerName }}</td>
                     <td>{{ data?.mobile }}</td>

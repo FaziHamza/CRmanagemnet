@@ -102,8 +102,42 @@
         <nz-tabset>
             <nz-tab [nzTitle]="titleTemplate">
                 <ng-template #titleTemplate>
-                    {{"Promissory_Notes.PN_V1" | translate}}
+                    {{"Promissory_Notes.PN_V2" | translate}}
                 </ng-template>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New No. Of Installments</h4>
+                                    <h4 class="detail">8</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New First Due Date</h4>
+                                    <h4 class="detail">1/6/2023</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">Interest</h4>
+                                    <h4 class="detail">5%</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="card-box">
+                                    <h4 class="title">New Remaining Amount</h4>
+                                    <h4 class="detail">12600</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="card">
@@ -662,6 +696,11 @@
                     </div>
                 </div>
             </nz-tab>
+            <nz-tab [nzTitle]="titleTemplate2" [nzDisabled]="true">
+                <ng-template #titleTemplate2>
+                    {{"Promissory_Notes.PN_V1" | translate}}
+                </ng-template>
+                </nz-tab>
         </nz-tabset>
     </div>
     <div *ngIf="isPrintShow">

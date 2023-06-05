@@ -11,11 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
-  selector: 'app-promissory-note',
-  templateUrl: './promissory-note.component.html',
-  styleUrls: ['./promissory-note.component.scss']
+  selector: 'app-work-order-transfer',
+  templateUrl: './work-order-transfer.component.html',
+  styleUrls: ['./work-order-transfer.component.scss']
 })
-export class PromissoryNoteComponent implements OnInit, AfterViewInit {
+
+export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
@@ -39,7 +40,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   safeUrl: any;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
-      { title: ' Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+      { title: ' Transferring Promissory Notes Orders', routeLink: 'home/promissory-note' }
     ]
     this.activatedRoute.params.subscribe(res => {
       if (res) {
@@ -52,7 +53,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   getPNOrderDetails() {
     this.saveLoader = true;
-    this.apiService.getPNOrders(this.orderId).subscribe(res => {
+    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(res => {
       
       this.saveLoader = false;
       this.orderDetail = res.data;
@@ -342,4 +343,3 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.isPrintShow = false;
   }
 }
-

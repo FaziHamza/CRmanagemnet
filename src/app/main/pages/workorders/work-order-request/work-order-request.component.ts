@@ -3,6 +3,7 @@ import { Subject, debounceTime } from 'rxjs';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { requestParam } from '../requestParam';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-work-order-request',
@@ -31,16 +32,16 @@ export class WorkOrderRequestComponent implements OnInit {
   selectedIndex: any = -1; // manage the active tab
   radioSelected: any[] = [];
 
-  tabs = [{ id: 1, name: 'All Requests' }, { id: 2, name: 'Rescheduling Requests' }, { id: 3, name: 'Transgerring Request' }];
-  constructor(private apiService: ApiService, private commonService: CommonService) { }
+  tabs :any[] = []; 
+  constructor(private apiService: ApiService, private commonService: CommonService,private router:Router) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
       { title: ' Promissory Notes Order', routeLink: '' },
     ];
-    this.getStatusLookup()
-    debugger
-
+    this.getStatusLookup();
+    this.radioSelected.fill(false);
+    this.radioSelected[0] = true;
     this.getAllRequestList();
     this.getTabs();
     this.searchByCustomerName$
@@ -69,6 +70,9 @@ export class WorkOrderRequestComponent implements OnInit {
     this.radioSelected[index] = true;
     // other logic
     if(index){
+      this.orderParamObj.RequestTypeID=index;
+      this.getAllRequestList();
+    }else if(index == 0){
       this.orderParamObj.RequestTypeID=index;
       this.getAllRequestList();
     }
@@ -267,7 +271,10 @@ getAllRequestList() {
   getTabs():any {
       this.apiService.getStatusLookup(24).subscribe(res => {
       if (res.isSuccess) {
+        let obj = { id: 0, description: 'All Requests' };
         this.tabs= res.data;
+        // this.tabs.push(obj);
+        this.tabs.unshift(obj);
       }else{
         this.tabs=[];
       }
@@ -277,6 +284,8 @@ getAllRequestList() {
     this.selectedRequestValue= -1;
     this.selectedIndex = -1; // manage the active tab
     this. radioSelected = [];
+    this.radioSelected.fill(false);
+    this.radioSelected[0] = true;
     this.orderParamObj = {
       RequestTypeID: 0, PNOrderID: 0, NewCustomerID: 0, CustomerName: '', Status: 0,
       OrderStatus: 0, FromDate: '', ToDate: '', Sort: 1, PageNo: 0, PageSize: 1000
@@ -286,5 +295,13 @@ getAllRequestList() {
     this.selectedDate = [];
     this.statusType = '';
     this.getAllRequestList();
+  }
+  gotoDetail(id:any){
+    if(this.orderParamObj.RequestTypeID  == 24001){
+      this.router.navigate(['/home/workorder-transfer',id])
+    }else{
+      this.router.navigate(['/home//workorder-reschedule',id])
+    }
+    // [routerLink]="['/home/workorder-reschedule,workorder-transfer',data.requestID]"
   }
 }

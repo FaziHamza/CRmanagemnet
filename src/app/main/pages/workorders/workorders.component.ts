@@ -207,7 +207,7 @@ export class WorkordersComponent implements OnInit {
   getStatusLookup() {
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
-        this.statusList = res.data;
+        this.statusList = res.data.slice(0,6);
       } else {
         this.statusList = [];
       }
@@ -221,7 +221,7 @@ export class WorkordersComponent implements OnInit {
     this.statusType = '';
     this.getAllOrderList();
   }
-  createRequest(orderId:any): void {
+  createRequest(orderId:any,requestType:string): void {
     const modal = this.modal.create<CreateRequestComponent>({
       nzWidth: 700,
       // nzTitle: 'Change Control Value',
@@ -229,7 +229,8 @@ export class WorkordersComponent implements OnInit {
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {
-        data:orderId
+        data:orderId,
+        statusType:requestType
       },
       nzFooter: null
     });
@@ -240,10 +241,10 @@ export class WorkordersComponent implements OnInit {
     });
   }
   gotoDetail(data:any){
-    let status = data.statusObj?.translations[0].lookupName.toLowerCase();
-    if( status == 'signed' || status == 'under collecting' || status == 'collected'){
-    }else{
-      this.router.navigate(['/home/workorders',data.orderId])
-    }
+    // let status = data.statusObj?.translations[0].lookupName.toLowerCase();
+    // if( status == 'signed' || status == 'under collecting' || status == 'collected'){
+    // }else{
+    // }
+    this.router.navigate(['/home/workorders',data.orderId])
   }
 }

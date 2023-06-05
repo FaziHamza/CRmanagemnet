@@ -11,11 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
-  selector: 'app-promissory-note',
-  templateUrl: './promissory-note.component.html',
-  styleUrls: ['./promissory-note.component.scss']
+  selector: 'app-work-order-reschedule',
+  templateUrl: './work-order-reschedule.component.html',
+  styleUrls: ['./work-order-reschedule.component.scss']
 })
-export class PromissoryNoteComponent implements OnInit, AfterViewInit {
+
+export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
@@ -39,7 +40,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   safeUrl: any;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
-      { title: ' Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+      { title: ' Rescheduling Promissory Notes Orders', routeLink: 'home/promissory-note' }
     ]
     this.activatedRoute.params.subscribe(res => {
       if (res) {
@@ -52,34 +53,125 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   getPNOrderDetails() {
     this.saveLoader = true;
-    this.apiService.getPNOrders(this.orderId).subscribe(res => {
+    this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
       
       this.saveLoader = false;
-      this.orderDetail = res.data;
-      if (this.orderDetail) {
-        if (this.orderDetail.statusObj) {
-          if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
-            this.getGeneratedList(1);
-          }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
-            this.getGeneratedList(2);
-          }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
-            this.getGeneratedList(3);
-          }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
-            this.getGeneratedList(4);
-          }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
-            this.getGeneratedList(5);
-          }
-          else {
-            if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'pending')
-              this.getCmsSetup();
-          }
-        }
+      // this.orderDetail = res.data;
+      this.orderDetail = {
+        "orderId": 15,
+        "orderTypeId": 7002,
+        "orderType": {
+            "lookupId": 7002,
+            "lookupBGColor": null,
+            "lookupTextColor": null,
+            "description": "Direct Payment Sales Orders",
+            "translations": [
+                {
+                    "languageId": 1001,
+                    "lookupName": "Direct Payment Sales Orders"
+                }
+            ]
+        },
+        "vinId": 210168264,
+        "orderDetail": {
+            "vinId": 210168264,
+            "vinNo": "JTDKBRFU6H3029000",
+            "plateNumber": "25-25893",
+            "brand": {
+                "brandId": 24,
+                "brand": "Yamaha"
+            },
+            "model": {
+                "modelId": 10038928,
+                "modelName": "MT-07"
+            }
+        },
+        "customer": {
+            "customerId": 100218,
+            "customerName": "عامر مروان فوزي الحسين",
+            "email": null,
+            "mobile": "962790000022",
+            "profileImage": null,
+            "remainingAvailableCredit": 0,
+            "creditLimit": 0,
+            "consumedCredit": 0,
+            "onAccountAllowed": false,
+            "custAddress": null,
+            "identityFile1": null,
+            "identityFile2": null,
+            "nationalId": null
+        },
+        "totalAmount": 1000,
+        "pnTotalAmount": 1000,
+        "remainingAmount": 1000,
+        "rescheduleInterest": null,
+        "orderQNTRLLink": "www.google.com",
+        "branch": null,
+        "orderDate": "2023-10-08T00:00:00",
+        "salesConsultantId": 101173,
+        "salesConsultant": {
+            "salesConsultantId": 101173,
+            "salesConsultantName": "Osama Abu Obaid"
+        },
+        "opportunityNo": "77-ggg",
+        "numberOfInstallments": 10,
+        "startDate": "2023-11-11T00:00:00",
+        "newStartDate": null,
+        "newNumberOfInstallments": null,
+        "guarantorId": 100217,
+        "guarantor": {
+            "customerId": 100217,
+            "customerName": "ايوب داوود مجلي يعقوب",
+            "email": null,
+            "mobile": "962790000021",
+            "profileImage": null,
+            "remainingAvailableCredit": 0,
+            "creditLimit": 0,
+            "consumedCredit": 0,
+            "onAccountAllowed": false,
+            "custAddress": null,
+            "identityFile1": null,
+            "identityFile2": null,
+            "nationalId": null
+        },
+        "statusObj": {
+            "lookupId": 21001,
+            "lookupBGColor": "#FFF3DB",
+            "lookupTextColor": "#FFB155",
+            "description": "Pending",
+            "translations": [
+                {
+                    "languageId": 1001,
+                    "lookupName": "Pending"
+                }
+            ]
+        },
+        "book": null
+    }
+      // if (this.orderDetail) {
+      //   if (this.orderDetail.statusObj) {
+      //     if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+      //       this.getGeneratedList(1);
+      //     }
+      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+      //       this.getGeneratedList(2);
+      //     }
+      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
+      //       this.getGeneratedList(3);
+      //     }
+      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
+      //       this.getGeneratedList(4);
+      //     }
+      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
+      //       this.getGeneratedList(5);
+      //     }
+      //     else {
+      //       if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'pending')
+      //         this.getCmsSetup();
+      //     }
+      //   }
 
-      }
+      // }
     })
   }
   pre(): void {
@@ -342,4 +434,3 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.isPrintShow = false;
   }
 }
-

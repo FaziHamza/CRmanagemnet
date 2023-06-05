@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CreateRequestComponent implements OnInit {
   @Input() data: any;
   statusList: any[] = [];
-  statusType = '';
+  @Input()  statusType = '';
   today = new Date();
   interestPer = 0;
   noofInstallment = 0;

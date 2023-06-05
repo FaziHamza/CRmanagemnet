@@ -61,6 +61,14 @@ export class ApiService {
     let url = environment.creditmanagementtest + "PNOrders/GetPNOrderDetails?orderId=" + id;
     return this.http.get<AppResponse>(url);
   }
+  getRescheduleRequestDetails(id: number): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrdersRequests/GetRescheduleRequestDetails?requestId=" + id;
+    return this.http.get<AppResponse>(url);
+  }
+  getTransfereRequestDetails(id: number): Observable<AppResponse> {
+    let url = environment.creditmanagementtest + "PNOrdersRequests/GetTransfereRequestDetails?requestId=" + id;
+    return this.http.get<AppResponse>(url);
+  }
   getSparePartsWorkOrder(param: string = null): Observable<AppResponse> {
     let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?" + param;
     return this.http.get<AppResponse>(url);
