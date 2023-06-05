@@ -9,7 +9,8 @@
 <div class="container-fluid">
     <div class="content-body-inner">
         <nz-tabset>
-            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}" (nzClick)="tabClick(false)">
+            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}"
+                (nzClick)="tabClick(false)">
 
                 <div class="create-form">
                     <div class="row">
@@ -164,8 +165,7 @@
                                         </button>
                                     </td>
 
-                                    <td 
-                                        *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'collected'">
+                                    <td *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'collected'">
                                         <a class="pen-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" style="color: rgb(168 168 168)">
@@ -181,9 +181,9 @@
                                                 *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span>
                                         </button>
                                     </td>
-                                    <td  
+                                    <td
                                         *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'signed' || data.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting'">
-                                        <a nz-dropdown [nzDropdownMenu]="menu">
+                                        <!-- <a nz-dropdown [nzDropdownMenu]="menu">
                                             <div class="dots">
                                                 <p>.</p>
                                                 <p>.</p>
@@ -199,7 +199,17 @@
                                                     (click)="createRequest(data.orderId,'Transfer Request')">
                                                     Create Transfer Request</li>
                                             </ul>
-                                        </nz-dropdown-menu>
+                                        </nz-dropdown-menu> -->
+                                        <div class="hover-dropdown">
+                                            <div class="dropdown">
+                                                <i class="fa-solid fa-ellipsis-vertical dropbtn"></i>
+                                                <div class="dropdown-content">
+                                                    <a href="#">Haider</a>
+                                                    <a href="#">Haider</a>
+                                                    <a href="#">Haider</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

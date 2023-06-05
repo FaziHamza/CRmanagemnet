@@ -158,16 +158,16 @@
                         <button type="button" class="btn o-btn "
                             [style.background-color]="data.statusObj?.lookupBGColor"
                             [style.color]="data.statusObj?.lookupTextColor">
-                            {{ data.statusObj?.translations[0].lookupName }}
+                            <span> {{ data.statusObj?.translations[0].lookupName }}</span>
                         </button>
                     </td>
                     <td>
                         <div *ngIf="data.status == 21007 || data.status == 21008; else block1">
                             <div class="table-action-btn">
-                                <a  (click)="gotoDetail(data.requestID)">
+                                <a (click)="gotoDetail(data.requestID)">
                                     <i class="fa-regular fa-circle-check"></i>
                                 </a>
-                                <a  (click)="gotoDetail(data.requestID)">
+                                <a (click)="gotoDetail(data.requestID)">
                                     <i class="fa-regular fa-circle-xmark"></i>
                                 </a>
                             </div>
@@ -189,7 +189,7 @@
                             </div>
                         </ng-template>
                         <ng-template #block3>
-                            <a  class="pen-icon">
+                            <a class="pen-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     style="color: rgb(168 168 168)">
                                     <path fill="currentColor"
