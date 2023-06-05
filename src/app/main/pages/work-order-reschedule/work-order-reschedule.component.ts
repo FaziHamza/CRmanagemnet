@@ -29,8 +29,10 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   promissoryist = [];
   generatedlist = [];
   orderDetail: any;
+  orderDetailMaster: any;
   orderId = 0;
-  pdfInfoData :any;
+  pdfInfoData: any;
+  versionTab: any[] = [];
   errorsList: any[] = [];
   differenceAmount = 0;
   cmsSetup: any = new CmsSetupDto('');
@@ -55,34 +57,12 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   getPNOrderDetails() {
     this.saveLoader = true;
     this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
-      
+
       this.saveLoader = false;
       this.orderDetail = res.data;
-     
-      // if (this.orderDetail) {
-      //   if (this.orderDetail.statusObj) {
-      //     if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
-      //       this.getGeneratedList(1);
-      //     }
-      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
-      //       this.getGeneratedList(2);
-      //     }
-      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
-      //       this.getGeneratedList(3);
-      //     }
-      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
-      //       this.getGeneratedList(4);
-      //     }
-      //     else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
-      //       this.getGeneratedList(5);
-      //     }
-      //     else {
-      //       if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'pending')
-      //         this.getCmsSetup();
-      //     }
-      //   }
-
-      // }
+      this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
+      this.versionTab = res.data['versions'];
+      this.versionTab.unshift(res.data);
     })
   }
   pre(): void {
@@ -90,7 +70,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   }
 
   next(): void {
-    
+
     this.current += 1;
   }
 
@@ -144,36 +124,63 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   //#endregion
 
   //#region  generated tab 2
-  getGeneratedList(index:number) {
-    this.stepSaveLoader = true;
-    this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
-      this.stepSaveLoader = false;
-      if (res.isSuccess) {
-        
-        this.generatedlist = [];
-        this.pdfInfoData = res.data['info'];
-        let generatedlist = res.data['data'];
-        const currentDate = new Date(); // Current date
-        for (let index = 0; index < generatedlist.length; index++) {
-          const obj = {
-            id: this.generatedlist.length + 1,
-            customerName: generatedlist[index]?.customer?.customerName,
-            // customerName: this.orderDetail.customer.customerName,
-            amount: generatedlist[index].pnAmount,
-            dueDate: generatedlist[index].dueDate,
-            status: generatedlist[index].statusObj.translations[0].lookupName,
-            lookupBGColor: generatedlist[index].statusObj.lookupBGColor,
-            lookupTextColor: generatedlist[index].statusObj.lookupTextColor,
-            pnBookID: generatedlist[index].pnBookID,
-            dateCheck: new Date(generatedlist[index].dueDate) < currentDate ? true : false,
-            pdfView: generatedlist[index].pNpdfFile
-          };
-          this.generatedlist.push(obj);
+  getGeneratedList(item:any) {
+    debugger
+    if(item.versions){
+      this.gotoMainTab();
+    }else{
+      this.orderDetail.customer = item.customer;
+      this.orderDetail.guarantor = item.guarantor;
+      // this.orderDetail.statusObj = item.statusObj;
+      let index = 0;
+      if (this.orderDetail) {
+        if (this.orderDetail.statusObj) {
+          if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+            index = 1;
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+            index = 2;
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
+            index = 3;
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
+            index = 4;
+          }
+          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
+            index = 5;
+          }
         }
-        this.isGenerate = true;
-        this.current = index;
       }
-    })
+      this.stepSaveLoader = true;
+      this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID).subscribe(res => {
+        this.stepSaveLoader = false;
+        if (res.isSuccess) {
+          this.generatedlist = [];
+          // this.pdfInfoData = res.data['info'];
+          let generatedlist = res.data['data'];
+          for (let index = 0; index < generatedlist.length; index++) {
+            const obj = {
+              id: this.generatedlist.length + 1,
+              customerName: generatedlist[index]?.customer?.customerName,
+              // customerName: this.orderDetail.customer.customerName,
+              amount: generatedlist[index].pnAmount,
+              dueDate: generatedlist[index].dueDate,
+              status: generatedlist[index].statusObj.translations[0].lookupName,
+              lookupBGColor: generatedlist[index].statusObj.lookupBGColor,
+              lookupTextColor: generatedlist[index].statusObj.lookupTextColor,
+              pnBookID: generatedlist[index].pnBookID,
+              dateCheck: generatedlist[index].dueDate,
+              pdfView: generatedlist[index].pNpdfFile
+            };
+            this.generatedlist.push(obj);
+          }
+          this.current = index;
+          this.isGenerate = true;
+        }
+      })
+    }
+    
   }
   //#endregion
   createRequest(): void {
@@ -184,7 +191,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {
-        data:this.orderId
+        data: this.orderId
       },
       nzFooter: null
     });
@@ -233,13 +240,13 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       title: 'Promissory_Notes.Collected'
     },
   ];
-  pdfView(file: any,data?:any): void {
+  pdfView(file: any, data?: any): void {
     const modal = this.modal.create<PDFViewComponent>({
       nzWidth: 600,
       nzContent: PDFViewComponent,
       nzComponentParams: {
         file: file,
-        data:data
+        data: data
       },
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
@@ -263,36 +270,34 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.isPrintShow = true;
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfInfoData.allPNpdfFiles);
   }
-  printAll(status:any) {
+  printAll(status: any) {
     let formData = new FormData();
     formData.append('PNBookId', this.generatedlist[0].pnBookID);
     formData.append('Status', status);
     this.apiService.updatePNBookStatus(formData).subscribe(
-      (response)=>{
+      (response) => {
         if (response.isSuccess) {
           this.isPrintShow = false;
           this.ngOnInit();
         }
       },
-      (error)=>{
+      (error) => {
         this.errorsList = error.errors ? error.errors : error.Errors;
         this.commonService.showError("found some error..!", "Error");
       }
-      
+
     )
   }
   printClose() {
     this.isPrintShow = false;
   }
-  rejected(){
-    debugger
+  rejected() {
     const modal = this.modal.create<RejectComponent>({
       nzWidth: 600,
       nzContent: RejectComponent,
       nzComponentParams: {
+        requestId: this.orderId,
       },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: null
     });
     modal.afterClose.subscribe(res => {
@@ -300,5 +305,9 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         // this.controls(value, data, obj, res);
       }
     });
+  }
+  gotoMainTab() {
+    this.isGenerate = false;
+    this.orderDetail = JSON.parse(JSON.stringify(this.orderDetailMaster));
   }
 }
