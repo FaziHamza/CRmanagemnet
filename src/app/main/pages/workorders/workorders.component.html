@@ -189,7 +189,7 @@
                                                 <p>.</p>
                                                 <p>.</p>
                                             </div>
-                                        </a>
+                                        </a> -->
                                         <nz-dropdown-menu #menu="nzDropdownMenu">
                                             <ul nz-menu nzSelectable>
                                                 <li nz-menu-item
@@ -199,14 +199,17 @@
                                                     (click)="createRequest(data.orderId,'Transfer Request')">
                                                     Create Transfer Request</li>
                                             </ul>
-                                        </nz-dropdown-menu> -->
+                                        </nz-dropdown-menu>
                                         <div class="hover-dropdown">
                                             <div class="dropdown">
                                                 <i class="fa-solid fa-ellipsis-vertical dropbtn"></i>
                                                 <div class="dropdown-content">
-                                                    <a href="#">Haider</a>
-                                                    <a href="#">Haider</a>
-                                                    <a href="#">Haider</a>
+                                                    <a 
+                                                    (click)="createRequest(data.orderId,'Reschedule Request')">
+                                                    Create Reschedule Request</a>
+                                                <a 
+                                                    (click)="createRequest(data.orderId,'Transfer Request')">
+                                                    Create Transfer Request</a>
                                                 </div>
                                             </div>
                                         </div>

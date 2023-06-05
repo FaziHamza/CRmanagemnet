@@ -155,7 +155,7 @@
                     <td>{{ data?.mobile }}</td>
                     <td>{{ data.createdAt | date:'dd MMM yyyy h:mm a' }}</td>
                     <td>
-                        <button type="button" class="btn o-btn "
+                        <button nz-tooltip="{{data.statusObj?.translations[0].lookupName}}" type="button" class="btn o-btn "
                             [style.background-color]="data.statusObj?.lookupBGColor"
                             [style.color]="data.statusObj?.lookupTextColor">
                             <span> {{ data.statusObj?.translations[0].lookupName }}</span>
@@ -183,7 +183,7 @@
 
                         <ng-template #block2>
                             <div *ngIf="data.status == 21010;else block3">
-                                <button type="button" class="btn o-btn hvr-bounce-to-right">
+                                <button  type="button" class="btn o-btn hvr-bounce-to-right">
                                     <span>Reschedule</span>
                                 </button>
                             </div>
