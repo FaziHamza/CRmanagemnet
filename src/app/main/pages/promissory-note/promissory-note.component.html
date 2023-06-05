@@ -519,7 +519,8 @@
                                                                             {{"Promissory_Notes.Promissory_Notes_Total_Amount"
                                                                             |
                                                                             translate}}:
-                                                                            <span class="head-detail">15,000</span>
+                                                                            <span class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount}}</span>
+                                                                            <span class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
@@ -528,7 +529,8 @@
                                                                         <h4 class="head-title">
                                                                             {{"Promissory_Notes.No" |
                                                                             translate}}:
-                                                                            <span class="head-detail">10 PN</span>
+                                                                            <span class="head-detail" *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</span>
+                                                                            <span class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
@@ -537,7 +539,8 @@
                                                                         <h4 class="head-title">
                                                                             {{"Promissory_Notes.Remaining_Amount" |
                                                                             translate}}:
-                                                                            <span class="head-detail">150</span>
+                                                                            <span class="head-detail" *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount}}</span>
+                                                                            <span class="head-detail" *ngIf="!orderDetail.remainingAmount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
@@ -546,7 +549,8 @@
                                                                         <h4 class="head-title">
                                                                             {{"Promissory_Notes.No" |
                                                                             translate}}:
-                                                                            <span class="head-detail">10 PN</span>
+                                                                            <span class="head-detail" *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</span>
+                                                                            <span class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
