@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -7,6 +7,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
   styleUrls: ['./confirm-popup.component.scss']
 })
 export class ConfirmPopupComponent implements OnInit {
+  @Input() message: string
   constructor(private modal: NzModalService) { }
 
   ngOnInit(): void {

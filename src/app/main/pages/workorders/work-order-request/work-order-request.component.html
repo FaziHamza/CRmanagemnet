@@ -39,7 +39,8 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="input-search form-control2">
-                        <nz-range-picker [nzDateRender]="tplRender" [(ngModel)]="selectedDate" (ngModelChange)="changeDate($event)"></nz-range-picker>
+                        <nz-range-picker [nzDateRender]="tplRender" [(ngModel)]="selectedDate"
+                            (ngModelChange)="changeDate($event)"></nz-range-picker>
                         <ng-template #tplRender let-current>
                             <div class="ant-picker-cell-inner" [class.border]="current.getDate() === 1">
                                 {{ current.getDate() }}
@@ -83,7 +84,7 @@
 </div>
 
 <nz-tabset nzType="card" class="mt-4">
-    <nz-tab *ngFor="let tab of tabs; let index = index" [nzTitle]="titleTemplate" >
+    <nz-tab *ngFor="let tab of tabs; let index = index" [nzTitle]="titleTemplate">
         <ng-template #titleTemplate>
             <label nz-radio [(ngModel)]="radioSelected[tab?.id]" (ngModelChange)="requestTabChange(tab?.id)"></label>
             {{ tab.description }}
@@ -163,25 +164,41 @@
 
                     </td>
                     <td>
-                        <!-- <button type="button" class="btn o-btn hvr-bounce-to-right"
-                            *ngIf="data.actionToDo[0].lookupName.toLowerCase() != 'generated' ">
-                            <span *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span>
-                        </button>
-                        <a *ngIf="data.actionToDo[0].lookupName.toLowerCase() == 'generated'" class="pen-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                style="color: rgb(168 168 168)">
-                                <path fill="currentColor"
-                                    d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                            </svg>
-                        </a> -->
-                        <div class="table-action-btn">
-                            <a href="">
-                                <i class="fa-regular fa-circle-check"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa-regular fa-circle-xmark"></i>
-                            </a>
+                        <div *ngIf="data.status == 21007 || data.status == 21008; else block1">
+                            <div class="table-action-btn">
+                                <a href="">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa-regular fa-circle-xmark"></i>
+                                </a>
+                            </div>
                         </div>
+
+                        <ng-template #block1>
+                            <div *ngIf="data.status == 21009;else block2">
+                                <button type="button" class="btn o-btn hvr-bounce-to-right">
+                                    <span *ngIf="data.actionToDo?.length  > 0">Transfer</span>
+                                </button>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #block2>
+                            <div *ngIf="data.status == 21010;else block3">
+                                <button type="button" class="btn o-btn hvr-bounce-to-right">
+                                    <span>Reschedule</span>
+                                </button>
+                            </div>
+                        </ng-template>
+                        <ng-template #block3>
+                            <a  class="pen-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="color: rgb(168 168 168)">
+                                    <path fill="currentColor"
+                                        d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                </svg>
+                            </a>
+                        </ng-template>
                     </td>
                 </tr>
             </tbody>

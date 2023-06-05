@@ -297,7 +297,7 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   gotoDetail(id:any){
-    if(this.orderParamObj.RequestTypeID  == 24001){
+    if(id  == 24001){
       this.router.navigate(['/home/workorder-transfer',id])
     }else{
       this.router.navigate(['/home//workorder-reschedule',id])

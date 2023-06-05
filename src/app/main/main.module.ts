@@ -30,6 +30,7 @@ import { WorkOrderRequestComponent } from './pages/workorders/work-order-request
 import { ConfirmPopupComponent } from './pages/common/confirm-popup/confirm-popup.component';
 import { WorkOrderRescheduleComponent } from './pages/work-order-reschedule/work-order-reschedule.component';
 import { WorkOrderTransferComponent } from './pages/work-order-transfer/work-order-transfer.component';
+import { ErrorsComponent } from './pages/common/errors/errors.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -47,7 +48,7 @@ import { WorkOrderTransferComponent } from './pages/work-order-transfer/work-ord
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
     ,DigitDirective
-    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent, WorkOrderRequestComponent, ConfirmPopupComponent, WorkOrderRescheduleComponent, WorkOrderTransferComponent],
+    , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent, WorkOrderRequestComponent, ConfirmPopupComponent, WorkOrderRescheduleComponent, WorkOrderTransferComponent, ErrorsComponent],
   providers: [
     DecimalPipe, DatePipe
   ]

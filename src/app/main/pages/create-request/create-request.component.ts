@@ -8,6 +8,7 @@ import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.com
 import { Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ErrorsComponent } from '../common/errors/errors.component';
 
 @Component({
   selector: 'app-create-request',
@@ -17,7 +18,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class CreateRequestComponent implements OnInit {
   @Input() data: any;
   statusList: any[] = [];
-  @Input()  statusType = '';
+  @Input() statusType = '';
   today = new Date();
   interestPer = 0;
   noofInstallment = 0;
@@ -34,22 +35,22 @@ export class CreateRequestComponent implements OnInit {
   searchInputGurantor$ = new Subject<any>();
   constructor(private modal: NzModalService, private apiService: ApiService,
     private formBuilder: FormBuilder,
-    private datePipe: DatePipe,private router:Router,
+    private datePipe: DatePipe, private router: Router,
     public commonService: CommonService) { }
 
   ngOnInit(): void {
     this.makeStatusList();
     this.initForm();
     this.searchInput$
-    .pipe(debounceTime(500)) // Adjust the debounce time as needed
-    .subscribe(value => {
-      this.getCustomer(value);
-    });
+      .pipe(debounceTime(500)) // Adjust the debounce time as needed
+      .subscribe(value => {
+        this.getCustomer(value);
+      });
     this.searchInputGurantor$
-    .pipe(debounceTime(500)) // Adjust the debounce time as needed
-    .subscribe(value => {
-      this.getCustomerGurantor(value);
-    });
+      .pipe(debounceTime(500)) // Adjust the debounce time as needed
+      .subscribe(value => {
+        this.getCustomerGurantor(value);
+      });
 
   }
   initForm() {
@@ -100,16 +101,14 @@ export class CreateRequestComponent implements OnInit {
   saveRequestApproval() {
     debugger
     this.errorsList = [];
-    if(!this.firstDueDate)
-    {
-      this.commonService.showError("Please select a New First Due Date","Error");
+    if (!this.firstDueDate) {
+      this.commonService.showError("Please select a New First Due Date", "Error");
       return;
-    }    
-    if(!this.noofInstallment)
-    {
-      this.commonService.showError("Please select a New No. of Installment","Error");
+    }
+    if (!this.noofInstallment) {
+      this.commonService.showError("Please select a New No. of Installment", "Error");
       return;
-    }    
+    }
     const fromDate = new Date(this.firstDueDate);
     const formattedFromDate = fromDate.toISOString();
     let formData = new FormData();
@@ -120,27 +119,46 @@ export class CreateRequestComponent implements OnInit {
     formData.append('InterestValue', this.interestVal.toString());
     this.apiService.generatePNRescheduleOrderRequest(formData).subscribe(
       (response) => {
-        if(response.isSuccess){
-          this.commonService.showSuccess("Informations updated!","Success!");
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Informations updated!", "Success!");
           // this.cancelModal();
-          this.confirm();
-        }else{
-          this.errorsList = response["errors"];
-          this.commonService.showError(response.message,"Error!");
+          this.confirm("Request order successfully send");
+        } else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.erros(this.errorsList);
+          this.commonService.showError(response.message, "Error!");
         }
       },
       (error) => {
-        this.errorsList = error.Errors;;
+        this.errorsList = error.Errors ? error.Errors : error.errors;
+        this.erros(this.errorsList);
         console.log(error);
       }
     )
 
   }
-  confirm(): void {
+  erros(errorsList: any) {
+    const modal = this.modal.create<ErrorsComponent>({
+      nzWidth: 500,
+      nzContent: ErrorsComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        errorsList: errorsList,
+      },
+    });
+    modal.afterClose.subscribe(res => {
+      this.cancelModal();
+      this.router.navigate(['/home/workorders'])
+    });
+  }
+  confirm(message:string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
-      nzFooter: null
+      nzFooter: null,
+      nzComponentParams: {
+        message: message,
+      },
     });
     modal.afterClose.subscribe(res => {
       this.cancelModal();
@@ -155,23 +173,28 @@ export class CreateRequestComponent implements OnInit {
   }
   getCustomer(event: any) {
     if (event.length >= 1) {
-      this.apiService.getCustomer(event).subscribe(res => {
-        if (res.data.length > 0) {
-          this.customerList = res.data;
-        }
-      })
+      this.apiService.getCustomer(event).subscribe(
+        (response) => {
+          if (response.data.length > 0) {
+            this.customerList = response.data;
+          }
+        },
+        (error) => {
+          this.errorsList = error.Errors ? error.Errors : error.errors;
+          this.erros(this.errorsList);
+        })
     }
     if (typeof event === 'number') {
       debugger
       let obj = this.customerList.find(a => a.customerId == event);
-      if (obj){
+      if (obj) {
         let data = {
-          customerName: obj.customerName ? obj.customerName :'---',
+          customerName: obj.customerName ? obj.customerName : '---',
           customerAccount: obj.customerAccount ? obj.customerAccount : '---',
           customerId: obj.customerId ? obj.customerId : '---',
           customerPhone: obj.mobile ? obj.mobile : '---',
           customerAddress: obj.custAddress ? obj.custAddress : '---',
-        } 
+        }
         this.customerDetail.patchValue(data);
       }
     }
@@ -186,26 +209,26 @@ export class CreateRequestComponent implements OnInit {
     }
     if (typeof event === 'number') {
       let obj = this.gurantorList.find(a => a.customerId == event);
-      if (obj){
+      if (obj) {
         let data = {
-          guarantorName: obj.customerName ? obj.customerName :'---',
+          guarantorName: obj.customerName ? obj.customerName : '---',
           guarantorAccount: obj.customerAccount ? obj.customerAccount : '---',
           guarantorId: obj.customerId ? obj.customerId : '---',
           guarantorPhone: obj.mobile ? obj.mobile : '---',
           guarantorAddress: obj.custAddress ? obj.custAddress : '---',
-        } 
+        }
         this.customerDetail.patchValue(data);
       }
     }
   }
-  makeTransferRequest(){
+  makeTransferRequest() {
     debugger
-    if(!this.customerId){
-      this.commonService.showError("Please enter your customer","Error");
+    if (!this.customerId) {
+      this.commonService.showError("Please enter your customer", "Error");
       return;
     }
-    if(!this.gurantorId){
-      this.commonService.showError("Please enter your Gurantor","Error");
+    if (!this.gurantorId) {
+      this.commonService.showError("Please enter your Gurantor", "Error");
       return;
     }
     let formData = new FormData();
@@ -213,11 +236,19 @@ export class CreateRequestComponent implements OnInit {
     formData.append('NewCustomerID', this.customerId)
     formData.append('NewGuarantorID', this.gurantorId)
 
-    this.apiService.generatePNTransferOrderRequest(formData).subscribe(res=>{
-      if(res.isSuccess){
-        this.commonService.showSuccess("Informations updated!","Success!");
-        this.confirm();
-      }
-    })
+    this.apiService.generatePNTransferOrderRequest(formData).subscribe(
+      (response) => {
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Informations updated!", "Success!");
+          this.confirm("Transfer Request Successfully Send");
+        } else {
+          this.errorsList = response['Errors'] ? response['Errors'] : response['errors'];
+          this.erros(this.errorsList);
+        }
+      },
+      (error) => {
+        this.errorsList = error.Errors ? error.Errors : error.errors;
+        this.erros(this.errorsList);
+      })
   }
 }
