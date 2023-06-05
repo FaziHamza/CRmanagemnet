@@ -298,10 +298,9 @@ getAllRequestList() {
   }
   gotoDetail(id:any){
     if(id  == 24001){
-      this.router.navigate(['/home/workorder-transfer',id])
+      this.router.navigate(['/home/transfer',id])
     }else{
-      this.router.navigate(['/home//workorder-reschedule',id])
+      this.router.navigate(['/home/reschedule',id])
     }
-    // [routerLink]="['/home/workorder-reschedule,workorder-transfer',data.requestID]"
   }
 }

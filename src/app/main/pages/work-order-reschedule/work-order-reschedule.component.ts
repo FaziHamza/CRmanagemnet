@@ -8,6 +8,7 @@ import { PDFViewComponent } from '../pdfview/pdfview.component';
 import { DatePipe } from '@angular/common';
 import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
+import { RejectComponent } from '../common/reject/reject.component';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -56,98 +57,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
       
       this.saveLoader = false;
-      // this.orderDetail = res.data;
-      this.orderDetail = {
-        "orderId": 15,
-        "orderTypeId": 7002,
-        "orderType": {
-            "lookupId": 7002,
-            "lookupBGColor": null,
-            "lookupTextColor": null,
-            "description": "Direct Payment Sales Orders",
-            "translations": [
-                {
-                    "languageId": 1001,
-                    "lookupName": "Direct Payment Sales Orders"
-                }
-            ]
-        },
-        "vinId": 210168264,
-        "orderDetail": {
-            "vinId": 210168264,
-            "vinNo": "JTDKBRFU6H3029000",
-            "plateNumber": "25-25893",
-            "brand": {
-                "brandId": 24,
-                "brand": "Yamaha"
-            },
-            "model": {
-                "modelId": 10038928,
-                "modelName": "MT-07"
-            }
-        },
-        "customer": {
-            "customerId": 100218,
-            "customerName": "عامر مروان فوزي الحسين",
-            "email": null,
-            "mobile": "962790000022",
-            "profileImage": null,
-            "remainingAvailableCredit": 0,
-            "creditLimit": 0,
-            "consumedCredit": 0,
-            "onAccountAllowed": false,
-            "custAddress": null,
-            "identityFile1": null,
-            "identityFile2": null,
-            "nationalId": null
-        },
-        "totalAmount": 1000,
-        "pnTotalAmount": 1000,
-        "remainingAmount": 1000,
-        "rescheduleInterest": null,
-        "orderQNTRLLink": "www.google.com",
-        "branch": null,
-        "orderDate": "2023-10-08T00:00:00",
-        "salesConsultantId": 101173,
-        "salesConsultant": {
-            "salesConsultantId": 101173,
-            "salesConsultantName": "Osama Abu Obaid"
-        },
-        "opportunityNo": "77-ggg",
-        "numberOfInstallments": 10,
-        "startDate": "2023-11-11T00:00:00",
-        "newStartDate": null,
-        "newNumberOfInstallments": null,
-        "guarantorId": 100217,
-        "guarantor": {
-            "customerId": 100217,
-            "customerName": "ايوب داوود مجلي يعقوب",
-            "email": null,
-            "mobile": "962790000021",
-            "profileImage": null,
-            "remainingAvailableCredit": 0,
-            "creditLimit": 0,
-            "consumedCredit": 0,
-            "onAccountAllowed": false,
-            "custAddress": null,
-            "identityFile1": null,
-            "identityFile2": null,
-            "nationalId": null
-        },
-        "statusObj": {
-            "lookupId": 21001,
-            "lookupBGColor": "#FFF3DB",
-            "lookupTextColor": "#FFB155",
-            "description": "Pending",
-            "translations": [
-                {
-                    "languageId": 1001,
-                    "lookupName": "Pending"
-                }
-            ]
-        },
-        "book": null
-    }
+      this.orderDetail = res.data;
+     
       // if (this.orderDetail) {
       //   if (this.orderDetail.statusObj) {
       //     if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
@@ -192,48 +103,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   onIndexChange(index: number): void {
     this.current = index;
   }
-  //#region  Generating Promissory Notes Orders Tab 1
-  getListofPromissoryNote() {
-    this.promissoryist = [];
-    for (let index = 0; index < this.orderDetail.numberOfInstallments; index++) {
-      const dueDate = new Date(this.orderDetail.startDate);
-      if (this.cmsSetup.periodBetweenPNType.toLowerCase() == "months") {
-        dueDate.setMonth(dueDate.getMonth() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
-      } else {
-        dueDate.setDate(dueDate.getDate() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
-      }
 
-      const obj = {
-        id: this.promissoryist.length + 1,
-        customerName: this.orderDetail.customer.customerName,
-        amount: this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments,
-        orginalAmount: this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments,
-        dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-        originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-        status: 'Generating',
-        edit: false
-      };
-
-      this.promissoryist.push(obj);
-    }
-    this.updateEditCache();
-    this.isGenerate = true;
-    this.differenceAmount = 0;
-  }
-  saveEdit(id: number) {
-    const index = this.promissoryist.findIndex(item => item.id === id);
-    Object.assign(this.promissoryist[index], this.editCache[id].data);
-    this.promissoryist[index].edit = true;
-    this.editCache[id].edit = false;
-  }
-  updateEditCache(): void {
-    this.promissoryist.forEach((item, index) => {
-      this.editCache[index + 1] = {
-        edit: false,
-        data: { ...item }
-      };
-    });
-  }
   saveGeneratingNotes() {
     this.stepSaveLoader = true;
     let notes: any = [];
@@ -270,25 +140,6 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       }
     )
 
-  }
-  getCmsSetup() {
-    this.apiService.getCMSSetup().subscribe(res => {
-      if (res.isSuccess) {
-        this.cmsSetup = res.data[0];
-      }
-    })
-  }
-  checkReset() {
-    return this.promissoryist.find(item => item.edit === true);
-  }
-  undoValue(id: number) {
-    const index = this.promissoryist.findIndex(item => item.id === id);
-    this.promissoryist[index].edit = false;
-    this.promissoryist[index].amount = this.promissoryist[index].orginalAmount;
-    this.promissoryist[index].dueDate = this.promissoryist[index].originalDueDate;
-    this.editCache[id].data.amount = this.promissoryist[index].amount;
-    this.editCache[id].data.dueDate = this.promissoryist[index].originalDueDate;
-    this.changeAmount(id, true);
   }
   //#endregion
 
@@ -432,5 +283,22 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   }
   printClose() {
     this.isPrintShow = false;
+  }
+  rejected(){
+    debugger
+    const modal = this.modal.create<RejectComponent>({
+      nzWidth: 600,
+      nzContent: RejectComponent,
+      nzComponentParams: {
+      },
+      // nzViewContainerRef: this.viewContainerRef,
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
   }
 }

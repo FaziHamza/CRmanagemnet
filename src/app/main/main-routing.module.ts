@@ -33,11 +33,11 @@ const routes: Routes = [
         component: PromissoryNoteComponent,
       },
       {
-        path: 'workorder-reschedule/:id',
+        path: 'reschedule/:id',
         component: WorkOrderRescheduleComponent,
       },
       {
-        path: 'workorder-transfer/:id',
+        path: 'transfer/:id',
         component: WorkOrderTransferComponent,
       },
       {
