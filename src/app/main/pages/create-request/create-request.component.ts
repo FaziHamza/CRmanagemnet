@@ -99,7 +99,7 @@ export class CreateRequestComponent implements OnInit {
     })
   }
   saveRequestApproval() {
-    debugger
+    
     this.errorsList = [];
     if (!this.firstDueDate) {
       this.commonService.showError("Please select a New First Due Date", "Error");
@@ -185,7 +185,7 @@ export class CreateRequestComponent implements OnInit {
         })
     }
     if (typeof event === 'number') {
-      debugger
+      
       let obj = this.customerList.find(a => a.customerId == event);
       if (obj) {
         let data = {
@@ -222,7 +222,7 @@ export class CreateRequestComponent implements OnInit {
     }
   }
   makeTransferRequest() {
-    debugger
+    
     if (!this.customerId) {
       this.commonService.showError("Please enter your customer", "Error");
       return;

@@ -196,6 +196,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.promissoryist[index].dueDate = this.promissoryist[index].originalDueDate;
     this.editCache[id].data.amount = this.promissoryist[index].amount;
     this.editCache[id].data.dueDate = this.promissoryist[index].originalDueDate;
+    // this.differenceAmount = this.differenceAmount - this.editCache[id].data.amount;
     this.changeAmount(id, true);
   }
   //#endregion
@@ -252,15 +253,20 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     });
   }
   changeAmount(id: any, check?: boolean) {
+    // this.updateEditCache();
     let amount = 0;
-    this.promissoryist.forEach(element => {
-      if (element.id === id && !check) {
-        amount += this.editCache[id].data.amount
-      }
-      else
-        amount += element.amount
-    });
+    for (let index = 0; index < this.promissoryist.length; index++) {
+        amount += this.editCache[index+1].data.amount;
+    }
     this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
+    // this.promissoryist.forEach(element => {
+    //   if (element.id === id && !check) {
+    //     amount += this.editCache[id].data.amount
+    //   }
+    //   else
+    //     amount += element.amount
+    // });
+    // this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
   }
 
   ngAfterViewInit() {

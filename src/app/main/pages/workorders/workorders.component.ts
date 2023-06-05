@@ -17,6 +17,7 @@ export class WorkordersComponent implements OnInit {
   searchByCustomerName$ = new Subject<any>();
   searchPartNo$ = new Subject<any>();
   tableLoader: any = false;
+  loadRequestTab: any = false;
   orderList: any[] = [];
   pageSize = 6;
   statusList: any[] = [];
@@ -246,5 +247,9 @@ export class WorkordersComponent implements OnInit {
     // }else{
     // }
     this.router.navigate(['/home/workorders',data.orderId])
+  }
+  tabClick(value:boolean){
+    
+    this.loadRequestTab = value;
   }
 }

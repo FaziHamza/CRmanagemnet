@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="content-body-inner">
         <nz-tabset>
-            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}">
+            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}" (nzClick)="tabClick(false)">
 
                 <div class="create-form">
                     <div class="row">
@@ -207,8 +207,8 @@
                     </div>
                 </nz-spin>
             </nz-tab>
-            <nz-tab nzTitle="{{'Promissory_Notes_orders.Request' | translate}}">
-                <app-work-order-request></app-work-order-request>
+            <nz-tab nzTitle="{{'Promissory_Notes_orders.Request' | translate}}" (nzClick)="tabClick(true)">
+                <app-work-order-request *ngIf="loadRequestTab"></app-work-order-request>
             </nz-tab>
         </nz-tabset>
     </div>

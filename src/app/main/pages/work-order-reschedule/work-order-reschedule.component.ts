@@ -125,7 +125,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
 
   //#region  generated tab 2
   getGeneratedList(item:any) {
-    debugger
+    
     if(item.versions){
       this.gotoMainTab();
     }else{

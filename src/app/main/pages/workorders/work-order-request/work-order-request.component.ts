@@ -47,7 +47,7 @@ export class WorkOrderRequestComponent implements OnInit {
     this.searchByCustomerName$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        debugger
+        
         this.orderParamObj.CustomerName = value;
         this.getAllRequestList();
       });
@@ -65,7 +65,7 @@ export class WorkOrderRequestComponent implements OnInit {
       });
   }
   requestTabChange(index: any) {
-    debugger
+    
     this.radioSelected.fill(false);
     this.radioSelected[index] = true;
     // other logic
@@ -121,7 +121,7 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   customerChange() {
-    debugger
+    
     if (this.searchByCustomer.length >= 0) {
       this.searchByCustomerName$.next(this.searchByCustomer);
     }
