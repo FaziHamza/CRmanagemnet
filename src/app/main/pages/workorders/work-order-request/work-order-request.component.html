@@ -148,13 +148,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of editRowTable.data;let index = index" (click)="gotoDetail(data)"
+                <tr *ngFor="let data of editRowTable.data;let index = index"
                     class="table-cursor">
-                    <td>{{ data.requestID }}</td>
-                    <td>{{ data?.customerName }}</td>
-                    <td>{{ data?.mobile }}</td>
-                    <td>{{ data.createdAt | date:'dd MMM yyyy h:mm a' }}</td>
-                    <td>
+                    <td (click)="gotoDetail(data)">{{ data.requestID }}</td>
+                    <td (click)="gotoDetail(data)">{{ data?.customerName }}</td>
+                    <td (click)="gotoDetail(data)">{{ data?.mobile }}</td>
+                    <td (click)="gotoDetail(data)">{{ data.createdAt | date:'dd MMM yyyy h:mm a' }}</td>
+                    <td (click)="gotoDetail(data)">
                         <button nz-tooltip="{{data.statusObj?.translations[0].lookupName}}" type="button" class="btn o-btn "
                             [style.background-color]="data.statusObj?.lookupBGColor"
                             [style.color]="data.statusObj?.lookupTextColor">
@@ -176,14 +176,14 @@
                         <ng-template #block1>
                             <div *ngIf="data.status == 21009;else block2">
                                 <button type="button" class="btn o-btn hvr-bounce-to-right">
-                                    <span *ngIf="data.actionToDo?.length  > 0">Transfer</span>
+                                    <span>{{data.statusObj?.description}}</span>
                                 </button>
                             </div>
                         </ng-template>
 
                         <ng-template #block2>
                             <div *ngIf="data.status == 21010;else block3">
-                                <button  type="button" class="btn o-btn hvr-bounce-to-right">
+                                <button type="button" class="btn o-btn hvr-bounce-to-right">
                                     <span>Reschedule</span>
                                 </button>
                             </div>

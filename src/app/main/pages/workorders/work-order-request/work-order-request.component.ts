@@ -359,9 +359,7 @@ getAllRequestList() {
       nzFooter: null
     });
     modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
+      this.ngOnInit();
     });
   }
 }
