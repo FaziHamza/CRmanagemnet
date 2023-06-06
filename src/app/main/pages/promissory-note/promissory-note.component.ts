@@ -41,7 +41,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   safeUrl: any;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
-      { title: ' Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+      { title: '', routeLink: 'home/promissory-note' }
     ]
     this.activatedRoute.params.subscribe(res => {
       if (res) {
@@ -58,6 +58,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
       this.saveLoader = false;
       this.orderDetail = res.data;
+      this.commonService.breadcrumb = [
+        { title: this.orderDetail.comingFromTypeID  == 26002 ? 'Rescheduling Promissory Notes Orders' : this.orderDetail.comingFromTypeID  == 26003 ? 'Transfering Promissory Notes Orders' : 'Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+      ]
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
 
       this.versionTab = res.data['versions'];
@@ -151,6 +154,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.promissoryist[index].edit = true;
     this.editCache[id].edit = false;
   }
+  finalSave(id: number) {
+    const index = this.promissoryist.findIndex(item => item.id === id);
+    Object.assign(this.promissoryist[index], this.editCache[id].data);
+    this.editCache[id].edit = false;
+  }
   updateEditCache(): void {
     this.promissoryist.forEach((item, index) => {
       this.editCache[index + 1] = {
@@ -160,11 +168,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     });
   }
   saveGeneratingNotes() {
-    debugger
     this.stepSaveLoader = true;
     let notes: any = [];
     this.promissoryist.forEach((item) => {
-      this.saveEdit(item.id);
+      this.finalSave(item.id);
     });
 
     this.promissoryist.forEach(element => {
@@ -491,6 +498,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         // this.controls(value, data, obj, res);
       }
     });
+  }
+  ngOnDestroy(){
+    this.commonService.selectedWorkorder = 0;
+    this.commonService.loadRequestTab = false;
   }
 }
 

@@ -24,9 +24,13 @@ export class RejectComponent implements OnInit {
   }
   initForm() {
     this.rejectForm = this.formBuilder.group({
-      reason: ['', [Validators.maxLength(150)]],
+      reason: ['', [Validators.required,Validators.maxLength(150)]],
     });
   }
+  get formControls() {
+    return this.rejectForm.controls;
+  }
+
   saveForm() {
     this.saveSubmitted = true;
     if (this.rejectForm.valid) {

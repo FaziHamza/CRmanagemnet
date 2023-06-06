@@ -30,6 +30,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   promissoryist = [];
   generatedlist = [];
   orderDetail: any;
+  otherDetail: any;
   orderDetailMaster: any;
   orderId = 0;
   pdfInfoData: any;
@@ -142,6 +143,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     } else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
+      this.otherDetail = item;
       // this.orderDetail.statusObj = item.statusObj;
       let index = 0;
       if (this.orderDetail) {
@@ -353,5 +355,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
         // this.controls(value, data, obj, res);
       }
     });
+  }
+  ngOnDestroy(){
+    this.commonService.selectedWorkorder = 1
+    this.commonService.loadRequestTab = true;
   }
 }

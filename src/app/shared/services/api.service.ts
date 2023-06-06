@@ -49,6 +49,16 @@ export class ApiService {
     return this.http.post<AppResponse>(url, formData, {
     });
   }
+  performReschedulePNOrders(formData: FormData): Observable<AppResponse> {
+    let url = environment.creditmanagement + "PNOrdersRequests/PerformReschedulePNOrders";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  performTransferPNOrder(formData: FormData): Observable<AppResponse> {
+    let url = environment.creditmanagement + "PNOrdersRequests/PerformTransferPNOrder";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
 
   getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";

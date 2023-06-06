@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ErrorsComponent } from '../../common/errors/errors.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RejectComponent } from '../../common/reject/reject.component';
+import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-work-order-request',
@@ -360,6 +361,72 @@ getAllRequestList() {
     });
     modal.afterClose.subscribe(res => {
       this.ngOnInit();
+    });
+  }
+  reschedule(id:any){
+    let formData = new FormData();
+    formData.append('requestId', id);
+    this.saveLoader = true;
+    this.apiService.performReschedulePNOrders(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.confirm("Reschedule Order Successfully Created");
+          // this.router.navigate(['/home/workorders'])
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
+  }
+  transfer(id:any){
+    let formData = new FormData();
+    formData.append('requestId', id);
+    this.saveLoader = true;
+    this.apiService.performTransferPNOrder(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.confirm("Reschedule Order Successfully Created");
+          // this.router.navigate(['/home/workorders'])
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
+  }
+  confirm(message:string): void {
+    const modal = this.modal.create<ConfirmPopupComponent>({
+      nzWidth: 500,
+      nzContent: ConfirmPopupComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        message: message,
+      },
+    });
+    modal.afterClose.subscribe(res => {
+      this.commonService.loadRequestTab = false;
+      this.commonService.selectedWorkorder = 0;
     });
   }
 }

@@ -573,40 +573,39 @@
                                                                 </h1>
                                                             </div>
                                                             <div class="row heading-box">
-                                                                <div class="col-lg-5 col-md-6">
+                                                                <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.Promissory_Notes_Total_Amount"
-                                                                            |
-                                                                            translate}}:
-                                                                            <span class="head-detail">15,000</span>
+                                                                           All PN Amount
+                                                                            <span class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal}} JD</span>
+                                                                            <span class="head-detail" *ngIf="!otherDetail.pnsTotal">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.No" |
-                                                                            translate}}:
-                                                                            <span class="head-detail">10 PN</span>
+                                                                          PN Account
+                                                                            <span class="head-detail" *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</span>
+                                                                            <span class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.Remaining_Amount" |
-                                                                            translate}}:
-                                                                            <span class="head-detail">150</span>
+                                                                           Remaining PN Account 
+                                                                            <span class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount}} JD</span>
+                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingAmount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-2 col-md-6">
+                                                                <div class="col-lg-4 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                            {{"Promissory_Notes.No" |
-                                                                            translate}}:
-                                                                            <span class="head-detail">10 PN</span>
+                                                                           Remaining Uncollected PNs
+                                                                            <span class="head-detail" *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</span>
+                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingUncollectedCount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
@@ -682,7 +681,7 @@
                                                             [disabled]="true"
                                                             type="button">Create
                                                             Request</button>
-                                                        <button class="btn o-btn hvr-bounce-to-right"
+                                                        <button class="btn o-btn hvr-bounce-to-right" [routerLink]="['/home/workorders']"
                                                             type="button">Close</button>
                                                     </div>
                                                    

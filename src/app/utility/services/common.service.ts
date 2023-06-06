@@ -11,7 +11,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class CommonService {
   breadcrumb: any[] = [];
   private languageChange: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
+  selectedWorkorder = 0;
+  loadRequestTab = false;
   constructor(private toastr: ToastrService, private ngxService: NgxUiLoaderService) { }
   // Success
   showSuccess(message: string, title: string) {

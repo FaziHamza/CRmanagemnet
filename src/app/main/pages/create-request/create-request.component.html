@@ -15,8 +15,11 @@
         <div class="col-lg-6">
             <div class="mb-3">
                 <label class="mb-1"><b>New No. of Installment</b></label>
+                <div class="input-search1">
                 <input type="text" class="form-control" placeholder="New No. of Installment"
                     [(ngModel)]="noofInstallment" numbersOnly>
+                    <span class="close">JD</span>
+                </div>
             </div>
         </div>
 
@@ -52,6 +55,7 @@
                 <div class="input-search1">
                     <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal"
                         placeholder="Search by order number" numbersOnly>
+                        <span class="close">JD</span>
                 </div>
             </div>
         </div>
