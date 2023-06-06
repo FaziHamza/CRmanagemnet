@@ -61,13 +61,18 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
 
       this.versionTab = res.data['versions'];
-      for (let index = 0; index < res.data['versions'].length; index++) {
-        // const element = res.data['versions'][index];
-        this.versionTab[index]['tabName'] = 'PN V' + (index + 1);
+      if(res.data['versions']){
+        for (let index = 0; index < res.data['versions'].length; index++) {
+          // const element = res.data['versions'][index];
+          this.versionTab[index]['tabName'] = 'PN V' + (index + 1);
+        }
+        this.versionTab.push(res.data);
+        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+      }else{
+        this.versionTab = [];
+        this.versionTab.push(res.data);
+        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
       }
-      this.versionTab.push(res.data);
-      this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
-
       if (this.orderDetail) {
         if (this.orderDetail.statusObj) {
           if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
