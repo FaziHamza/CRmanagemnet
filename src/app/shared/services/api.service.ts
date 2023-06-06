@@ -44,6 +44,11 @@ export class ApiService {
     return this.http.post<AppResponse>(url, formData, {
     });
   }
+  approveRequest(formData: FormData): Observable<AppResponse> {
+    let url = environment.creditmanagement + "PNOrdersRequests/ApproveRequest";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
 
   getCMSSetup(): Observable<AppResponse> {
     let url = environment.creditmanagement + "Setup/GetCMSetup";

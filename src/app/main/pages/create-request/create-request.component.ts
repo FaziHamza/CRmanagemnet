@@ -122,7 +122,7 @@ export class CreateRequestComponent implements OnInit {
         if (response.isSuccess) {
           this.commonService.showSuccess("Informations updated!", "Success!");
           // this.cancelModal();
-          this.confirm("Request order successfully send");
+          this.confirm("Request order successfully sent");
         } else {
           this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
           this.erros(this.errorsList);

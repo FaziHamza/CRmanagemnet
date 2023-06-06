@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RejectComponent } from '../common/reject/reject.component';
+import { ErrorsComponent } from '../common/errors/errors.component';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -62,7 +63,12 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       this.orderDetail = res.data;
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
       this.versionTab = res.data['versions'];
-      this.versionTab.unshift(res.data);
+      for (let index = 0; index < res.data['versions'].length; index++) {
+        // const element = res.data['versions'][index];
+        this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+      }
+      this.versionTab.push(res.data);
+      this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
     })
   }
   pre(): void {
@@ -124,30 +130,30 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   //#endregion
 
   //#region  generated tab 2
-  getGeneratedList(item:any) {
-    
-    if(item.versions){
+  getGeneratedList(item: any) {
+
+    if (item.versions) {
       this.gotoMainTab();
-    }else{
+    } else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
       // this.orderDetail.statusObj = item.statusObj;
       let index = 0;
       if (this.orderDetail) {
-        if (this.orderDetail.statusObj) {
-          if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+        if (item.statusObj) {
+          if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
             index = 1;
           }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
             index = 2;
           }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
             index = 3;
           }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
             index = 4;
           }
-          else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
             index = 5;
           }
         }
@@ -180,7 +186,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         }
       })
     }
-    
+
   }
   //#endregion
   createRequest(): void {
@@ -309,5 +315,45 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   gotoMainTab() {
     this.isGenerate = false;
     this.orderDetail = JSON.parse(JSON.stringify(this.orderDetailMaster));
+  }
+  approveRequest() {
+    let formData = new FormData();
+    formData.append('requestId', this.orderId.toString());
+    this.saveLoader = true;
+    this.apiService.approveRequest(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.router.navigate(['/home/workorders'])
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
+  }
+  error(errorsList:any) {
+    const modal = this.modal.create<ErrorsComponent>({
+      nzWidth: 600,
+      nzContent: ErrorsComponent,
+      nzComponentParams: {
+        errorsList: errorsList,
+      },
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
   }
 }
