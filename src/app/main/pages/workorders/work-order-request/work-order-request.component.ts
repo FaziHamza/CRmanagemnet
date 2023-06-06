@@ -301,11 +301,11 @@ getAllRequestList() {
     this.statusType = '';
     this.getAllRequestList();
   }
-  gotoDetail(id:any){
-    if(id  == 24001){
-      this.router.navigate(['/home/transfer',id])
+  gotoDetail(data:any){
+    if(data.requestTypeID  == 24001){
+      this.router.navigate(['/home/transfer',data.requestID])
     }else{
-      this.router.navigate(['/home/reschedule',id])
+      this.router.navigate(['/home/reschedule',data.requestID])
     }
   }
   approveRequest(id:any) {

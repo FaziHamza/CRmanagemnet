@@ -43,7 +43,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   safeUrl: any;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
-      { title: ' Rescheduling Promissory Notes Orders', routeLink: 'home/promissory-note' }
+      { title: ' Rescheduling Promissory Notes Orders', routeLink: 'home/workorders' }
     ]
     this.activatedRoute.params.subscribe(res => {
       if (res) {
