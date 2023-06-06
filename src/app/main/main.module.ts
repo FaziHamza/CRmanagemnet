@@ -32,6 +32,7 @@ import { WorkOrderRescheduleComponent } from './pages/work-order-reschedule/work
 import { WorkOrderTransferComponent } from './pages/work-order-transfer/work-order-transfer.component';
 import { ErrorsComponent } from './pages/common/errors/errors.component';
 import { RejectComponent } from './pages/common/reject/reject.component';
+import { MaxCharactersDirective } from '../directive/max-characters.directive';
 import { PromissoryListComponent } from './pages/workorders/promissory-list/promissory-list.component';
 
 @NgModule({
@@ -49,7 +50,7 @@ import { PromissoryListComponent } from './pages/workorders/promissory-list/prom
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
-    ,DigitDirective
+    ,DigitDirective,MaxCharactersDirective
     , CustomRoundPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent, WorkOrderRequestComponent, ConfirmPopupComponent, WorkOrderRescheduleComponent, WorkOrderTransferComponent, ErrorsComponent, RejectComponent, PromissoryListComponent],
   providers: [
     DecimalPipe, DatePipe
