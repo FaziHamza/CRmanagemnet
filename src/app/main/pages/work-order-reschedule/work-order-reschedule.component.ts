@@ -39,7 +39,6 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   cmsSetup: any = new CmsSetupDto('');
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
   stepSaveLoader = false;
-  isVisible = false;
   isPrintShow = false;
   safeUrl: any;
   ngOnInit(): void {
@@ -113,14 +112,14 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
           this.ngOnInit();
         }
         else {
-          this.isVisible = true;
           this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
           this.commonService.showError("found some error..!", "Error");
+          this.error(this.errorsList);
         }
       },
       (error) => {
         this.stepSaveLoader = false;
-        this.isVisible = true;
+        this.error(this.errorsList);
         this.errorsList = error.errors ? error.errors : error.Errors;
         this.commonService.showError("found some error..!", "Error");
       }
@@ -263,13 +262,6 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         // this.controls(value, data, obj, res);
       }
     });
-  }
-  handleOk(): void {
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
   }
 
   printPNBook() {

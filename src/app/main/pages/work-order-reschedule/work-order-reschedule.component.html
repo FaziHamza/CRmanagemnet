@@ -732,9 +732,3 @@
 
     </div>
 </nz-spin>
-
-<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-    <ng-container *nzModalContent>
-        <p *ngFor="let item of errorsList" class="text-center text-danger">{{item?.ErrorMessageEn}}</p>
-    </ng-container>
-</nz-modal>

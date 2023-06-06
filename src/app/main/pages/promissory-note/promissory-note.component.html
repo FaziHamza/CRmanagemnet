@@ -100,9 +100,9 @@
             </div>
         </div>
         <nz-tabset>
-            <nz-tab [nzTitle]="titleTemplate">
+            <nz-tab [nzTitle]="titleTemplate"  *ngFor="let item of versionTab.reverse();let index = index"  (nzClick)="tabChange(item)">
                 <ng-template #titleTemplate>
-                    {{"Promissory_Notes.PN_V1" | translate}}
+                    <span >{{item?.tabName}}</span>
                 </ng-template>
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
@@ -701,9 +701,3 @@
 
     </div>
 </nz-spin>
-
-<nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-    <ng-container *nzModalContent>
-        <p *ngFor="let item of errorsList" class="text-center text-danger">{{item?.ErrorMessageEn}}</p>
-    </ng-container>
-</nz-modal>

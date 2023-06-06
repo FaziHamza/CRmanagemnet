@@ -8,6 +8,7 @@ import { PDFViewComponent } from '../pdfview/pdfview.component';
 import { DatePipe } from '@angular/common';
 import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ErrorsComponent } from '../common/errors/errors.component';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -27,14 +28,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   promissoryist = [];
   generatedlist = [];
   orderDetail: any;
+  orderDetailMaster: any;
   orderId = 0;
-  pdfInfoData :any;
+  pdfInfoData: any;
   errorsList: any[] = [];
+  versionTab: any[] = [];
   differenceAmount = 0;
   cmsSetup: any = new CmsSetupDto('');
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
   stepSaveLoader = false;
-  isVisible = false;
   isPrintShow = false;
   safeUrl: any;
   ngOnInit(): void {
@@ -53,9 +55,19 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   getPNOrderDetails() {
     this.saveLoader = true;
     this.apiService.getPNOrders(this.orderId).subscribe(res => {
-      
+
       this.saveLoader = false;
       this.orderDetail = res.data;
+      this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
+
+      this.versionTab = res.data['versions'];
+      for (let index = 0; index < res.data['versions'].length; index++) {
+        // const element = res.data['versions'][index];
+        this.versionTab[index]['tabName'] = 'PN V' + (index + 1);
+      }
+      this.versionTab.push(res.data);
+      this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
+
       if (this.orderDetail) {
         if (this.orderDetail.statusObj) {
           if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
@@ -87,7 +99,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
 
   next(): void {
-    
+
     this.current += 1;
   }
 
@@ -165,16 +177,17 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           this.ngOnInit();
         }
         else {
-          this.isVisible = true;
           this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
           this.commonService.showError("found some error..!", "Error");
+          this.error(this.errorsList);
+          
         }
       },
       (error) => {
         this.stepSaveLoader = false;
-        this.isVisible = true;
         this.errorsList = error.errors ? error.errors : error.Errors;
         this.commonService.showError("found some error..!", "Error");
+        this.error(this.errorsList);
       }
     )
 
@@ -202,12 +215,12 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   //#endregion
 
   //#region  generated tab 2
-  getGeneratedList(index:number) {
+  getGeneratedList(index: number) {
     this.stepSaveLoader = true;
     this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
-        
+
         this.generatedlist = [];
         this.pdfInfoData = res.data['info'];
         let generatedlist = res.data['data'];
@@ -242,7 +255,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {
-        data:this.orderId
+        data: this.orderId
       },
       nzFooter: null
     });
@@ -256,7 +269,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // this.updateEditCache();
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
-        amount += this.editCache[index+1].data.amount;
+      amount += this.editCache[index + 1].data.amount;
     }
     this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
     // this.promissoryist.forEach(element => {
@@ -268,7 +281,116 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // });
     // this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
   }
-
+  //#region  generated tab 2
+  tabChange(item: any) {
+    if (item.versions) {
+      this.gotoMainTab();
+    } 
+    else {
+      this.orderDetail.customer = item.customer;
+      this.orderDetail.guarantor = item.guarantor;
+      // this.orderDetail.statusObj = item.statusObj;
+      let index = 0;
+      if (this.orderDetail) {
+        if (item.statusObj) {
+          if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+            index = 1;
+          }
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+            index = 2;
+          }
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
+            index = 3;
+          }
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
+            index = 4;
+          }
+          else if (item.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
+            index = 5;
+          }
+        }
+      }
+      this.stepSaveLoader = true;
+      this.apiService.getPNOrderBookNotes(item.orderId).subscribe(res => {
+        this.stepSaveLoader = false;
+        if (res.isSuccess) {
+          this.generatedlist = [];
+          // this.pdfInfoData = res.data['info'];
+          let generatedlist = res.data['data'];
+          for (let index = 0; index < generatedlist.length; index++) {
+            const obj = {
+              id: this.generatedlist.length + 1,
+              customerName: generatedlist[index]?.customer?.customerName,
+              // customerName: this.orderDetail.customer.customerName,
+              amount: generatedlist[index].pnAmount,
+              dueDate: generatedlist[index].dueDate,
+              status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+              lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+              lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+              pnBookID: generatedlist[index].pnBookID,
+              dateCheck: generatedlist[index].dueDate,
+              pdfView: generatedlist[index].pNpdfFile
+            };
+            this.generatedlist.push(obj);
+          }
+          this.current = index;
+          this.isGenerate = true;
+        }
+      })
+    }
+  }
+  gotoMainTab() {
+    this.isGenerate = false;
+    this.orderDetail = JSON.parse(JSON.stringify(this.orderDetailMaster));
+    let index = 0;
+    if (this.orderDetail) {
+      if (this.orderDetail.statusObj) {
+        if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'generated') {
+          index = 1;
+        }
+        else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'printed') {
+          index = 2;
+        }
+        else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'signed') {
+          index = 3;
+        }
+        else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting') {
+          index = 4;
+        }
+        else if (this.orderDetail.statusObj?.translations[0].lookupName.toLowerCase() == 'collected') {
+          index = 5;
+        }
+      }
+    }
+      this.stepSaveLoader = true;
+      this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
+      this.stepSaveLoader = false;
+      if (res.isSuccess) {
+        this.generatedlist = [];
+        // this.pdfInfoData = res.data['info'];
+        let generatedlist = res.data['data'];
+        for (let index = 0; index < generatedlist.length; index++) {
+          const obj = {
+            id: this.generatedlist.length + 1,
+            customerName: generatedlist[index]?.customer?.customerName,
+            // customerName: this.orderDetail.customer.customerName,
+            amount: generatedlist[index].pnAmount,
+            dueDate: generatedlist[index].dueDate,
+            status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+            pnBookID: generatedlist[index].pnBookID,
+            dateCheck: generatedlist[index].dueDate,
+            pdfView: generatedlist[index].pNpdfFile
+          };
+          this.generatedlist.push(obj);
+        }
+        this.current = index;
+        this.isGenerate = true;
+      }
+    })
+  }
+  //#endregion
   ngAfterViewInit() {
 
     this.cdr.detectChanges()
@@ -296,13 +418,13 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       title: 'Promissory_Notes.Collected'
     },
   ];
-  pdfView(file: any,data?:any): void {
+  pdfView(file: any, data?: any): void {
     const modal = this.modal.create<PDFViewComponent>({
       nzWidth: 600,
       nzContent: PDFViewComponent,
       nzComponentParams: {
         file: file,
-        data:data
+        data: data
       },
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
@@ -314,38 +436,51 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  handleOk(): void {
-    this.isVisible = false;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
 
   printPNBook() {
     this.isPrintShow = true;
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.pdfInfoData.allPNpdfFiles);
   }
-  printAll(status:any) {
+  printAll(status: any) {
     let formData = new FormData();
     formData.append('PNBookId', this.generatedlist[0].pnBookID);
     formData.append('Status', status);
     this.apiService.updatePNBookStatus(formData).subscribe(
-      (response)=>{
+      (response) => {
         if (response.isSuccess) {
           this.isPrintShow = false;
           this.ngOnInit();
+        }else{
+          this.errorsList = response.errors ? response.errors : response['Errors'];
+          this.commonService.showError("found some error..!", "Error");
+          this.error(this.errorsList);
         }
       },
-      (error)=>{
+      (error) => {
         this.errorsList = error.errors ? error.errors : error.Errors;
         this.commonService.showError("found some error..!", "Error");
+        this.error(this.errorsList);
       }
-      
+
     )
   }
   printClose() {
     this.isPrintShow = false;
+  }
+  error(errorsList:any) {
+    const modal = this.modal.create<ErrorsComponent>({
+      nzWidth: 600,
+      nzContent: ErrorsComponent,
+      nzComponentParams: {
+        errorsList: errorsList,
+      },
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
   }
 }
 

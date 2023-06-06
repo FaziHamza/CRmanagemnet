@@ -164,10 +164,10 @@
                     <td>
                         <div *ngIf="data.status == 21007 || data.status == 21008; else block1">
                             <div class="table-action-btn">
-                                <a (click)="gotoDetail(data.requestID)">
+                                <a (click)="approveRequest(data.requestID)">
                                     <i class="fa-regular fa-circle-check"></i>
                                 </a>
-                                <a (click)="gotoDetail(data.requestID)">
+                                <a (click)="rejected(data.requestID)">
                                     <i class="fa-regular fa-circle-xmark"></i>
                                 </a>
                             </div>
