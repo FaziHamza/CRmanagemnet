@@ -172,9 +172,9 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
               // customerName: this.orderDetail.customer.customerName,
               amount: generatedlist[index].pnAmount,
               dueDate: generatedlist[index].dueDate,
-              status: generatedlist[index].statusObj.translations[0].lookupName,
-              lookupBGColor: generatedlist[index].statusObj.lookupBGColor,
-              lookupTextColor: generatedlist[index].statusObj.lookupTextColor,
+              status: generatedlist[index].statusObj ?  generatedlist[index].statusObj.translations[0].lookupName : '',
+              lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor :'',
+              lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
               pnBookID: generatedlist[index].pnBookID,
               dateCheck: generatedlist[index].dueDate,
               pdfView: generatedlist[index].pNpdfFile
