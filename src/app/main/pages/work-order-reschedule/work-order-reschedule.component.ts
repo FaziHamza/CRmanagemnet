@@ -27,7 +27,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   current = 0;
   isGenerate = false;
   saveLoader = false;
-  promissoryist = [];
+  // promissoryist = [];
   generatedlist = [];
   orderDetail: any;
   otherDetail: any;
@@ -36,8 +36,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   pdfInfoData: any;
   versionTab: any[] = [];
   errorsList: any[] = [];
-  differenceAmount = 0;
-  cmsSetup: any = new CmsSetupDto('');
+  // differenceAmount = 0;
+  // cmsSetup: any = new CmsSetupDto('');
   editCache: { [key: number]: { edit: boolean; data: any } } = {};
   stepSaveLoader = false;
   isPrintShow = false;
@@ -77,18 +77,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       }
     })
   }
-  pre(): void {
-    this.current -= 1;
-  }
-
-  next(): void {
-
-    this.current += 1;
-  }
-
-  done(): void {
-    console.log('done');
-  }
+ 
   handleIndexChange(event: any) {
     console.log("step click");
   }
@@ -96,43 +85,43 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.current = index;
   }
 
-  saveGeneratingNotes() {
-    this.stepSaveLoader = true;
-    let notes: any = [];
-    this.promissoryist.forEach(element => {
-      const fromDate = new Date(element.dueDate.toString());
-      let data = {
-        amount: parseFloat(element.amount.toFixed(3)),
-        dueDate: fromDate.toISOString()
-      }
-      notes.push(data);
-    })
-    let orderId: any = this.orderId
-    let formData = new FormData();
-    formData.append('OrderId', orderId);
-    formData.append('Notes', JSON.stringify(notes));
-    this.apiService.saveGeneratingNotes(formData).subscribe(
-      (res) => {
-        this.stepSaveLoader = false;
-        if (res.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.ngOnInit();
-        }
-        else {
-          this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
-          this.commonService.showError("found some error..!", "Error");
-          this.error(this.errorsList);
-        }
-      },
-      (error) => {
-        this.stepSaveLoader = false;
-        this.error(this.errorsList);
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
+  // saveGeneratingNotes() {
+  //   this.stepSaveLoader = true;
+  //   let notes: any = [];
+  //   this.promissoryist.forEach(element => {
+  //     const fromDate = new Date(element.dueDate.toString());
+  //     let data = {
+  //       amount: parseFloat(element.amount.toFixed(3)),
+  //       dueDate: fromDate.toISOString()
+  //     }
+  //     notes.push(data);
+  //   })
+  //   let orderId: any = this.orderId
+  //   let formData = new FormData();
+  //   formData.append('OrderId', orderId);
+  //   formData.append('Notes', JSON.stringify(notes));
+  //   this.apiService.saveGeneratingNotes(formData).subscribe(
+  //     (res) => {
+  //       this.stepSaveLoader = false;
+  //       if (res.isSuccess) {
+  //         this.commonService.showSuccess("Data updated successfully..!", "Success");
+  //         this.ngOnInit();
+  //       }
+  //       else {
+  //         this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
+  //         this.commonService.showError("found some error..!", "Error");
+  //         this.error(this.errorsList);
+  //       }
+  //     },
+  //     (error) => {
+  //       this.stepSaveLoader = false;
+  //       this.error(this.errorsList);
+  //       this.errorsList = error.errors ? error.errors : error.Errors;
+  //       this.commonService.showError("found some error..!", "Error");
+  //     }
+  //   )
 
-  }
+  // }
   //#endregion
 
   //#region  generated tab 2
@@ -214,17 +203,17 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  changeAmount(id: any, check?: boolean) {
-    let amount = 0;
-    this.promissoryist.forEach(element => {
-      if (element.id === id && !check) {
-        amount += this.editCache[id].data.amount
-      }
-      else
-        amount += element.amount
-    });
-    this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
-  }
+  // changeAmount(id: any, check?: boolean) {
+  //   let amount = 0;
+  //   this.promissoryist.forEach(element => {
+  //     if (element.id === id && !check) {
+  //       amount += this.editCache[id].data.amount
+  //     }
+  //     else
+  //       amount += element.amount
+  //   });
+  //   this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
+  // }
 
   ngAfterViewInit() {
 
