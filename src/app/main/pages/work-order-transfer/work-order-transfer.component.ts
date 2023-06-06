@@ -56,7 +56,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   }
   getPNOrderDetails() {
     this.saveLoader = true;
-    this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
+    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(res => {
 
       this.saveLoader = false;
       this.orderDetail = res.data;
