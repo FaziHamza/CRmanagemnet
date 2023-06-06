@@ -160,8 +160,13 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     });
   }
   saveGeneratingNotes() {
+    debugger
     this.stepSaveLoader = true;
     let notes: any = [];
+    this.promissoryist.forEach((item) => {
+      this.saveEdit(item.id);
+    });
+
     this.promissoryist.forEach(element => {
       const fromDate = new Date(element.dueDate.toString());
       let data = {

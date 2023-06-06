@@ -2313,3 +2313,23 @@ button span, .btn span {
 .card-bg-color{
     background: #f5f5f5 !important; 
 }
+.btn-disabled {
+    background: #9297AE;
+    font-size: 14px;
+    height: 48px;
+    width: 160px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $card-shadow !important;
+    font-size: 14px;
+    color: white !important;
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
+}
