@@ -28,6 +28,7 @@ import { MainModule } from './main/main.module';
 import { AuthGuard } from './utility/guards/auth.guard';
 import { CustomRoundPipe } from './pipe/custom-round-pipe';
 import { RoundPipe } from './pipe/round-pipe';
+import { RoundedPipe } from './pipe/rounded-pipe';
 
 @NgModule({
   imports: [
@@ -55,7 +56,7 @@ import { RoundPipe } from './pipe/round-pipe';
     AuthGuard,
     { provide: NZ_I18N, useValue: en_US },
     DecimalPipe ,
-    CustomRoundPipe,RoundPipe,
+    CustomRoundPipe,RoundPipe,RoundedPipe,
     ApiService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -65,7 +66,7 @@ import { RoundPipe } from './pipe/round-pipe';
       multi: true,
       deps: [Router,EnvService],
     }
-    
+
     // { provide: NZ_ICONS, useValue: icons },
   ],
 })

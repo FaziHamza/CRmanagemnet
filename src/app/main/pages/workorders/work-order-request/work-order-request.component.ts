@@ -303,10 +303,14 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   gotoDetail(data:any){
-    if(data.requestTypeID  == 24001){
-      this.router.navigate(['/home/transfer',data.requestID])
+    if((data.status == 21009 || data.status == 21010) && data.actionTaken){
+
     }else{
-      this.router.navigate(['/home/reschedule',data.requestID])
+      if(data.requestTypeID  == 24001){
+        this.router.navigate(['/home/transfer',data.requestID])
+      }else{
+        this.router.navigate(['/home/reschedule',data.requestID])
+      }
     }
   }
   approveRequest(id:any) {
@@ -398,7 +402,7 @@ getAllRequestList() {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created");
+          this.confirm("Transferring Order Successfully Created");
           // this.router.navigate(['/home/workorders'])
         }
         else {
@@ -425,9 +429,8 @@ getAllRequestList() {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.ngOnInit()
-      // this.commonService.loadRequestTab = false;
-      // this.commonService.selectedWorkorder = 0;
+      this.commonService.loadRequestTab = false;
+      this.commonService.selectedWorkorder = 0;
     });
   }
 }

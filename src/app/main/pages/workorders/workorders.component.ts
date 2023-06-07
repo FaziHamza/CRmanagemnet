@@ -34,11 +34,12 @@ export class WorkordersComponent implements OnInit {
     this.commonService.breadcrumb = [
       { title: ' Promissory Notes Order', routeLink: '' },
     ];
-    
+
   }
 
-  
-  tabClick(value:boolean){
+
+  tabClick(value:boolean,tabNumber:number){
     this.commonService.loadRequestTab = value;
+    this.commonService.selectedWorkorder = tabNumber;
   }
 }
