@@ -154,7 +154,7 @@
               </div>
             </div>
           </div>
-          <div class="card" *ngIf="this.orderDetail.comingFromTypeID  == 26003 && false">
+          <div class="card" *ngIf="this.orderDetail.comingFromTypeID  == 26003">
             <div class="card-heading bb-none">
               <h5>Original Customer Information</h5>
             </div>
@@ -168,7 +168,7 @@
                     </div>
                     <div class="heading-box">
                       <p class="head-title ">Name :
-                        <span class="head-detail">Ahmed Mohammad</span>
+                        <span class="head-detail" *ngIf="orderDetail.customer.customerName">{{orderDetail.customer.customerName}}</span>
                         <span class="head-detail" *ngIf="!orderDetail.customer.customerName">---</span>
                       </p>
 

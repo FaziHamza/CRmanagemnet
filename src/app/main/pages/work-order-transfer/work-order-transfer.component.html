@@ -119,7 +119,7 @@
                                         </div>
                                         <div class="heading-box">
                                             <p class="head-title ">Name :
-                                                <span class="head-detail">Ahmed Mohammad</span>
+                                                <span class="head-detail"  *ngIf="orderDetail.customer.customerName"> {{orderDetail.customer.customerName}}</span>
                                                 <span class="head-detail"
                                                     *ngIf="!orderDetail.customer.customerName">---</span>
                                             </p>
