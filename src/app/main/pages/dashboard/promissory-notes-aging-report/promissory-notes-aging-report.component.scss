@@ -1,0 +1,86 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: -24px;
+}
+
+.create-form {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.filter-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.btn {
+  height: 40px;
+
+  svg {
+    margin-right: 10px;
+  }
+}
+
+.link {
+  color: #4e9aff;
+  text-decoration-line: underline;
+}
+
+.filter-label {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 24px;
+
+  .amount {
+    color: #929eae;
+  }
+}
+
+.total {
+  color: #dc3545;
+}
+
+.footer {
+  background-color: #f8f8f8;
+}
+
+.input-search {
+  select {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    min-width: 220px;
+  }
+
+  .placeholder {
+    color: #929eae;
+  }
+
+  .search-by {
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-search {
+    select {
+      min-width: 180px;
+    }
+
+    .search-by {
+      min-width: 260px;
+    }
+  }
+}

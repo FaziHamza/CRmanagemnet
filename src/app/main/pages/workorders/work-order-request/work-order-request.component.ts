@@ -37,7 +37,7 @@ export class WorkOrderRequestComponent implements OnInit {
   selectedIndex: any = -1; // manage the active tab
   radioSelected: any[] = [];
 
-  tabs :any[] = []; 
+  tabs :any[] = [];
   constructor(private apiService: ApiService, private commonService: CommonService,private router:Router,
     private modal: NzModalService,) { }
 
@@ -53,7 +53,7 @@ export class WorkOrderRequestComponent implements OnInit {
     this.searchByCustomerName$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        
+
         this.orderParamObj.CustomerName = value;
         this.getAllRequestList();
       });
@@ -71,7 +71,7 @@ export class WorkOrderRequestComponent implements OnInit {
       });
   }
   requestTabChange(index: any) {
-    
+
     this.radioSelected.fill(false);
     this.radioSelected[index] = true;
     // other logic
@@ -82,10 +82,10 @@ export class WorkOrderRequestComponent implements OnInit {
       this.orderParamObj.RequestTypeID=index;
       this.getAllRequestList();
     }
-   
+
   }
-  
- 
+
+
   mySort() {
 
   }
@@ -94,7 +94,7 @@ export class WorkOrderRequestComponent implements OnInit {
     this.selectedRequestValue = tabId;
   }
 getAllRequestList() {
- 
+
   const queryString = Object.entries(this.orderParamObj)
     .filter(([key, value]) => value !== 0)
     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
@@ -127,7 +127,7 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   customerChange() {
-    
+
     if (this.searchByCustomer.length >= 0) {
       this.searchByCustomerName$.next(this.searchByCustomer);
     }
@@ -425,8 +425,9 @@ getAllRequestList() {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.commonService.loadRequestTab = false;
-      this.commonService.selectedWorkorder = 0;
+      this.ngOnInit()
+      // this.commonService.loadRequestTab = false;
+      // this.commonService.selectedWorkorder = 0;
     });
   }
 }

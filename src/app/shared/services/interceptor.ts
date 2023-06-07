@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
         
         this.authReq = req.clone({
             setHeaders: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${this.envService.GeneralToken}`,
             },
           })
         return next.handle(this.authReq).pipe(catchError(x => this.handleAuthError(x)));

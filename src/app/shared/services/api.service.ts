@@ -1,11 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppResponse } from 'src/app/models/AppResponse';
+import { toFilteringUrl } from 'src/app/utility/util';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   message!: string;
@@ -14,20 +15,20 @@ export class ApiService {
   headers!: HttpHeaders;
   profilePic: string = '';
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
+
   getUser() {
-    return JSON.parse(localStorage.getItem('userDetail'))
+    return JSON.parse(localStorage.getItem('userDetail'));
   }
+
   saveCmsSetupv1(obj: any): Observable<AppResponse> {
-    let url = environment.creditmanagement + "Setup/UpdateSetup";
+    let url = environment.creditmanagement + 'Setup/UpdateSetup';
     return this.http.post<AppResponse>(url, obj);
   }
+
   saveCmsSetup(formData: FormData): Observable<AppResponse> {
-    let url = environment.creditmanagement + "Setup/UpdateSetup";
-    return this.http.post<AppResponse>(url, formData, {
-    });
+    let url = environment.creditmanagement + 'Setup/UpdateSetup';
+    return this.http.post<AppResponse>(url, formData, {});
   }
   generatePNRescheduleOrderRequest(formData: FormData): Observable<AppResponse> {
     let url = environment.creditmanagement + "PNOrdersRequests/GeneratePNRescheduleOrderRequest";
@@ -61,7 +62,7 @@ export class ApiService {
   }
 
   getCMSSetup(): Observable<AppResponse> {
-    let url = environment.creditmanagement + "Setup/GetCMSetup";
+    let url = environment.creditmanagement + 'Setup/GetCMSetup';
     return this.http.get<AppResponse>(url);
   }
 
@@ -69,16 +70,25 @@ export class ApiService {
     let url = environment.administration + `User/GetUSERDetails?userId=${id}`;
     return this.http.get<AppResponse>(url);
   }
+
   EditUser(body: any) {
     let url = environment.administration + `User/EditUser`;
     return this.http.post<AppResponse>(url, body);
   }
+
   getStatusLookup(id: number): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "Lookups/GetLookups?lookupTypeId=" + id;
+    let url =
+      environment.creditmanagementtest +
+      'Lookups/GetLookups?lookupTypeId=' +
+      id;
     return this.http.get<AppResponse>(url);
   }
+
   getPNOrders(id: number): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/GetPNOrderDetails?orderId=" + id;
+    let url =
+      environment.creditmanagementtest +
+      'PNOrders/GetPNOrderDetails?orderId=' +
+      id;
     return this.http.get<AppResponse>(url);
   }
   getRescheduleRequestDetails(id: number): Observable<AppResponse> {
@@ -90,7 +100,8 @@ export class ApiService {
     return this.http.get<AppResponse>(url);
   }
   getSparePartsWorkOrder(param: string = null): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/GetPNOrders?" + param;
+    let url =
+      environment.creditmanagementtest + 'PNOrders/GetPNOrders?' + param;
     return this.http.get<AppResponse>(url);
   }
   getrequestWorkOrder(param: string = null): Observable<AppResponse> {
@@ -98,18 +109,54 @@ export class ApiService {
     return this.http.get<AppResponse>(url);
   }
   getPNOrderBookNotes(id): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/GetPNOrderBookNotes?orderId=" + id;
+    let url =
+      environment.creditmanagementtest +
+      'PNOrders/GetPNOrderBookNotes?orderId=' +
+      id;
     return this.http.get<AppResponse>(url);
   }
+
   saveGeneratingNotes(formData: any): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/GeneratePromissoryNotes";
-    return this.http.post<AppResponse>(url, formData, {
-    });
+    let url =
+      environment.creditmanagementtest + 'PNOrders/GeneratePromissoryNotes';
+    return this.http.post<AppResponse>(url, formData, {});
   }
+
   updatePNBookStatus(formData: any): Observable<AppResponse> {
-    let url = environment.creditmanagementtest + "PNOrders/UpdatePNBookStatus";
-    return this.http.post<AppResponse>(url, formData, {
-    });
+    let url = environment.creditmanagementtest + 'PNOrders/UpdatePNBookStatus';
+    return this.http.post<AppResponse>(url, formData, {});
+  }
+
+  getDashboardCards(): Observable<AppResponse> {
+    let url = environment.creditmanagement + 'Dashboard/GetDashboardCards';
+    return this.http.get<AppResponse>(url);
+  }
+
+  getPromissoryNotesAgingReport(filter: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(
+      toFilteringUrl(
+        `${environment.creditmanagement}Dashboard/GetPromissoryNotesAgingReport`,
+        filter
+      )
+    );
+  }
+
+  getPromissoryNotesOrders(filter: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(
+      toFilteringUrl(
+        `${environment.creditmanagement}Dashboard/PromissoryNotesOrders`,
+        filter
+      )
+    );
+  }
+
+  getPromissoryNotesPerYear(filter: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(
+      toFilteringUrl(
+        `${environment.creditmanagement}Dashboard/PromissoryNotesPerYear`,
+        filter
+      )
+    );
   }
   getPNOrderRemainingAmountforRescheduling(OrderId:number,InterestRate:number,InterestValue:number): Observable<AppResponse> {
     let url = environment.creditmanagementtest + "PNOrdersRequests/GetPNOrderRemainingAmountforRescheduling?OrderId="+OrderId+"&InterestRate="+InterestRate+"&InterestValue="+InterestValue;

@@ -1,0 +1,127 @@
+<div class="filter-wrapper mb-3">
+  <div class="dropdown-action">
+    <button
+      class="btn dropdown-toggle"
+      id="dropdownYearSelectionPaymentsMenuBtn"
+      type="button"
+      (click)="toggleYearDropdown()"
+    >
+      {{ selectedYearValue ? selectedYearValue : "This Year" }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-chevron-down"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </button>
+    <ul
+      class="dropdown-menu"
+      id="dropdownYearSelectionPaymentsMenu"
+      [ngClass]="{ show: isYearDropdownOpen }"
+    >
+      <li>
+        <span class="dropdown-item" (click)="selectYearItem('This Year')"
+          >This Year</span
+        >
+      </li>
+      <li>
+        <span class="dropdown-item" (click)="selectYearItem('Last Year')"
+          >Last Year</span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="dropdown-action">
+    <button
+      class="btn dropdown-toggle"
+      id="dropdownMonthSelectionPaymentsMenuBtn"
+      type="button"
+      (click)="toggleMonthDropdown()"
+    >
+      {{ selectedMonthValue ? selectedMonthValue : "This Month" }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-chevron-down"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </button>
+    <ul
+      class="dropdown-menu"
+      id="dropdownMonthSelectionPaymentsMenu"
+      [ngClass]="{ show: isMonthDropdownOpen }"
+    >
+      <li>
+        <span class="dropdown-item" (click)="selectMonthItem('This Month')"
+          >This Month</span
+        >
+      </li>
+      <li>
+        <span class="dropdown-item" (click)="selectMonthItem('Last Month')"
+          >Last Month</span
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="dropdown-action">
+    <button
+      class="btn dropdown-toggle"
+      id="dropdownWeekSelectionPaymentsMenuBtn"
+      type="button"
+      (click)="toggleWeekDropdown()"
+    >
+      {{ selectedWeekValue ? selectedWeekValue : "This Week" }}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-chevron-down"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+        />
+      </svg>
+    </button>
+    <ul
+      class="dropdown-menu"
+      id="dropdownWeekSelectionPaymentsMenu"
+      [ngClass]="{ show: isWeekDropdownOpen }"
+    >
+      <li>
+        <span class="dropdown-item" (click)="selectWeekItem('This Week')"
+          >This Week</span
+        >
+      </li>
+      <li>
+        <span class="dropdown-item" (click)="selectWeekItem('Last Week')"
+          >Last Week</span
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="chart-wrapper">
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [type]="'bar'"
+  ></canvas>
+</div>

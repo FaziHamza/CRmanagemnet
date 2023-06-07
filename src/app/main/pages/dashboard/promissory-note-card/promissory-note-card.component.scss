@@ -1,0 +1,49 @@
+:host {
+  flex: 1;
+}
+
+.card-note {
+  min-width: 215px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 24px;
+  gap: 12px;
+  background: #ffffff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
+  .icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    width: 40px;
+    height: 40px;
+    background: #f8f8f8;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .label {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #929eae;
+    }
+
+    .amount {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0.016em;
+      color: #00261c;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<div class="filter-wrapper mb-3">
+  <div class="input-search form-control2">
+    <nz-date-picker
+      nzMode="year"
+      [nzAllowClear]="false"
+      [nzInputReadOnly]="true"
+      [(ngModel)]="selectedYearValue"
+      (ngModelChange)="selectYearItem()"
+    ></nz-date-picker>
+  </div>
+</div>
+<div class="chart-wrapper" (window:resize)="onResize()">
+  <canvas
+    baseChart
+    [data]="barChartData"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [type]="'bar'"
+  ></canvas>
+</div>

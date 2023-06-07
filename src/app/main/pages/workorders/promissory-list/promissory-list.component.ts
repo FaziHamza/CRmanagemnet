@@ -236,9 +236,10 @@ export class PromissoryListComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
+      this.ngOnInit();
+      // if (res) {
+      //   // this.controls(value, data, obj, res);
+      // }
     });
   }
   gotoDetail(data:any){

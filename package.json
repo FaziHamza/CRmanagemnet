@@ -28,6 +28,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "chart.js": "^4.3.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "i": "^0.3.7",
     "jquery": "^3.7.0",
     "ng-zorro-antd": "^13.4.0",

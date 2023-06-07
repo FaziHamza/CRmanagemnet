@@ -10,6 +10,8 @@
         "Order_Date":"تاريخ الطلب",
         "Owner_Information":"معلومات المالك",
         "Total_Amount":"المبلغ الإجمالي",
+        "Contact_AND_Credit_Accounts":"جهات الاتصال وحسابات الائتمانs",
+        "Promissory_Notes":"سندات إذنية",
         "Promissory_Notes_Amount":"مبلغ الكمبيالات",
         "Remaining_Amount":"الكمية المتبقية"
     },

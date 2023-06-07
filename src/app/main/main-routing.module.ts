@@ -18,7 +18,10 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: MainPageComponent,
+        loadChildren: () =>
+          import('./pages/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: 'cm-setup',
@@ -56,11 +59,12 @@ const routes: Routes = [
         path: 'test',
         component: TestComponent,
       },
-     
+
       {
         path: '',
-        redirectTo: 'cm-setup', pathMatch: 'full'
-      }
+        redirectTo: 'cm-setup',
+        pathMatch: 'full',
+      },
     ],
   },
 ];
@@ -69,4 +73,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}

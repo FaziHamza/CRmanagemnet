@@ -11,6 +11,8 @@
         "Order_Date":"Order Date",
         "Owner_Information":"Owner Information",
         "Total_Amount":"Total Amount",
+        "Contact_AND_Credit_Accounts":"Contacts & Credit Accounts",
+        "Promissory_Notes":"Promissory Notes",
         "Promissory_Notes_Amount":"Promissory Notes Amount",
         "Promissory_Notes_Total_Amount":"Promissory Notes Total Amount",
         "Remaining_Amount":"Remaining Amount"
