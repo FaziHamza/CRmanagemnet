@@ -68,6 +68,11 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
           // const element = res.data['versions'][index];
           this.versionTab[index]['tabName'] = 'PN V'+(index+1);
         }
+        let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
+        this.orderDetail['originalCustomer'] = {};
+        this.orderDetail['originalCustomer'] = originalCustomer;
+        this.orderDetailMaster['originalCustomer'] = {};
+        this.orderDetailMaster['originalCustomer'] = originalCustomer;
         this.versionTab.push(res.data);
         this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
       }else{

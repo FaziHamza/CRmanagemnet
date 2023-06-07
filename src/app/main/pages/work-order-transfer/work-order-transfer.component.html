@@ -113,15 +113,15 @@
                             <div class="row heading-box customer-info-card">
                                 <div class="col-lg-6">
                                     <div class="profileee">
-                                        <div class="img-box" *ngIf="orderDetail.customer.customerName">
+                                        <div class="img-box" *ngIf="orderDetail.originalCustomer?.customerName">
                                             <nz-avatar
-                                                [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
+                                                [nzText]="commonService.getInitialOfName(orderDetail.originalCustomer?.customerName)"></nz-avatar>
                                         </div>
                                         <div class="heading-box">
                                             <p class="head-title ">Name :
-                                                <span class="head-detail"  *ngIf="orderDetail.customer.customerName"> {{orderDetail.customer.customerName}}</span>
+                                                <span class="head-detail"  *ngIf="orderDetail.originalCustomer?.customerName"> {{orderDetail.originalCustomer?.customerName}}</span>
                                                 <span class="head-detail"
-                                                    *ngIf="!orderDetail.customer.customerName">---</span>
+                                                    *ngIf="!orderDetail.originalCustomer?.customerName">---</span>
                                             </p>
 
                                         </div>
@@ -130,8 +130,8 @@
                                 <div class="col-lg-6">
                                     <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}} :
                                         <span class="head-detail"
-                                            *ngIf="orderDetail && orderDetail.customer.customerId">{{orderDetail.customer.customerId}}</span>
-                                        <span class="head-detail" *ngIf="!orderDetail.customer.customerId">---</span>
+                                            *ngIf="orderDetail.originalCustomer?.customerId">{{orderDetail.originalCustomer?.customerId}}</span>
+                                        <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.customerId">---</span>
 
                                     </p>
                                 </div>
@@ -139,25 +139,25 @@
                                     <p class="head-title ">{{"Promissory_Notes.ID" | translate}} :
 
                                         <span class="head-detail"
-                                            *ngIf="orderDetail && orderDetail.customer.nationalId">
-                                            {{orderDetail.customer.nationalId}}</span>
-                                        <span class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</span>
+                                            *ngIf="orderDetail && orderDetail.originalCustomer?.nationalId">
+                                            {{orderDetail.originalCustomer?.nationalId}}</span>
+                                        <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.nationalId">---</span>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}} :
-                                        <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.mobile">
-                                            {{orderDetail.customer.mobile}}</span>
-                                        <span class="head-detail" *ngIf="!orderDetail.customer.mobile">---</span>
+                                        <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.mobile">
+                                            {{orderDetail.originalCustomer?.mobile}}</span>
+                                        <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.mobile">---</span>
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="head-title ">{{"Promissory_Notes.Address" | translate}} :
 
                                         <span class="head-detail"
-                                            *ngIf="orderDetail && orderDetail.customer.custAddress">
-                                            {{orderDetail.customer.custAddress}}</span>
-                                        <span class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</span>
+                                            *ngIf="orderDetail && orderDetail.originalCustomer?.custAddress">
+                                            {{orderDetail.originalCustomer?.custAddress}}</span>
+                                        <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.custAddress">---</span>
                                     </p>
 
                                 </div>
@@ -169,15 +169,15 @@
                                         </div>
                                         <div class="col-lg-8 d-grid ">
                                             <button type="button" class="pdf-view-btn"
-                                                *ngIf="orderDetail.customer.identityFile1"
-                                                (click)="pdfView(orderDetail.customer.identityFile1)">
+                                                *ngIf="orderDetail.originalCustomer?.identityFile1"
+                                                (click)="pdfView(orderDetail.originalCustomer?.identityFile1)">
                                                 <div>
                                                     {{"Promissory_Notes.document_name_PDF"
                                                     |
                                                     translate}}
                                                 </div>
                                                 <div>
-                                                    <a (click)="pdfView(orderDetail.customer.identityFile1)"
+                                                    <a (click)="pdfView(orderDetail.originalCustomer?.identityFile1)"
                                                         class="eye">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24">
@@ -196,7 +196,7 @@
                                                 </div>
                                             </button>
                                             <span class="head-detail"
-                                                *ngIf="!orderDetail.customer.identityFile1">---</span>
+                                                *ngIf="!orderDetail.originalCustomer?.identityFile1">---</span>
                                         </div>
                                     </div>
 
@@ -218,7 +218,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="card">
                                 <div class="card-heading bb-none">
-                                    <h5>{{"Promissory_Notes.Customer_Information" | translate}}</h5>
+                                    <h5>New Customer Information</h5>
                                 </div>
                                 <div class="card-content">
                                     <div class="profileee">
@@ -294,7 +294,7 @@
                                 <hr />
                                 <div class="card-heading bb-none">
                                     <div class="head-left">
-                                        <h5>{{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
+                                        <h5>New Guarantor Information</h5>
                                     </div>
                                     <!-- <div class="head-right"></div> -->
                                 </div>
@@ -378,7 +378,7 @@
                                         New Promissory Notes
                                     </h5>
                                     <div class="row" *ngIf="orderDetail">
-                                        <div class="col-lg-12" *ngIf="orderDetail.statusObj?.lookupId == 21012">
+                                        <div class="col-lg-12" *ngIf="orderDetail.statusObj?.lookupId == 21011">
                                             <textarea class="form-control" rows="5"
                                                 [value]="orderDetail.rejectionReason"></textarea>
                                         </div>
@@ -503,20 +503,20 @@
                                 <div class="profileee">
                                     <div class="img-box">
                                         <nz-avatar
-                                            [nzText]="commonService.getInitialOfName(orderDetail.newGuarantor.customerName)"></nz-avatar>
+                                            [nzText]="commonService.getInitialOfName(orderDetail.guarantor.customerName)"></nz-avatar>
                                     </div>
                                     <div class="heading-box">
                                         <p class="head-title ">{{"Promissory_Notes.Name" | translate}}
                                             <span class="head-detail"
-                                                *ngIf="orderDetail && orderDetail.newGuarantor.customerName">{{orderDetail.newGuarantor.customerName}}</span>
+                                                *ngIf="orderDetail && orderDetail.guarantor.customerName">{{orderDetail.guarantor.customerName}}</span>
                                             <span class="head-detail"
-                                                *ngIf="!orderDetail.newGuarantor.customerName">---</span>
+                                                *ngIf="!orderDetail.guarantor.customerName">---</span>
                                         </p>
                                         <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}
-                                            <span *ngIf="orderDetail && orderDetail.newGuarantor.customerId"
-                                                class="head-detail">{{orderDetail.newGuarantor.customerId}}</span>
+                                            <span *ngIf="orderDetail && orderDetail.guarantor.customerId"
+                                                class="head-detail">{{orderDetail.guarantor.customerId}}</span>
                                             <span class="head-detail"
-                                                *ngIf="!orderDetail.newGuarantor.customerId">---</span>
+                                                *ngIf="!orderDetail.guarantor.customerId">---</span>
                                         </p>
                                     </div>
                                 </div>
@@ -528,16 +528,16 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <p class="head-detail"
-                                            *ngIf="orderDetail && orderDetail.newGuarantor.nationalId">
-                                            {{orderDetail.newGuarantor.nationalId}}</p>
-                                        <p class="head-detail" *ngIf="!orderDetail.newGuarantor.nationalId">---</p>
-                                        <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.mobile">
-                                            {{orderDetail.newGuarantor.mobile}}</p>
-                                        <p class="head-detail" *ngIf="!orderDetail.newGuarantor.mobile">---</p>
+                                            *ngIf="orderDetail && orderDetail.guarantor.nationalId">
+                                            {{orderDetail.guarantor.nationalId}}</p>
+                                        <p class="head-detail" *ngIf="!orderDetail.guarantor.nationalId">---</p>
+                                        <p class="head-detail" *ngIf="orderDetail && orderDetail.guarantor.mobile">
+                                            {{orderDetail.guarantor.mobile}}</p>
+                                        <p class="head-detail" *ngIf="!orderDetail.guarantor.mobile">---</p>
                                         <p class="head-detail"
-                                            *ngIf="orderDetail && orderDetail.newGuarantor.custAddress">
-                                            {{orderDetail.newGuarantor.custAddress}}</p>
-                                        <p class="head-detail" *ngIf="!orderDetail.newGuarantor.custAddress">---</p>
+                                            *ngIf="orderDetail && orderDetail.guarantor.custAddress">
+                                            {{orderDetail.guarantor.custAddress}}</p>
+                                        <p class="head-detail" *ngIf="!orderDetail.guarantor.custAddress">---</p>
                                     </div>
                                 </div>
                                 <div class="row heading-box">
@@ -546,7 +546,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <button type="button"
-                                            *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
+                                            *ngIf="orderDetail && orderDetail.guarantor.identityFile1"
                                             class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
                                             translate}}
                                             <a href="" class="eye">
@@ -564,7 +564,7 @@
                                                 </svg>
                                             </a>
                                         </button>
-                                        <p class="head-detail" *ngIf="!orderDetail.newGuarantor.identityFile1">---</p>
+                                        <p class="head-detail" *ngIf="!orderDetail.guarantor.identityFile1">---</p>
                                     </div>
                                 </div>
                             </div>
