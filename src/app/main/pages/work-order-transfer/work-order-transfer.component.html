@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="card" >
+        <div class="card">
             <div class="card-heading">
                 <div class="head-left">
                     <h5 class="card-subheading">{{"Promissory_Notes.Order_Detail" | translate}}</h5>
@@ -99,9 +99,10 @@
             </div>
         </div>
         <nz-tabset>
-            <nz-tab [nzTitle]="titleTemplate"  *ngFor="let item of versionTab.reverse();let index = index"  (nzClick)="getGeneratedList(item)">
+            <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab.reverse();let index = index"
+                (nzClick)="getGeneratedList(item)">
                 <ng-template #titleTemplate>
-                    <span >{{item?.tabName}}</span>
+                    <span>{{item?.tabName}}</span>
                 </ng-template>
                 <div *ngIf="!isGenerate">
                     <div class="card">
@@ -117,12 +118,12 @@
                                                 [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
                                         </div>
                                         <div class="heading-box">
-                                            <p class="head-title ">Name : 
+                                            <p class="head-title ">Name :
                                                 <span class="head-detail">Ahmed Mohammad</span>
                                                 <span class="head-detail"
                                                     *ngIf="!orderDetail.customer.customerName">---</span>
                                             </p>
-    
+
                                         </div>
                                     </div>
                                 </div>
@@ -131,13 +132,14 @@
                                         <span class="head-detail"
                                             *ngIf="orderDetail && orderDetail.customer.customerId">{{orderDetail.customer.customerId}}</span>
                                         <span class="head-detail" *ngIf="!orderDetail.customer.customerId">---</span>
-    
+
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
                                     <p class="head-title ">{{"Promissory_Notes.ID" | translate}} :
-    
-                                        <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.nationalId">
+
+                                        <span class="head-detail"
+                                            *ngIf="orderDetail && orderDetail.customer.nationalId">
                                             {{orderDetail.customer.nationalId}}</span>
                                         <span class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</span>
                                     </p>
@@ -150,57 +152,67 @@
                                     </p>
                                 </div>
                                 <div class="col-lg-6">
-                                    <p class="head-title ">{{"Promissory_Notes.Address" | translate}} : 
-    
-                                        <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.custAddress">
+                                    <p class="head-title ">{{"Promissory_Notes.Address" | translate}} :
+
+                                        <span class="head-detail"
+                                            *ngIf="orderDetail && orderDetail.customer.custAddress">
                                             {{orderDetail.customer.custAddress}}</span>
                                         <span class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</span>
                                     </p>
-    
+
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}} : </p>
+                                            <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}} :
+                                            </p>
                                         </div>
                                         <div class="col-lg-8 d-grid ">
                                             <button type="button" class="pdf-view-btn"
-                                            *ngIf="orderDetail.customer.identityFile1"
-                                            (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
-                                            |
-                                            translate}}
-                                            <a  (click)="pdfView(orderDetail.customer.identityFile1)" class="eye">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                                                </svg>
-                                            </a>
-                                            <a href="{{ orderDetail.customer.identityFile1}}" target="_blank" class="download">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
-                                                </svg>
-                                            </a>
-                                        </button>
-                                        <span class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</span>
+                                                *ngIf="orderDetail.customer.identityFile1"
+                                                (click)="pdfView(orderDetail.customer.identityFile1)">
+                                                <div>
+                                                    {{"Promissory_Notes.document_name_PDF"
+                                                    |
+                                                    translate}}
+                                                </div>
+                                                <div>
+                                                    <a (click)="pdfView(orderDetail.customer.identityFile1)"
+                                                        class="eye">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24">
+                                                            <path fill="currentColor"
+                                                                d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                                        </svg>
+                                                    </a>
+                                                    <a href="{{ orderDetail.customer.identityFile1}}" target="_blank"
+                                                        class="download">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24">
+                                                            <path fill="currentColor"
+                                                                d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </button>
+                                            <span class="head-detail"
+                                                *ngIf="!orderDetail.customer.identityFile1">---</span>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
                             </div>
-    
+
                             <div class="row heading-box">
                                 <div class="col-lg-4 ">
-    
+
                                 </div>
                                 <div class="col-lg-8">
-    
+
                                 </div>
                             </div>
                         </div>
-    
+
                     </div>
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
@@ -210,7 +222,7 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="profileee">
-    
+
                                         <div class="img-box" *ngIf="orderDetail.customer.customerName">
                                             <nz-avatar
                                                 [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
@@ -237,13 +249,15 @@
                                             <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.nationalId">
+                                            <p class="head-detail"
+                                                *ngIf="orderDetail && orderDetail.customer.nationalId">
                                                 {{orderDetail.customer.nationalId}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</p>
                                             <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.mobile">
                                                 {{orderDetail.customer.mobile}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.customer.mobile">---</p>
-                                            <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.custAddress">
+                                            <p class="head-detail"
+                                                *ngIf="orderDetail && orderDetail.customer.custAddress">
                                                 {{orderDetail.customer.custAddress}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</p>
                                         </div>
@@ -312,13 +326,16 @@
                                             <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.nationalId">
+                                            <p class="head-detail"
+                                                *ngIf="orderDetail && orderDetail.newGuarantor.nationalId">
                                                 {{orderDetail.newGuarantor.nationalId}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.newGuarantor.nationalId">---</p>
-                                            <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.mobile">
+                                            <p class="head-detail"
+                                                *ngIf="orderDetail && orderDetail.newGuarantor.mobile">
                                                 {{orderDetail.newGuarantor.mobile}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.newGuarantor.mobile">---</p>
-                                            <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.custAddress">
+                                            <p class="head-detail"
+                                                *ngIf="orderDetail && orderDetail.newGuarantor.custAddress">
                                                 {{orderDetail.newGuarantor.custAddress}}</p>
                                             <p class="head-detail" *ngIf="!orderDetail.newGuarantor.custAddress">---</p>
                                         </div>
@@ -328,7 +345,8 @@
                                             <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <button type="button" *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
+                                            <button type="button"
+                                                *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
                                                 class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
                                                 translate}}
                                                 <a href="" class="eye">
@@ -346,7 +364,8 @@
                                                     </svg>
                                                 </a>
                                             </button>
-                                            <p class="head-detail" *ngIf="!orderDetail.newGuarantor.identityFile1">---</p>
+                                            <p class="head-detail" *ngIf="!orderDetail.newGuarantor.identityFile1">---
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -366,29 +385,31 @@
                                     </div>
                                 </div>
                                 <div class="bottom-buttons first-btn mt-4 pt-4" *ngIf="orderDetail">
-                                    <div *ngIf="orderDetail.statusObj?.lookupId == 21012 || orderDetail.statusObj?.lookupId == 21011; else elseBlock">
+                                    <div
+                                        *ngIf="orderDetail.statusObj?.lookupId == 21012 || orderDetail.statusObj?.lookupId == 21011; else elseBlock">
                                         <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                             [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                                             translate}}</button>
                                     </div>
-    
+
                                     <ng-template #elseBlock>
-                                        <div *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
+                                        <div
+                                            *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
                                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                                            [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
-                                            translate}}</button>
-                                        <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                                            (click)="rejected()">{{"Promissory_Notes.Reject" |
-                                            translate}}</button>
-                                        <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()"
-                                            type="button">{{"Promissory_Notes.Approve" |
-                                            translate}}</button>
+                                                [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
+                                                translate}}</button>
+                                            <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                                                (click)="rejected()">{{"Promissory_Notes.Reject" |
+                                                translate}}</button>
+                                            <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()"
+                                                type="button">{{"Promissory_Notes.Approve" |
+                                                translate}}</button>
                                         </div>
-                                       
+
                                     </ng-template>
                                     <ng-template #thirdBlock>
                                         <div *ngIf="orderDetail.statusObj?.lookupId == 21007;">
-                                           
+
                                         </div>
                                     </ng-template>
                                 </div>
@@ -506,13 +527,15 @@
                                         <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.nationalId">
+                                        <p class="head-detail"
+                                            *ngIf="orderDetail && orderDetail.newGuarantor.nationalId">
                                             {{orderDetail.newGuarantor.nationalId}}</p>
                                         <p class="head-detail" *ngIf="!orderDetail.newGuarantor.nationalId">---</p>
                                         <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.mobile">
                                             {{orderDetail.newGuarantor.mobile}}</p>
                                         <p class="head-detail" *ngIf="!orderDetail.newGuarantor.mobile">---</p>
-                                        <p class="head-detail" *ngIf="orderDetail && orderDetail.newGuarantor.custAddress">
+                                        <p class="head-detail"
+                                            *ngIf="orderDetail && orderDetail.newGuarantor.custAddress">
                                             {{orderDetail.newGuarantor.custAddress}}</p>
                                         <p class="head-detail" *ngIf="!orderDetail.newGuarantor.custAddress">---</p>
                                     </div>
@@ -522,7 +545,8 @@
                                         <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <button type="button" *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
+                                        <button type="button"
+                                            *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
                                             class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
                                             translate}}
                                             <a href="" class="eye">
@@ -587,7 +611,7 @@
 
                                 </div> -->
                             </div>
-                            <div class="wizard-form-body" >
+                            <div class="wizard-form-body">
 
                                 <div class="main-content">
                                     <div class="wizard-form">
@@ -625,36 +649,46 @@
                                                                 <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                           All PN Amount
-                                                                            <span class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal}} JD</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.pnsTotal">---</span>
+                                                                            All PN Amount
+                                                                            <span class="head-detail"
+                                                                                *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal}}
+                                                                                JD</span>
+                                                                            <span class="head-detail"
+                                                                                *ngIf="!otherDetail.pnsTotal">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                          PN Account
-                                                                            <span class="head-detail" *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</span>
+                                                                            PN Account
+                                                                            <span class="head-detail"
+                                                                                *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</span>
+                                                                            <span class="head-detail"
+                                                                                *ngIf="!otherDetail.numberOfInstallments">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                           Remaining PN Account 
-                                                                            <span class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount}} JD</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingAmount">---</span>
+                                                                            Remaining PN Account
+                                                                            <span class="head-detail"
+                                                                                *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount}}
+                                                                                JD</span>
+                                                                            <span class="head-detail"
+                                                                                *ngIf="!otherDetail.remainingAmount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-4 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
-                                                                           Remaining Uncollected PNs
-                                                                            <span class="head-detail" *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingUncollectedCount">---</span>
+                                                                            Remaining Uncollected PNs
+                                                                            <span class="head-detail"
+                                                                                *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</span>
+                                                                            <span class="head-detail"
+                                                                                *ngIf="!otherDetail.remainingUncollectedCount">---</span>
                                                                         </h4>
                                                                     </div>
                                                                 </div>
@@ -726,14 +760,14 @@
                                                     </div>
                                                     <div class="bottom-buttons">
                                                         <button class="btn o-btn btn-white hvr-bounce-to-right"
-                                                            (click)="createRequest()"
-                                                            [disabled]="true"
+                                                            (click)="createRequest()" [disabled]="true"
                                                             type="button">Create
                                                             Request</button>
-                                                        <button class="btn o-btn hvr-bounce-to-right" [routerLink]="['/home/workorders']"
+                                                        <button class="btn o-btn hvr-bounce-to-right"
+                                                            [routerLink]="['/home/workorders']"
                                                             type="button">Close</button>
                                                     </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
