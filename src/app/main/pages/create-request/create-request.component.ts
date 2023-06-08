@@ -28,6 +28,8 @@ export class CreateRequestComponent implements OnInit {
   remainingAmount = 0;
   customerId: string;
   gurantorId: string;
+  customerAvatarName: string = '';
+  guarantorAvatarName: string = '';
   customerList: any[] = [];
   gurantorList: any[] = [];
   customerDetail: FormGroup;
@@ -99,7 +101,7 @@ export class CreateRequestComponent implements OnInit {
     })
   }
   saveRequestApproval() {
-    
+
     this.errorsList = [];
     if (!this.firstDueDate) {
       this.commonService.showError("Please select a New First Due Date", "Error");
@@ -185,17 +187,18 @@ export class CreateRequestComponent implements OnInit {
         })
     }
     if (typeof event === 'number') {
-      
+
       let obj = this.customerList.find(a => a.customerId == event);
       if (obj) {
         let data = {
           customerName: obj.customerName ? obj.customerName : '---',
-          customerAccount: obj.customerAccount ? obj.customerAccount : '---',
-          customerId: obj.customerId ? obj.customerId : '---',
+          customerAccount: obj.customerId ? obj.customerId : '---',
+          customerId: obj.nationalId ? obj.nationalId : '---',
           customerPhone: obj.mobile ? obj.mobile : '---',
           customerAddress: obj.custAddress ? obj.custAddress : '---',
         }
         this.customerDetail.patchValue(data);
+        this.customerAvatarName = obj.customerName? obj.customerName : '';
       }
     }
   }
@@ -212,17 +215,18 @@ export class CreateRequestComponent implements OnInit {
       if (obj) {
         let data = {
           guarantorName: obj.customerName ? obj.customerName : '---',
-          guarantorAccount: obj.customerAccount ? obj.customerAccount : '---',
-          guarantorId: obj.customerId ? obj.customerId : '---',
+          guarantorAccount: obj.customerId ? obj.customerId : '---',
+          guarantorId: obj.nationalId ? obj.nationalId : '---',
           guarantorPhone: obj.mobile ? obj.mobile : '---',
           guarantorAddress: obj.custAddress ? obj.custAddress : '---',
         }
         this.customerDetail.patchValue(data);
+        this.guarantorAvatarName = obj.customerName ? obj.customerName : ''
       }
     }
   }
   makeTransferRequest() {
-    
+
     if (!this.customerId) {
       this.commonService.showError("Please enter your customer", "Error");
       return;

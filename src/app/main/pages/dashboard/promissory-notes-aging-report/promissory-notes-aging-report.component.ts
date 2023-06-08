@@ -29,17 +29,17 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
   selectedLookupId = '';
   unsubscribe = new Subject<void>();
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.getStatusLookup(25).subscribe((result) => {
-      if (result?.isSuccess) {
-        this.lookups = result.data.map((entry) => ({
-          id: entry.id,
-          name: entry.name[0]?.lookupName,
-        }));
-      }
-    });
+    // this.apiService.getStatusLookup(25).subscribe((result) => {
+    //   if (result?.isSuccess) {
+    //     this.lookups = result.data.map((entry) => ({
+    //       id: entry.id,
+    //       name: entry.name[0]?.lookupName,
+    //     }));
+    //   }
+    // });
     this.searchByCustomerName$
       .pipe(debounceTime(500), takeUntil(this.unsubscribe))
       .subscribe(() => {
@@ -64,7 +64,9 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
     this.fetchList();
   }
 
-  lookupChange() {
+  lookupChange(data: any) {
+
+    // console.log(data);
     this.fetchList();
   }
 
@@ -79,8 +81,22 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
     if (this.searchByCustomer?.length) {
       filter.Customer = this.searchByCustomer;
     }
-    if (this.selectedLookupId) {
-      filter.AgeingId = this.selectedLookupId;
+    // if (this.selectedLookupId) {
+    //   filter.AgeingId = this.selectedLookupId;
+    // }
+    if (this.selectedLookupId.length > 0) {
+      const fromDate = new Date(this.selectedLookupId[0].toString());
+      const toDate = new Date(this.selectedLookupId[1]);
+
+      const formattedFromDate = fromDate.toISOString();
+      const formattedToDate = toDate.toISOString();
+
+      filter.DateFrom = formattedFromDate
+      filter.DateTo = formattedToDate
+    }
+    else {
+      filter.DateFrom = ''
+      filter.DateTo = ''
     }
     this.apiService
       .getPromissoryNotesAgingReport(filter)
@@ -95,17 +111,17 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
           uncollectd: entry.uncollectd,
           overDuePnsTotal: entry.overDuePnsTotal,
           lookup25001:
-            entry.ageing.find((age) => age.lookupId === 25001)?.amount || 0,
+            entry?.ageing ? entry.ageing.find((age) => age.lookupId === 25001)?.amount || 0 : 0,
           lookup25002:
-            entry.ageing.find((age) => age.lookupId === 25002)?.amount || 0,
+            entry?.ageing ? entry?.ageing.find((age) => age.lookupId === 25002)?.amount || 0 : 0,
           lookup25003:
-            entry.ageing.find((age) => age.lookupId === 25003)?.amount || 0,
+            entry?.ageing ? entry?.ageing.find((age) => age.lookupId === 25003)?.amount || 0 : 0,
           lookup25004:
-            entry.ageing.find((age) => age.lookupId === 25004)?.amount || 0,
+            entry?.ageing ? entry?.ageing.find((age) => age.lookupId === 25004)?.amount || 0 : 0,
           lookup25005:
-            entry.ageing.find((age) => age.lookupId === 25005)?.amount || 0,
+            entry?.ageing ? entry?.ageing.find((age) => age.lookupId === 25005)?.amount || 0 : 0,
           lookup25006:
-            entry.ageing.find((age) => age.lookupId === 25006)?.amount || 0,
+            entry?.ageing ? entry?.ageing.find((age) => age.lookupId === 25006)?.amount || 0 : 0,
         }));
         this.dataUpdated.emit(this.list);
       })
@@ -130,14 +146,14 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
         acc.push([
           item.customerId,
           item.customerName,
-          `${item.uncollectd} JD`,
-          `${item.overDuePnsTotal} JD`,
-          `${item.lookup25001} JD`,
-          `${item.lookup25002} JD`,
-          `${item.lookup25003} JD`,
-          `${item.lookup25004} JD`,
-          `${item.lookup25005} JD`,
-          `${item.lookup25006} JD`,
+          `${item.uncollectd} JOD`,
+          `${item.overDuePnsTotal} JOD`,
+          `${item.lookup25001} JOD`,
+          `${item.lookup25002} JOD`,
+          `${item.lookup25003} JOD`,
+          `${item.lookup25004} JOD`,
+          `${item.lookup25005} JOD`,
+          `${item.lookup25006} JOD`,
         ]);
         return acc;
       },
@@ -147,14 +163,14 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
       data.push([
         '',
         'Total',
-        `${this.getTotalBy('uncollectd')} JD`,
-        `${this.getTotalBy('overDuePnsTotal')} JD`,
-        `${this.getTotalBy('lookup25001')} JD`,
-        `${this.getTotalBy('lookup25002')} JD`,
-        `${this.getTotalBy('lookup25003')} JD`,
-        `${this.getTotalBy('lookup25004')} JD`,
-        `${this.getTotalBy('lookup25005')} JD`,
-        `${this.getTotalBy('lookup25006')} JD`,
+        `${this.getTotalBy('uncollectd')} JOD`,
+        `${this.getTotalBy('overDuePnsTotal')} JOD`,
+        `${this.getTotalBy('lookup25001')} JOD`,
+        `${this.getTotalBy('lookup25002')} JOD`,
+        `${this.getTotalBy('lookup25003')} JOD`,
+        `${this.getTotalBy('lookup25004')} JOD`,
+        `${this.getTotalBy('lookup25005')} JOD`,
+        `${this.getTotalBy('lookup25006')} JOD`,
       ]);
     }
     csvExport('Promissory Notes Aging Report', data);

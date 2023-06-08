@@ -43,7 +43,7 @@ export class PromissoryNotesMonthChartComponent implements AfterViewInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            return `${context.label}: ${context.raw} JD`;
+            return `${context.label}: ${context.raw} JOD`;
           },
         },
       },

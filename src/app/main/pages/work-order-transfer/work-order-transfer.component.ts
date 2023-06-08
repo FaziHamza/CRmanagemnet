@@ -10,6 +10,7 @@ import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RejectComponent } from '../common/reject/reject.component';
 import { ErrorsComponent } from '../common/errors/errors.component';
+import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -364,5 +365,44 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   ngOnDestroy(){
     this.commonService.selectedWorkorder = 1
     this.commonService.loadRequestTab = true;
+  }
+  transfer(){
+    let formData = new FormData();
+    formData.append('requestId', this.orderId.toString());
+    this.saveLoader = true;
+    this.apiService.performTransferPNOrder(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.confirm("Transferring Order Successfully Created");
+          // this.router.navigate(['/home/workorders'])
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
+  }
+  confirm(message:string): void {
+    const modal = this.modal.create<ConfirmPopupComponent>({
+      nzWidth: 500,
+      nzContent: ConfirmPopupComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        message: message,
+      },
+    });
+    modal.afterClose.subscribe(res => {
+      this.router.navigate(['/home/workorders']);
+    });
   }
 }

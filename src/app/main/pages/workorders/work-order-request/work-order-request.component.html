@@ -177,12 +177,12 @@
                             <div *ngIf="data.status == 21009;else block2">
                                 <div *ngIf="data.actionTaken; else disableTransferBlock">
                                     <button type="button" class="btn o-btn btn-disabled">
-                                        <span>{{data.statusObj?.description}}</span>
+                                        <span>Transfer</span>
                                     </button>
                                 </div>
                                 <ng-template #disableTransferBlock>
                                     <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="transfer(data.requestID)">
-                                        <span>{{data.statusObj?.description}}</span>
+                                        <span>Transfer</span>
                                     </button>
                                 </ng-template>
                             </div>
@@ -200,7 +200,7 @@
                                         <span>Reschedule</span>
                                     </button>
                                 </ng-template>
-                               
+
                             </div>
                         </ng-template>
                         <ng-template #block3>

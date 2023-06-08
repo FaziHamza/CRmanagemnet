@@ -86,7 +86,7 @@
             <div class="col-lg-8">
                 <div class="row">
                     <div class="img-box col-lg-2 mt-1">
-                        <nz-avatar [nzText]="'AM'"></nz-avatar>
+                        <nz-avatar [nzText]="commonService.getInitialOfName(customerAvatarName)"></nz-avatar>
                     </div>
                     <div class="col-lg-10">
                         <label class="mb-1"><b>Name<span>*</span></b></label>
@@ -148,7 +148,7 @@
             <div class="col-lg-8">
                 <div class="row">
                     <div class="img-box col-lg-2 mt-1">
-                        <nz-avatar [nzText]="'AM'"></nz-avatar>
+                        <nz-avatar [nzText]="commonService.getInitialOfName(guarantorAvatarName)"></nz-avatar>
                     </div>
                     <div class="col-lg-10">
                         <label class="mb-1"><b>Name<span>*</span></b></label>

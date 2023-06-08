@@ -96,18 +96,17 @@ html {
 
 .o-btn {
     background: $primary;
-    font-size: 14px;
     height: 48px;
     min-width: 100px;
     border: none;
-    font-weight: 500;
+    font-weight: 600;
     overflow: hidden;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     box-shadow: $card-shadow !important;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 0.3px;
     color: white;
 
@@ -172,10 +171,10 @@ html {
 
 .btn-white {
     background: white;
-    font-size: 14px;
+    font-size: 16px;
     height: 48px;
     width: 160px;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 8px;
     border: none !important;
     display: flex;
@@ -478,7 +477,7 @@ html {
         h5 {
             margin-bottom: 15px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             color: #1b212d;
         }
     }
@@ -489,13 +488,13 @@ html {
 
         .title {
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px;
             color: #1b212d;
         }
 
         .detail {
             font-weight: 600;
-            font-size: 12px;
+            font-size: 16px;
             color: #929eae;
         }
     }
@@ -568,8 +567,8 @@ html {
 
         h5 {
             font-weight: 600;
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 18px;
+            line-height: 24px;
             color: #1b212d;
         }
 
@@ -910,14 +909,14 @@ input[type="checkbox"]:checked {
 
 .card-subheading {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 22px;
     color: #1b212d;
 }
 
 .card-subheading-light {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 22px;
     color: $text-light;
 }
@@ -987,9 +986,9 @@ tr:hover {
 .ant-table-content {
     th {
         border: none !important;
-        font-weight: 700 !important;
-        font-size: 14px !important;
-        line-height: 19px !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+        line-height: 24px !important;
         color: #1b212d !important;
 
         input {
@@ -999,10 +998,10 @@ tr:hover {
 
     td {
         border: none !important;
-        font-weight: 700 !important;
+        font-weight: 600 !important;
 
-        font-size: 12px !important;
-        line-height: 19px !important;
+        font-size: 16px !important;
+        line-height: 24px !important;
         color: #1b212d;
 
         input {
@@ -1284,13 +1283,13 @@ input[type="number"] {
     .head-title {
         margin-bottom: 5px !important;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 16px;
         color: #1b212d;
     }
 
     .head-detail {
         font-weight: 600;
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 5px !important;
         // margin-left: 8px;
         color: #929eae;
@@ -1435,7 +1434,7 @@ hr {
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     font-weight: 600 !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     line-height: 24px !important;
     color: #1b212d !important;
 }
@@ -1549,7 +1548,7 @@ nz-tabset {
 
 .ant-tabs-tab-btn {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
     /* identical to box height, or 133% */
 
@@ -1955,6 +1954,26 @@ nz-tabset {
         }
     }
 }
+.form-control4 {
+    .ant-picker-range-separator {
+        margin-bottom: 10px;
+    }
+
+    .ant-picker {
+        padding: 5px 8px !important;
+        border: 1px solid #d1d1d1;
+        border-radius: 12px;
+        font-size: 14px !important;
+        height: 46px;
+        width: 150%;
+
+        .ant-picker-input input {
+            height: 32px;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+    }
+}
 
 .form-control3 {
     .ant-picker-range-separator {
@@ -2063,6 +2082,7 @@ nz-tabset {
     .progressbar-list {
         width: 100%;
         color: #6f787d;
+        font-size: 16px;
     }
 
     .active {
@@ -2170,6 +2190,9 @@ nz-tabset {
 }
 
 .form-control2 .ant-picker .ant-picker-input input {
+    border: none !important;
+}
+.form-control4 .ant-picker .ant-picker-input input {
     border: none !important;
 }
 
@@ -2314,10 +2337,10 @@ button span,
 }
 .btn-disabled {
     background: #9297ae;
-    font-size: 14px;
+    font-size: 16px;
     height: 48px;
     width: 160px;
-    font-weight: 500;
+    font-weight: 600;
     border-radius: 8px;
     border: none !important;
     cursor: not-allowed !important;

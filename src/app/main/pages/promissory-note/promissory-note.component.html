@@ -128,17 +128,17 @@
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">Interest Percenatge</h4>
-                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">
-                      {{orderDetail.rescheduleInterest}} %</h4>
-                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterest">---</h4>
+                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterestPercent">
+                      {{orderDetail.rescheduleInterestPercent}} %</h4>
+                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterestPercent">---</h4>
                   </div>
                 </div>
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">Interest Value</h4>
-                    <h4 class="detail" *ngIf="orderDetail.interestValue">{{orderDetail.interestValue | rounded : 3}} JD
+                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">{{orderDetail.rescheduleInterest | rounded : 3}} JD
                     </h4>
-                    <h4 class="detail" *ngIf="!orderDetail.interestValue">---</h4>
+                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterest">---</h4>
                   </div>
                 </div>
 
@@ -413,7 +413,7 @@
                       <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
                         translate}}:
                         <span class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
-                          customRound: 0}}</span>
+                          customRound: 0}} JD</span>
                         <span class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</span>
                       </h4>
                     </div>
@@ -432,7 +432,7 @@
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.First_Due_Date" | translate}}:
                         <span class="head-detail" *ngIf="orderDetail.startDate">
-                          {{orderDetail.startDate | date:'dd MMMyyyy' }}
+                          {{orderDetail.startDate | date:'dd MMM yyyy' }}
                         </span>
                         <span class="head-detail" *ngIf="!orderDetail.startDate">---</span>
                       </h4>
@@ -636,7 +636,7 @@
                                       |
                                       translate}}:
                                       <span class="head-detail"
-                                        *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount}}</span>
+                                        *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount}} JD</span>
                                       <span class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</span>
                                     </h4>
                                   </div>
@@ -658,7 +658,7 @@
                                       {{"Promissory_Notes.Remaining_Amount" |
                                       translate}}:
                                       <span class="head-detail"
-                                        *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount}}</span>
+                                        *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount}} JD</span>
                                       <span class="head-detail" *ngIf="!orderDetail.remainingAmount">---</span>
                                     </h4>
                                   </div>

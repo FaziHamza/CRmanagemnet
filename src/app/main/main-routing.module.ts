@@ -23,10 +23,10 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
-      {
-        path: 'cm-setup',
-        component: CMSetupComponent,
-      },
+      // {
+      //   path: 'cm-setup',
+      //   component: CMSetupComponent,
+      // },
       // {
       //   path: 'promissory-note',
       //   component: PromissoryNoteComponent,
@@ -62,7 +62,7 @@ const routes: Routes = [
 
       {
         path: '',
-        redirectTo: 'cm-setup',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
     ],

@@ -4,7 +4,7 @@
             <div class="col-lg-6">
                 <span class="head-title">{{"Promissory_Notes.Date" | translate}}: </span>
                 <span class="head-detail" *ngIf="orderDetail && orderDetail.orderDate">{{orderDetail?.orderDate |
-                    date:'dd MMMyyyy'}}</span>
+                    date:'dd MMM yyyy'}}</span>
                 <span class="head-detail" *ngIf="!orderDetail.pnOrderID">---</span>
             </div>
             <div class="col-lg-6 ">
@@ -338,9 +338,13 @@
 
                                     </ng-template>
                                     <ng-template #thirdBlock>
-                                        <div *ngIf="orderDetail.statusObj?.lookupId == 21007;">
-
-                                        </div>
+                                      <div *ngIf="orderDetail.statusObj?.lookupId == 21010 || orderDetail.statusObj?.lookupId == 21009;">
+                                        <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                                        [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
+                                        translate}}</button>
+                                        <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                          (click)="reschedule()"> Generate </button>
+                                      </div>
                                     </ng-template>
                                 </div>
                             </div>

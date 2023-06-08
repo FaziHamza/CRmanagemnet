@@ -50,7 +50,7 @@ export class CommonService {
     return timeLeft;
   }
 
-  //JSON-Beautify    
+  //JSON-Beautify
   // This Method add 4 indentation into json to make readability.
   jsonBeautify(json: any) {
     alert(JSON.stringify(json, null, 4));

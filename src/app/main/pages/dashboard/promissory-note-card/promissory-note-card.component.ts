@@ -10,4 +10,5 @@ export class PromissoryNoteCardComponent {
   @Input() label = '';
   @Input() amount = '';
   @Input() currency = '';
+  @Input() isCurrency = true;
 }

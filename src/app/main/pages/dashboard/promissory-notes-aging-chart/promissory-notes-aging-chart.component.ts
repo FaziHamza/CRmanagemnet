@@ -26,7 +26,7 @@ export class PromissoryNotesAgingChartComponent implements OnChanges {
       tooltip: {
         callbacks: {
           label: (context) => {
-            return `${context.raw} JD`;
+            return `${context.raw} JOD`;
           },
         },
       },
