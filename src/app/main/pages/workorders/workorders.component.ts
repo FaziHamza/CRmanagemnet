@@ -36,11 +36,10 @@ export class WorkordersComponent implements OnInit {
     this.commonService.breadcrumb = [
       { title: ' Promissory Notes Order', routeLink: '' },
     ];
-
-  }
-  getPermission() {
-
-
+    if (this.permissionService.checkPermission(7, 39, 80)) {
+      this.commonService.loadRequestTab = true;
+      this.commonService.selectedWorkorder = 1;
+    }
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     if (this.permissionService.checkPermission(7, 39, 80)) {
