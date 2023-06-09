@@ -115,6 +115,13 @@ export class ApiService {
       id;
     return this.http.get<AppResponse>(url);
   }
+  getPermissions(id): Observable<AppResponse> {
+    let url =
+      environment.creditmanagementtest +
+      'Permissions/GetPermissions?portalId=' +
+      id;
+    return this.http.get<AppResponse>(url);
+  }
 
   saveGeneratingNotes(formData: any): Observable<AppResponse> {
     let url =

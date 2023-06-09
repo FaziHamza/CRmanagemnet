@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorsComponent } from '../common/errors/errors.component';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -20,7 +21,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer,private permissionService:PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
   current = 0;
   isGenerate = false;
@@ -502,6 +503,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   ngOnDestroy(){
     this.commonService.selectedWorkorder = 0;
     this.commonService.loadRequestTab = false;
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
 }
 

@@ -2372,3 +2372,8 @@ button span,
     }
 }
 
+.disabled-link {
+  pointer-events: none; /* Disable click events */
+  opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  cursor: not-allowed; /* Change cursor to not-allowed */
+}

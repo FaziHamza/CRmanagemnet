@@ -11,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RejectComponent } from '../common/reject/reject.component';
 import { ErrorsComponent } from '../common/errors/errors.component';
 import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -21,7 +22,7 @@ declare var $: any; // Use this line to tell TypeScript that $ is defined elsewh
 
 export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
 
-  constructor(public commonService: CommonService, private router: Router,
+  constructor(public commonService: CommonService, private router: Router,private permissionService:PermissionService,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
     private sanitizer: DomSanitizer,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
@@ -389,5 +390,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     modal.afterClose.subscribe(res => {
       this.router.navigate(['/home/workorders']);
     });
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
 }

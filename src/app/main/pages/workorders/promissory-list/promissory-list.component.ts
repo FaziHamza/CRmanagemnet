@@ -6,6 +6,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { Router } from '@angular/router';
 import { orderParam } from '../models/orderParam';
 import { CreateRequestComponent } from '../../create-request/create-request.component';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 
 @Component({
   selector: 'app-promissory-list',
@@ -29,7 +30,7 @@ export class PromissoryListComponent implements OnInit {
   selectedDate: any;
   saveLoader: boolean = false;
   constructor(private apiService: ApiService, public commonService: CommonService,private router:Router,
-    private modal: NzModalService,) { }
+    private modal: NzModalService,private permissionService:PermissionService) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -247,9 +248,13 @@ export class PromissoryListComponent implements OnInit {
     // if( status == 'signed' || status == 'under collecting' || status == 'collected'){
     // }else{
     // }
-    this.router.navigate(['/home/workorders',data.orderId])
+    if(!this.canPerformAction(7, 39, 79) || !this.canPerformAction(7, 39, 78))
+      this.router.navigate(['/home/workorders',data.orderId])
   }
   tabClick(value:boolean){
     this.commonService.loadRequestTab = value;
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
 }

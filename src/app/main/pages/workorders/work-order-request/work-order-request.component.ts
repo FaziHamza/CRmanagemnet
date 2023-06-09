@@ -8,6 +8,7 @@ import { ErrorsComponent } from '../../common/errors/errors.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { RejectComponent } from '../../common/reject/reject.component';
 import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.component';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 
 @Component({
   selector: 'app-work-order-request',
@@ -39,7 +40,7 @@ export class WorkOrderRequestComponent implements OnInit {
 
   tabs :any[] = [];
   constructor(private apiService: ApiService, private commonService: CommonService,private router:Router,
-    private modal: NzModalService,) { }
+    private modal: NzModalService,private permissionService:PermissionService) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -303,15 +304,23 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   gotoDetail(data:any){
-    if((data.status == 21009 || data.status == 21010) && data.actionTaken){
-
-    }else{
+    if(!this.canPerformAction(7, 40, 81) || !this.canPerformAction(7, 40, 82)){
       if(data.requestTypeID  == 24001){
         this.router.navigate(['/home/transfer',data.requestID])
       }else{
         this.router.navigate(['/home/reschedule',data.requestID])
       }
+      // if((data.status == 21009 || data.status == 21010) && data.actionTaken){
+
+      // }else{
+      //   if(data.requestTypeID  == 24001){
+      //     this.router.navigate(['/home/transfer',data.requestID])
+      //   }else{
+      //     this.router.navigate(['/home/reschedule',data.requestID])
+      //   }
+      // }
     }
+
   }
   approveRequest(id:any) {
     let formData = new FormData();
@@ -432,5 +441,8 @@ getAllRequestList() {
       this.commonService.loadRequestTab = false;
       this.commonService.selectedWorkorder = 0;
     });
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
 }

@@ -445,7 +445,7 @@
                 <button type="button" class="btn btn-white hvr-bounce-to-right2"
                   [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                   translate}}</button>
-                <button class="btn o-btn hvr-bounce-to-right" type="button"
+                <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                   (click)="getListofPromissoryNote()">{{"Promissory_Notes.Generate_PNs_Book" |
                   translate}}</button>
               </div>
@@ -472,7 +472,7 @@
                               <div class="col-lg-10"></div>
                               <div class="col-lg-2">
                                 <button type="button" class="btn o-btn hvr-bounce-to-right btn-md rest-btn"
-                                  (click)="getListofPromissoryNote()" *ngIf="checkReset()">
+                                  (click)="getListofPromissoryNote()" *ngIf="checkReset()" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2">
@@ -553,7 +553,7 @@
                                         <a class="table-edit">
 
                                         </a>
-                                        <button type="button" class="undo-btn" *ngIf="data.edit"
+                                        <button type="button" class="undo-btn" *ngIf="data.edit" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                           (click)="undoValue(data.id)">
                                           Undo <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24">
@@ -738,30 +738,30 @@
                           <div class="bottom-buttons" *ngIf="current == 0">
                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
                               [routerLink]="['/home/workorders']">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()"
-                              [ngClass]="{'disabled':differenceAmount != 0}">Confirm</button>
+                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                              [ngClass]="{'disabled':differenceAmount != 0}" >Confirm</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 1">
                             <button type="button" [routerLink]="['/home/workorders']"
                               class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printPNBook()">Print PN
+                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printPNBook()" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print PN
                               Book</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 2">
                             <button type="button" [routerLink]="['/home/workorders']"
                               class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button"
+                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               (click)="printPNBook()">RePrint PN
                               Book</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19003)">Mark
+                            <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printAll(19003)">Mark
                               As
                               Signed</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 3 || current == 4 || current == 5">
-                            <button class="btn o-btn btn-white hvr-bounce-to-right"
+                            <button class="btn o-btn btn-white hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               *ngIf="!orderDetail.hasActiveRequest" (click)="createRequest()" type="button">Create
                               Request</button>
-                            <button class="btn o-btn btn-disabled hvr-bounce-to-right"
+                            <button class="btn o-btn btn-disabled hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               *ngIf="orderDetail.hasActiveRequest" (click)="createRequest()" [disabled]="true"
                               type="button">Create
                               Request</button>
@@ -803,7 +803,7 @@
       <div class="col-lg-4">
         <div class="bottom-buttons">
           <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
-          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)">Print
+          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print
             All</button>
         </div>
       </div>

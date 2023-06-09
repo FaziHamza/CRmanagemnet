@@ -162,7 +162,7 @@
                     </td>
                     <td (click)="gotoDetail(data)"
                         *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() != 'collected' && data.statusObj?.translations[0].lookupName.toLowerCase() != 'signed' && data.statusObj?.translations[0].lookupName.toLowerCase() != 'under collecting'">
-                        <button type="button" class="btn o-btn hvr-bounce-to-right">
+                        <button type="button" class="btn o-btn hvr-bounce-to-right" [disabled]="!canPerformAction(7, 39, 79)">
                             <span
                                 *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span>
                         </button>
@@ -170,7 +170,7 @@
                     <td
                         *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'signed' || data.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting'">
                         <div *ngIf="data.hasActiveRequest; else dotsBlock">
-                            <a class="pen-icon" (click)="gotoDetail(data)">
+                            <a class="pen-icon" (click)="gotoDetail(data)" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" style="color: rgb(168 168 168)">
                                     <path fill="currentColor"
@@ -178,14 +178,14 @@
                                 </svg>
                             </a>
                           </div>
-                          
+
                           <ng-template #dotsBlock>
-                            <nz-dropdown-menu #menu="nzDropdownMenu">
+                            <nz-dropdown-menu #menu="nzDropdownMenu" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                 <ul nz-menu nzSelectable>
-                                    <li nz-menu-item
+                                    <li nz-menu-item [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                         (click)="createRequest(data.orderId,'Reschedule Request')">
                                         Create Reschedule Request</li>
-                                    <li nz-menu-item
+                                    <li nz-menu-item [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                         (click)="createRequest(data.orderId,'Transfer Request')">
                                         Create Transfer Request</li>
                                 </ul>
@@ -194,10 +194,10 @@
                                 <div class="dropdown">
                                     <i class="fa-solid fa-ellipsis-vertical dropbtn"></i>
                                     <div class="dropdown-content">
-                                        <a 
+                                        <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                         (click)="createRequest(data.orderId,'Reschedule Request')">
                                         Create Reschedule Request</a>
-                                    <a 
+                                    <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                         (click)="createRequest(data.orderId,'Transfer Request')">
                                         Create Transfer Request</a>
                                     </div>

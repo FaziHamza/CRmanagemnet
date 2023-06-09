@@ -164,10 +164,10 @@
                     <td>
                         <div *ngIf="data.status == 21007 || data.status == 21008; else block1">
                             <div class="table-action-btn">
-                                <a (click)="approveRequest(data.requestID)">
+                                <a (click)="approveRequest(data.requestID)"  [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">
                                     <i class="fa-regular fa-circle-check"></i>
                                 </a>
-                                <a (click)="rejected(data.requestID)">
+                                <a (click)="rejected(data.requestID)"  [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">
                                     <i class="fa-regular fa-circle-xmark"></i>
                                 </a>
                             </div>
@@ -176,12 +176,12 @@
                         <ng-template #block1>
                             <div *ngIf="data.status == 21009;else block2">
                                 <div *ngIf="data.actionTaken; else disableTransferBlock">
-                                    <button type="button" class="btn o-btn btn-disabled">
+                                    <button type="button" class="btn o-btn btn-disabled" (click)="transfer(data.requestID)" [disabled]="!canPerformAction(7, 40, 82)">
                                         <span>Transfer</span>
                                     </button>
                                 </div>
                                 <ng-template #disableTransferBlock>
-                                    <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="transfer(data.requestID)">
+                                    <button type="button" class="btn o-btn hvr-bounce-to-right" [disabled]="!canPerformAction(7, 40, 82)" (click)="transfer(data.requestID)">
                                         <span>Transfer</span>
                                     </button>
                                 </ng-template>
@@ -191,12 +191,12 @@
                         <ng-template #block2>
                             <div *ngIf="data.status == 21010;else block3">
                                 <div *ngIf="data.actionTaken; else disableBlock">
-                                    <button type="button" class="btn o-btn   btn-disabled">
+                                    <button type="button" class="btn o-btn   btn-disabled" (click)="reschedule(data.requestID)" [disabled]="!canPerformAction(7, 40, 82)">
                                         <span>Reschedule</span>
                                     </button>
                                 </div>
                                 <ng-template #disableBlock>
-                                    <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="reschedule(data.requestID)">
+                                    <button type="button" class="btn o-btn hvr-bounce-to-right" [disabled]="!canPerformAction(7, 40, 82)" (click)="reschedule(data.requestID)">
                                         <span>Reschedule</span>
                                     </button>
                                 </ng-template>
@@ -204,7 +204,7 @@
                             </div>
                         </ng-template>
                         <ng-template #block3>
-                            <a class="pen-icon" (click)="gotoDetail(data)">
+                            <a class="pen-icon" (click)="gotoDetail(data)" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     style="color: rgb(168 168 168)">
                                     <path fill="currentColor"

@@ -328,10 +328,10 @@
                                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                             [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                                             translate}}</button>
-                                        <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                                        <button type="button" class="btn btn-white hvr-bounce-to-right2" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                                             (click)="rejected()">{{"Promissory_Notes.Reject" |
                                             translate}}</button>
-                                        <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()"
+                                        <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                                             type="button">{{"Promissory_Notes.Approve" |
                                             translate}}</button>
                                         </div>
@@ -342,7 +342,7 @@
                                         <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                         [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                                         translate}}</button>
-                                        <button class="btn o-btn hvr-bounce-to-right" type="button"
+                                        <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                                           (click)="reschedule()"> Generate </button>
                                       </div>
                                     </ng-template>
@@ -680,7 +680,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="bottom-buttons">
-                                                        <button class="btn o-btn btn-white hvr-bounce-to-right"
+                                                        <button class="btn o-btn btn-white hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                                                             (click)="createRequest()"
                                                             [disabled]="true"
                                                             type="button">Create
@@ -725,7 +725,7 @@
                 <div class="bottom-buttons">
                     <button type="button" class="btn btn-white hvr-bounce-to-right2"
                         (click)="printClose()">Close</button>
-                    <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)">Print
+                    <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">Print
                         All</button>
                 </div>
             </div>

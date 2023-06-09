@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { CreateRequestComponent } from '../create-request/create-request.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Router } from '@angular/router';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 
 @Component({
   selector: 'app-workorders',
@@ -28,7 +29,8 @@ export class WorkordersComponent implements OnInit {
   statusType: any = "";
   selectedDate: any;
   saveLoader: boolean = false;
-  constructor(public commonService: CommonService) { }
+  permissionList = [];
+  constructor(public commonService: CommonService, private apiService: ApiService, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -36,10 +38,24 @@ export class WorkordersComponent implements OnInit {
     ];
 
   }
+  getPermission() {
 
-
-  tabClick(value:boolean,tabNumber:number){
+    // this.apiService.getPermissions(17002).subscribe(res=>{
+    //   if(res.isSuccess){
+    //     this.permissionList = res.data;
+    //   }
+    // })
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    if (this.permissionService.checkPermission(7, 39, 80)) {
+      this.commonService.loadRequestTab = true;
+      this.commonService.selectedWorkorder = 1;
+    }
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
+  }
+  tabClick(value: boolean, tabNumber: number) {
     this.commonService.loadRequestTab = value;
     this.commonService.selectedWorkorder = tabNumber;
   }
+
 }
