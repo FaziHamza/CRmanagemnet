@@ -40,11 +40,7 @@ export class WorkordersComponent implements OnInit {
   }
   getPermission() {
 
-    // this.apiService.getPermissions(17002).subscribe(res=>{
-    //   if(res.isSuccess){
-    //     this.permissionList = res.data;
-    //   }
-    // })
+
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     if (this.permissionService.checkPermission(7, 39, 80)) {
