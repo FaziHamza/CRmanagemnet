@@ -7,15 +7,15 @@ import { EnvService } from "./envoirment.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-    
+
     authReq: any;
-    
+
     constructor(private router: Router, private envService: EnvService) {
-        
+
      }
 
     private handleAuthError(err: HttpErrorResponse): Observable<any> {
-        
+
         if (err.status === 401|| err.status === 403) {
             this.clearStorage();
             this.envService.showWarning();
@@ -26,7 +26,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
+
         // if (req.url.includes('login')) {
         //     this.authReq = req.clone({
         //         headers: req.headers.set('generaltoken', this.envService.GeneralToken)
@@ -38,10 +38,10 @@ export class AuthInterceptor implements HttpInterceptor {
         //     })
         // }
         let token =JSON.parse(localStorage.getItem('authToken')!);
-        
+
         this.authReq = req.clone({
             setHeaders: {
-              Authorization: `Bearer ${this.envService.GeneralToken}`,
+              Authorization: `Bearer ${token}`,
             },
           })
         return next.handle(this.authReq).pipe(catchError(x => this.handleAuthError(x)));
