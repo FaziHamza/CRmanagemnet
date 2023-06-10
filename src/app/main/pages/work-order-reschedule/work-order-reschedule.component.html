@@ -621,19 +621,19 @@
                                                                 nzTableLayout="fixed" [nzPageSize]="6">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
+                                                                        <th  nz-th nzSortFn="ascend" nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
                                                                             {{"Promissory_Notes.No" | translate}}
                                                                         </th>
                                                                         <th>{{"Promissory_Notes.Customer_Name" |
                                                                             translate}}
                                                                         </th>
-                                                                        <th (click)="getSortFunction(sortType,'amount')">
+                                                                        <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
                                                                             {{"Promissory_Notes.Amount" | translate}}
                                                                         </th>
-                                                                        <th (click)="getSortFunction(sortType,'date')">
+                                                                        <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
                                                                             {{"Promissory_Notes.Due_Date" | translate}}
                                                                         </th>
-                                                                        <th (click)="getSortFunction(sortType,'status')">
+                                                                        <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
                                                                             {{"Promissory_Notes.PN_Status" | translate}}
                                                                         </th>
                                                                         <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
