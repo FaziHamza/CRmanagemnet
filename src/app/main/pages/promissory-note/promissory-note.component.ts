@@ -322,6 +322,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // });
     // this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
   }
+  numericOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+      // charCode 48-57 are 0-9, 46 is .
+      return false;
+    }
+    return true;
+  }
+  
   truncateValue(number: number): number {
     const truncated = Math.trunc(number * 1000) / 1000; // Truncate to three decimal places
     const thirdDecimal = Math.floor((truncated * 1000) % 10); // Get the third decimal place
