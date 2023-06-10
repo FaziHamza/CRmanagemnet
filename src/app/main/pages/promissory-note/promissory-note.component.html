@@ -83,7 +83,7 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Vehicle_Price" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.totalAmount">
-                {{orderDetail.totalAmount |  number : ".3"}} JOD</h4>
+                {{orderDetail.totalAmount | number : ".3"}} JOD</h4>
               <h4 class="detail" *ngIf="!orderDetail.totalAmount">---</h4>
             </div>
           </div>
@@ -136,7 +136,8 @@
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">Interest Value</h4>
-                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">{{orderDetail.rescheduleInterest | number : '.3'}} JOD
+                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">{{orderDetail.rescheduleInterest | number
+                      : '.3'}} JOD
                     </h4>
                     <h4 class="detail" *ngIf="!orderDetail.rescheduleInterest">---</h4>
                   </div>
@@ -146,7 +147,7 @@
                   <div class="card-box">
                     <h4 class="title">New Remaining Amount</h4>
                     <h4 class="detail" *ngIf="orderDetail.remainingAmount">
-                      {{orderDetail.remainingAmount |  number : ".3"}} JOD</h4>
+                      {{orderDetail.remainingAmount | number : ".3"}} JOD</h4>
                     <h4 class="detail" *ngIf="!orderDetail.remainingAmount">---</h4>
                   </div>
                 </div>
@@ -168,7 +169,8 @@
                     </div>
                     <div class="heading-box">
                       <p class="head-title ">Name :
-                        <span class="head-detail" *ngIf="orderDetail.customer.customerName">{{orderDetail.customer.customerName}}</span>
+                        <span class="head-detail"
+                          *ngIf="orderDetail.customer.customerName">{{orderDetail.customer.customerName}}</span>
                         <span class="head-detail" *ngIf="!orderDetail.customer.customerName">---</span>
                       </p>
 
@@ -445,7 +447,8 @@
                 <button type="button" class="btn btn-white hvr-bounce-to-right2"
                   [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                   translate}}</button>
-                <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                <button class="btn o-btn hvr-bounce-to-right" type="button"
+                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                   (click)="getListofPromissoryNote()">{{"Promissory_Notes.Generate_PNs_Book" |
                   translate}}</button>
               </div>
@@ -472,7 +475,8 @@
                               <div class="col-lg-11"></div>
                               <div class="col-lg-1 mb-1">
                                 <button type="button" class="btn o-btn hvr-bounce-to-right btn-md rest-btn"
-                                  (click)="getListofPromissoryNote()" *ngIf="differenceAmount > 0" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
+                                  (click)="getListofPromissoryNote()" *ngIf="differenceAmount > 0"
+                                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2">
@@ -505,19 +509,19 @@
                                 [nzPageSize]="6">
                                 <thead>
                                   <tr>
-                                    <th  nzWidth="8%">
+                                    <th nzWidth="8%">
                                       {{"Promissory_Notes.No" | translate}}
                                     </th>
                                     <th> {{"Promissory_Notes.Customer_Name" |
                                       translate}}
                                     </th>
-                                    <th >
+                                    <th>
                                       {{"Promissory_Notes.Amount" | translate}}
                                     </th>
-                                    <th >
+                                    <th>
                                       {{"Promissory_Notes.Due_Date" | translate}}
                                     </th>
-                                    <th >
+                                    <th>
                                       {{"Promissory_Notes.PN_Status" | translate}}
                                     </th>
                                     <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
@@ -553,7 +557,8 @@
                                         <a class="table-edit">
 
                                         </a>
-                                        <button type="button" class="undo-btn" *ngIf="data.edit" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                                        <button type="button" class="undo-btn" *ngIf="data.edit"
+                                          [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                           (click)="undoValue(data.id)">
                                           Undo <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24">
@@ -570,10 +575,12 @@
                                       </td>
                                       <td>
                                         <div class="input-group">
-                                          <input type="number" class="form-control"
+
+                                          <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
-                                            [ngModelOptions]="{ standalone: true }" (input)="changeAmount(data.id)"
-                                            appPositiveDecimal aria-describedby="basic-addon1">
+                                            [ngModelOptions]="{ standalone: true }" (keypress)="numericOnly($event)"
+                                            (input)="changeAmount(data.id)" aria-describedby="basic-addon1">
+
                                         </div>
                                       </td>
                                       <td>
@@ -636,7 +643,8 @@
                                       |
                                       translate}}:
                                       <span class="head-detail"
-                                        *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |  number : ".3"}} J0D</span>
+                                        *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount | number : ".3"}}
+                                        J0D</span>
                                       <span class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</span>
                                     </h4>
                                   </div>
@@ -658,7 +666,8 @@
                                       {{"Promissory_Notes.Remaining_Amount" |
                                       translate}}:
                                       <span class="head-detail"
-                                        *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount |  number : ".3"}} JOD</span>
+                                        *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount | number :
+                                        ".3"}} JOD</span>
                                       <span class="head-detail" *ngIf="!orderDetail.remainingAmount">---</span>
                                     </h4>
                                   </div>
@@ -682,10 +691,11 @@
                                 [nzPageSize]="6">
                                 <thead>
                                   <tr>
-                                    <th nz-th nzSortFn="simpleSort" nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
+                                    <th nz-th nzSortFn="simpleSort" nzWidth="8%"
+                                      (click)="getSortFunction(sortType,'orderno')">
                                       {{"Promissory_Notes.No" | translate}}
                                     </th>
-                                    <th >{{"Promissory_Notes.Customer_Name" |
+                                    <th>{{"Promissory_Notes.Customer_Name" |
                                       translate}}
                                     </th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
@@ -694,7 +704,7 @@
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
                                       {{"Promissory_Notes.Due_Date" | translate}}
                                     </th>
-                                    <th nz-th nzSortFn="ascend"  (click)="getSortFunction(sortType,'status')">
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
                                       {{"Promissory_Notes.PN_Status" | translate}}
                                     </th>
                                     <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
@@ -709,7 +719,7 @@
                                         {{ data.id }}
                                       </td>
                                       <td>{{ data.customerName }}</td>
-                                      <td>{{ data.amount |  number : ".3" }} JOD
+                                      <td>{{ data.amount | number : ".3" }} JOD
                                       </td>
                                       <td>
                                         {{data.dueDate | date : 'dd MMM yyyy'}}
@@ -738,30 +748,36 @@
                           <div class="bottom-buttons" *ngIf="current == 0">
                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
                               [routerLink]="['/home/workorders']">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              [ngClass]="{'disabled':differenceAmount != 0}" >Confirm</button>
+                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                              [ngClass]="{'disabled':differenceAmount != 0}">Confirm</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 1">
                             <button type="button" [routerLink]="['/home/workorders']"
                               class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printPNBook()" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print PN
+                            <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printPNBook()"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print PN
                               Book</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 2">
                             <button type="button" [routerLink]="['/home/workorders']"
                               class="btn btn-white hvr-bounce-to-right2">Close</button>
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                            <button class="btn o-btn btn-white hvr-bounce-to-right" type="button"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               (click)="printPNBook()">RePrint PN
                               Book</button>
-                            <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printAll(19003)">Mark
+                            <button class="btn o-btn hvr-bounce-to-right" type="button"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printAll(19003)">Mark
                               As
                               Signed</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 3 || current == 4 || current == 5">
-                            <button class="btn o-btn btn-white hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                            <button class="btn o-btn btn-white hvr-bounce-to-right"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               *ngIf="!orderDetail.hasActiveRequest" (click)="createRequest()" type="button">Create
                               Request</button>
-                            <button class="btn o-btn btn-disabled hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                            <button class="btn o-btn btn-disabled hvr-bounce-to-right"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                               *ngIf="orderDetail.hasActiveRequest" (click)="createRequest()" [disabled]="true"
                               type="button">Create
                               Request</button>
@@ -803,7 +819,8 @@
       <div class="col-lg-4">
         <div class="bottom-buttons">
           <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
-          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print
+          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)"
+            [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print
             All</button>
         </div>
       </div>
