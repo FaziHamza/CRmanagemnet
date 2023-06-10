@@ -167,8 +167,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
-          // this.pdfInfoData = res.data['info'];
-          let generatedlist = res.data['data'];
+          // this.pdfInfoData = res['info'];
+          let generatedlist = res['data'];
           for (let index = 0; index < generatedlist.length; index++) {
             const obj = {
               id: this.generatedlist.length + 1,
@@ -489,8 +489,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
-        // this.pdfInfoData = res.data['info'];
-        let generatedlist = res.data['data'];
+        // this.pdfInfoData = res['info'];
+        let generatedlist = res['data'];
         for (let index = 0; index < generatedlist.length; index++) {
           const obj = {
             id: this.generatedlist.length + 1,
