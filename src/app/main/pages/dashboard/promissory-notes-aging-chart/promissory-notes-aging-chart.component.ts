@@ -26,7 +26,10 @@ export class PromissoryNotesAgingChartComponent implements OnChanges {
       tooltip: {
         callbacks: {
           label: (context) => {
-            return `${context.raw} JOD`;
+            const value = context.raw;
+            const formattedValue = value.toLocaleString(); // Convert to thousand separator format
+            return `${formattedValue} JOD`;
+
           },
         },
       },

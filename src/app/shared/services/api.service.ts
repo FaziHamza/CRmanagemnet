@@ -108,11 +108,10 @@ export class ApiService {
     let url = environment.creditmanagementtest + "PNOrdersRequests/GetPNOrdersRequests?" + param;
     return this.http.get<AppResponse>(url);
   }
-  getPNOrderBookNotes(id): Observable<AppResponse> {
+  getPNOrderBookNotes(id,Sort:number): Observable<AppResponse> {
     let url =
       environment.creditmanagementtest +
-      'PNOrders/GetPNOrderBookNotes?orderId=' +
-      id;
+      'PNOrders/GetPNOrderBookNotes?orderId=' + id +"&Sort="+Sort;
     return this.http.get<AppResponse>(url);
   }
   getPermissions(id): Observable<AppResponse> {

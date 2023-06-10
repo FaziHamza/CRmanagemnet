@@ -18,7 +18,7 @@
                 <div class="input-search1">
                 <input type="text" class="form-control" placeholder="New No. of Installment"
                     [(ngModel)]="noofInstallment" numbersOnly>
-                    <span class="close">JD</span>
+                    <span class="close">JOD</span>
                 </div>
             </div>
         </div>
@@ -51,11 +51,11 @@
         <div class="col-lg-6">
             <div class="mb-3">
 
-                <label class="mb-1"><b>Interest Value (JD)</b></label>
+                <label class="mb-1"><b>Interest Value (JOD)</b></label>
                 <div class="input-search1">
                     <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal"
                         placeholder="Search by order number" numbersOnly>
-                        <span class="close">JD</span>
+                        <span class="close">JOD</span>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
     <hr>
     <div *ngIf="remainingAmount">
         <p><b>New Remaining Amount </b></p>
-        <p>{{remainingAmount}} JD</p>
+        <p>{{remainingAmount}} JOD</p>
     </div>
     <div class="bottom-buttons ng-star-inserted">
         <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancelModal()">Cancel</button>

@@ -43,7 +43,11 @@ export class PromissoryNotesMonthChartComponent implements AfterViewInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            return `${context.label}: ${context.raw} JOD`;
+            const value = context.raw;
+            const formattedValue = value.toLocaleString(); // Convert to thousand separator format
+            return `${context.label}: ${formattedValue} JOD`;
+
+            // return `${context.label}: ${context.raw} JOD`;
           },
         },
       },
@@ -163,7 +167,7 @@ export class PromissoryNotesMonthChartComponent implements AfterViewInit {
   selectedYearValue = new Date();
   data: any = {};
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   ngAfterViewInit() {
     this.initChart();

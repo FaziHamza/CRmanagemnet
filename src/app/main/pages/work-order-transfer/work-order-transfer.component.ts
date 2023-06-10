@@ -12,6 +12,7 @@ import { RejectComponent } from '../common/reject/reject.component';
 import { ErrorsComponent } from '../common/errors/errors.component';
 import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
+import { orderParam } from '../workorders/models/orderParam';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -26,6 +27,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
     private sanitizer: DomSanitizer,private permissionService:PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
+
+  orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
+  selectedItemOrderId = 0;
   current = 0;
   isGenerate = false;
   saveLoader = false;
@@ -59,6 +63,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   }
   getPNOrderDetails() {
     this.saveLoader = true;
+    this.selectedItemOrderId = this.orderId;
     this.apiService.getTransfereRequestDetails(this.orderId).subscribe(res => {
 
       this.saveLoader = false;
@@ -173,7 +178,8 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
         }
       }
       this.stepSaveLoader = true;
-      this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID).subscribe(res => {
+      this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID;
+      this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID,1).subscribe(res => {
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -408,5 +414,116 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
+  }
+  sortType = null;
+  sortCounter = 0;
+  getSortFunction(sortType: string, columnName: string,) {
+    if (this.generatedlist.length > 0) {
+      if (columnName === 'orderno') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 2;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 3;
+            break;
+        }
+        this.generateSortList();
+      }
+      if (columnName === 'amount') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 4;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 5;
+            break;
+        }
+        this.generateSortList();
+      }
+      // if (columnName == 'date') {
+      //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
+      //   this.generateSortList();
+      //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+      // }
+      if (columnName == 'date') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 6;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 7;
+            break;
+        }
+        this.generateSortList();
+      }
+      if (columnName == 'status') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 8;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 9;
+            break;
+        }
+        this.generateSortList();
+      }
+    }
+  }
+  generateSortList(){
+    let Sort = this.orderParamObj.Sort;
+    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId,Sort).subscribe(res => {
+      this.stepSaveLoader = false;
+      if (res.isSuccess) {
+        this.generatedlist = [];
+        // this.pdfInfoData = res.data['info'];
+        let generatedlist = res.data['data'];
+        for (let index = 0; index < generatedlist.length; index++) {
+          const obj = {
+            id: this.generatedlist.length + 1,
+            customerName: generatedlist[index]?.customer?.customerName,
+            // customerName: this.orderDetail.customer.customerName,
+            amount: generatedlist[index].pnAmount,
+            dueDate: generatedlist[index].dueDate,
+            status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+            pnBookID: generatedlist[index].pnBookID,
+            dateCheck: generatedlist[index].dueDate,
+            pdfView: generatedlist[index].pNpdfFile
+          };
+          this.generatedlist.push(obj);
+        }
+        this.isGenerate = true;
+      }
+    })
   }
 }

@@ -10,6 +10,7 @@ import { CmsSetupDto } from '../../models/cmsSetupDto';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ErrorsComponent } from '../common/errors/errors.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
+import { orderParam } from '../workorders/models/orderParam';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -21,11 +22,13 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
-    private sanitizer: DomSanitizer,private permissionService:PermissionService,
+    private sanitizer: DomSanitizer, private permissionService: PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
+    orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
   current = 0;
   isGenerate = false;
   saveLoader = false;
+  selectedItemOrderId = 0;
   promissoryist = [];
   generatedlist = [];
   orderDetail: any;
@@ -55,27 +58,28 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   getPNOrderDetails() {
     this.saveLoader = true;
+    this.selectedItemOrderId = this.orderId;
     this.apiService.getPNOrders(this.orderId).subscribe(res => {
 
       this.saveLoader = false;
       this.orderDetail = res.data;
       this.commonService.breadcrumb = [
-        { title: this.orderDetail.comingFromTypeID  == 26002 ? 'Rescheduling Promissory Notes Orders' : this.orderDetail.comingFromTypeID  == 26003 ? 'Transfering Promissory Notes Orders' : 'Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+        { title: this.orderDetail.comingFromTypeID == 26002 ? 'Rescheduling Promissory Notes Orders' : this.orderDetail.comingFromTypeID == 26003 ? 'Transfering Promissory Notes Orders' : 'Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
       ]
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
 
       this.versionTab = res.data['versions'];
-      if(res.data['versions']){
+      if (res.data['versions']) {
         for (let index = 0; index < res.data['versions'].length; index++) {
           // const element = res.data['versions'][index];
           this.versionTab[index]['tabName'] = 'PN V' + (index + 1);
         }
         this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-      }else{
+        this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
+      } else {
         this.versionTab = [];
         this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+        this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
       }
       if (this.orderDetail) {
         if (this.orderDetail.statusObj) {
@@ -124,6 +128,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   //#region  Generating Promissory Notes Orders Tab 1
   getListofPromissoryNote() {
     this.promissoryist = [];
+    let remainingAmount = this.orderDetail.pnTotalAmount;
     for (let index = 0; index < this.orderDetail.numberOfInstallments; index++) {
       const dueDate = new Date(this.orderDetail.startDate);
       if (this.cmsSetup.periodBetweenPNType.toLowerCase() == "months") {
@@ -131,17 +136,33 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       } else {
         dueDate.setDate(dueDate.getDate() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
       }
-
-      const obj = {
-        id: this.promissoryist.length + 1,
-        customerName: this.orderDetail.customer.customerName,
-        amount: this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments,
-        orginalAmount: this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments,
-        dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-        originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-        status: 'Generating',
-        edit: false
-      };
+      let installment = parseFloat((this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments).toFixed(3));
+      let obj = {};
+      if (index == this.orderDetail.numberOfInstallments - 1) {
+        obj = {
+          id: this.promissoryist.length + 1,
+          customerName: this.orderDetail.customer.customerName,
+          amount: remainingAmount,
+          orginalAmount: remainingAmount,
+          dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+          originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+          status: 'Generating',
+          edit: false
+        };
+      }
+      else {
+        remainingAmount -= installment;
+        obj = {
+          id: this.promissoryist.length + 1,
+          customerName: this.orderDetail.customer.customerName,
+          amount: installment,
+          orginalAmount: installment,
+          dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+          originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+          status: 'Generating',
+          edit: false
+        };
+      }
 
       this.promissoryist.push(obj);
     }
@@ -235,7 +256,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   //#region  generated tab 2
   getGeneratedList(index: number) {
     this.stepSaveLoader = true;
-    this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
+    this.selectedItemOrderId = this.orderId;
+    this.apiService.getPNOrderBookNotes(this.orderId,1).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
 
@@ -251,8 +273,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             amount: generatedlist[index].pnAmount,
             dueDate: generatedlist[index].dueDate,
             status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
-            lookupBGColor: generatedlist[index].statusObj ?  generatedlist[index].statusObj.lookupBGColor : '',
-            lookupTextColor: generatedlist[index].statusObj ?  generatedlist[index].statusObj.lookupTextColor : '',
+            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
             pnBookID: generatedlist[index].pnBookID,
             dateCheck: new Date(generatedlist[index].dueDate) < currentDate ? true : false,
             pdfView: generatedlist[index].pNpdfFile
@@ -289,7 +311,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     for (let index = 0; index < this.promissoryist.length; index++) {
       amount += this.editCache[index + 1].data.amount;
     }
-    this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
+    // let differenceamount = this.truncateValue(parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3)));
+    this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
     // this.promissoryist.forEach(element => {
     //   if (element.id === id && !check) {
     //     amount += this.editCache[id].data.amount
@@ -299,6 +322,17 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // });
     // this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
   }
+  truncateValue(number: number): number {
+    const truncated = Math.trunc(number * 1000) / 1000; // Truncate to three decimal places
+    const thirdDecimal = Math.floor((truncated * 1000) % 10); // Get the third decimal place
+
+    if (thirdDecimal < 5) {
+      return Math.trunc(truncated); // Return the truncated value as an integer
+    } else {
+      return truncated; // Return the original value without truncation
+    }
+  }
+
   //#region  generated tab 2
   tabChange(item: any) {
     if (item.versions) {
@@ -329,7 +363,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         }
       }
       this.stepSaveLoader = true;
-      this.apiService.getPNOrderBookNotes(item.orderId).subscribe(res => {
+      this.selectedItemOrderId = item.orderId;
+      this.apiService.getPNOrderBookNotes(item.orderId,1).subscribe(res => {
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -380,8 +415,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         }
       }
     }
-      this.stepSaveLoader = true;
-      this.apiService.getPNOrderBookNotes(this.orderId).subscribe(res => {
+    this.stepSaveLoader = true;
+    this.selectedItemOrderId = this.orderId;
+    this.apiService.getPNOrderBookNotes(this.orderId,1).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
@@ -468,7 +504,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         if (response.isSuccess) {
           this.isPrintShow = false;
           this.ngOnInit();
-        }else{
+        } else {
           this.errorsList = response.errors ? response.errors : response['Errors'];
           this.commonService.showError("found some error..!", "Error");
           this.error(this.errorsList);
@@ -485,7 +521,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   printClose() {
     this.isPrintShow = false;
   }
-  error(errorsList:any) {
+  error(errorsList: any) {
     const modal = this.modal.create<ErrorsComponent>({
       nzWidth: 600,
       nzContent: ErrorsComponent,
@@ -500,12 +536,123 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.commonService.selectedWorkorder = 0;
     this.commonService.loadRequestTab = false;
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
+  }
+  sortType = null;
+  sortCounter = 0;
+  getSortFunction(sortType: string, columnName: string,) {
+    if (this.generatedlist.length > 0) {
+      if (columnName === 'orderno') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 2;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 3;
+            break;
+        }
+        this.generateSortList();
+      }
+      if (columnName === 'amount') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 4;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 5;
+            break;
+        }
+        this.generateSortList();
+      }
+      // if (columnName == 'date') {
+      //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
+      //   this.generateSortList();
+      //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
+      // }
+      if (columnName == 'date') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 6;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 7;
+            break;
+        }
+        this.generateSortList();
+      }
+      if (columnName == 'status') {
+        this.sortCounter++;
+        switch (this.sortCounter % 3) {
+          case 0: // no sort
+            this.sortType = null;
+            this.orderParamObj.Sort = 1;
+            break;
+          case 1: // ascending
+            this.sortType = "ascend";
+            this.orderParamObj.Sort = 8;
+            break;
+          case 2: // descending
+            this.sortType = "descend";
+            this.orderParamObj.Sort = 9;
+            break;
+        }
+        this.generateSortList();
+      }
+    }
+  }
+  generateSortList(){
+    let Sort = this.orderParamObj.Sort;
+    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId,Sort).subscribe(res => {
+      this.stepSaveLoader = false;
+      if (res.isSuccess) {
+        this.generatedlist = [];
+        // this.pdfInfoData = res.data['info'];
+        let generatedlist = res.data['data'];
+        for (let index = 0; index < generatedlist.length; index++) {
+          const obj = {
+            id: this.generatedlist.length + 1,
+            customerName: generatedlist[index]?.customer?.customerName,
+            // customerName: this.orderDetail.customer.customerName,
+            amount: generatedlist[index].pnAmount,
+            dueDate: generatedlist[index].dueDate,
+            status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+            pnBookID: generatedlist[index].pnBookID,
+            dateCheck: generatedlist[index].dueDate,
+            pdfView: generatedlist[index].pNpdfFile
+          };
+          this.generatedlist.push(obj);
+        }
+        this.isGenerate = true;
+      }
+    })
   }
 }
 

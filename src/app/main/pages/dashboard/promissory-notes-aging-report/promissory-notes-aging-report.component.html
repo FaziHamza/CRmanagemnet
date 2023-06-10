@@ -37,9 +37,9 @@
   </div>
   <div class="d-flex align-items-center me-auto">
     <div class="filter-label">Age as of :</div>
-    <div class="input-search form-control2">
-      <nz-range-picker  [(ngModel)]="selectedLookupId"
-      (ngModelChange)="lookupChange($event)"></nz-range-picker>
+    <div class="input-search form-control4">
+      <nz-date-picker  [(ngModel)]="selectedLookupId"
+      (ngModelChange)="lookupChange($event)"></nz-date-picker>
       <!-- <select
         class="form-select"
         [ngClass]="{ placeholder: !selectedLookupId }"

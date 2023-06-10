@@ -84,19 +84,24 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
     // if (this.selectedLookupId) {
     //   filter.AgeingId = this.selectedLookupId;
     // }
-    if (this.selectedLookupId.length > 0) {
-      const fromDate = new Date(this.selectedLookupId[0].toString());
-      const toDate = new Date(this.selectedLookupId[1]);
+    if (this.selectedLookupId) {
+      // const fromDate = new Date(this.selectedLookupId[0].toString());
+      // const toDate = new Date(this.selectedLookupId[1]);
+
+      // const formattedFromDate = fromDate.toISOString();
+      // const formattedToDate = toDate.toISOString();
+
+      // filter.DateFrom = formattedFromDate
+      // filter.DateTo = formattedToDate
+
+      const fromDate = new Date(this.selectedLookupId.toString());
 
       const formattedFromDate = fromDate.toISOString();
-      const formattedToDate = toDate.toISOString();
 
       filter.DateFrom = formattedFromDate
-      filter.DateTo = formattedToDate
     }
     else {
       filter.DateFrom = ''
-      filter.DateTo = ''
     }
     this.apiService
       .getPromissoryNotesAgingReport(filter)

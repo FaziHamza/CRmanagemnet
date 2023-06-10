@@ -35,6 +35,7 @@ import { RejectComponent } from './pages/common/reject/reject.component';
 import { MaxCharactersDirective } from '../directive/max-characters.directive';
 import { PromissoryListComponent } from './pages/workorders/promissory-list/promissory-list.component';
 import { RoundedPipe } from '../pipe/rounded-pipe';
+import { PositiveDecimalDirective } from '../directive/positivedecimal-only.directive';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -51,7 +52,7 @@ import { RoundedPipe } from '../pipe/rounded-pipe';
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent, CMSetupComponent, PromissoryNoteComponent,
     WorkordersComponent, LogoutComponent,NumberDirective
-    ,DigitDirective,MaxCharactersDirective
+    ,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective
     , CustomRoundPipe,RoundedPipe, RoundPipe, CreateRequestComponent, CreditAccountComponent, TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent, WorkOrderRequestComponent, ConfirmPopupComponent, WorkOrderRescheduleComponent, WorkOrderTransferComponent, ErrorsComponent, RejectComponent, PromissoryListComponent],
   providers: [
     DecimalPipe, DatePipe

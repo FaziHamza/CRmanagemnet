@@ -83,7 +83,7 @@
                         <div class="card-box">
                             <h4 class="title">{{"Promissory_Notes.Vehicle_Price" | translate}}</h4>
                             <h4 class="detail" *ngIf="orderDetail && orderDetail.totalAmount">
-                                {{orderDetail.totalAmount | customRound: 0}} JD</h4>
+                                {{orderDetail.totalAmount |  number : ".3"}} JOD</h4>
                             <h4 class="detail" *ngIf="!orderDetail.totalAmount">---</h4>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                 <div class="col-lg-2 col-md-6">
                                     <div class="card-box">
                                         <h4 class="title">Interest Value</h4>
-                                        <h4 class="detail" *ngIf="orderDetail.interestValue">{{orderDetail.interestValue | rounded : 3}} JD
+                                        <h4 class="detail" *ngIf="orderDetail.interestValue">{{orderDetail.interestValue | number : '.3'}} JOD
                                         </h4>
                                         <h4 class="detail" *ngIf="!orderDetail.interestValue">---</h4>
                                     </div>
@@ -144,7 +144,7 @@
                                     <div class="card-box">
                                         <h4 class="title">New Remaining Amount</h4>
                                         <h4 class="detail" *ngIf="orderDetail.newRemainingAmount">
-                                            {{orderDetail.newRemainingAmount | rounded : 3}} JD</h4>
+                                            {{orderDetail.newRemainingAmount | number : '.3'}} JOD</h4>
                                         <h4 class="detail" *ngIf="!orderDetail.newRemainingAmount">---</h4>
                                     </div>
                                 </div>
@@ -209,14 +209,14 @@
                                                 (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
                                                 |
                                                 translate}}
-                                                <a href="" class="eye">
+                                                <a  (click)="pdfView(orderDetail.customer.identityFile1)" class="eye">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24">
                                                         <path fill="currentColor"
                                                             d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                                                     </svg>
                                                 </a>
-                                                <a href="" class="download">
+                                                <a href="{{ orderDetail.customer.identityFile1}}" target="_blank" class="download">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24">
                                                         <path fill="currentColor"
@@ -282,14 +282,14 @@
                                             <button type="button" *ngIf="orderDetail && orderDetail.guarantor.identityFile1"
                                                 class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
                                                 translate}}
-                                                <a href="" class="eye">
+                                                <a (click)="pdfView(orderDetail.guarantor.identityFile1)" class="eye">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24">
                                                         <path fill="currentColor"
                                                             d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                                                     </svg>
                                                 </a>
-                                                <a href="" class="download">
+                                                <a href="{{ orderDetail.guarantor.identityFile1}}" target="_blank" class="download">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         viewBox="0 0 24 24">
                                                         <path fill="currentColor"
@@ -407,14 +407,14 @@
                                             (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
                                             |
                                             translate}}
-                                            <a href="" class="eye">
+                                            <a (click)="pdfView(orderDetail.customer.identityFile1)" class="eye">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="currentColor"
                                                         d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                                                 </svg>
                                             </a>
-                                            <a href="" class="download">
+                                            <a href="{{ orderDetail.customer.identityFile1}}" target="_blank" class="download">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="currentColor"
@@ -480,14 +480,14 @@
                                         <button type="button" *ngIf="orderDetail && orderDetail.guarantor.identityFile1"
                                             class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
                                             translate}}
-                                            <a href="" class="eye">
+                                            <a (click)="pdfView(orderDetail.guarantor.identityFile1)" class="eye">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="currentColor"
                                                         d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                                                 </svg>
                                             </a>
-                                            <a href="" class="download">
+                                            <a href="{{ orderDetail.guarantor.identityFile1}}" target="_blank" class="download">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24">
                                                     <path fill="currentColor"
@@ -581,7 +581,7 @@
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                            All PN Amount
-                                                                            <span class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal}} JD</span>
+                                                                            <span class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal | number : '.3'}} JOD</span>
                                                                             <span class="head-detail" *ngIf="!otherDetail.pnsTotal">---</span>
                                                                         </h4>
                                                                     </div>
@@ -599,7 +599,7 @@
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                            Remaining PN Account
-                                                                            <span class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount}} JD</span>
+                                                                            <span class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount | number : '.3'}} JOD</span>
                                                                             <span class="head-detail" *ngIf="!otherDetail.remainingAmount">---</span>
                                                                         </h4>
                                                                     </div>
@@ -621,22 +621,22 @@
                                                                 nzTableLayout="fixed" [nzPageSize]="6">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>
+                                                                        <th nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
                                                                             {{"Promissory_Notes.No" | translate}}
                                                                         </th>
                                                                         <th>{{"Promissory_Notes.Customer_Name" |
                                                                             translate}}
                                                                         </th>
-                                                                        <th>
+                                                                        <th (click)="getSortFunction(sortType,'amount')">
                                                                             {{"Promissory_Notes.Amount" | translate}}
                                                                         </th>
-                                                                        <th>
+                                                                        <th (click)="getSortFunction(sortType,'date')">
                                                                             {{"Promissory_Notes.Due_Date" | translate}}
                                                                         </th>
-                                                                        <th>
+                                                                        <th (click)="getSortFunction(sortType,'status')">
                                                                             {{"Promissory_Notes.PN_Status" | translate}}
                                                                         </th>
-                                                                        <th>{{"Promissory_Notes.Action" | translate}}
+                                                                        <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
                                                                         </th>
                                                                     </tr>
                                                                 </thead>
@@ -649,7 +649,7 @@
                                                                                 {{ data.id }}
                                                                             </td>
                                                                             <td>{{ data.customerName }}</td>
-                                                                            <td>{{ data.amount | customRound: 0 }} JD
+                                                                            <td>{{ data.amount | customRound: 0 }} JOD
                                                                             </td>
                                                                             <td>
                                                                                 {{data.dueDate | date : 'dd MMM yyyy'}}
@@ -713,7 +713,7 @@
             <div class="col-lg-6 text-end">
                 <h1 class="header-content ">
                     {{"Promissory_Notes.Difference_amount" |
-                    translate}} (JD) : <span class="head-detail"
+                    translate}} (JOD) : <span class="head-detail"
                         *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
                 </h1>
             </div>
