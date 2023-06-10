@@ -1040,8 +1040,8 @@ tr:hover {
 }
 
 .ant-pagination-item-active {
-    border: 2px solid #bdbdbd !important;
-    background: #9f9c9c !important;
+    border: 2px solid $primary !important;
+    background: $primary !important;
     box-shadow: 0px 7px 16px rgba(0, 0, 0, 0.14) !important;
     border-radius: 8px !important;
 
