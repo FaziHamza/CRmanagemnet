@@ -97,7 +97,7 @@ html {
 .o-btn {
     background: $primary;
     height: 48px;
-    min-width: 100px;
+    min-width: 140px;
     border: none;
     font-weight: 600;
     overflow: hidden;
@@ -778,11 +778,11 @@ input[type="checkbox"]:checked {
     }
 }
 
-.ant-picker-suffix > * {
+.ant-picker-suffix>* {
     font-size: 18px;
 }
 
-.ant-picker-input > input {
+.ant-picker-input>input {
     font-size: 12px !important;
 }
 
@@ -971,7 +971,7 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
     border-left: none !important;
 }
 
@@ -1454,7 +1454,7 @@ hr {
     }
 }
 
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
     border: none !important;
     background: $primary !important;
 }
@@ -1555,7 +1555,7 @@ nz-tabset {
     color: #929eae;
 }
 
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
     white-space: nowrap;
 }
 
@@ -1572,7 +1572,7 @@ nz-tabset {
     background: #dc3545 !important;
 }
 
-.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
     color: $bg-light !important;
     top: -3.5px !important;
 }
@@ -1697,20 +1697,19 @@ nz-tabset {
 
 .header-btn-setup {
     .btn {
-        font-size: 14px;
-        height: 26px !important;
+        height: 30px !important;
         width: auto;
+        padding: 0px 15px;
         border: none;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 4px;
         display: flex;
         justify-content: center;
-        box-shadow: $card-shadow !important;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, .1) !important;
         align-items: center;
-        font-size: 12px;
         font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 0.3px;
+        font-size: 14px;
+        letter-spacing: .3px;
     }
 
     .pending-status-btn {
@@ -1954,6 +1953,7 @@ nz-tabset {
         }
     }
 }
+
 .form-control4 {
     .ant-picker-range-separator {
         margin-bottom: 10px;
@@ -2135,8 +2135,8 @@ nz-tabset {
 }
 
 .form-check-input:disabled,
-.form-check-input:disabled ~ .form-check-label,
-.form-check-input[disabled] ~ .form-check-label {
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
     opacity: 1 !important;
 }
 
@@ -2170,28 +2170,29 @@ nz-tabset {
     }
 }
 
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
     border: 1px solid $border !important;
 }
 
-.ant-tabs-bottom > .ant-tabs-nav::before,
-.ant-tabs-bottom > div > .ant-tabs-nav::before,
-.ant-tabs-top > .ant-tabs-nav::before,
-.ant-tabs-top > div > .ant-tabs-nav::before {
+.ant-tabs-bottom>.ant-tabs-nav::before,
+.ant-tabs-bottom>div>.ant-tabs-nav::before,
+.ant-tabs-top>.ant-tabs-nav::before,
+.ant-tabs-top>div>.ant-tabs-nav::before {
     border-bottom: none !important;
 }
 
-.ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+.ant-tabs-card.ant-tabs-bottom>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-bottom>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
     margin-left: 0px !important;
 }
 
 .form-control2 .ant-picker .ant-picker-input input {
     border: none !important;
 }
+
 .form-control4 .ant-picker .ant-picker-input input {
     border: none !important;
 }
@@ -2217,6 +2218,7 @@ nz-tabset {
 }
 
 .ant-modal-body {
+
     input,
     select,
     .ant-picker {
@@ -2286,32 +2288,30 @@ nz-tabset {
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: white;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        min-width: 240px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
         z-index: 1;
+        right: 0;
+        top: 45px;
     }
 
     .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
+        color: #000;
+        padding: 8px 16px;
         display: block;
+        font-size: 14px;
     }
 
+
     .dropdown-content a:hover {
-        background-color: $primary;
-        color: white;
+        background: $primary !important;
+        color: white !important;
     }
 
     .dropdown:hover .dropdown-content {
         display: block;
     }
-
-    // .dropdown:hover .dropbtn {
-    //     background-color: $primary;
-    //     color: white;
-    // }
 }
 
 .ant-radio-inner::after {
@@ -2319,7 +2319,7 @@ nz-tabset {
 }
 
 .ant-radio-checked .ant-radio-inner,
-.ant-radio-input:focus + .ant-radio-inner,
+.ant-radio-input:focus+.ant-radio-inner,
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner {
     border-color: $primary !important;
@@ -2332,9 +2332,11 @@ button span,
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
 }
+
 .card-bg-color {
     background: #f5f5f5 !important;
 }
+
 .btn-disabled {
     background: #9297ae;
     font-size: 16px;
@@ -2361,19 +2363,25 @@ button span,
     .row {
         align-items: center;
     }
+
     .profileee .heading-box {
         margin-bottom: 0px !important;
+
         p {
             margin-bottom: 0px !important;
         }
     }
+
     .pdf-view-btn {
         width: 100%;
     }
 }
 
 .disabled-link {
-  pointer-events: none; /* Disable click events */
-  opacity: 0.5; /* Reduce opacity to indicate disabled state */
-  cursor: not-allowed; /* Change cursor to not-allowed */
+    pointer-events: none;
+    /* Disable click events */
+    opacity: 0.5;
+    /* Reduce opacity to indicate disabled state */
+    cursor: not-allowed;
+    /* Change cursor to not-allowed */
 }
