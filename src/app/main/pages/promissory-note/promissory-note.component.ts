@@ -24,7 +24,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
     private sanitizer: DomSanitizer, private permissionService: PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
-    orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
+  orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
   current = 0;
   isGenerate = false;
   saveLoader = false;
@@ -172,12 +172,20 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   saveEdit(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
+    if (this.promissoryist[index].amount != this.editCache[id].data.amount)
+      this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
-    this.promissoryist[index].edit = true;
+    this.editCache[id].edit = false;
+  }
+  cancelEdit(id: number) {
+    const index = this.promissoryist.findIndex(item => item.id === id);
+    Object.assign(this.editCache[id].data, this.promissoryist[index]);
     this.editCache[id].edit = false;
   }
   finalSave(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
+    if (this.promissoryist[index].amount != this.editCache[id].data.amount)
+      this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
     this.editCache[id].edit = false;
   }
@@ -190,12 +198,18 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     });
   }
   saveGeneratingNotes() {
-    this.stepSaveLoader = true;
     let notes: any = [];
     this.promissoryist.forEach((item) => {
       this.finalSave(item.id);
     });
-
+    let check = this.promissoryist.find(a => a.amount == 0 || a.amount == null);
+    if (check) {
+      let index = this.promissoryist.findIndex(item => item.id === check.id);
+      this.promissoryist[index].edit = true;
+      this.commonService.showError("You must need to put more than 0 value..!", "Error");
+      return;
+    }
+    return;
     this.promissoryist.forEach(element => {
       const fromDate = new Date(element.dueDate.toString());
       let data = {
@@ -208,6 +222,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     let formData = new FormData();
     formData.append('OrderId', orderId);
     formData.append('Notes', JSON.stringify(notes));
+    this.stepSaveLoader = true;
     this.apiService.saveGeneratingNotes(formData).subscribe(
       (res) => {
         this.stepSaveLoader = false;
@@ -257,7 +272,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   getGeneratedList(index: number) {
     this.stepSaveLoader = true;
     this.selectedItemOrderId = this.orderId;
-    this.apiService.getPNOrderBookNotes(this.orderId,1).subscribe(res => {
+    this.apiService.getPNOrderBookNotes(this.orderId, 1).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
 
@@ -373,7 +388,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
       this.stepSaveLoader = true;
       this.selectedItemOrderId = item.orderId;
-      this.apiService.getPNOrderBookNotes(item.orderId,1).subscribe(res => {
+      this.apiService.getPNOrderBookNotes(item.orderId, 1).subscribe(res => {
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -426,7 +441,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     }
     this.stepSaveLoader = true;
     this.selectedItemOrderId = this.orderId;
-    this.apiService.getPNOrderBookNotes(this.orderId,1).subscribe(res => {
+    this.apiService.getPNOrderBookNotes(this.orderId, 1).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
@@ -635,9 +650,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     }
   }
-  generateSortList(){
+  generateSortList() {
     let Sort = this.orderParamObj.Sort;
-    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId,Sort).subscribe(res => {
+    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
@@ -663,5 +678,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     })
   }
+  downloadFile(file) {
+    this.apiService.downloadFile(file).subscribe(response => {
+      const blob = new Blob([response], { type: 'application/pdf' });
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = file;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    });
+  }
 }
-

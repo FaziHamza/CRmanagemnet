@@ -153,7 +153,7 @@
                     <td (click)="gotoDetail(data)">{{ data.requestID }}</td>
                     <td (click)="gotoDetail(data)">{{ data?.customerName }}</td>
                     <td (click)="gotoDetail(data)">{{ data?.mobile }}</td>
-                    <td (click)="gotoDetail(data)">{{ data.createdAt | date:'dd MMM yyyy h:mm a' }}</td>
+                    <td (click)="gotoDetail(data)">{{ data.createdAt | date:'dd MMM yyyy' }}</td>
                     <td (click)="gotoDetail(data)">
                         <button nz-tooltip="{{data.statusObj?.translations[0].lookupName}}" type="button" class="btn o-btn "
                             [style.background-color]="data.statusObj?.lookupBGColor"
