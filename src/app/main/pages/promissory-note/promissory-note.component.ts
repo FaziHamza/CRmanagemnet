@@ -172,9 +172,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   saveEdit(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
-    if (this.promissoryist[index].amount != this.editCache[id].data.amount)
-      this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
+    this.promissoryist[index].edit = true;
     this.editCache[id].edit = false;
   }
   cancelEdit(id: number) {
@@ -184,7 +183,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   finalSave(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
-    if (this.promissoryist[index].amount != this.editCache[id].data.amount)
+    if (parseFloat(this.promissoryist[index].amount) != parseFloat(this.editCache[id].data.amount))
       this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
     this.editCache[id].edit = false;
@@ -197,12 +196,21 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       };
     });
   }
+  checkAllFields(){
+    for (let index = 0; index < this.promissoryist.length; index++) {
+      const element = this.promissoryist[index];
+      let check = this.editCache[element.id].edit;
+      if(check)
+        return true;
+    }
+    return false;
+  }
   saveGeneratingNotes() {
     let notes: any = [];
     this.promissoryist.forEach((item) => {
       this.finalSave(item.id);
     });
-    let check = this.promissoryist.find(a => a.amount == 0 || a.amount == null);
+    let check = this.promissoryist.find(a => a.amount == 0 || a.amount == null || a.amount == '');
     if (check) {
       let index = this.promissoryist.findIndex(item => item.id === check.id);
       this.promissoryist[index].edit = true;
@@ -320,22 +328,18 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  changeAmount(id: any, check?: boolean) {
+  changeAmount(event:any,id: any, check?: boolean) {
     // this.updateEditCache();
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+      // charCode 48-57 are 0-9, 46 is .
+      return false;
+    }
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
-      amount += this.editCache[index + 1].data.amount;
+      amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
     }
-    // let differenceamount = this.truncateValue(parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3)));
     this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
-    // this.promissoryist.forEach(element => {
-    //   if (element.id === id && !check) {
-    //     amount += this.editCache[id].data.amount
-    //   }
-    //   else
-    //     amount += element.amount
-    // });
-    // this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
   }
   numericOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
@@ -345,7 +349,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     }
     return true;
   }
-  
+
   truncateValue(number: number): number {
     const truncated = Math.trunc(number * 1000) / 1000; // Truncate to three decimal places
     const thirdDecimal = Math.floor((truncated * 1000) % 10); // Get the third decimal place

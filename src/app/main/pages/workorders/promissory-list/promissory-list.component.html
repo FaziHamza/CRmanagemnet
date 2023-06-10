@@ -182,6 +182,8 @@
                           <ng-template #dotsBlock>
                             <nz-dropdown-menu #menu="nzDropdownMenu" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                 <ul nz-menu nzSelectable>
+                                    <li nz-menu-item [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="gotoDetail(data)">
+                                        View Detail</li>
                                     <li nz-menu-item [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                                         (click)="createRequest(data.orderId,'Reschedule Request')">
                                         Create Reschedule Request</li>
