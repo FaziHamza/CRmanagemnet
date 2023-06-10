@@ -173,4 +173,7 @@ export class ApiService {
     let url = environment.creditmanagementtest + "Customer/GetCustomers?Search=" + name + obj;
     return this.http.get<AppResponse>(url);
   }
+  downloadFile(file) {
+  return  this.http.get(file, { responseType: 'blob' })
+  }
 }

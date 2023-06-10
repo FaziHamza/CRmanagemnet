@@ -143,7 +143,7 @@
                     <td (click)="gotoDetail(data)">{{ data.orderId }}</td>
                     <td (click)="gotoDetail(data)">{{ data?.customer?.customerName }}</td>
                     <td (click)="gotoDetail(data)">{{ data.customer?.mobile }}</td>
-                    <td (click)="gotoDetail(data)">{{ data.orderDate | date:'dd MMM yyyy h:mm a' }}</td>
+                    <td (click)="gotoDetail(data)">{{ data.orderDate | date:'dd MMM yyyy' }}</td>
                     <td (click)="gotoDetail(data)"><button type="button" class="btn o-btn "
                             [style.background-color]="data.statusObj?.lookupBGColor"
                             [style.color]="data.statusObj?.lookupTextColor">

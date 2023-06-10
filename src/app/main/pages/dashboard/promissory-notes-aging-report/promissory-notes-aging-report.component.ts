@@ -96,9 +96,11 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
 
       const fromDate = new Date(this.selectedLookupId.toString());
 
-      const formattedFromDate = fromDate.toISOString();
+      // Get the date portion as a string (YYYY-MM-DD)
+      const formattedFromDate = fromDate.toISOString().substring(0, 10);
 
-      filter.DateFrom = formattedFromDate
+      filter.DateFrom = formattedFromDate;
+
     }
     else {
       filter.DateFrom = ''
