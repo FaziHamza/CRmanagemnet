@@ -180,6 +180,13 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     const index = this.promissoryist.findIndex(item => item.id === id);
     Object.assign(this.editCache[id].data, this.promissoryist[index]);
     this.editCache[id].edit = false;
+
+   
+    let amount = 0;
+    for (let index = 0; index < this.promissoryist.length; index++) {
+      amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
+    }
+    this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
   }
   finalSave(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
@@ -334,11 +341,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       // charCode 48-57 are 0-9, 46 is .
       return false;
     }
-    let amount = 0;
-    for (let index = 0; index < this.promissoryist.length; index++) {
-      amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
-    }
-    this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
+    // let amount = 0;
+    // for (let index = 0; index < this.promissoryist.length; index++) {
+    //   amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
+    // }
+    // this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
   }
   numericOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
