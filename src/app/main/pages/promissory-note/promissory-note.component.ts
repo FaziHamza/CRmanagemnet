@@ -171,6 +171,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.differenceAmount = 0;
   }
   saveEdit(id: number) {
+    debugger
     const index = this.promissoryist.findIndex(item => item.id === id);
     Object.assign(this.promissoryist[index], this.editCache[id].data);
     this.promissoryist[index].edit = true;
@@ -180,7 +181,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     const index = this.promissoryist.findIndex(item => item.id === id);
     Object.assign(this.editCache[id].data, this.promissoryist[index]);
     this.editCache[id].edit = false;
-    
+
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
       amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
@@ -224,12 +225,19 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       return;
     }
     this.promissoryist.forEach(element => {
+     
+      console.log(element.amount);
       const fromDate = new Date(element.dueDate.toString());
+    try {
       let data = {
-        amount: parseFloat(element.amount.toFixed(3)),
+        amount: parseFloat(element.amount.toString()).toFixed(3),
         dueDate: fromDate.toISOString()
       }
       notes.push(data);
+    } catch (error) {
+      debugger
+      console.log(error);
+    }
     })
     let orderId: any = this.orderId
     let formData = new FormData();

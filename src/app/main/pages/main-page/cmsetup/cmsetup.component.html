@@ -212,13 +212,16 @@
                                         <div class="input-text">
                                             <input type="number" class="form-control"
                                                 formControlName="allowedReschedulingRequestsLimit"
-                                                id="cm_setup_monthsRecheduling_input" digitsOnly>
+                                                id="cm_setup_monthsRecheduling_input" >
                                             <!-- Validation Message for Rescheduling Requests Limit -->
                                             <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').invalid && (cmsSetupForm.get('allowedReschedulingRequestsLimit').dirty || cmsSetupForm.get('allowedReschedulingRequestsLimit').touched)" class="text-danger">
                                                 <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.required">
-                                                  field is required
+                                                  Field is required.
                                                 </div>
-                                            </div>
+                                                <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.greaterThanZero">
+                                                  Value must be greater than 0.
+                                                </div>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +359,7 @@
 
         <button (click)="saveCmdSetup()" [ngClass]="{
             'btn o-btn hvr-bounce-to-right': promissorySetup || creditManagementSetup,
-            'btn btn-white hvr-bounce-to-right2': !(promissorySetup || creditManagementSetup)
+            'btn btn-danger hvr-bounce-to-right2': !(promissorySetup || creditManagementSetup)
           }" class="btn o-btn hvr-bounce-to-right">Save</button>
 
     </div>
