@@ -9,11 +9,17 @@ export class DigitDirective {
   constructor(private _el: ElementRef) { }
 
   @HostListener('input', ['$event']) onInputChange(event) {
-    const initalValue = this._el.nativeElement.value;
-    this._el.nativeElement.value = initalValue.replace(/[^1-9]*/g, '');
-    if ( initalValue !== this._el.nativeElement.value) {
+    const initialValue = this._el.nativeElement.value;
+    const parsedValue = parseInt(initialValue, 10);
+
+    if (isNaN(parsedValue) || parsedValue <= 0) {
+      this._el.nativeElement.value = '';
+    } else {
+      this._el.nativeElement.value = parsedValue;
+    }
+
+    if (initialValue !== this._el.nativeElement.value) {
       event.stopPropagation();
     }
   }
-
 }

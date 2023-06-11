@@ -68,18 +68,19 @@ handleOverDueAlertTypeChange(value: string) {
   cmsSetupFormcontrol() {
     this.cmsSetupForm = this.formBuilder.group({
       periodBetweenPNType: ['days', Validators.required],
-      periodBetweenPNValue: ['', [Validators.required, greaterThanZero]],
+      periodBetweenPNValue: ['', Validators.required],
       periodBetweenPNValueMonth: [''],
       overDueAlertType: [''],
-      overDueAlertTypeValue: ['', greaterThanZero],
-      overDueAlertTypeValueMonth: ['', greaterThanZero],
+      overDueAlertTypeValue: [''],
+      overDueAlertTypeValueMonth: [''],
       managePNWithin: ['', Validators.required],
-      allowedReschedulingRequestsLimit: ['', [Validators.required, greaterThanZero]],
-      allowedTransferringRequestsLimit: ['', [Validators.required, greaterThanZero]],
+      allowedReschedulingRequestsLimit: ['', Validators.required],
+      allowedTransferringRequestsLimit: ['', Validators.required],
+      //extra feild
       periodBetweenPNTypeDay: [''],
+
       id: [0],
     });
-    
     this.cmsSetupForm.disable();
     this.accountForm = this.formBuilder.group({
       id: [0],
@@ -242,12 +243,8 @@ handleOverDueAlertTypeChange(value: string) {
 
 export function greaterThanZero(control: AbstractControl): { [key: string]: any } | null {
   const value = control.value;
-  if (value === 0) {
-    return { greaterThanZero: true, zeroNotAllowed: true };
-  }
-  if (value !== null && value !== undefined && (isNaN(value) || value <= 0 || value.toString().includes('-') || value.toString().includes('+'))) {
-    return { greaterThanZero: true, invalidNumber: true };
+  if (value !== null && value !== undefined && (isNaN(value) || value <= 0)) {
+    return { greaterThanZero: true };
   }
   return null;
 }
-

@@ -216,12 +216,9 @@
                                             <!-- Validation Message for Rescheduling Requests Limit -->
                                             <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').invalid && (cmsSetupForm.get('allowedReschedulingRequestsLimit').dirty || cmsSetupForm.get('allowedReschedulingRequestsLimit').touched)" class="text-danger">
                                                 <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.required">
-                                                  Field is required.
+                                                  field is required
                                                 </div>
-                                                <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.greaterThanZero">
-                                                  Value must be greater than 0.
-                                                </div>
-                                              </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
