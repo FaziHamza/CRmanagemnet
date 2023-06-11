@@ -24,15 +24,29 @@
                         <div class="accordion-body">
                             <div class="text-end">
                                 <a (click)="formdisablePromissory()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <svg *ngIf="!promissorySetup" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                         <g fill="none">
-                                            <path fill-rule="evenodd" stroke="#dc3545"
+                                            <path fill-rule="evenodd" stroke="#FFA07A"
                                                 d="M3.25 22a.75.75 0 0 1 .75-.75h16a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75Z"
                                                 clip-rule="evenodd" />
                                             <path stroke="#dc3545"
                                                 d="m11.52 14.929l5.917-5.917a8.232 8.232 0 0 1-2.661-1.787a8.232 8.232 0 0 1-1.788-2.662L7.07 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-1.088 3.267a.848.848 0 0 0 1.073 1.073l3.266-1.088c.62-.207.93-.31 1.221-.45a5.19 5.19 0 0 0 .969-.598c.255-.199.485-.43.947-.891Zm7.559-7.559a3.146 3.146 0 0 0-4.45-4.449l-.71.71l.031.09c.26.749.751 1.732 1.674 2.655A7.003 7.003 0 0 0 18.37 8.08l.71-.71Z" />
                                         </g>
                                     </svg>
+
+                                    <svg  *ngIf="promissorySetup" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <g fill="none">
+                                          <path fill-rule="evenodd" fill="#dc3545" stroke="#dc3545"
+                                            d="M3.25 22a.75.75 0 0 1 .75-.75h16a.75.75 0 0 1 0 1.5H4a.75.75 0 0 1-.75-.75Z"
+                                            clip-rule="evenodd" />
+                                          <path fill="#dc3545" stroke="#dc3545"
+                                            d="m11.52 14.929l5.917-5.917a8.232 8.232 0 0 1-2.661-1.787a8.232 8.232 0 0 1-1.788-2.662L7.07 10.48c-.462.462-.693.692-.891.947a5.24 5.24 0 0 0-.599.969c-.139.291-.242.601-.449 1.22l-1.088 3.267a.848.848 0 0 0 1.073 1.073l3.266-1.088c.62-.207.93-.31 1.221-.45a5.19 5.19 0 0 0 .969-.598c.255-.199.485-.43.947-.891Zm7.559-7.559a3.146 3.146 0 0 0-4.45-4.449l-.71.71l.031.09c.26.749.751 1.732 1.674 2.655A7.003 7.003 0 0 0 18.37 8.08l.71-.71Z" />
+                                        </g>
+                                      </svg>
+                                      
+                                      
+                                      
+                                    
                                 </a>
                             </div>
                             <div class="edit-row">
@@ -54,6 +68,14 @@
                                             <div class="input-text">
                                                 <input type="number" class="form-control" id="cm_setup_daysone_input"
                                                     digitsOnly formControlName="periodBetweenPNValue">
+                                                <!-- Validation Message for Days-->
+                                                <div *ngIf="cmsSetupForm.get('periodBetweenPNType').value === 'days' && cmsSetupForm.get('periodBetweenPNValue').invalid && (cmsSetupForm.get('periodBetweenPNValue').dirty || cmsSetupForm.get('periodBetweenPNValue').touched)"
+                                                    class="text-danger">
+                                                    <div
+                                                        *ngIf="cmsSetupForm.get('periodBetweenPNValue').errors.required">
+                                                       field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -69,12 +91,22 @@
                                             <div class="input-text">
                                                 <input type="number" class="form-control" id="cm_setup_monthsone_input"
                                                     digitsOnly formControlName="periodBetweenPNValueMonth">
+                                                <!-- Validation Message for Months -->
+                                                <div *ngIf="cmsSetupForm.get('periodBetweenPNType').value === 'months' && cmsSetupForm.get('periodBetweenPNValueMonth').invalid && (cmsSetupForm.get('periodBetweenPNValueMonth').dirty || cmsSetupForm.get('periodBetweenPNValueMonth').touched)"
+                                                    class="text-danger">
+                                                    <div
+                                                        *ngIf="cmsSetupForm.get('periodBetweenPNValueMonth').errors.required">
+                                                         field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
+                            <!-- Your existing HTML code -->
+
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
@@ -94,6 +126,14 @@
                                             <div class="input-text">
                                                 <input type="number" class="form-control" id="cm_setup_daystwo_input"
                                                     digitsOnly formControlName="overDueAlertTypeValue">
+                                                <!-- Validation Message for Days -->
+                                                <div *ngIf="cmsSetupForm.get('overDueAlertType').value === 'days' && cmsSetupForm.get('overDueAlertTypeValue').invalid && (cmsSetupForm.get('overDueAlertTypeValue').dirty || cmsSetupForm.get('overDueAlertTypeValue').touched)"
+                                                    class="text-danger">
+                                                    <div
+                                                        *ngIf="cmsSetupForm.get('overDueAlertTypeValue').errors.required">
+                                                         field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -109,11 +149,22 @@
                                             <div class="input-text">
                                                 <input type="number" class="form-control" id="cm_setup_monthstwo_input"
                                                     digitsOnly formControlName="overDueAlertTypeValueMonth">
+                                                <!-- Validation Message for Months -->
+                                                <div *ngIf="cmsSetupForm.get('overDueAlertType').value === 'months' && cmsSetupForm.get('overDueAlertTypeValueMonth').invalid && (cmsSetupForm.get('overDueAlertTypeValueMonth').dirty || cmsSetupForm.get('overDueAlertTypeValueMonth').touched)"
+                                                    class="text-danger">
+                                                    <div
+                                                        *ngIf="cmsSetupForm.get('overDueAlertTypeValueMonth').errors.required">
+                                                         field is required.
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Your existing HTML code continues -->
+
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
@@ -124,22 +175,17 @@
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    [value]="'Branch working hours'" id="flexRadioDefault5"
-                                                    formControlName="managePNWithin">
+                                                <input class="form-check-input" type="radio" [value]="'Branch working hours'" id="flexRadioDefault5" formControlName="managePNWithin">
                                                 <label class="form-check-label" for="flexRadioDefault5">
                                                     {{"cmsetup.Branch_working_hours" | translate}}
                                                 </label>
                                             </div>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="days">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                    [value]="'Employee working hours'" id="flexRadioDefault6"
-                                                    formControlName="managePNWithin">
+                                                <input class="form-check-input" type="radio" [value]="'Employee working hours'" id="flexRadioDefault6" formControlName="managePNWithin">
                                                 <label class="form-check-label" for="flexRadioDefault6">
                                                     {{"cmsetup.Employee_working_hours" | translate}}
                                                 </label>
@@ -147,7 +193,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Validation Message -->
+                                <div *ngIf="cmsSetupForm.get('managePNWithin').invalid && (cmsSetupForm.get('managePNWithin').dirty || cmsSetupForm.get('managePNWithin').touched)" class="text-danger">
+                                    <div *ngIf="cmsSetupForm.get('managePNWithin').errors.required">
+                                        field is required.
+                                    </div>
+                                </div>
                             </div>
+                            
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
@@ -160,16 +213,22 @@
                                             <input type="number" class="form-control"
                                                 formControlName="allowedReschedulingRequestsLimit"
                                                 id="cm_setup_monthsRecheduling_input" digitsOnly>
+                                            <!-- Validation Message for Rescheduling Requests Limit -->
+                                            <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').invalid && (cmsSetupForm.get('allowedReschedulingRequestsLimit').dirty || cmsSetupForm.get('allowedReschedulingRequestsLimit').touched)" class="text-danger">
+                                                <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.required">
+                                                  field is required
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="edit-row">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
                                         <p>
                                             {{"cmsetup.Allow_no_of_Transfering_Request" | translate}}
-
                                         </p>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
@@ -177,10 +236,17 @@
                                             <input type="number" class="form-control"
                                                 formControlName="allowedTransferringRequestsLimit"
                                                 id="cm_setup_daystransfering_input" digitsOnly>
+                                            <!-- Validation Message for Transferring Requests Limit -->
+                                            <div *ngIf="cmsSetupForm.get('allowedTransferringRequestsLimit').invalid && (cmsSetupForm.get('allowedTransferringRequestsLimit').dirty || cmsSetupForm.get('allowedTransferringRequestsLimit').touched)" class="text-danger">
+                                                <div *ngIf="cmsSetupForm.get('allowedTransferringRequestsLimit').errors.required">
+                                                    field is required
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

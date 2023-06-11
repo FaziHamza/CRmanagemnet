@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CmsSetupDto } from 'src/app/main/models/cmsSetupDto';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
@@ -24,20 +24,59 @@ export class CMSetupComponent implements OnInit {
     ]
     this.cmsSetupFormcontrol();
     this.getCmsSetup();
+    this.cmsSetupForm.get('periodBetweenPNType').valueChanges.subscribe(value => this.handlePNTypeChange(value));
+    this.cmsSetupForm.get('overDueAlertType').valueChanges.subscribe(value => this.handleOverDueAlertTypeChange(value));
+}
 
-  }
+  handlePNTypeChange(value: string) {
+    if (value.toLocaleLowerCase() === 'days') {
+      this.cmsSetupForm.patchValue({
+        periodBetweenPNValueMonth: null
+      });
+      this.cmsSetupForm.get('periodBetweenPNValueMonth').clearValidators();
+      this.cmsSetupForm.get('periodBetweenPNValue').setValidators(Validators.required);
+    } else {
+      this.cmsSetupForm.patchValue({
+        periodBetweenPNValue: null
+      });
+      this.cmsSetupForm.get('periodBetweenPNValue').clearValidators();
+      this.cmsSetupForm.get('periodBetweenPNValueMonth').setValidators(Validators.required);
+    }
+    this.cmsSetupForm.get('periodBetweenPNValue').updateValueAndValidity();
+    this.cmsSetupForm.get('periodBetweenPNValueMonth').updateValueAndValidity();
+}
+
+handleOverDueAlertTypeChange(value: string) {
+    if (value.toLocaleLowerCase() === 'days') {
+      this.cmsSetupForm.patchValue({
+        overDueAlertTypeValueMonth: null
+      });
+      this.cmsSetupForm.get('overDueAlertTypeValueMonth').clearValidators();
+      this.cmsSetupForm.get('overDueAlertTypeValue').setValidators(Validators.required);
+    } else {
+      this.cmsSetupForm.patchValue({
+        overDueAlertTypeValue: null
+      });
+      this.cmsSetupForm.get('overDueAlertTypeValue').clearValidators();
+      this.cmsSetupForm.get('overDueAlertTypeValueMonth').setValidators(Validators.required);
+    }
+    this.cmsSetupForm.get('overDueAlertTypeValue').updateValueAndValidity();
+    this.cmsSetupForm.get('overDueAlertTypeValueMonth').updateValueAndValidity();
+}
+
+
   cmsSetupFormcontrol() {
     this.cmsSetupForm = this.formBuilder.group({
-      periodBetweenPNType: [''],
-      periodBetweenPNValue: [''],
+      periodBetweenPNType: ['days', Validators.required],
+      periodBetweenPNValue: ['', Validators.required],
       periodBetweenPNValueMonth: [''],
       overDueAlertType: [''],
       overDueAlertTypeValue: [''],
       overDueAlertTypeValueMonth: [''],
-      managePNWithin: [''],
+      managePNWithin: ['', Validators.required],
 
-      allowedReschedulingRequestsLimit: [''],
-      allowedTransferringRequestsLimit: [''],
+      allowedReschedulingRequestsLimit: ['', Validators.required],
+      allowedTransferringRequestsLimit: ['', Validators.required],
       //extra feild
       periodBetweenPNTypeDay: [''],
 
@@ -77,8 +116,8 @@ export class CMSetupComponent implements OnInit {
             periodBetweenPNValue: isDay ? this.cmsSetup.periodBetweenPNValue : null,
             periodBetweenPNValueMonth: isDay ? null : this.cmsSetup.periodBetweenPNValue,
           });
-          
-          
+
+
           const isDay2 = this.cmsSetup.overDueAlertType.toLowerCase() === 'days';
 
           this.cmsSetupForm.patchValue({
@@ -87,7 +126,7 @@ export class CMSetupComponent implements OnInit {
             overDueAlertTypeValueMonth: isDay2 ? null : this.cmsSetup.overDueAlertTypeValue,
           });
 
-          
+
           // this.cmsSetupForm.value.periodBetweenPNValue = this.cmsSetupForm.value.periodBetweenPNType == 'Days' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
           // this.cmsSetupForm.value.periodBetweenPNValueMonth = this.cmsSetupForm.value.periodBetweenPNType == 'Months' ? this.cmsSetupForm.value.periodBetweenPNValue : '';
           // this.cmsSetupForm.value.overDueAlertTypeValue = this.cmsSetupForm.value.overDueAlertType == 'Days' ? this.cmsSetupForm.value.overDueAlertTypeValue : '';
@@ -99,7 +138,7 @@ export class CMSetupComponent implements OnInit {
   saveCmdSetupv1() {
     if (this.cmsSetupForm.valid) {
       let controls = this.cmsSetupForm.value;
-  
+
       if (controls.periodBetweenPNType == "Days") {
         controls.periodBetweenPNValue = controls.periodBetweenPNValue;
         controls.periodBetweenPNValueMonth = null;
@@ -107,7 +146,7 @@ export class CMSetupComponent implements OnInit {
         controls.periodBetweenPNValue = controls.periodBetweenPNValueMonth;
         controls.periodBetweenPNValueMonth = null;
       }
-  
+
       if (controls.overDueAlertType == "Days") {
         controls.overDueAlertTypeValue = controls.overDueAlertTypeValue;
         controls.overDueAlertTypeValueMonth = null;
@@ -115,7 +154,7 @@ export class CMSetupComponent implements OnInit {
         controls.overDueAlertTypeValue = controls.overDueAlertTypeValueMonth;
         controls.overDueAlertTypeValueMonth = null;
       }
-  
+
       this._apiService.saveCmsSetup(controls).subscribe(res => {
         if (res.isSuccess) {
           this.commonService.showSuccess("Data update successfully..!", "Success");
@@ -126,35 +165,36 @@ export class CMSetupComponent implements OnInit {
     }
   }
   saveCmdSetup() {
+    debugger
     if (this.cmsSetupForm.valid) {
       let controls = this.cmsSetupForm.value;
-  
+
       let formData = new FormData();
       formData.append('PeriodBetweenPNType', controls.periodBetweenPNType);
       formData.append('OverDueAlertType', controls.overDueAlertType);
       formData.append('ManagePNWithin', controls.managePNWithin);
       formData.append('AllowedReschedulingRequestsLimit', controls.allowedReschedulingRequestsLimit.toString());
       formData.append('AllowedTransferringRequestsLimit', controls.allowedTransferringRequestsLimit.toString());
-  
+
       if (controls.periodBetweenPNType.toLowerCase() === "days") {
         formData.append('PeriodBetweenPNValue', controls.periodBetweenPNValue.toString());
       } else {
         formData.append('PeriodBetweenPNValue', controls.periodBetweenPNValueMonth.toString());
       }
-  
+
       if (controls.overDueAlertType.toLowerCase() === "days") {
         formData.append('OverDueAlertTypeValue', controls.overDueAlertTypeValue.toString());
       } else {
         formData.append('OverDueAlertTypeValue', controls.overDueAlertTypeValueMonth.toString());
       }
-  
+
       // Capitalize the first letter
       let capitalizedPeriodBetweenPNType = controls.periodBetweenPNType.charAt(0).toUpperCase() + controls.periodBetweenPNType.slice(1);
       let capitalizedOverDueAlertType = controls.overDueAlertType.charAt(0).toUpperCase() + controls.overDueAlertType.slice(1);
-  
+
       formData.set('PeriodBetweenPNType', capitalizedPeriodBetweenPNType);
       formData.set('OverDueAlertType', capitalizedOverDueAlertType);
-  
+
       this._apiService.saveCmsSetup(formData).subscribe(res => {
         if (res.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
@@ -164,12 +204,12 @@ export class CMSetupComponent implements OnInit {
       });
     }
   }
-  
-  
-  
-  
 
-  
+
+
+
+
+
   onAlertTypeChange(event: Event) {
     this.cmsSetupForm.get('overDueAlertTypeValue').setValue('');
     this.cmsSetupForm.get('overDueAlertTypeValueMonth').setValue('');
@@ -197,6 +237,7 @@ export class CMSetupComponent implements OnInit {
     this.promissorySetup = false;
     this.accountForm.disable();
     this.cmsSetupForm.disable();
+    this.ngOnInit();
   }
 }
 
