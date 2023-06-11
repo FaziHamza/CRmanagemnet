@@ -217,7 +217,6 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       this.commonService.showError("You must need to put more than 0 value..!", "Error");
       return;
     }
-    return;
     this.promissoryist.forEach(element => {
       const fromDate = new Date(element.dueDate.toString());
       let data = {

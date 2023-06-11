@@ -5,9 +5,9 @@ export const environment = {
   GOOGLE_MAPS_API_KEY: 'AIzaSyAYyPkMoH478DfxCo0khzrVoKiy73ezuVY',
   intermediate: 'https://intermediatelayerspareparts.azurewebsites.net/posapi/api/',
   imageUrl: 'https://intermediatelayerspareparts.azurewebsites.net/',
-  creditmanagement:'https://creditmanagementtest.azurewebsites.net/POSAPI/api',
+  creditmanagement:'https://creditmanagementstage.azurewebsites.net/POSAPI/api',
   administration: 'https://dx-admimistration.azurewebsites.net/POSAPI/',
   administration2: 'https://dx-admimistration.azurewebsites.net/',
-  creditmanagementtest:'https://creditmanagementtest.azurewebsites.net/POSAPI/api/',
+  creditmanagementtest:'https://creditmanagementstage.azurewebsites.net/POSAPI/api/',
 
 };

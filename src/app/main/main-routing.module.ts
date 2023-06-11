@@ -23,14 +23,14 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
-      // {
-      //   path: 'cm-setup',
-      //   component: CMSetupComponent,
-      // },
-      // {
-      //   path: 'promissory-note',
-      //   component: PromissoryNoteComponent,
-      // },
+      {
+        path: 'cm-setup',
+        component: CMSetupComponent,
+      },
+      {
+        path: 'promissory-note',
+        component: PromissoryNoteComponent,
+      },
       {
         path: 'workorders/:id',
         component: PromissoryNoteComponent,
