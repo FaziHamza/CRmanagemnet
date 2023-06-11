@@ -1278,7 +1278,7 @@ input[type="number"] {
 }
 
 .heading-box {
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
 
     .head-title {
         margin-bottom: 5px !important;
@@ -2004,7 +2004,7 @@ nz-tabset {
 
     .card-heading {
         padding: 16px;
-        height: 86px;
+        min-height: 85px;
         width: 100%;
         background: #f8f8f8;
         border-radius: 8px;
@@ -2305,8 +2305,7 @@ nz-tabset {
 
 
     .dropdown-content a:hover {
-        background: $primary !important;
-        color: white !important;
+        background: #F2F2F2 !important;
     }
 
     .dropdown:hover .dropdown-content {
@@ -2384,4 +2383,10 @@ button span,
     /* Reduce opacity to indicate disabled state */
     cursor: not-allowed;
     /* Change cursor to not-allowed */
+}
+
+.flex-end-row {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
 }

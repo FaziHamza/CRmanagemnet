@@ -473,10 +473,8 @@
                         [hidden]="current !== i">
                         <div class="col-lg-12 col-md-8">
                           <div *ngIf="current == 0">
-                            <div class="row mt-4">
-                              <div class="col-lg-10"></div>
-                              <div class="col-lg-2 mb-1">
-                                <button type="button" class="btn o-btn hvr-bounce-to-right btn-md rest-btn"
+                            <div class="flex-end-row mt-2 mb-2">
+                                <button type="button" class="btn o-btn hvr-bounce-to-right btn-md"
                                   (click)="getListofPromissoryNote()" *ngIf="differenceAmount != 0 || checkReset()"
                                   [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -487,8 +485,7 @@
                                     </g>
                                   </svg>
                                   {{"Promissory_Notes.Reset" | translate}} </button>
-                              </div>
-
+                            
                             </div>
                             <div class="row heading-box">
                               <div class="col-lg-6 ">
