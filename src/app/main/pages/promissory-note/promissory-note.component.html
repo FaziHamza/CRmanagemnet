@@ -261,7 +261,7 @@
           <div class="col-lg-4 col-md-6">
             <div class="card">
               <div class="card-heading bb-none">
-                <h5>{{"Promissory_Notes.Customer_Information" | translate}}</h5>
+                <h5> <span *ngIf="orderDetail?.comingFromTypeID == 26003">New </span> {{"Promissory_Notes.Customer_Information" | translate}}</h5>
               </div>
               <div class="card-content">
                 <div class="profileee">
@@ -330,7 +330,7 @@
               <hr />
               <div class="card-heading bb-none">
                 <div class="head-left">
-                  <h5>{{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
+                  <h5><span *ngIf="orderDetail?.comingFromTypeID == 26003">New </span> {{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
                 </div>
                 <!-- <div class="head-right"></div> -->
               </div>
