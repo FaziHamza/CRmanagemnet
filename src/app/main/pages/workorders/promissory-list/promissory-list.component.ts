@@ -129,7 +129,7 @@ export class PromissoryListComponent implements OnInit {
       this.sortCounters[columnName]++;
 
       switch (this.sortCounters[columnName] % 3) {
-        case 0: 
+        case 0:
           this.sortType = null;
           this.orderParamObj.Sort = 1;
           break;
@@ -138,14 +138,14 @@ export class PromissoryListComponent implements OnInit {
           this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
             columnName === 'customer' ? 4 :
               columnName === 'date' ? 6 :
-                8; 
+                8;
           break;
         case 2: // descending
           this.sortType = "descend";
           this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
             columnName === 'customer' ? 5 :
               columnName === 'date' ? 7 :
-                9; 
+                9;
           break;
       }
 
@@ -199,6 +199,10 @@ export class PromissoryListComponent implements OnInit {
       // nzTitle: 'Change Control Value',
       nzContent: CreateRequestComponent,
       // nzViewContainerRef: this.viewContainerRef,
+      // nzOnOk: () => console.log('OK'),
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzOnOk: () => console.log('Click ok'),
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {
         data: orderId,
@@ -207,7 +211,8 @@ export class PromissoryListComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe(res => {
-      this.ngOnInit();
+      if(!res)
+        this.ngOnInit();
       // if (res) {
       //   // this.controls(value, data, obj, res);
       // }

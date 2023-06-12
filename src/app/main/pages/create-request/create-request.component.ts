@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { differenceInCalendarDays, setHours } from 'date-fns';
 import { CommonService } from 'src/app/utility/services/common.service';
@@ -39,7 +39,7 @@ export class CreateRequestComponent implements OnInit {
   searchInput$ = new Subject<any>();
   searchInputGurantor$ = new Subject<any>();
   constructor(private modal: NzModalService, private apiService: ApiService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private activeModel:NzModalRef,
     private datePipe: DatePipe, private router: Router,
     public commonService: CommonService) { }
 
@@ -56,8 +56,8 @@ export class CreateRequestComponent implements OnInit {
       .subscribe(value => {
         this.getCustomerGurantor(value);
       });
-    if(this.statusType == 'Reschedule Request')
-        this.getPNOrderDetail();
+      this.getPNOrderDetail();
+    // if(this.statusType == 'Reschedule Request')
   }
   initForm() {
     this.customerDetail = this.formBuilder.group({
@@ -85,6 +85,10 @@ export class CreateRequestComponent implements OnInit {
   }
   cancelModal() {
     this.modal.closeAll();
+  }
+
+  close(){
+    this.activeModel.close(true);
   }
   disabledDate = (current: Date): boolean =>
     differenceInCalendarDays(current,  new Date()) <= 0;

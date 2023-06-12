@@ -74,7 +74,7 @@
         <p>{{remainingAmount}} JOD</p>
     </div>
     <div class="bottom-buttons ng-star-inserted">
-        <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancelModal()">Cancel</button>
+        <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="close()">Cancel</button>
         <button class="btn o-btn hvr-bounce-to-right" [disabled]="disableScheduleRequest()"  (click)="saveRequestApproval()">Request Approval
         </button>
     </div>
@@ -256,7 +256,7 @@
         </div>
 
         <div class="bottom-buttons">
-            <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancelModal()">Cancel</button>
+            <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="close()">Cancel</button>
             <button class="btn o-btn hvr-bounce-to-right" [disabled]="!(customerId && gurantorId)"
                 (click)="makeTransferRequest()">Request Approval </button>
         </div>
@@ -264,7 +264,7 @@
     <div class="row">
         <div class="col-lg-12 text-end mt-4">
             <button type="button" *ngIf="!statusType" class="btn btn-white hvr-bounce-to-right2"
-                (click)="cancelModal()">Cancel</button>
+                (click)="close()">Cancel</button>
         </div>
     </div>
     <!-- <div class="row">

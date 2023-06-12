@@ -327,7 +327,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     const modal = this.modal.create<CreateRequestComponent>({
       nzWidth: 700,
       // nzTitle: 'Change Control Value',
+
       nzContent: CreateRequestComponent,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzOnOk: () => console.log('Click ok'),
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {

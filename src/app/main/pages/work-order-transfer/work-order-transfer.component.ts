@@ -208,36 +208,6 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     }
 
   }
-  //#endregion
-  createRequest(): void {
-    const modal = this.modal.create<CreateRequestComponent>({
-      nzWidth: 700,
-      // nzTitle: 'Change Control Value',
-      nzContent: CreateRequestComponent,
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzComponentParams: {
-        data: this.orderId
-      },
-      nzFooter: null
-    });
-    modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
-    });
-  }
-  changeAmount(id: any, check?: boolean) {
-    let amount = 0;
-    this.promissoryist.forEach(element => {
-      if (element.id === id && !check) {
-        amount += this.editCache[id].data.amount
-      }
-      else
-        amount += element.amount
-    });
-    this.differenceAmount = this.orderDetail.pnTotalAmount - amount;
-  }
 
   ngAfterViewInit() {
 
