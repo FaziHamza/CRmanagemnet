@@ -382,6 +382,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
+      this.orderDetail.hasActiveRequest = true;
+
       // this.orderDetail.statusObj = item.statusObj;
       let index = 0;
       if (this.orderDetail) {
