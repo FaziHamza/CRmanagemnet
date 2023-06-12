@@ -70,6 +70,7 @@ export class PermissionService {
     this.apiService.getPermissions(17002).subscribe(res=>{
       if(res.isSuccess){
         this.permissions = res.data;
+        console.log(this.permissions);
       }
     })
    }

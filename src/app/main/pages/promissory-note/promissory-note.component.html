@@ -414,7 +414,7 @@
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
                         translate}}
-                        
+
                       </h4>
                       <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
                         number : ".3"}} JOD</h4>
@@ -424,7 +424,7 @@
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.No_Of_Installments" | translate}}
-                      
+
                       </h4>
                       <h4 class="head-detail" *ngIf="orderDetail.numberOfInstallments">
                         {{orderDetail.numberOfInstallments}}</h4>
@@ -434,7 +434,7 @@
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.First_Due_Date" | translate}}
-                      
+
                       </h4>
                       <h4 class="head-detail" *ngIf="orderDetail.startDate">
                         {{orderDetail.startDate | date:'dd MMM yyyy' }}
@@ -485,7 +485,7 @@
                                     </g>
                                   </svg>
                                   {{"Promissory_Notes.Reset" | translate}} </button>
-                            
+
                             </div>
                             <div class="row heading-box">
                               <div class="col-lg-6 ">
@@ -578,7 +578,7 @@
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
-                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1">
+                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" appPositiveDecimal>
 
                                         </div>
                                       </td>
@@ -653,7 +653,7 @@
                                     <h4 class="head-title">
                                       {{"Promissory_Notes.No" |
                                       translate}}:
-                                      
+
                                     </h4>
                                     <h4 class="head-detail"
                                         *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</h4>

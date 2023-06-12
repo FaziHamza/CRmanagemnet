@@ -18,7 +18,7 @@
                 <div class="input-search1">
                 <input type="text" class="form-control" placeholder="New No. of Installment"
                     [(ngModel)]="noofInstallment" numbersOnly>
-                    <span class="close">JOD</span>
+                    <!-- <span class="close">JOD</span> -->
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <label class="mb-1"><b>Interest Percentage</b></label>
                 <div class="input-search1">
                     <input type="text" class="form-control" (input)="interestPercentage()" [(ngModel)]="interestPer"
-                        placeholder="Search by order number" numbersOnly>
+                        placeholder="Search by order number"  appPositiveDecimal>
                     <svg xmlns="http://www.w3.org/2000/svg" class="close" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#78778b"
                             d="m18.501 3.5l-15 15.001l1.996 1.996l15-15zM7.002 5a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4zm10 10a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4z" />
@@ -54,7 +54,7 @@
                 <label class="mb-1"><b>Interest Value (JOD)</b></label>
                 <div class="input-search1">
                     <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal"
-                        placeholder="Search by order number" numbersOnly>
+                        placeholder="Search by order number" appPositiveDecimal>
                         <span class="close">JOD</span>
                 </div>
             </div>
@@ -63,7 +63,7 @@
         <div class="col-lg-6">
         </div>
         <div class="col-lg-6 mt-4 text-end">
-            <button class="btn o-btn hvr-bounce-to-right" (click)="getPNOrderRemainingAmountforRescheduling()">View
+            <button class="btn o-btn hvr-bounce-to-right" [disabled]="disableScheduleRequest()" (click)="getPNOrderRemainingAmountforRescheduling()">View
                 Result </button>
         </div>
 
@@ -75,7 +75,7 @@
     </div>
     <div class="bottom-buttons ng-star-inserted">
         <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="cancelModal()">Cancel</button>
-        <button class="btn o-btn hvr-bounce-to-right" (click)="saveRequestApproval()">Request Approval
+        <button class="btn o-btn hvr-bounce-to-right" [disabled]="disableScheduleRequest()"  (click)="saveRequestApproval()">Request Approval
         </button>
     </div>
 </div>

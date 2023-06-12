@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CmsSetupDto } from 'src/app/main/models/cmsSetupDto';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { PermissionService } from 'src/app/shared/services/permission.service';
 import { CommonService } from 'src/app/utility/services/common.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class CMSetupComponent implements OnInit {
   accountForm: FormGroup;
   promissorySetup = false;
   creditManagementSetup = false
-  constructor(private _apiService: ApiService, private commonService: CommonService, private formBuilder: FormBuilder) { }
+  constructor(private _apiService: ApiService, private commonService: CommonService,
+    private formBuilder: FormBuilder, private permissionService: PermissionService,) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -26,8 +28,7 @@ export class CMSetupComponent implements OnInit {
     this.getCmsSetup();
     this.cmsSetupForm.get('periodBetweenPNType').valueChanges.subscribe(value => this.handlePNTypeChange(value));
     this.cmsSetupForm.get('overDueAlertType').valueChanges.subscribe(value => this.handleOverDueAlertTypeChange(value));
-}
-
+  }
   handlePNTypeChange(value: string) {
     if (value.toLocaleLowerCase() === 'days') {
       this.cmsSetupForm.patchValue({
@@ -44,9 +45,8 @@ export class CMSetupComponent implements OnInit {
     }
     this.cmsSetupForm.get('periodBetweenPNValue').updateValueAndValidity();
     this.cmsSetupForm.get('periodBetweenPNValueMonth').updateValueAndValidity();
-}
-
-handleOverDueAlertTypeChange(value: string) {
+  }
+  handleOverDueAlertTypeChange(value: string) {
     if (value.toLocaleLowerCase() === 'days') {
       this.cmsSetupForm.patchValue({
         overDueAlertTypeValueMonth: null
@@ -62,9 +62,7 @@ handleOverDueAlertTypeChange(value: string) {
     }
     this.cmsSetupForm.get('overDueAlertTypeValue').updateValueAndValidity();
     this.cmsSetupForm.get('overDueAlertTypeValueMonth').updateValueAndValidity();
-}
-
-
+  }
   cmsSetupFormcontrol() {
     this.cmsSetupForm = this.formBuilder.group({
       periodBetweenPNType: ['days', Validators.required],
@@ -203,12 +201,6 @@ handleOverDueAlertTypeChange(value: string) {
       });
     }
   }
-
-
-
-
-
-
   onAlertTypeChange(event: Event) {
     this.cmsSetupForm.get('overDueAlertTypeValue').setValue('');
     this.cmsSetupForm.get('overDueAlertTypeValueMonth').setValue('');
@@ -237,6 +229,9 @@ handleOverDueAlertTypeChange(value: string) {
     this.accountForm.disable();
     this.cmsSetupForm.disable();
     this.ngOnInit();
+  }
+  canPerformAction(catId: number, subCatId: number, perItemName: number) {
+    return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
 }
 

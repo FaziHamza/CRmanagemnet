@@ -19,13 +19,13 @@ export class CreateRequestComponent implements OnInit {
   @Input() data: any;
   statusList: any[] = [];
   @Input() statusType = '';
-  today = new Date();
-  interestPer = 0;
-  noofInstallment = 0;
+  interestPer: any = "";
+  noofInstallment :any;
   firstDueDate: any;
   errorsList: any[] = [];
-  interestVal = 0;
+  interestVal :any = "";
   remainingAmount = 0;
+  getPNremainingAmount = 0;
   customerId: string;
   gurantorId: string;
   customerAvatarName: string = '';
@@ -53,7 +53,8 @@ export class CreateRequestComponent implements OnInit {
       .subscribe(value => {
         this.getCustomerGurantor(value);
       });
-
+    if(this.statusType == 'Reschedule Request')
+        this.getPNOrderDetail();
   }
   initForm() {
     this.customerDetail = this.formBuilder.group({
@@ -83,22 +84,39 @@ export class CreateRequestComponent implements OnInit {
     this.modal.closeAll();
   }
   disabledDate = (current: Date): boolean =>
-    differenceInCalendarDays(current, this.today) < 0;
+    differenceInCalendarDays(current,  new Date()) <= 0;
 
   interestPercentage() {
-    if (!this.interestPer)
-      this.interestPer = 0
+    if(this.interestPer != "")
+      this.interestVal = parseFloat(((this.getPNremainingAmount*parseFloat(this.interestPer))/100).toFixed(3));
+    else{
+      this.interestPer = "";
+      this.interestVal = "";
+    }
+
   }
+
   interestValue() {
-    if (!this.interestVal)
-      this.interestVal = 0
+    if(this.interestVal != "")
+      this.interestPer = parseFloat((parseFloat(this.interestVal)/this.getPNremainingAmount).toFixed(3));
+    else{
+      this.interestPer = "";
+      this.interestVal = "";
+    }
+
   }
   getPNOrderRemainingAmountforRescheduling() {
-    this.apiService.getPNOrderRemainingAmountforRescheduling(this.data, this.interestPer, this.interestVal).subscribe(res => {
-      if (res.isSuccess) {
-        this.remainingAmount = res.data;
+    this.apiService.getPNOrderRemainingAmountforRescheduling(this.data, this.interestPer, this.interestVal).subscribe(
+      (resposnse)=>{
+        if (resposnse.isSuccess) {
+          this.remainingAmount = resposnse.data;
+        }
+      },
+      (error)=>{
+        this.errorsList = error.Errors ? error.Errors : error.errors ? error.errors : error.error.errors;
+        this.erros(this.errorsList);
       }
-    })
+    )
   }
   saveRequestApproval() {
 
@@ -132,9 +150,8 @@ export class CreateRequestComponent implements OnInit {
         }
       },
       (error) => {
-        this.errorsList = error.Errors ? error.Errors : error.errors;
+        this.errorsList = error.Errors ? error.Errors : error.errors ? error.errors : error.error.errors;
         this.erros(this.errorsList);
-        console.log(error);
       }
     )
 
@@ -149,11 +166,11 @@ export class CreateRequestComponent implements OnInit {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.cancelModal();
-      this.router.navigate(['/home/workorders'])
+      // this.cancelModal();
+      // this.router.navigate(['/home/workorders'])
     });
   }
-  confirm(message:string): void {
+  confirm(message: string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -198,7 +215,7 @@ export class CreateRequestComponent implements OnInit {
           customerAddress: obj.custAddress ? obj.custAddress : '---',
         }
         this.customerDetail.patchValue(data);
-        this.customerAvatarName = obj.customerName? obj.customerName : '';
+        this.customerAvatarName = obj.customerName ? obj.customerName : '';
       }
     }
   }
@@ -254,5 +271,18 @@ export class CreateRequestComponent implements OnInit {
         this.errorsList = error.Errors ? error.Errors : error.errors;
         this.erros(this.errorsList);
       })
+  }
+  disableScheduleRequest() {
+    if (this.interestVal === "" || this.interestPer === "" || !this.firstDueDate || !this.noofInstallment)
+      return true;
+    else
+      return false
+  }
+  getPNOrderDetail() {
+    this.apiService.getPNOrders(this.data).subscribe(res => {
+
+      this.getPNremainingAmount = res.data['remainingAmount'];
+      console.log(this.getPNremainingAmount)
+    });
   }
 }

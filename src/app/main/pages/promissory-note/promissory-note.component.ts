@@ -225,7 +225,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       return;
     }
     this.promissoryist.forEach(element => {
-     
+
       console.log(element.amount);
       const fromDate = new Date(element.dueDate.toString());
     try {
@@ -343,11 +343,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   changeAmount(event:any,id: any, check?: boolean) {
     // this.updateEditCache();
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
-      // charCode 48-57 are 0-9, 46 is .
-      return false;
-    }
+    // const charCode = (event.which) ? event.which : event.keyCode;
+    // if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+    //   // charCode 48-57 are 0-9, 46 is .
+    //   return false;
+    // }
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
       amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
