@@ -38,9 +38,9 @@ export class WorkOrderRequestComponent implements OnInit {
   selectedIndex: any = -1; // manage the active tab
   radioSelected: any[] = [];
 
-  tabs :any[] = [];
-  constructor(private apiService: ApiService, private commonService: CommonService,private router:Router,
-    private modal: NzModalService,private permissionService:PermissionService) { }
+  tabs: any[] = [];
+  constructor(private apiService: ApiService, private commonService: CommonService, private router: Router,
+    private modal: NzModalService, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -76,11 +76,11 @@ export class WorkOrderRequestComponent implements OnInit {
     this.radioSelected.fill(false);
     this.radioSelected[index] = true;
     // other logic
-    if(index){
-      this.orderParamObj.RequestTypeID=index;
+    if (index) {
+      this.orderParamObj.RequestTypeID = index;
       this.getAllRequestList();
-    }else if(index == 0){
-      this.orderParamObj.RequestTypeID=index;
+    } else if (index == 0) {
+      this.orderParamObj.RequestTypeID = index;
       this.getAllRequestList();
     }
 
@@ -94,24 +94,24 @@ export class WorkOrderRequestComponent implements OnInit {
 
     this.selectedRequestValue = tabId;
   }
-getAllRequestList() {
+  getAllRequestList() {
 
-  const queryString = Object.entries(this.orderParamObj)
-    .filter(([key, value]) => value !== 0)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join("&");
-  this.saveLoader = true;
-  this.apiService.getrequestWorkOrder(queryString).subscribe(res => {
-    this.saveLoader = false;
-    if(this.searchByRequestNo == 0 )
+    const queryString = Object.entries(this.orderParamObj)
+      .filter(([key, value]) => value !== 0)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join("&");
+    this.saveLoader = true;
+    this.apiService.getrequestWorkOrder(queryString).subscribe(res => {
+      this.saveLoader = false;
+      if (this.searchByRequestNo == 0)
         this.searchByRequestNo = null;
-    if (res) {
-      this.requestList = res.data;
-    } else {
-      this.requestList = [];
-    }
-  })
-}
+      if (res) {
+        this.requestList = res.data;
+      } else {
+        this.requestList = [];
+      }
+    })
+  }
 
   clearInput() {
     this.searchByCustomer = '';
@@ -142,94 +142,54 @@ getAllRequestList() {
     }
   }
   sortType = null;
-  sortCounter = 0;
+  sortCounters = {
+    'orderno': 0,
+    'customer': 0,
+    'date': 0,
+    'status': 0
+  };
+  lastSortedColumn = null;
+
   getSortFunction(sortType: string, columnName: string,) {
     if (this.requestList.length > 0) {
-      if (columnName === 'orderno') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 2;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 3;
-            break;
-        }
-        this.getAllRequestList();
-      }
-      if (columnName === 'customer') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 4;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 5;
-            break;
-        }
-        this.getAllRequestList();
-      }
-      // if (columnName == 'date') {
-      //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
-      //   this.getAllRequestList();
-      //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
-      // }
-      if (columnName == 'date') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 6;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 7;
-            break;
-        }
-        this.getAllRequestList();
-      }
-      if (columnName == 'status') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 8;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 9;
-            break;
-        }
-        this.getAllRequestList();
-      }
-    }
-    // if (columnName == 'customer') {
-    //   this.orderParamObj.Sort = sortType === "ascend" ? 3 : 2;
-    //   this.getAllRequestList();
-    //   this.sortType = this.sortType === "ascend" ? "descend" : 'ascend';
-    // }
 
+      if (this.lastSortedColumn && this.lastSortedColumn !== columnName) {
+        // reset the sort counter for other columns
+        for (let key in this.sortCounters) {
+          if (key !== columnName) {
+            this.sortCounters[key] = 0;
+          }
+        }
+      }
+
+      this.sortCounters[columnName]++;
+
+      switch (this.sortCounters[columnName] % 3) {
+        case 0: // no sort
+          this.sortType = null;
+          this.orderParamObj.Sort = 1;
+          break;
+        case 1: // ascending
+          this.sortType = "ascend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
+            columnName === 'customer' ? 4 :
+              columnName === 'date' ? 6 :
+                8; // assuming 'status' for the default case
+          break;
+        case 2: // descending
+          this.sortType = "descend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
+            columnName === 'customer' ? 5 :
+              columnName === 'date' ? 7 :
+                9; // assuming 'status' for the default case
+          break;
+      }
+
+      this.lastSortedColumn = columnName;
+      this.getAllRequestList();
+    }
   }
+
   simpleSort = (a, b) => a - b; // simple sort function
   statusChange() {
     this.orderParamObj.Status = this.statusType;
@@ -270,29 +230,29 @@ getAllRequestList() {
 
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
-        this.statusList = res.data.slice(6,15);
+        this.statusList = res.data.slice(6, 15);
       } else {
         this.statusList = [];
       }
     })
   }
 
-  getTabs():any {
-      this.apiService.getStatusLookup(24).subscribe(res => {
+  getTabs(): any {
+    this.apiService.getStatusLookup(24).subscribe(res => {
       if (res.isSuccess) {
         let obj = { id: 0, description: 'All Requests' };
-        this.tabs= res.data;
+        this.tabs = res.data;
         // this.tabs.push(obj);
         this.tabs.unshift(obj);
-      }else{
-        this.tabs=[];
+      } else {
+        this.tabs = [];
       }
     })
   }
   resetParam() {
-    this.selectedRequestValue= -1;
+    this.selectedRequestValue = -1;
     this.selectedIndex = -1; // manage the active tab
-    this. radioSelected = [];
+    this.radioSelected = [];
     this.radioSelected.fill(false);
     this.radioSelected[0] = true;
     this.orderParamObj = {
@@ -305,12 +265,12 @@ getAllRequestList() {
     this.statusType = '';
     this.getAllRequestList();
   }
-  gotoDetail(data:any){
-    if(!this.canPerformAction(7, 40, 81) || !this.canPerformAction(7, 40, 82)){
-      if(data.requestTypeID  == 24001){
-        this.router.navigate(['/home/transfer',data.requestID])
-      }else{
-        this.router.navigate(['/home/reschedule',data.requestID])
+  gotoDetail(data: any) {
+    if (!this.canPerformAction(7, 40, 81) || !this.canPerformAction(7, 40, 82)) {
+      if (data.requestTypeID == 24001) {
+        this.router.navigate(['/home/transfer', data.requestID])
+      } else {
+        this.router.navigate(['/home/reschedule', data.requestID])
       }
       // if((data.status == 21009 || data.status == 21010) && data.actionTaken){
 
@@ -324,7 +284,7 @@ getAllRequestList() {
     }
 
   }
-  approveRequest(id:any) {
+  approveRequest(id: any) {
     let formData = new FormData();
     formData.append('requestId', id);
     this.saveLoader = true;
@@ -350,7 +310,7 @@ getAllRequestList() {
       }
     )
   }
-  error(errorsList:any) {
+  error(errorsList: any) {
     const modal = this.modal.create<ErrorsComponent>({
       nzWidth: 600,
       nzContent: ErrorsComponent,
@@ -365,7 +325,7 @@ getAllRequestList() {
       }
     });
   }
-  rejected(requestId:any) {
+  rejected(requestId: any) {
     const modal = this.modal.create<RejectComponent>({
       nzWidth: 600,
       nzContent: RejectComponent,
@@ -378,7 +338,7 @@ getAllRequestList() {
       this.ngOnInit();
     });
   }
-  reschedule(id:any){
+  reschedule(id: any) {
     let formData = new FormData();
     formData.append('requestId', id);
     this.saveLoader = true;
@@ -404,7 +364,7 @@ getAllRequestList() {
       }
     )
   }
-  transfer(id:any){
+  transfer(id: any) {
     let formData = new FormData();
     formData.append('requestId', id);
     this.saveLoader = true;
@@ -430,7 +390,7 @@ getAllRequestList() {
       }
     )
   }
-  confirm(message:string): void {
+  confirm(message: string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
