@@ -210,13 +210,15 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="input-text">
-                                            <input type="number" class="form-control"
+                                            <input type="number" class="form-control" [(ngModel)]="cmsSetupModel.allowedReschedulingRequestsLimit"
                                                 formControlName="allowedReschedulingRequestsLimit"
-                                                id="cm_setup_monthsRecheduling_input" numbersOnly >
-                                            <!-- Validation Message for Rescheduling Requests Limit -->
+                                                id="cm_setup_monthsRecheduling_input" digitsOnly >
                                             <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').invalid && (cmsSetupForm.get('allowedReschedulingRequestsLimit').dirty || cmsSetupForm.get('allowedReschedulingRequestsLimit').touched)" class="text-danger">
                                                 <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').errors.required">
                                                   field is required
+                                                </div>
+                                                <div *ngIf="cmsSetupForm.get('allowedReschedulingRequestsLimit').hasError('greaterThanZero')">
+                                                  Value must be greater than zero.
                                                 </div>
                                             </div>
                                         </div>
@@ -233,13 +235,16 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="input-text">
-                                            <input type="number" class="form-control"
+                                            <input type="number" class="form-control" [(ngModel)]="cmsSetupModel.allowedTransferringRequestsLimit"
                                                 formControlName="allowedTransferringRequestsLimit"
                                                 id="cm_setup_daystransfering_input" digitsOnly>
                                             <!-- Validation Message for Transferring Requests Limit -->
                                             <div *ngIf="cmsSetupForm.get('allowedTransferringRequestsLimit').invalid && (cmsSetupForm.get('allowedTransferringRequestsLimit').dirty || cmsSetupForm.get('allowedTransferringRequestsLimit').touched)" class="text-danger">
                                                 <div *ngIf="cmsSetupForm.get('allowedTransferringRequestsLimit').errors.required">
                                                     field is required
+                                                </div>
+                                                <div *ngIf="cmsSetupForm.get('allowedTransferringRequestsLimit').hasError('greaterThanZero')">
+                                                  Value must be greater than zero.
                                                 </div>
                                             </div>
                                         </div>
@@ -356,8 +361,9 @@
 
         <button (click)="saveCmdSetup()"  [ngClass]="{
             'btn o-btn hvr-bounce-to-right': promissorySetup || creditManagementSetup,
-            'btn btn-danger hvr-bounce-to-right': !(promissorySetup || creditManagementSetup)
-          }" class="btn o-btn hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 46, 93)}">Save</button>
+            'btn btn-danger hvr-bounce-to-right2': !(promissorySetup || creditManagementSetup)
+          }" class="btn o-btn hvr-bounce-to-right" [ngClass]="{'disabled-link': !canPerformAction(7, 46, 93)}"
+           [disabled]="cmsSetupModel.allowedReschedulingRequestsLimit > 0 && cmsSetupModel.allowedTransferringRequestsLimit > 0 ? false : true ">Save</button>
 
     </div>
     <div class="row mt-4">

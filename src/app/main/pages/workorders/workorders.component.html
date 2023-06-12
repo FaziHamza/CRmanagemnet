@@ -13,7 +13,7 @@
 
              <app-promissory-list *ngIf="!commonService.loadRequestTab"></app-promissory-list>
             </nz-tab>
-            <nz-tab nzTitle="{{'Promissory_Notes_orders.Request' | translate}}" (nzClick)="tabClick(true,1)" *ngIf="!canPerformAction(7, 40, 83)">
+            <nz-tab nzTitle="Requests" (nzClick)="tabClick(true,1)" *ngIf="!canPerformAction(7, 40, 83)">
                 <app-work-order-request *ngIf="commonService.loadRequestTab"></app-work-order-request>
             </nz-tab>
         </nz-tabset>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { CmsSetupDto } from 'src/app/main/models/cmsSetupDto';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { PermissionService } from 'src/app/shared/services/permission.service';
@@ -7,6 +7,7 @@ import { CommonService } from 'src/app/utility/services/common.service';
 import { ErrorsComponent } from '../../common/errors/errors.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.component';
+import { CMSSetupModel } from '../../models/cmssetup.model';
 
 @Component({
   selector: 'app-cmsetup',
@@ -15,6 +16,7 @@ import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.
 })
 export class CMSetupComponent implements OnInit {
   cmsSetup: any = new CmsSetupDto('');
+  cmsSetupModel = new CMSSetupModel('');
   cmsSetupForm: FormGroup;
   accountForm: FormGroup;
   promissorySetup = false;
@@ -109,6 +111,7 @@ export class CMSetupComponent implements OnInit {
 
         this.cmsSetup = res.data[0];
         this.cmsSetupForm.patchValue(this.cmsSetup);
+        this.cmsSetupModel = this.cmsSetup;
         if (this.cmsSetup) {
 
           const isDay = this.cmsSetup.periodBetweenPNType.toLowerCase() === 'days';
@@ -197,21 +200,21 @@ export class CMSetupComponent implements OnInit {
       formData.set('OverDueAlertType', capitalizedOverDueAlertType);
 
       this._apiService.saveCmsSetup(formData).subscribe(
-        (res)=>{
-          if(res.isSuccess){
+        (res) => {
+          if (res.isSuccess) {
             this.commonService.showSuccess("Data updated successfully..!", "Success");
             this.confirm("Data updated successfully..!");
 
-          }else{
+          } else {
             this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
             this.commonService.showError("found some error..!", "Error");
             this.error(this.errorsList);
           }
         },
-        (error)=>{
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.commonService.showError("found some error..!", "Error");
-        this.error(this.errorsList);
+        (error) => {
+          this.errorsList = error.errors ? error.errors : error.Errors;
+          this.commonService.showError("found some error..!", "Error");
+          this.error(this.errorsList);
         }
       );
     }

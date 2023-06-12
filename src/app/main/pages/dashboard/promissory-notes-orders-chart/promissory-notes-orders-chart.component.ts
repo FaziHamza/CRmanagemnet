@@ -53,7 +53,7 @@ export class PromissoryNotesOrdersChartComponent
     labels: [
       'No. Of Generating Order',
       'No. Of Reschedule Order',
-      'No. Of Transfering Order',
+      'No. Of Transferring Order',
     ],
     datasets: [
       {

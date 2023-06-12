@@ -64,7 +64,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       this.saveLoader = false;
       this.orderDetail = res.data;
       this.commonService.breadcrumb = [
-        { title: this.orderDetail.comingFromTypeID == 26002 ? 'Rescheduling Promissory Notes Orders' : this.orderDetail.comingFromTypeID == 26003 ? 'Transfering Promissory Notes Orders' : 'Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
+        { title: this.orderDetail.comingFromTypeID == 26002 ? 'Rescheduling Promissory Notes Orders' : this.orderDetail.comingFromTypeID == 26003 ? 'Transferring Promissory Notes Orders' : 'Generating Promissory Notes Orders', routeLink: 'home/promissory-note' }
       ]
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
 
@@ -675,9 +675,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         this.generatedlist = [];
         // this.pdfInfoData = res['info'];
         let generatedlist = res['data'];
+        let getCount = generatedlist.length;
         for (let index = 0; index < generatedlist.length; index++) {
           const obj = {
-            id: this.generatedlist.length + 1,
+            id: Sort == 2 ?  this.generatedlist.length + 1 : getCount,
             customerName: generatedlist[index]?.customer?.customerName,
             // customerName: this.orderDetail.customer.customerName,
             amount: generatedlist[index].pnAmount,
@@ -690,6 +691,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             pdfView: generatedlist[index].pNpdfFile
           };
           this.generatedlist.push(obj);
+          getCount -= 1
+
         }
         this.isGenerate = true;
       }

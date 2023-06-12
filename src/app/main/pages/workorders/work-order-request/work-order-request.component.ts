@@ -30,7 +30,7 @@ export class WorkOrderRequestComponent implements OnInit {
     OrderStatus: 0, FromDate: '', ToDate: '', Sort: 1, PageNo: 0, PageSize: 1000
   }
   searchByCustomer: string = '';
-  searchByRequestNo: string = '';
+  searchByRequestNo: number;
   statusType: any = "";
   selectedDate: any;
   saveLoader: boolean = false;
@@ -62,7 +62,7 @@ export class WorkOrderRequestComponent implements OnInit {
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
         if (value > 0) {
-          // this.orderParamObj.OrderNumber = value.toString();
+          this.orderParamObj.PNOrderID = value;
           this.getAllRequestList();
         } else {
           // this.orderParamObj.OrderNumber = '';
@@ -118,7 +118,7 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   clearPart() {
-    this.searchByRequestNo = '';
+    this.searchByRequestNo = null;
     // this.orderParamObj.OrderNumber = this.searchByRequestNo;
     this.getAllRequestList();
   }
@@ -135,7 +135,7 @@ getAllRequestList() {
   }
   searchPart() {
 
-    if (this.searchByRequestNo.length >= 0) {
+    if (this.searchByRequestNo > 0) {
       this.searchPartNo$.next(this.searchByRequestNo);
     }
   }
@@ -268,7 +268,7 @@ getAllRequestList() {
 
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
-        this.statusList = res.data;
+        this.statusList = res.data.slice(6,15);
       } else {
         this.statusList = [];
       }
@@ -298,7 +298,7 @@ getAllRequestList() {
       OrderStatus: 0, FromDate: '', ToDate: '', Sort: 1, PageNo: 0, PageSize: 1000
     }
     this.searchByCustomer = '';
-    this.searchByRequestNo = '';
+    this.searchByRequestNo = null;
     this.selectedDate = [];
     this.statusType = '';
     this.getAllRequestList();

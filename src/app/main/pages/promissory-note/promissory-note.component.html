@@ -41,7 +41,7 @@
           <div class="col-lg-4">
             <div class="card-box">
               <a class="anchor-content" *ngIf="orderDetail && orderDetail.orderQNTRLLink"
-                (click)="downloadFile(orderDetail.orderQNTRLLink)">{{ orderDetail.orderQNTRLLink
+              href="{{ orderDetail.orderQNTRLLink }}" target="_blank">{{ orderDetail.orderQNTRLLink
                 }}</a>
               <a class="anchor-content" *ngIf="!orderDetail.orderQNTRLLink">---</a>
             </div>

@@ -581,36 +581,40 @@
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                            All PN Amount
-                                                                            <span class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal | number : '.3'}} JOD</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.pnsTotal">---</span>
+
                                                                         </h4>
+                                                                        <h4 class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal | number : '.3'}} JOD</h4>
+                                                                        <h4 class="head-detail" *ngIf="!otherDetail.pnsTotal">---</h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-2 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                           PN Account
-                                                                            <span class="head-detail" *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</span>
+
                                                                         </h4>
+                                                                        <h4 class="head-detail" *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</h4>
+                                                                        <h4 class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                            Remaining PN Account
-                                                                            <span class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount | number : '.3'}} JOD</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingAmount">---</span>
+
                                                                         </h4>
+                                                                        <h4 class="head-detail" *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount | number : '.3'}} JOD</h4>
+                                                                        <h4 class="head-detail" *ngIf="!otherDetail.remainingAmount">---</h4>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-4 col-md-6">
                                                                     <div class="card-box">
                                                                         <h4 class="head-title">
                                                                            Remaining Uncollected PNs
-                                                                            <span class="head-detail" *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</span>
-                                                                            <span class="head-detail" *ngIf="!otherDetail.remainingUncollectedCount">---</span>
+
                                                                         </h4>
+                                                                        <h4 class="head-detail" *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</h4>
+                                                                        <h4 class="head-detail" *ngIf="!otherDetail.remainingUncollectedCount">---</h4>
                                                                     </div>
                                                                 </div>
                                                             </div>
