@@ -431,6 +431,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
             pdfView: generatedlist[index].pNpdfFile
           };
           this.generatedlist.push(obj);
+          getCount -= 1;
         }
         this.isGenerate = true;
       }
