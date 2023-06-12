@@ -705,14 +705,14 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     })
   }
   downloadFile(file) {
-    this.apiService.downloadFile(file).subscribe(response => {
-      const blob = new Blob([response], { type: 'application/pdf' });
+    // this.apiService.downloadFile(file).subscribe(response => {
+      const blob = new Blob([file], { type: 'application/pdf' });
       const downloadLink = document.createElement('a');
       downloadLink.href = URL.createObjectURL(blob);
       downloadLink.download = file;
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
-    });
+    // });
   }
 }
