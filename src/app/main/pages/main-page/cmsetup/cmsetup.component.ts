@@ -4,6 +4,9 @@ import { CmsSetupDto } from 'src/app/main/models/cmsSetupDto';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { PermissionService } from 'src/app/shared/services/permission.service';
 import { CommonService } from 'src/app/utility/services/common.service';
+import { ErrorsComponent } from '../../common/errors/errors.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.component';
 
 @Component({
   selector: 'app-cmsetup',
@@ -15,8 +18,10 @@ export class CMSetupComponent implements OnInit {
   cmsSetupForm: FormGroup;
   accountForm: FormGroup;
   promissorySetup = false;
+  errorsList: any[] = [];
   creditManagementSetup = false
   constructor(private _apiService: ApiService, private commonService: CommonService,
+    private modal: NzModalService,
     private formBuilder: FormBuilder, private permissionService: PermissionService,) { }
 
   ngOnInit(): void {
@@ -162,7 +167,6 @@ export class CMSetupComponent implements OnInit {
     }
   }
   saveCmdSetup() {
-    debugger
     if (this.cmsSetupForm.valid) {
       let controls = this.cmsSetupForm.value;
 
@@ -192,13 +196,24 @@ export class CMSetupComponent implements OnInit {
       formData.set('PeriodBetweenPNType', capitalizedPeriodBetweenPNType);
       formData.set('OverDueAlertType', capitalizedOverDueAlertType);
 
-      this._apiService.saveCmsSetup(formData).subscribe(res => {
-        if (res.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-        } else {
-          this.commonService.showError("Found some error..!", "Error");
+      this._apiService.saveCmsSetup(formData).subscribe(
+        (res)=>{
+          if(res.isSuccess){
+            this.commonService.showSuccess("Data updated successfully..!", "Success");
+            this.confirm("Data updated successfully..!");
+
+          }else{
+            this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
+            this.commonService.showError("found some error..!", "Error");
+            this.error(this.errorsList);
+          }
+        },
+        (error)=>{
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.commonService.showError("found some error..!", "Error");
+        this.error(this.errorsList);
         }
-      });
+      );
     }
   }
   onAlertTypeChange(event: Event) {
@@ -232,6 +247,34 @@ export class CMSetupComponent implements OnInit {
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
+  }
+  error(errorsList: any) {
+    const modal = this.modal.create<ErrorsComponent>({
+      nzWidth: 600,
+      nzContent: ErrorsComponent,
+      nzComponentParams: {
+        errorsList: errorsList,
+      },
+      nzFooter: null
+    });
+    modal.afterClose.subscribe(res => {
+      if (res) {
+        // this.controls(value, data, obj, res);
+      }
+    });
+  }
+  confirm(message: string): void {
+    const modal = this.modal.create<ConfirmPopupComponent>({
+      nzWidth: 500,
+      nzContent: ConfirmPopupComponent,
+      nzFooter: null,
+      nzComponentParams: {
+        message: message,
+      },
+    });
+    modal.afterClose.subscribe(res => {
+
+    });
   }
 }
 
