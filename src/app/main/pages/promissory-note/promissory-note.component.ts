@@ -590,120 +590,88 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
-  sortType = null;
-  sortCounter = 0;
-  getSortFunction(sortType: string, columnName: string,) {
-    if (this.generatedlist.length > 0) {
-      if (columnName === 'orderno') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 2;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 3;
-            break;
+ sortType = null;
+sortCounters = {
+  'orderno': 0,
+  'amount': 0,
+  'date': 0,
+  'status': 0
+};
+lastSortedColumn = null;
+
+getSortFunction(sortType: string, columnName: string,) {
+  if (this.generatedlist.length > 0) {
+
+    if (this.lastSortedColumn && this.lastSortedColumn !== columnName) {
+      // reset the sort counter for other columns
+      for (let key in this.sortCounters) {
+        if (key !== columnName) {
+          this.sortCounters[key] = 0;
         }
-        this.generateSortList();
-      }
-      if (columnName === 'amount') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 4;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 5;
-            break;
-        }
-        this.generateSortList();
-      }
-      // if (columnName == 'date') {
-      //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
-      //   this.generateSortList();
-      //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
-      // }
-      if (columnName == 'date') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 6;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 7;
-            break;
-        }
-        this.generateSortList();
-      }
-      if (columnName == 'status') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 8;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 9;
-            break;
-        }
-        this.generateSortList();
       }
     }
-  }
-  generateSortList() {
-    let Sort = this.orderParamObj.Sort;
-    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
-      this.stepSaveLoader = false;
-      if (res.isSuccess) {
-        this.generatedlist = [];
-        // this.pdfInfoData = res['info'];
-        let generatedlist = res['data'];
-        let getCount = generatedlist.length;
-        for (let index = 0; index < generatedlist.length; index++) {
-          const obj = {
-            id: Sort == 2 ?  this.generatedlist.length + 1 : getCount,
-            customerName: generatedlist[index]?.customer?.customerName,
-            // customerName: this.orderDetail.customer.customerName,
-            amount: generatedlist[index].pnAmount,
-            dueDate: generatedlist[index].dueDate,
-            status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
-            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
-            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
-            pnBookID: generatedlist[index].pnBookID,
-            dateCheck: generatedlist[index].dueDate,
-            pdfView: generatedlist[index].pNpdfFile
-          };
-          this.generatedlist.push(obj);
-          getCount -= 1
 
-        }
-        this.isGenerate = true;
-      }
-    })
+    this.sortCounters[columnName]++;
+
+    switch (this.sortCounters[columnName] % 3) {
+      case 0: // no sort
+        this.sortType = null;
+        this.orderParamObj.Sort = 1;
+        break;
+      case 1: // ascending
+        this.sortType = "ascend";
+        this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
+                                  columnName === 'amount' ? 4 :
+                                  columnName === 'date' ? 6 :
+                                  8; // assuming 'status' for the default case
+        break;
+      case 2: // descending
+        this.sortType = "descend";
+        this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
+                                  columnName === 'amount' ? 5 :
+                                  columnName === 'date' ? 7 :
+                                  9; // assuming 'status' for the default case
+        break;
+    }
+
+    this.lastSortedColumn = columnName;
+    this.generateSortList();
   }
+}
+generateSortList() {
+  let Sort = this.orderParamObj.Sort;
+  this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
+    this.stepSaveLoader = false;
+    if (res.isSuccess) {
+      this.generatedlist = [];
+      let generatedlist = res['data'];
+      let getCount = generatedlist.length;
+      for (let index = 0; index < generatedlist.length; index++) {
+        const obj = {
+          id: Sort == 3 || Sort == 1  ?  this.generatedlist.length + 1 : getCount,
+          customerName: generatedlist[index]?.customer?.customerName,
+          amount: generatedlist[index].pnAmount,
+          dueDate: generatedlist[index].dueDate,
+          status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+          lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+          lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+          pnBookID: generatedlist[index].pnBookID,
+          dateCheck: generatedlist[index].dueDate,
+          pdfView: generatedlist[index].pNpdfFile
+        };
+        this.generatedlist.push(obj);
+        getCount -= 1;
+      }
+      if (this.sortType === "ascend") {
+        this.generatedlist.sort((a, b) => a.id - b.id);
+      } else if (this.sortType === "descend") {
+        this.generatedlist.sort((a, b) => b.id - a.id);
+      }
+      this.isGenerate = true;
+    }
+  })
+}
+
   downloadFile(file) {
     // this.apiService.downloadFile(file).subscribe(response => {
       const blob = new Blob([file], { type: 'application/pdf' });
