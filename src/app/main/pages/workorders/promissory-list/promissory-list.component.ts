@@ -29,8 +29,8 @@ export class PromissoryListComponent implements OnInit {
   statusType: any = "";
   selectedDate: any;
   saveLoader: boolean = false;
-  constructor(private apiService: ApiService, public commonService: CommonService,private router:Router,
-    private modal: NzModalService,private permissionService:PermissionService) { }
+  constructor(private apiService: ApiService, public commonService: CommonService, private router: Router,
+    private modal: NzModalService, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.commonService.breadcrumb = [
@@ -47,10 +47,10 @@ export class PromissoryListComponent implements OnInit {
     this.searchPartNo$
       .pipe(debounceTime(500)) // Adjust the debounce time as needed
       .subscribe(value => {
-        if(value > 0){
+        if (value > 0) {
           this.orderParamObj.OrderNumber = value.toString();
           this.getAllOrderList();
-        }else{
+        } else {
           this.orderParamObj.OrderNumber = '';
           this.getAllOrderList();
         }
@@ -104,87 +104,57 @@ export class PromissoryListComponent implements OnInit {
   }
   sortType = null;
   sortCounter = 0;
+  sortCounters = {
+    'orderno': 0,
+    'customer': 0,
+    'date': 0,
+    'status': 0
+  };
+
+
+  lastSortedColumn = null;
+
   getSortFunction(sortType: string, columnName: string,) {
     if (this.orderList.length > 0) {
-      if (columnName === 'orderno') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 2;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 3;
-            break;
+
+      if (this.lastSortedColumn && this.lastSortedColumn !== columnName) {
+        // reset the sort counter for other columns
+        for (let key in this.sortCounters) {
+          if (key !== columnName) {
+            this.sortCounters[key] = 0;
+          }
         }
-        this.getAllOrderList();
       }
-      if (columnName === 'customer') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 4;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 5;
-            break;
-        }
-        this.getAllOrderList();
+
+      this.sortCounters[columnName]++;
+
+      switch (this.sortCounters[columnName] % 3) {
+        case 0: 
+          this.sortType = null;
+          this.orderParamObj.Sort = 1;
+          break;
+        case 1: // ascending
+          this.sortType = "ascend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
+            columnName === 'customer' ? 4 :
+              columnName === 'date' ? 6 :
+                8; 
+          break;
+        case 2: // descending
+          this.sortType = "descend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
+            columnName === 'customer' ? 5 :
+              columnName === 'date' ? 7 :
+                9; 
+          break;
       }
-      // if (columnName == 'date') {
-      //   this.orderParamObj.Sort = sortType === "ascend" ? 4 : 5;
-      //   this.getAllOrderList();
-      //   this.sortType = this.sortType === "ascend" ? "descend" : "ascend";
-      // }
-      if (columnName == 'date') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 6;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 7;
-            break;
-        }
-        this.getAllOrderList();
-      }
-      if (columnName == 'status') {
-        this.sortCounter++;
-        switch (this.sortCounter % 3) {
-          case 0: // no sort
-            this.sortType = null;
-            this.orderParamObj.Sort = 1;
-            break;
-          case 1: // ascending
-            this.sortType = "ascend";
-            this.orderParamObj.Sort = 8;
-            break;
-          case 2: // descending
-            this.sortType = "descend";
-            this.orderParamObj.Sort = 9;
-            break;
-        }
-        this.getAllOrderList();
-      }
+
+      this.lastSortedColumn = columnName;
+      this.getAllOrderList();
     }
   }
+
+
   simpleSort = (a, b) => a - b; // simple sort function
   statusChange() {
     this.orderParamObj.Status = this.statusType;
@@ -209,7 +179,7 @@ export class PromissoryListComponent implements OnInit {
   getStatusLookup() {
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
-        this.statusList = res.data.slice(0,6);
+        this.statusList = res.data.slice(0, 6);
       } else {
         this.statusList = [];
       }
@@ -223,7 +193,7 @@ export class PromissoryListComponent implements OnInit {
     this.statusType = '';
     this.getAllOrderList();
   }
-  createRequest(orderId:any,requestType:string): void {
+  createRequest(orderId: any, requestType: string): void {
     const modal = this.modal.create<CreateRequestComponent>({
       nzWidth: 700,
       // nzTitle: 'Change Control Value',
@@ -231,8 +201,8 @@ export class PromissoryListComponent implements OnInit {
       // nzViewContainerRef: this.viewContainerRef,
       // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzComponentParams: {
-        data:orderId,
-        statusType:requestType
+        data: orderId,
+        statusType: requestType
       },
       nzFooter: null
     });
@@ -243,15 +213,15 @@ export class PromissoryListComponent implements OnInit {
       // }
     });
   }
-  gotoDetail(data:any){
+  gotoDetail(data: any) {
     // let status = data.statusObj?.translations[0].lookupName.toLowerCase();
     // if( status == 'signed' || status == 'under collecting' || status == 'collected'){
     // }else{
     // }
-    if(!this.canPerformAction(7, 39, 79) || !this.canPerformAction(7, 39, 78))
-      this.router.navigate(['/home/workorders',data.orderId])
+    if (!this.canPerformAction(7, 39, 79) || !this.canPerformAction(7, 39, 78))
+      this.router.navigate(['/home/workorders', data.orderId])
   }
-  tabClick(value:boolean){
+  tabClick(value: boolean) {
     this.commonService.loadRequestTab = value;
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
