@@ -327,32 +327,6 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.commonService.selectedWorkorder = 1;
     this.commonService.loadRequestTab = true;
   }
-  reschedule(){
-    let formData = new FormData();
-    formData.append('requestId',this.orderId.toString());
-    this.saveLoader = true;
-    this.apiService.performReschedulePNOrders(formData).subscribe(
-      (response) => {
-        this.saveLoader = false;
-        if (response.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created");
-          // this.router.navigate(['/home/workorders'])
-        }
-        else {
-          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-          this.error(this.errorsList)
-          this.commonService.showError("found some error..!", "Error");
-        }
-      },
-      (error) => {
-        this.saveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.error(this.errorsList)
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
-  }
   confirm(message:string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,

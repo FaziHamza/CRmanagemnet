@@ -103,6 +103,8 @@ getAllRequestList() {
   this.saveLoader = true;
   this.apiService.getrequestWorkOrder(queryString).subscribe(res => {
     this.saveLoader = false;
+    if(this.searchByRequestNo == 0 )
+        this.searchByRequestNo = null;
     if (res) {
       this.requestList = res.data;
     } else {
@@ -118,8 +120,8 @@ getAllRequestList() {
     this.getAllRequestList();
   }
   clearPart() {
-    this.searchByRequestNo = null;
-    // this.orderParamObj.OrderNumber = this.searchByRequestNo;
+    this.searchByRequestNo = 0;
+    this.orderParamObj.PNOrderID = this.searchByRequestNo;
     this.getAllRequestList();
   }
   clearStatus() {

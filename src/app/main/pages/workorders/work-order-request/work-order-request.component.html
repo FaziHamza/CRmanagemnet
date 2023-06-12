@@ -176,7 +176,7 @@
                         <ng-template #block1>
                             <div *ngIf="data.status == 21009;else block2">
                                 <div *ngIf="data.actionTaken; else disableTransferBlock">
-                                    <button type="button" class="btn o-btn btn-disabled" (click)="transfer(data.requestID)" [disabled]="!canPerformAction(7, 40, 82)">
+                                    <button type="button" class="btn o-btn btn-disabled disabled-link" [disabled]="!canPerformAction(7, 40, 82)">
                                         <span>Transfer</span>
                                     </button>
                                 </div>
@@ -191,7 +191,7 @@
                         <ng-template #block2>
                             <div *ngIf="data.status == 21010;else block3">
                                 <div *ngIf="data.actionTaken; else disableBlock">
-                                    <button type="button" class="btn o-btn   btn-disabled" (click)="reschedule(data.requestID)" [disabled]="!canPerformAction(7, 40, 82)">
+                                    <button type="button" class="btn o-btn   btn-disabled disabled-link" [disabled]="!canPerformAction(7, 40, 82)">
                                         <span>Reschedule</span>
                                     </button>
                                 </div>

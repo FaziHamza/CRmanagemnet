@@ -342,8 +342,6 @@
                                         <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                         [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                                         translate}}</button>
-                                        <button class="btn o-btn hvr-bounce-to-right" type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
-                                          (click)="reschedule()"> Generate </button>
                                       </div>
                                     </ng-template>
                                 </div>
@@ -507,40 +505,6 @@
                                 <h5>
                                     Promissory Notes Details
                                 </h5>
-                                <!-- <div class="row heading-box">
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-box">
-                                            <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
-                                                translate}}:
-                                                <span class="head-detail"
-                                                    *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
-                                                    customRound: 0}}</span>
-                                                <span class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-box">
-                                            <h4 class="head-title">{{"Promissory_Notes.No_Of_Installments" | translate}}
-                                                :
-                                                <span class="head-detail"
-                                                    *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</span>
-                                                <span class="head-detail"
-                                                    *ngIf="!orderDetail.numberOfInstallments">---</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="card-box">
-                                            <h4 class="head-title">{{"Promissory_Notes.First_Due_Date" | translate}}:
-                                                <span class="head-detail"
-                                                    *ngIf="orderDetail.startDate">{{orderDetail.startDate | date:'dd MMM yyyy' }}</span>
-                                                <span class="head-detail" *ngIf="!orderDetail.startDate">---</span>
-                                            </h4>
-                                        </div>
-                                    </div>
-
-                                </div> -->
                             </div>
                             <div class="wizard-form-body" >
 

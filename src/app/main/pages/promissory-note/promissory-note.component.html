@@ -163,15 +163,15 @@
               <div class="row heading-box customer-info-card">
                 <div class="col-lg-6">
                   <div class="profileee">
-                    <div class="img-box" *ngIf="orderDetail.customer.customerName">
+                    <div class="img-box" *ngIf="orderDetail.originalCustomer?.customerName">
                       <nz-avatar
-                        [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
+                        [nzText]="commonService.getInitialOfName(orderDetail.originalCustomer?.customerName)"></nz-avatar>
                     </div>
                     <div class="heading-box">
                       <p class="head-title ">Name :
                         <span class="head-detail"
-                          *ngIf="orderDetail.customer.customerName">{{orderDetail.customer.customerName}}</span>
-                        <span class="head-detail" *ngIf="!orderDetail.customer.customerName">---</span>
+                          *ngIf="orderDetail.originalCustomer?.customerName">{{orderDetail.originalCustomer?.customerName}}</span>
+                        <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.customerName">---</span>
                       </p>
 
                     </div>
@@ -180,32 +180,32 @@
                 <div class="col-lg-6">
                   <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}} :
                     <span class="head-detail"
-                      *ngIf="orderDetail && orderDetail.customer.customerId">{{orderDetail.customer.customerId}}</span>
-                    <span class="head-detail" *ngIf="!orderDetail.customer.customerId">---</span>
+                      *ngIf="orderDetail && orderDetail.originalCustomer?.customerId">{{orderDetail.originalCustomer?.customerId}}</span>
+                    <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.customerId">---</span>
 
                   </p>
                 </div>
                 <div class="col-lg-6">
                   <p class="head-title ">{{"Promissory_Notes.ID" | translate}} :
 
-                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.nationalId">
-                      {{orderDetail.customer.nationalId}}</span>
-                    <span class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</span>
+                    <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.nationalId">
+                      {{orderDetail.originalCustomer?.nationalId}}</span>
+                    <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.nationalId">---</span>
                   </p>
                 </div>
                 <div class="col-lg-6">
                   <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}} :
-                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.mobile">
-                      {{orderDetail.customer.mobile}}</span>
-                    <span class="head-detail" *ngIf="!orderDetail.customer.mobile">---</span>
+                    <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.mobile">
+                      {{orderDetail.originalCustomer.mobile}}</span>
+                    <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.mobile">---</span>
                   </p>
                 </div>
                 <div class="col-lg-6">
                   <p class="head-title ">{{"Promissory_Notes.Address" | translate}} :
 
-                    <span class="head-detail" *ngIf="orderDetail && orderDetail.customer.custAddress">
-                      {{orderDetail.customer.custAddress}}</span>
-                    <span class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</span>
+                    <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.custAddress">
+                      {{orderDetail.originalCustomer?.custAddress}}</span>
+                    <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.custAddress">---</span>
                   </p>
 
                 </div>
@@ -216,20 +216,20 @@
                       </p>
                     </div>
                     <div class="col-lg-8 d-grid ">
-                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1">
-                        <div (click)="pdfView(orderDetail.customer.identityFile1)">
+                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.originalCustomer?.identityFile1">
+                        <div (click)="pdfView(orderDetail.originalCustomer?.identityFile1)">
                           {{"Promissory_Notes.document_name_PDF"
                           |
                           translate}}
                         </div>
                         <div>
-                          <a href="{{ orderDetail.customer.identityFile1 }}" target="_blank" class="eye">
+                          <a href="{{ orderDetail.originalCustomer?.identityFile1 }}" target="_blank" class="eye">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <path fill="currentColor"
                                 d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                             </svg>
                           </a>
-                          <a (click)="downloadFile(orderDetail.customer.identityFile1)" class="download">
+                          <a (click)="downloadFile(orderDetail.originalCustomer?.identityFile1)" class="download">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                               <path fill="currentColor"
                                 d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -237,7 +237,7 @@
                           </a>
                         </div>
                       </button>
-                      <span class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</span>
+                      <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.identityFile1">---</span>
                     </div>
                   </div>
 

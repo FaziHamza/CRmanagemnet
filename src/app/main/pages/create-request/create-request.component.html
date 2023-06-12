@@ -40,7 +40,7 @@
                 <label class="mb-1"><b>Interest Percentage</b></label>
                 <div class="input-search1">
                     <input type="text" class="form-control" (input)="interestPercentage()" [(ngModel)]="interestPer"
-                        placeholder="Search by order number"  appPositiveDecimal>
+                        placeholder=""  appPositiveDecimal>
                     <svg xmlns="http://www.w3.org/2000/svg" class="close" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="#78778b"
                             d="m18.501 3.5l-15 15.001l1.996 1.996l15-15zM7.002 5a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4zm10 10a2 2 0 1 0-.004 4a2 2 0 0 0 .004-4z" />
@@ -54,7 +54,7 @@
                 <label class="mb-1"><b>Interest Value (JOD)</b></label>
                 <div class="input-search1">
                     <input type="text" class="form-control " (input)="interestValue()" [(ngModel)]="interestVal"
-                        placeholder="Search by order number" appPositiveDecimal>
+                        placeholder="" appPositiveDecimal>
                         <span class="close">JOD</span>
                 </div>
             </div>
@@ -141,7 +141,7 @@
 
                 </nz-upload>
             </div>
-            <div class="col-lg-8 d-grid mt-1" *ngIf="customerFileName">
+            <div class="col-lg-8 d-grid mt-1 request-create" *ngIf="customerFileName">
               <button type="button" class="pdf-view-btn" >
                 <div (click)="pdfView(customerFileName)">
                   {{"Promissory_Notes.document_name_PDF"
@@ -228,7 +228,7 @@
 
                 </nz-upload>
             </div>
-            <div class="col-lg-10 d-grid mt-1" *ngIf="guarantorFileName">
+            <div class="col-lg-10 d-grid mt-1 request-create" *ngIf="guarantorFileName">
               <button type="button" class="pdf-view-btn" >
                 <div (click)="pdfView(guarantorFileName)">
                   {{"Promissory_Notes.document_name_PDF"
