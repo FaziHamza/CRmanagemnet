@@ -778,11 +778,11 @@ input[type="checkbox"]:checked {
     }
 }
 
-.ant-picker-suffix>* {
+.ant-picker-suffix > * {
     font-size: 18px;
 }
 
-.ant-picker-input>input {
+.ant-picker-input > input {
     font-size: 12px !important;
 }
 
@@ -971,7 +971,7 @@ input {
     color: white;
 }
 
-.ant-table.ant-table-bordered>.ant-table-container {
+.ant-table.ant-table-bordered > .ant-table-container {
     border-left: none !important;
 }
 
@@ -1454,7 +1454,7 @@ hr {
     }
 }
 
-.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
     border: none !important;
     background: $primary !important;
 }
@@ -1555,7 +1555,7 @@ nz-tabset {
     color: #929eae;
 }
 
-.ant-table-thead>tr>th {
+.ant-table-thead > tr > th {
     white-space: nowrap;
 }
 
@@ -1572,7 +1572,7 @@ nz-tabset {
     background: #dc3545 !important;
 }
 
-.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
     color: $bg-light !important;
     top: -3.5px !important;
 }
@@ -1705,11 +1705,11 @@ nz-tabset {
         border-radius: 4px;
         display: flex;
         justify-content: center;
-        box-shadow: 0px 10px 20px rgba(0, 0, 0, .1) !important;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1) !important;
         align-items: center;
         font-weight: 600;
         font-size: 14px;
-        letter-spacing: .3px;
+        letter-spacing: 0.3px;
     }
 
     .pending-status-btn {
@@ -2135,8 +2135,8 @@ nz-tabset {
 }
 
 .form-check-input:disabled,
-.form-check-input:disabled~.form-check-label,
-.form-check-input[disabled]~.form-check-label {
+.form-check-input:disabled ~ .form-check-label,
+.form-check-input[disabled] ~ .form-check-label {
     opacity: 1 !important;
 }
 
@@ -2170,22 +2170,22 @@ nz-tabset {
     }
 }
 
-.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
     border: 1px solid $border !important;
 }
 
-.ant-tabs-bottom>.ant-tabs-nav::before,
-.ant-tabs-bottom>div>.ant-tabs-nav::before,
-.ant-tabs-top>.ant-tabs-nav::before,
-.ant-tabs-top>div>.ant-tabs-nav::before {
+.ant-tabs-bottom > .ant-tabs-nav::before,
+.ant-tabs-bottom > div > .ant-tabs-nav::before,
+.ant-tabs-top > .ant-tabs-nav::before,
+.ant-tabs-top > div > .ant-tabs-nav::before {
     border-bottom: none !important;
 }
 
-.ant-tabs-card.ant-tabs-bottom>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
-.ant-tabs-card.ant-tabs-bottom>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
+.ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+.ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
     margin-left: 0px !important;
 }
 
@@ -2218,7 +2218,6 @@ nz-tabset {
 }
 
 .ant-modal-body {
-
     input,
     select,
     .ant-picker {
@@ -2290,7 +2289,7 @@ nz-tabset {
         position: absolute;
         background-color: #fff;
         min-width: 240px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         right: 0;
         top: 45px;
@@ -2303,9 +2302,8 @@ nz-tabset {
         font-size: 14px;
     }
 
-
     .dropdown-content a:hover {
-        background: #F2F2F2 !important;
+        background: #f2f2f2 !important;
     }
 
     .dropdown:hover .dropdown-content {
@@ -2318,7 +2316,7 @@ nz-tabset {
 }
 
 .ant-radio-checked .ant-radio-inner,
-.ant-radio-input:focus+.ant-radio-inner,
+.ant-radio-input:focus + .ant-radio-inner,
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner {
     border-color: $primary !important;
@@ -2391,8 +2389,24 @@ button span,
     justify-content: flex-end;
 }
 
-.request-create{
-  .pdf-view-btn{
-    width: 100% !important;
-  }
+.request-create {
+    .pdf-view-btn {
+        width: 100% !important;
+    }
+}
+
+.paginatio-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 0px;
+    .showing {
+        font-size: 14px;
+        font-weight: 600;
+        span {
+            margin: 0px 2px;
+            color: $primary;
+        }
+    }
 }

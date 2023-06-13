@@ -219,10 +219,15 @@
                 </tr>
             </tbody>
         </nz-table>
-        <div class="bottom-buttons">
-            <nz-pagination *ngIf="orderList.length > pageSize" [nzTotal]="orderList.length" [(nzPageIndex)]="pageIndex"
-                [(nzPageSize)]="pageSize" (nzPageIndexChange)="onPageIndexChange($event)"
-                (nzPageSizeChange)="onPageSizeChange($event)" nzShowSizeChanger nzShowQuickJumper></nz-pagination>
+        <div class="paginatio-bottom">
+            <div>
+                <p class="showing">Showing <span>1 - 6</span> from <span>9</span> data</p>
+            </div>
+            <div>
+                <nz-pagination *ngIf="orderList.length > pageSize" [nzTotal]="orderList.length"
+                    [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                    (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+            </div>
         </div>
     </div>
 </nz-spin>
