@@ -22,9 +22,13 @@ export class WorkOrderRequestComponent implements OnInit {
   searchPartNo$ = new Subject<any>();
   tableLoader: any = false;
   requestList: any[] = [];
-  pageSize = 6;
+  pageSize = 7;
+  pageIndex: number = 1;
+  displayData: any[] = [];
   statusList: any[] = [];
   errorsList: any[] = [];
+  start = 1;
+  end = 7;
   orderParamObj: requestParam = {
     RequestTypeID: 0, PNOrderID: 0, NewCustomerID: 0, CustomerName: '', Status: 0,
     OrderStatus: 0, FromDate: '', ToDate: '', Sort: 1, PageNo: 0, PageSize: 1000
@@ -107,6 +111,8 @@ export class WorkOrderRequestComponent implements OnInit {
         this.searchByRequestNo = null;
       if (res) {
         this.requestList = res.data;
+        this.displayData =this.requestList;
+        this.end = this.displayData.length > 7 ? 7 : this.displayData.length;
       } else {
         this.requestList = [];
       }
@@ -406,5 +412,23 @@ export class WorkOrderRequestComponent implements OnInit {
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
+  }
+
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.updateDisplayData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.updateDisplayData();
+  }
+
+  updateDisplayData(): void {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.displayData = this.requestList.slice(start, end);
+    this.end = this.displayData.length != 7 ? this.requestList.length :  this.pageIndex * this.pageSize;
   }
 }

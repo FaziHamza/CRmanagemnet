@@ -504,8 +504,8 @@
                             </div>
                             <div class="table-responsive">
 
-                              <nz-table #editRowTable nzBordered [nzData]="promissoryist" nzTableLayout="fixed"
-                                [nzPageSize]="6">
+                              <nz-table #editRowTable nzBordered [nzData]="displaypromissoryist" nzTableLayout="fixed"
+                                [nzPageSize]="pageSize" [nzFrontPagination]="false">
                                 <thead>
                                   <tr>
                                     <th nzWidth="8%">
@@ -528,7 +528,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let data of editRowTable.data;let index = index">
+                                  <tr *ngFor="let data of editRowTable.data">
                                     <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
                                       <td>
                                         {{ data.id }}
@@ -616,6 +616,16 @@
                                   </tr>
                                 </tbody>
                               </nz-table>
+                              <div class="paginatio-bottom">
+                                <div>
+                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{promissoryist.length}}</span> data</p>
+                                </div>
+                                <div>
+                                    <nz-pagination *ngIf="promissoryist.length > pageSize" [nzTotal]="promissoryist.length"
+                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                </div>
+                            </div>
                             </div>
                           </div>
                           <div *ngIf="current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
@@ -682,8 +692,8 @@
                             </div>
                             <div class="table-responsive">
 
-                              <nz-table #editRowTable nzBordered [nzData]="generatedlist" nzTableLayout="fixed"
-                                [nzPageSize]="6">
+                              <nz-table #editRowTable nzBordered [nzData]="displaygeneratedlist" nzTableLayout="fixed"
+                                [nzPageSize]="pageSize" [nzFrontPagination]="false">
                                 <thead>
                                   <tr>
                                     <th nz-th nzSortFn="simpleSort" nzWidth="8%"
@@ -738,6 +748,16 @@
 
                                 </tbody>
                               </nz-table>
+                              <div class="paginatio-bottom">
+                                <div>
+                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
+                                </div>
+                                <div>
+                                    <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
+                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                </div>
+                            </div>
                             </div>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 0">

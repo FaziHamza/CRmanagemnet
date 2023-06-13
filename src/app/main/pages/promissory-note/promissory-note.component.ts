@@ -30,7 +30,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   saveLoader = false;
   selectedItemOrderId = 0;
   promissoryist = [];
+  displaypromissoryist = [];
   generatedlist = [];
+  displaygeneratedlist = [];
   orderDetail: any;
   orderDetailMaster: any;
   orderId = 0;
@@ -43,6 +45,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   stepSaveLoader = false;
   isPrintShow = false;
   safeUrl: any;
+  pageSize = 6;
+  pageIndex: number = 1;
+  start = 1;
+  end = 6;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
       { title: '', routeLink: 'home/promissory-note' }
@@ -166,6 +172,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
       this.promissoryist.push(obj);
     }
+    this.displaypromissoryist = this.promissoryist.length  > 6 ? this.promissoryist.slice(0,6) : this.promissoryist;
+    this.initilizeTableField();
+    this.end = this.displaypromissoryist.length > 6 ? 6 : this.displaypromissoryist.length;
     this.updateEditCache();
     this.isGenerate = true;
     this.differenceAmount = 0;
@@ -317,10 +326,18 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           };
           this.generatedlist.push(obj);
         }
+        this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+        this.initilizeTableField();
+        this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
         this.isGenerate = true;
         this.current = index;
       }
     })
+  }
+  initilizeTableField(){
+    this.pageSize = 6;
+    this.pageIndex = 1;
+    this.start = 1;
   }
   //#endregion
   createRequest(): void {
@@ -662,6 +679,10 @@ generateSortList() {
         this.generatedlist.push(obj);
         getCount -= 1;
       }
+      this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+      this.initilizeTableField();
+      this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
+
       if (this.sortType === "ascend") {
         this.generatedlist.sort((a, b) => a.id - b.id);
       } else if (this.sortType === "descend") {
@@ -682,5 +703,28 @@ generateSortList() {
       downloadLink.click();
       document.body.removeChild(downloadLink);
     // });
+  }
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.updateDisplayData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.updateDisplayData();
+  }
+
+  updateDisplayData(): void {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    if(this.current != 0){
+      this.displaygeneratedlist = this.generatedlist.slice(start, end);
+      this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
+    }else{
+      this.displaypromissoryist = this.promissoryist.slice(start, end);
+      this.end = this.displaypromissoryist.length != 6 ? this.displaypromissoryist.length :  this.pageIndex * this.pageSize;
+    }
+
   }
 }

@@ -33,8 +33,8 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   current = 0;
   isGenerate = false;
   saveLoader = false;
-  promissoryist = [];
   generatedlist = [];
+  displaygeneratedlist = [];
   orderDetail: any;
   otherDetail: any;
   orderDetailMaster: any;
@@ -48,6 +48,10 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   stepSaveLoader = false;
   isPrintShow = false;
   safeUrl: any;
+  pageSize = 6;
+  pageIndex: number = 1;
+  start = 1;
+  end = 6;
   ngOnInit(): void {
     this.commonService.breadcrumb = [
       { title: 'Transferring Promissory Notes Orders', routeLink: 'home/workorders' }
@@ -108,43 +112,6 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     this.current = index;
   }
 
-  saveGeneratingNotes() {
-    this.stepSaveLoader = true;
-    let notes: any = [];
-    this.promissoryist.forEach(element => {
-      const fromDate = new Date(element.dueDate.toString());
-      let data = {
-        amount: parseFloat(element.amount.toFixed(3)),
-        dueDate: fromDate.toISOString()
-      }
-      notes.push(data);
-    })
-    let orderId: any = this.orderId
-    let formData = new FormData();
-    formData.append('OrderId', orderId);
-    formData.append('Notes', JSON.stringify(notes));
-    this.apiService.saveGeneratingNotes(formData).subscribe(
-      (res) => {
-        this.stepSaveLoader = false;
-        if (res.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.ngOnInit();
-        }
-        else {
-          this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
-          this.commonService.showError("found some error..!", "Error");
-          this.error(this.errorsList);
-        }
-      },
-      (error) => {
-        this.stepSaveLoader = false;
-        this.error(this.errorsList);
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
-
-  }
   //#endregion
 
   //#region  generated tab 2
@@ -201,6 +168,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
             };
             this.generatedlist.push(obj);
           }
+          this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+          this.initlizePaginationControl();
+          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
           this.current = index;
           this.isGenerate = true;
         }
@@ -208,7 +178,11 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     }
 
   }
-
+  initlizePaginationControl(){
+    this.pageSize = 6;
+    this.pageIndex = 1;
+    this.start = 1;
+  }
   ngAfterViewInit() {
 
     this.cdr.detectChanges()
@@ -433,6 +407,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
           this.generatedlist.push(obj);
           getCount -= 1;
         }
+        this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+          this.initlizePaginationControl();
+          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
         this.isGenerate = true;
       }
     })
@@ -447,5 +424,22 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       downloadLink.click();
       document.body.removeChild(downloadLink);
     // });
+  }
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.updateDisplayData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.updateDisplayData();
+  }
+
+  updateDisplayData(): void {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.displaygeneratedlist = this.generatedlist.slice(start, end);
+    this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
   }
 }

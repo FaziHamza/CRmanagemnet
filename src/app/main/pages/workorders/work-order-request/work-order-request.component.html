@@ -101,8 +101,8 @@
                 {{requestList.length}}</h5>
 
         </div>
-        <nz-table #editRowTable nzBordered [nzData]="requestList" nzTableLayout="fixed" [nzPageSize]="pageSize"
-            [nzLoading]="tableLoader">
+        <nz-table #editRowTable nzBordered [nzData]="displayData" nzTableLayout="fixed" [nzPageSize]="pageSize"
+            [nzLoading]="tableLoader" [nzFrontPagination]="false">
             <thead>
                 <tr>
                     <th nz-th nzSortFn="simpleSort" *ngIf="requestList.length > 0"
@@ -216,5 +216,15 @@
                 </tr>
             </tbody>
         </nz-table>
+        <div class="paginatio-bottom">
+          <div>
+              <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{requestList.length}}</span> data</p>
+          </div>
+          <div>
+              <nz-pagination *ngIf="requestList.length > pageSize" [nzTotal]="requestList.length"
+                  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                  (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+          </div>
+      </div>
     </div>
 </nz-spin>

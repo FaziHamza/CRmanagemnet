@@ -221,7 +221,7 @@
         </nz-table>
         <div class="paginatio-bottom">
             <div>
-                <p class="showing">Showing <span>1 - 6</span> from <span>9</span> data</p>
+                <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{orderList.length}}</span> data</p>
             </div>
             <div>
                 <nz-pagination *ngIf="orderList.length > pageSize" [nzTotal]="orderList.length"

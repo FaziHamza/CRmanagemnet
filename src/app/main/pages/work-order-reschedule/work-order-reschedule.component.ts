@@ -32,8 +32,13 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
   current = 0;
   isGenerate = false;
   saveLoader = false;
+  pageSize = 6;
+  pageIndex: number = 1;
+  start = 1;
+  end = 6;
   // promissoryist = [];
   generatedlist = [];
+  displaygeneratedlist = [];
   orderDetail: any;
   otherDetail: any;
   orderDetailMaster: any;
@@ -184,6 +189,9 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
             };
             this.generatedlist.push(obj);
           }
+          this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+          this.initlizePaginationControl();
+          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
           this.current = index;
           this.isGenerate = true;
         }
@@ -191,7 +199,11 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     }
 
   }
-
+  initlizePaginationControl(){
+    this.pageSize = 6;
+    this.pageIndex = 1;
+    this.start = 1;
+  }
   ngAfterViewInit() {
 
     this.cdr.detectChanges()
@@ -416,6 +428,9 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
           this.generatedlist.push(obj);
           getCount -= 1;
         }
+        this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+        this.initlizePaginationControl();
+        this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
         this.isGenerate = true;
       }
     })
@@ -430,5 +445,22 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       downloadLink.click();
       document.body.removeChild(downloadLink);
     // });
+  }
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.updateDisplayData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.updateDisplayData();
+  }
+
+  updateDisplayData(): void {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.displaygeneratedlist = this.generatedlist.slice(start, end);
+    this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
   }
 }

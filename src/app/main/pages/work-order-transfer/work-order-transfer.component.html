@@ -662,8 +662,8 @@
                             </div>
                             <div class="table-responsive">
 
-                              <nz-table #editRowTable nzBordered [nzData]="generatedlist" nzTableLayout="fixed"
-                                [nzPageSize]="6">
+                              <nz-table #editRowTable nzBordered [nzData]="displaygeneratedlist" nzTableLayout="fixed"
+                                [nzPageSize]="pageSize" [nzFrontPagination]="false">
                                 <thead>
                                   <tr>
                                     <th nz-th nzSortFn="ascend" nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
@@ -717,6 +717,16 @@
 
                                 </tbody>
                               </nz-table>
+                              <div class="paginatio-bottom">
+                                <div>
+                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
+                                </div>
+                                <div>
+                                    <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
+                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                </div>
+                            </div>
                             </div>
                           </div>
                           <div class="bottom-buttons">
