@@ -92,8 +92,9 @@
                 {{orderList.length}}</h5>
 
         </div>
-        <nz-table #editRowTable nzBordered [nzData]="orderList" nzTableLayout="fixed"
-            [nzPageSize]="pageSize" [nzLoading]="tableLoader">
+        <nz-table #editRowTable nzBordered [nzData]="displayData" nzTableLayout="fixed" [nzPageSize]="pageSize" [nzLoading]="tableLoader" [nzFrontPagination]="false">
+       
+
             <thead>
                 <tr>
                     <th nz-th nzSortFn="simpleSort" *ngIf="orderList.length > 0"
@@ -217,5 +218,7 @@
                 </tr>
             </tbody>
         </nz-table>
+        <nz-pagination *ngIf="orderList.length > pageSize" [nzTotal]="orderList.length" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" nzShowSizeChanger nzShowQuickJumper></nz-pagination>
+
     </div>
 </nz-spin>

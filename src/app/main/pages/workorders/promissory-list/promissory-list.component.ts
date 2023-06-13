@@ -20,7 +20,6 @@ export class PromissoryListComponent implements OnInit {
   tableLoader: any = false;
   loadRequestTab: any = false;
   orderList: any[] = [];
-  pageSize = 6;
   statusList: any[] = [];
   orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
 
@@ -70,8 +69,10 @@ export class PromissoryListComponent implements OnInit {
       this.saveLoader = false;
       if (res.isSuccess) {
         this.orderList = res.data?.data;
+        this.displayData =this.orderList;
       } else {
         this.orderList = [];
+        this.displayData =[];
       }
     })
   }
@@ -102,6 +103,11 @@ export class PromissoryListComponent implements OnInit {
       this.searchPartNo$.next(this.searchByPartNo);
     }
   }
+
+  pageIndex: number = 1;
+  pageSize: number = 7;
+  displayData: any[] = [];
+
   sortType = null;
   sortCounter = 0;
   sortCounters = {
@@ -152,6 +158,21 @@ export class PromissoryListComponent implements OnInit {
       this.lastSortedColumn = columnName;
       this.getAllOrderList();
     }
+  }
+  onPageIndexChange(index: number): void {
+    this.pageIndex = index;
+    this.updateDisplayData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.updateDisplayData();
+  }
+
+  updateDisplayData(): void {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayData = this.orderList.slice(start, end);
   }
 
 
