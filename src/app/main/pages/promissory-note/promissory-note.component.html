@@ -530,21 +530,21 @@
                                 <tbody>
                                   <tr *ngFor="let data of editRowTable.data">
                                     <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
-                                      <td>
+                                      <td class="table-data">
                                         {{ data.id }}
                                       </td>
-                                      <td>{{ data.customerName }}</td>
+                                      <td class="table-data">{{ data.customerName }}</td>
                                       <td [ngClass]="{'edit-data-status': data.amount != data.orginalAmount}">{{
                                         data.amount | customRound: 3 }} JOD
                                       </td>
                                       <td [ngClass]="{'edit-data-status': data.dueDate != data.originalDueDate}">
                                         {{data.dueDate | date: 'dd MMM yyyy'}}
                                       </td>
-                                      <td>
+                                      <td class="table-data">
 
                                         <button class="btn generating-status">Generating</button>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <a class="table-edit" *ngIf="!data.edit"
                                           (click)="this.editCache[data.id].edit = true">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -568,11 +568,11 @@
                                       </td>
                                     </ng-container>
                                     <ng-template #editTemplate>
-                                      <td>{{ data.id }} </td>
-                                      <td>
+                                      <td class="table-data">{{ data.id }} </td>
+                                      <td class="table-data">
                                         {{ data.customerName }}
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <div class="input-group">
 
                                           <input type="text" class="form-control"
@@ -582,18 +582,18 @@
 
                                         </div>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <div class="input-group">
                                           <input type="date" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.dueDate"
                                             [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1">
                                         </div>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <button class="btn generating-status">{{"Promissory_Notes.Generating"|
                                           translate}}</button>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <a class="table-correct" (click)="saveEdit(data.id)">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
                                             viewBox="0 0 24 24">
@@ -720,21 +720,21 @@
                                   <ng-container *ngFor="let data of editRowTable.data;let index = index">
                                     <tr
                                       [ngClass]="{'hightlight-row': data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true}">
-                                      <td>
+                                      <td class="table-data">
                                         {{ data.id }}
                                       </td>
-                                      <td>{{ data.customerName }}</td>
-                                      <td>{{ data.amount | number : ".3" }} JOD
+                                      <td class="table-data">{{ data.customerName }}</td>
+                                      <td class="table-data">{{ data.amount | number : ".3" }} JOD
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         {{data.dueDate | date : 'dd MMM yyyy'}}
                                       </td>
-                                      <td>
+                                      <td class="table-data">
 
                                         <button class="btn generating-status" [style.color]="data.lookupTextColor"
                                           [style.background-color]="data.lookupBGColor">{{data.status}}</button>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <a class="pen-icon" (click)="pdfView(data.pdfView,data)">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">

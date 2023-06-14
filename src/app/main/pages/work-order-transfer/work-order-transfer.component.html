@@ -689,21 +689,21 @@
                                   <ng-container *ngFor="let data of editRowTable.data;let index = index">
                                     <tr
                                       [ngClass]="{'hightlight-row': data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true}">
-                                      <td>
+                                      <td class="table-data">
                                         {{ data.id }}
                                       </td>
-                                      <td>{{ data.customerName }}</td>
-                                      <td>{{ data.amount |  number : ".3" }} JOD
+                                      <td class="table-data">{{ data.customerName }}</td>
+                                      <td class="table-data">{{ data.amount |  number : ".3" }} JOD
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         {{data.dueDate | date : 'dd MMM yyyy'}}
                                       </td>
-                                      <td>
+                                      <td class="table-data">
 
                                         <button class="btn generating-status" [style.color]="data.lookupTextColor"
                                           [style.background-color]="data.lookupBGColor">{{data.status}}</button>
                                       </td>
-                                      <td>
+                                      <td class="table-data">
                                         <a class="pen-icon" (click)="pdfView(data.pdfView,data)">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">

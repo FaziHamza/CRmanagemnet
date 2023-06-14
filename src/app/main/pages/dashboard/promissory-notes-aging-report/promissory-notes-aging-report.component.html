@@ -132,32 +132,32 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of editRowTable.data">
-          <td>{{ data.customerId }}</td>
-          <td>
+          <td class="table-data">{{ data.customerId }}</td>
+          <td class="table-data">
             <span class="link">{{ data.customerName }}</span>
           </td>
-          <td>{{ data.uncollectd | number : ".3" }} JOD</td>
-          <td>{{ data.overDuePnsTotal | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25001 | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25002 | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25003 | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25004 | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25005 | number : ".3" }} JOD</td>
-          <td>{{ data.lookup25006 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.uncollectd | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.overDuePnsTotal | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25001 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25002 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25003 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25004 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25005 | number : ".3" }} JOD</td>
+          <td class="table-data">{{ data.lookup25006 | number : ".3" }} JOD</td>
         </tr>
         <tr class="footer" *ngIf="list?.length">
-          <td></td>
-          <td>
+          <td class="table-data"></td>
+          <td class="table-data">
             <span class="total">Total</span>
           </td>
-          <td>{{ getTotalBy("uncollectd") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("overDuePnsTotal") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25001") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25002") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25003") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25004") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25005") | number : ".3" }} JOD</td>
-          <td>{{ getTotalBy("lookup25006") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("uncollectd") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("overDuePnsTotal") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25001") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25002") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25003") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25004") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25005") | number : ".3" }} JOD</td>
+          <td class="table-data">{{ getTotalBy("lookup25006") | number : ".3" }} JOD</td>
         </tr>
       </tbody>
     </nz-table>
