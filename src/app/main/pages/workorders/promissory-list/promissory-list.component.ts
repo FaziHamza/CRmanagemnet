@@ -71,7 +71,7 @@ export class PromissoryListComponent implements OnInit {
       this.saveLoader = false;
       if (res.isSuccess) {
         this.orderList = res.data?.data;
-        this.displayData =this.orderList;
+        this.displayData = this.orderList.length > 6 ? this.orderList.slice(0, 6) : this.orderList;
         this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
       } else {
         this.orderList = [];

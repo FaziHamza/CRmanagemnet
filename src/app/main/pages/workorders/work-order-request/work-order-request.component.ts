@@ -111,7 +111,7 @@ export class WorkOrderRequestComponent implements OnInit {
         this.searchByRequestNo = null;
       if (res) {
         this.requestList = res.data;
-        this.displayData =this.requestList;
+        this.displayData = this.requestList.length > 6 ? this.requestList.slice(0, 6) : this.requestList;
         this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
       } else {
         this.requestList = [];
