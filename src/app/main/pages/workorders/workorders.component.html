@@ -5,17 +5,15 @@
         [routerLink]="'/home/dashboard'">Cancel</button>
     <button class="btn o-btn hvr-bounce-to-right" type="submit">Create</button>
 </div> -->
-<div class="container-fluid">
-    <div class="content-body-inner" >
-        <nz-tabset [nzSelectedIndex]="commonService.selectedWorkorder">
-            <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}"
-                (nzClick)="tabClick(false,0)" *ngIf="!canPerformAction(7, 39, 80)">
+<div class="content-body-inner">
+    <nz-tabset [nzSelectedIndex]="commonService.selectedWorkorder">
+        <nz-tab nzTitle="{{'Promissory_Notes_orders.Promissory_Notes_Order' | translate}}" (nzClick)="tabClick(false,0)"
+            *ngIf="!canPerformAction(7, 39, 80)">
 
-             <app-promissory-list *ngIf="!commonService.loadRequestTab"></app-promissory-list>
-            </nz-tab>
-            <nz-tab nzTitle="Requests" (nzClick)="tabClick(true,1)" *ngIf="!canPerformAction(7, 40, 83)">
-                <app-work-order-request *ngIf="commonService.loadRequestTab"></app-work-order-request>
-            </nz-tab>
-        </nz-tabset>
-    </div>
+            <app-promissory-list *ngIf="!commonService.loadRequestTab"></app-promissory-list>
+        </nz-tab>
+        <nz-tab nzTitle="Requests" (nzClick)="tabClick(true,1)" *ngIf="!canPerformAction(7, 40, 83)">
+            <app-work-order-request *ngIf="commonService.loadRequestTab"></app-work-order-request>
+        </nz-tab>
+    </nz-tabset>
 </div>
