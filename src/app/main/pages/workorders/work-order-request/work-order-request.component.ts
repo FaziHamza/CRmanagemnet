@@ -22,13 +22,13 @@ export class WorkOrderRequestComponent implements OnInit {
   searchPartNo$ = new Subject<any>();
   tableLoader: any = false;
   requestList: any[] = [];
-  pageSize = 7;
+  pageSize = 6;
   pageIndex: number = 1;
   displayData: any[] = [];
   statusList: any[] = [];
   errorsList: any[] = [];
   start = 1;
-  end = 7;
+  end = 6;
   orderParamObj: requestParam = {
     RequestTypeID: 0, PNOrderID: 0, NewCustomerID: 0, CustomerName: '', Status: 0,
     OrderStatus: 0, FromDate: '', ToDate: '', Sort: 1, PageNo: 0, PageSize: 1000
@@ -112,7 +112,7 @@ export class WorkOrderRequestComponent implements OnInit {
       if (res) {
         this.requestList = res.data;
         this.displayData =this.requestList;
-        this.end = this.displayData.length > 7 ? 7 : this.displayData.length;
+        this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
       } else {
         this.requestList = [];
       }
@@ -429,6 +429,6 @@ export class WorkOrderRequestComponent implements OnInit {
     const end = start + this.pageSize;
     this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
     this.displayData = this.requestList.slice(start, end);
-    this.end = this.displayData.length != 7 ? this.requestList.length :  this.pageIndex * this.pageSize;
+    this.end = this.displayData.length != 6 ? this.requestList.length :  this.pageIndex * this.pageSize;
   }
 }

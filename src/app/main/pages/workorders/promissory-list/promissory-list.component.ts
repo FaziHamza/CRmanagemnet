@@ -29,7 +29,7 @@ export class PromissoryListComponent implements OnInit {
   selectedDate: any;
   saveLoader: boolean = false;
   start = 1;
-  end = 7;
+  end = 6;
   constructor(private apiService: ApiService, public commonService: CommonService, private router: Router,
     private modal: NzModalService, private permissionService: PermissionService) { }
 
@@ -72,7 +72,7 @@ export class PromissoryListComponent implements OnInit {
       if (res.isSuccess) {
         this.orderList = res.data?.data;
         this.displayData =this.orderList;
-        this.end = this.displayData.length > 7 ? 7 : this.displayData.length;
+        this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
       } else {
         this.orderList = [];
         this.displayData =[];
@@ -108,7 +108,7 @@ export class PromissoryListComponent implements OnInit {
   }
 
   pageIndex: number = 1;
-  pageSize: number = 7;
+  pageSize: number = 6;
   displayData: any[] = [];
 
   sortType = null;
@@ -177,7 +177,7 @@ export class PromissoryListComponent implements OnInit {
     const end = start + this.pageSize;
     this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
     this.displayData = this.orderList.slice(start, end);
-    this.end = this.displayData.length != 7 ? this.orderList.length :  this.pageIndex * this.pageSize;
+    this.end = this.displayData.length != 6 ? this.orderList.length :  this.pageIndex * this.pageSize;
   }
 
 
