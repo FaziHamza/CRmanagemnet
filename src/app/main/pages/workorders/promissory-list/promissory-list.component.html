@@ -97,11 +97,11 @@
 
             <thead>
                 <tr>
-                    <th nz-th nzSortFn="simpleSort" *ngIf="orderList.length > 0"
+                    <th nz-th nzSortFn="simpleSort" *ngIf="orderList.length > 0" nzWidth="100px"
                         (click)="getSortFunction(sortType,'orderno')">
                         {{"Promissory_Notes_orders.Order_No" | translate}}
                     </th>
-                    <th nz-th nzSortFn="simpleSort" *ngIf="orderList.length > 0"
+                    <th nz-th nzSortFn="simpleSort" *ngIf="orderList.length > 0" nzWidth="350px"
                         (click)="getSortFunction(sortType,'customer')">
                         {{"Promissory_Notes_orders.Customer_Name" | translate}}
                     </th>

@@ -105,11 +105,11 @@
             [nzLoading]="tableLoader" [nzFrontPagination]="false">
             <thead>
                 <tr>
-                    <th nz-th nzSortFn="simpleSort" *ngIf="requestList.length > 0"
+                    <th nz-th nzSortFn="simpleSort" *ngIf="requestList.length > 0"  nzWidth="120px"
                         (click)="getSortFunction(sortType,'orderno')">
                         {{"Promissory_Notes_orders.Request_No" | translate}}
                     </th>
-                    <th nz-th nzSortFn="simpleSort" *ngIf="requestList.length > 0"
+                    <th nz-th nzSortFn="simpleSort" *ngIf="requestList.length > 0" nzWidth="350px"
                         (click)="getSortFunction(sortType,'customer')">
                         {{"Promissory_Notes_orders.Customer_Name" | translate}}
                     </th>
