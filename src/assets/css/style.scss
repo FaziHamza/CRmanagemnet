@@ -1577,9 +1577,13 @@ nz-tabset {
   line-height: 24px;
   /* identical to box height, or 133% */
 
-  color: #929eae;
+  color: black;
 }
 
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab
+ {
+  background: white !important;
+ }
 .ant-table-thead>tr>th {
   white-space: nowrap;
 }
