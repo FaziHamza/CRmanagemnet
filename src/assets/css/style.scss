@@ -795,11 +795,11 @@ input[type="checkbox"]:checked {
   }
 }
 
-.ant-picker-suffix > * {
+.ant-picker-suffix>* {
   font-size: 16px;
 }
 
-.ant-picker-input > input {
+.ant-picker-input>input {
   font-size: 12px !important;
 }
 
@@ -807,8 +807,8 @@ input[type="checkbox"]:checked {
   position: relative;
 
   svg {
-    height: 22px !important;
-    width: 22px !important;
+    height: 18px !important;
+    width: 18px !important;
   }
 
   .search {
@@ -988,7 +988,7 @@ input {
   color: white;
 }
 
-.ant-table.ant-table-bordered > .ant-table-container {
+.ant-table.ant-table-bordered>.ant-table-container {
   border-left: none !important;
 }
 
@@ -1243,12 +1243,17 @@ input {
 }
 
 .ant-table-row {
+  .ant-table-cell:last-child {
+    overflow: revert !important;
+  }
+
   .ant-table-cell {
     position: relative;
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
+
     .btn {
       box-shadow: none !important;
     }
@@ -1364,7 +1369,7 @@ hr {
   background: #e6e5ff !important;
   font-size: 13px;
   height: 26px !important;
-  width: 128px;
+  // width: 128px;
   border: none;
   overflow: hidden;
   border-radius: 8px;
@@ -1377,7 +1382,7 @@ hr {
   font-size: 12px;
   letter-spacing: 0.3px;
   color: #5956e9 !important;
-  margin-left: -25px;
+  // margin-left: -25px;
 }
 
 .uncollected-status {
@@ -1474,7 +1479,7 @@ hr {
   }
 }
 
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon {
   border: none !important;
   background: $primary !important;
 }
@@ -1575,11 +1580,12 @@ nz-tabset {
   color: black;
 }
 
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
   background: white !important;
 }
-.ant-table-thead > tr > th {
+
+.ant-table-thead>tr>th {
   white-space: nowrap;
 }
 
@@ -1596,7 +1602,7 @@ nz-tabset {
   background: #dc3545 !important;
 }
 
-.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+.ant-steps-item-finish .ant-steps-item-icon>.ant-steps-icon {
   color: $bg-light !important;
   top: -3.5px !important;
 }
@@ -2159,8 +2165,8 @@ nz-tabset {
 }
 
 .form-check-input:disabled,
-.form-check-input:disabled ~ .form-check-label,
-.form-check-input[disabled] ~ .form-check-label {
+.form-check-input:disabled~.form-check-label,
+.form-check-input[disabled]~.form-check-label {
   opacity: 1 !important;
 }
 
@@ -2194,22 +2200,22 @@ nz-tabset {
   }
 }
 
-.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
-.ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+.ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+.ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
   border: 1px solid $border !important;
 }
 
-.ant-tabs-bottom > .ant-tabs-nav::before,
-.ant-tabs-bottom > div > .ant-tabs-nav::before,
-.ant-tabs-top > .ant-tabs-nav::before,
-.ant-tabs-top > div > .ant-tabs-nav::before {
+.ant-tabs-bottom>.ant-tabs-nav::before,
+.ant-tabs-bottom>div>.ant-tabs-nav::before,
+.ant-tabs-top>.ant-tabs-nav::before,
+.ant-tabs-top>div>.ant-tabs-nav::before {
   border-bottom: none !important;
 }
 
-.ant-tabs-card.ant-tabs-bottom > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-bottom > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab,
-.ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+.ant-tabs-card.ant-tabs-bottom>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-bottom>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab,
+.ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab+.ant-tabs-tab {
   margin-left: 0px !important;
 }
 
@@ -2223,6 +2229,7 @@ nz-tabset {
 
 .form-control3 .ant-picker .ant-picker-input input {
   border: none !important;
+  padding: 0px;
 }
 
 .hightlight-row {
@@ -2242,6 +2249,7 @@ nz-tabset {
 }
 
 .ant-modal-body {
+
   input,
   select,
   .ant-picker {
@@ -2340,7 +2348,7 @@ nz-tabset {
 }
 
 .ant-radio-checked .ant-radio-inner,
-.ant-radio-input:focus + .ant-radio-inner,
+.ant-radio-input:focus+.ant-radio-inner,
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner {
   border-color: $primary !important;
@@ -2441,10 +2449,11 @@ button span,
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
-.ant-table tfoot > tr > td,
-.ant-table tfoot > tr > th,
-.ant-table-tbody > tr > td,
-.ant-table-thead > tr > th {
+
+.ant-table tfoot>tr>td,
+.ant-table tfoot>tr>th,
+.ant-table-tbody>tr>td,
+.ant-table-thead>tr>th {
   padding: 10px !important;
 }
 
@@ -2453,10 +2462,16 @@ button span,
     margin-bottom: 5px;
   }
 }
+
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   background-color: $primary !important;
 }
-div:where(.swal2-container) h2:where(.swal2-title){
+
+div:where(.swal2-container) h2:where(.swal2-title) {
   font-size: 1.2rem !important;
 }
 
+
+.ant-table-row .ant-table-cell input {
+  padding-right: 0px !important;
+}
