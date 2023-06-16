@@ -2453,3 +2453,10 @@ button span,
     margin-bottom: 5px;
   }
 }
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  background-color: $primary !important;
+}
+div:where(.swal2-container) h2:where(.swal2-title){
+  font-size: 1.2rem !important;
+}
+

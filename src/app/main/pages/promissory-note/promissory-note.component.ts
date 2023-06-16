@@ -12,6 +12,8 @@ import { ErrorsComponent } from '../common/errors/errors.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
 import { orderParam } from '../workorders/models/orderParam';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
+import Swal from 'sweetalert2';
+import { differenceInCalendarDays, setHours } from 'date-fns';
 
 @Component({
   selector: 'app-promissory-note',
@@ -135,6 +137,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   getListofPromissoryNote() {
     this.promissoryist = [];
     let remainingAmount = this.orderDetail.pnTotalAmount;
+    // let decimalPartSum = 0;
     for (let index = 0; index < this.orderDetail.numberOfInstallments; index++) {
       const dueDate = new Date(this.orderDetail.startDate);
       if (this.cmsSetup.periodBetweenPNType.toLowerCase() == "months") {
@@ -144,7 +147,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
       let installment = parseFloat((this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments).toFixed(3));
       let obj = {};
+      // let decimalPart = installment % 1;
       if (index == this.orderDetail.numberOfInstallments - 1) {
+        // installment += decimalPartSum;
         obj = {
           id: this.promissoryist.length + 1,
           customerName: this.orderDetail.customer.customerName,
@@ -157,17 +162,20 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         };
       }
       else {
-        remainingAmount -= installment;
+        remainingAmount -= Math.floor(installment);
         obj = {
           id: this.promissoryist.length + 1,
           customerName: this.orderDetail.customer.customerName,
-          amount: installment,
-          orginalAmount: installment,
+          amount: Math.floor(installment),
+          orginalAmount: Math.floor(installment),
           dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           status: 'Generating',
           edit: false
         };
+        // if (decimalPart > 0) {
+        //   decimalPartSum += decimalPart;
+        // }
       }
 
       this.promissoryist.push(obj);
@@ -181,10 +189,33 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   saveEdit(id: number) {
     debugger
-    const index = this.promissoryist.findIndex(item => item.id === id);
-    Object.assign(this.promissoryist[index], this.editCache[id].data);
-    this.promissoryist[index].edit = true;
-    this.editCache[id].edit = false;
+    const datesWithoutTime = this.promissoryist.map(date => {
+      let newDate = new Date(date.dueDate);
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth();
+      const day = newDate.getDate();
+      return `${year}-${month + 1}-${day}`;
+    });
+    let dueDate = this.editCache[id].data.dueDate;
+    const year = dueDate.getFullYear();
+    const month = dueDate.getMonth();
+    const day = dueDate.getDate();
+    let dueDateFinal = `${year}-${month + 1}-${day}`;
+    // Check if any pair of dates match
+    for (let i = 0; i < datesWithoutTime.length; i++) {
+      if (datesWithoutTime[i] === dueDateFinal) {
+        this.commonService.showError("Please enter another date","error");
+        return;
+      }
+    }
+    if(this.editCache[id].data.amount > 0){
+      const index = this.promissoryist.findIndex(item => item.id === id);
+      Object.assign(this.promissoryist[index], this.editCache[id].data);
+      this.promissoryist[index].edit = true;
+      this.editCache[id].edit = false;
+    }else{
+      this.commonService.showError("Amount must be greater than 0","error");
+    }
   }
   cancelEdit(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
@@ -199,10 +230,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   finalSave(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
-    if (parseFloat(this.promissoryist[index].amount) != parseFloat(this.editCache[id].data.amount))
-      this.promissoryist[index].edit = true;
+    // if (parseFloat(this.promissoryist[index].amount) != parseFloat(this.editCache[id].data.amount))
+      // this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
-    this.editCache[id].edit = false;
+    // this.editCache[id].edit = false;
   }
   updateEditCache(): void {
     this.promissoryist.forEach((item, index) => {
@@ -222,60 +253,104 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     return false;
   }
   saveGeneratingNotes() {
-    let notes: any = [];
-    this.promissoryist.forEach((item) => {
-      this.finalSave(item.id);
+    Swal.fire({
+      title: 'A promissory notes book will be generated for this customer; are you sure?',
+      text: '',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let notes: any = [];
+        // this.promissoryist.forEach((item) => {
+        //   this.finalSave(item.id);
+        // });
+        let check = this.promissoryist.find(a => a.amount == 0 || a.amount == null || a.amount == '');
+        if (check) {
+          let index = this.promissoryist.findIndex(item => item.id === check.id);
+          this.promissoryist[index].edit = true;
+          this.commonService.showError("You must need to put more than 0 value..!", "Error");
+          return;
+        }
+        this.promissoryist.forEach(element => {
+
+          console.log(element.amount);
+          const fromDate = new Date(element.dueDate.toString());
+        try {
+          let data = {
+            amount: parseFloat(element.amount.toString()).toFixed(3),
+            dueDate: fromDate.toISOString()
+          }
+          notes.push(data);
+        } catch (error) {
+          console.log(error);
+        }
+        })
+        let orderId: any = this.orderId
+        let formData = new FormData();
+        formData.append('OrderId', orderId);
+        formData.append('Notes', JSON.stringify(notes));
+        this.stepSaveLoader = true;
+        this.apiService.saveGeneratingNotes(formData).subscribe(
+          (res) => {
+            this.stepSaveLoader = false;
+            if (res.isSuccess) {
+                this.promissoryist.forEach((item) => {
+                  this.finalSave(item.id);
+                });
+              this.commonService.showSuccess("Data updated successfully..!", "Success");
+              this.ngOnInit();
+            }
+            else {
+              this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
+              this.commonService.showError("found some error..!", "Error");
+              this.error(this.errorsList);
+
+            }
+          },
+          (error) => {
+            this.stepSaveLoader = false;
+            this.errorsList = error.errors ? error.errors : error.Errors;
+            this.commonService.showError("found some error..!", "Error");
+            this.error(this.errorsList);
+          }
+        )
+
+        // Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // User cancelled, do nothing or show a different message
+        // Swal.fire('Cancelled', 'Your item is safe.', 'info');
+      }
     });
-    let check = this.promissoryist.find(a => a.amount == 0 || a.amount == null || a.amount == '');
-    if (check) {
-      let index = this.promissoryist.findIndex(item => item.id === check.id);
-      this.promissoryist[index].edit = true;
-      this.commonService.showError("You must need to put more than 0 value..!", "Error");
-      return;
-    }
-    this.promissoryist.forEach(element => {
-
-      console.log(element.amount);
-      const fromDate = new Date(element.dueDate.toString());
-    try {
-      let data = {
-        amount: parseFloat(element.amount.toString()).toFixed(3),
-        dueDate: fromDate.toISOString()
-      }
-      notes.push(data);
-    } catch (error) {
-      debugger
-      console.log(error);
-    }
-    })
-    let orderId: any = this.orderId
-    let formData = new FormData();
-    formData.append('OrderId', orderId);
-    formData.append('Notes', JSON.stringify(notes));
-    this.stepSaveLoader = true;
-    this.apiService.saveGeneratingNotes(formData).subscribe(
-      (res) => {
-        this.stepSaveLoader = false;
-        if (res.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.ngOnInit();
-        }
-        else {
-          this.errorsList = res["errors"] ? res["errors"] : res["Errors"];
-          this.commonService.showError("found some error..!", "Error");
-          this.error(this.errorsList);
-
-        }
-      },
-      (error) => {
-        this.stepSaveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.commonService.showError("found some error..!", "Error");
-        this.error(this.errorsList);
-      }
-    )
-
   }
+  isDateMatch(): boolean {
+    if (this.promissoryist.length < 2) {
+      return false;
+    }
+
+    // Extract date strings without time
+    const datesWithoutTime = this.promissoryist.map(date => {
+      let newDate = new Date(date.dueDate);
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth();
+      const day = newDate.getDate();
+      return `${year}-${month + 1}-${day}`;
+    });
+
+    // Check if any pair of dates match
+    for (let i = 0; i < datesWithoutTime.length; i++) {
+      for (let j = i + 1; j < datesWithoutTime.length; j++) {
+        if (datesWithoutTime[i] === datesWithoutTime[j]) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+
   getCmsSetup() {
     this.apiService.getCMSSetup().subscribe(res => {
       if (res.isSuccess) {
@@ -723,8 +798,10 @@ generateSortList() {
       this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
     }else{
       this.displaypromissoryist = this.promissoryist.slice(start, end);
-      this.end = this.displaypromissoryist.length != 6 ? this.displaypromissoryist.length :  this.pageIndex * this.pageSize;
+      this.end = this.displaypromissoryist.length != 6 ? this.promissoryist.length :  this.pageIndex * this.pageSize;
     }
 
   }
+  disabledDate = (current: Date): boolean =>
+     differenceInCalendarDays(current,  new Date(this.orderDetail.startDate)) <= 0;
 }

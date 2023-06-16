@@ -528,7 +528,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr *ngFor="let data of editRowTable.data">
+                                  <tr *ngFor="let data of editRowTable.data;;let index = index; last as isLast">
                                     <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
                                       <td class="table-data">
                                         {{ data.id }}
@@ -573,20 +573,31 @@
                                         {{ data.customerName }}
                                       </td>
                                       <td class="table-data">
-                                        <div class="input-group">
 
+                                        <div class="input-group" *ngIf="!isLast">
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
-                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" appPositiveDecimal>
+                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" digitsOnly>
+
+                                        </div>
+                                        <div class="input-group" *ngIf="isLast">
+                                          <input type="text" class="form-control"
+                                            [(ngModel)]="editCache[data.id].data.amount"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" appNumberDecimal>
 
                                         </div>
                                       </td>
                                       <td class="table-data">
-                                        <div class="input-group">
-                                          <input type="date" class="form-control"
-                                            [(ngModel)]="editCache[data.id].data.dueDate"
-                                            [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1">
+                                        <span *ngIf="index == 0">
+                                          {{data.dueDate | date: 'dd MMM yyyy'}}
+                                        </span>
+                                        <div class="input-search1 form-control3"  *ngIf="index != 0">
+                                          <nz-date-picker [nzDisabledDate]="disabledDate"  [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
+                                          <!-- <input type="date" class="form-control"
+
+                                            [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1"> -->
                                         </div>
                                       </td>
                                       <td class="table-data">
@@ -765,7 +776,7 @@
                               [routerLink]="['/home/workorders']">Close</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()"
                               [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields()} ">Confirm</button>
+                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields() || isDateMatch()} ">Confirm</button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 1">
                             <button type="button" [routerLink]="['/home/workorders']"
