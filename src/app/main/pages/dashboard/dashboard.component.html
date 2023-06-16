@@ -5,19 +5,41 @@
         <h5 class="card-subheading">
           {{ "Dashboard.Promissory_Notes" | translate }}
         </h5>
-        <div class="notes-wrapper">
-          <app-promissory-note-card [icon]="'assets/images/dashboard/dollar-finance-money.png'"
-            [label]="'No. of PNs Books'" [amount]="cardsData?.pnBooksCount || 0" [currency]="''"
-            [isCurrency]="false"></app-promissory-note-card>
-          <app-promissory-note-card [icon]="'assets/images/dashboard/borrow.png'" [label]="'No. of PNs'"
-            [amount]="cardsData?.pnBooksNotesCount || 0" [currency]="''"
-            [isCurrency]="false"></app-promissory-note-card>
-          <app-promissory-note-card [icon]="'assets/images/dashboard/dollar-money.png'" [label]="'Under Collecting PNs'"
-            [amount]="cardsData?.underCollectingPNBooksNotesCount || 0" [currency]="'JOD'"></app-promissory-note-card>
-          <app-promissory-note-card [icon]="'assets/images/dashboard/time.png'" [label]="'Overdue PNs'"
-            [amount]="cardsData?.overDuePnsTotal || 0" [currency]="'JOD'"></app-promissory-note-card>
-          <app-promissory-note-card [icon]="'assets/images/dashboard/banknote-cash-cheque.png'" [label]="'Not Due PNs'"
-            [amount]="cardsData?.notOverDuePnsTotal || 0" [currency]="'JOD'"></app-promissory-note-card>
+        <div class="notes-wrapper row">
+          <div class="col-lg-7">
+            <div class="row">
+              <div class="col-lg-4">
+                <app-promissory-note-card [icon]="'assets/images/dashboard/dollar-finance-money.png'"
+                  [label]="'No. of PNs Books'" [amount]="cardsData?.pnBooksCount || 0" [currency]="''"
+                  [isCurrency]="false"></app-promissory-note-card>
+              </div>
+              <div class="col-lg-4">
+                <app-promissory-note-card [icon]="'assets/images/dashboard/borrow.png'" [label]="'No. of PNs'"
+                  [amount]="cardsData?.pnBooksNotesCount || 0" [currency]="''"
+                  [isCurrency]="false"></app-promissory-note-card>
+              </div>
+              <div class="col-lg-4">
+                <app-promissory-note-card [icon]="'assets/images/dashboard/dollar-money.png'"
+                  [label]="'Under Collecting PNs'" [amount]="cardsData?.underCollectingPNBooksNotesCount || 0"
+                  [currency]="'JOD'"></app-promissory-note-card>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="row">
+              <div class="col-lg-6">
+                <app-promissory-note-card [icon]="'assets/images/dashboard/time.png'" [label]="'Overdue PNs'"
+                  [amount]="cardsData?.overDuePnsTotal || 0" [currency]="'JOD'"></app-promissory-note-card>
+              </div>
+              <div class="col-lg-6">
+                <app-promissory-note-card [icon]="'assets/images/dashboard/banknote-cash-cheque.png'"
+                  [label]="'Not Due PNs'" [amount]="cardsData?.notOverDuePnsTotal || 0"
+                  [currency]="'JOD'"></app-promissory-note-card>
+              </div>
+            </div>
+          </div>
+         
+         
         </div>
       </div>
       <div class="card-wrapper">
