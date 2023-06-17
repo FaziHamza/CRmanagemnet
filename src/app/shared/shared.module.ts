@@ -3,22 +3,31 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EnvService } from './services/envoirment.service';
-// import { JwtComponent } from './jwt/jwt.component';
+import { CustomRoundPipe } from 'src/app/pipe/custom-round-pipe';
+import { NumberDirective } from 'src/app/directive/numbers-only.directive';
+import { DigitDirective } from 'src/app/directive/digit-only.directive';
+import { MaxCharactersDirective } from 'src/app/directive/max-characters.directive';
+import { PositiveDecimalDirective } from 'src/app/directive/positivedecimal-only.directive';
+import { NumberDecimalDirective } from 'src/app/directive/numberdecimal-only.directive';
+import { RoundPipe } from 'src/app/pipe/round-pipe';
+import { RoundedPipe } from 'src/app/pipe/rounded-pipe';
 
-
-const module = [
-  CommonModule,
-  RouterModule,HttpClientModule
-]
+// const module = [
+//   CommonModule,
+//   RouterModule,HttpClientModule
+// ]
 @NgModule({
   declarations: [
-  
+    CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
+    NumberDecimalDirective,RoundPipe,RoundedPipe
     // JwtComponent
   ],
   imports: [
-    ...module
+    // ...module
   ],
   exports : [
+    CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
+    NumberDecimalDirective,RoundPipe,RoundedPipe
   ],
   providers: [
     EnvService,

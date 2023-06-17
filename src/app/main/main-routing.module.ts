@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './containers/main-layout/main-layout.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
 import { CMSetupComponent } from './pages/main-page/cmsetup/cmsetup.component';
-import { PromissoryNoteComponent } from './pages/promissory-note/promissory-note.component';
 import { WorkordersComponent } from './pages/workorders/workorders.component';
 import { CreditAccountComponent } from './pages/credit-account/credit-account.component';
 import { TestComponent } from './pages/test/test.component';
 import { ProfileComponent } from './containers/profile/profile.component';
-import { WorkOrderRescheduleComponent } from './pages/work-order-reschedule/work-order-reschedule.component';
-import { WorkOrderTransferComponent } from './pages/work-order-transfer/work-order-transfer.component';
 
 const routes: Routes = [
   {
@@ -29,19 +25,31 @@ const routes: Routes = [
       },
       {
         path: 'promissory-note',
-        component: PromissoryNoteComponent,
+        loadChildren: () =>
+          import('./pages/promissory-note/promissory-note.module').then(
+            (m) => m.PromissoryNoteModule
+          ),
       },
       {
         path: 'workorders/:id',
-        component: PromissoryNoteComponent,
+        loadChildren: () =>
+          import('./pages/promissory-note/promissory-note.module').then(
+            (m) => m.PromissoryNoteModule
+          ),
       },
       {
         path: 'reschedule/:id',
-        component: WorkOrderRescheduleComponent,
+        loadChildren: () =>
+          import('./pages/work-order-reschedule/work-order-reschedule.module').then(
+            (m) => m.WorkOrderRescheduleModule
+          ),
       },
       {
         path: 'transfer/:id',
-        component: WorkOrderTransferComponent,
+        loadChildren: () =>
+          import('./pages/work-order-transfer/work-order-transfer.module').then(
+            (m) => m.WorkOrderTransferModule
+          ),
       },
       {
         path: 'workorders',

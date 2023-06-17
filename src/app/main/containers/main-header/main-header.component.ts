@@ -26,15 +26,11 @@ export class MainHeaderComponent implements OnInit {
   ];
   constructor(public commonService: CommonService, private storageService: StorageService,
     private route: Router, private translate: TranslateService) {
-    if (JSON.parse(this.storageService.getString("currentLanguage")))
-      this.translate.setDefaultLang(JSON.parse(this.storageService.getString("currentLanguage")));
-    else {
       this.translate.setDefaultLang('en');
       this.storageService.storeString(
         'currentLanguage',
         JSON.stringify('en')
       );
-    }
   }
 
   ngOnInit(): void {
@@ -48,7 +44,7 @@ export class MainHeaderComponent implements OnInit {
     // window.open(url, '_blank');
   }
   setLanguage(lang: string): void {
-    
+
     this.selectedLanguageObj = this.languages.find(
       (record) => record.id === lang
     );
