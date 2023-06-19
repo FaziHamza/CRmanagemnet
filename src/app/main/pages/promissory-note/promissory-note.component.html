@@ -590,10 +590,10 @@
                                         </div>
                                       </td>
                                       <td class="table-data">
-                                        <span *ngIf="index == 0">
+                                        <span *ngIf="data.first">
                                           {{data.dueDate | date: 'dd MMM yyyy'}}
                                         </span>
-                                        <div class="input-search1 form-control3"  *ngIf="index != 0">
+                                        <div class="input-search1 form-control3"  *ngIf="!data.first">
                                           <nz-date-picker [nzDisabledDate]="disabledDate"  [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
                                           <!-- <input type="date" class="form-control"
 

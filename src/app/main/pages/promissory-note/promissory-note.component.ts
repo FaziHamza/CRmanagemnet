@@ -158,21 +158,39 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           status: 'Generating',
-          edit: false
+          edit: false,
+          first: false,
         };
       }
       else {
         remainingAmount -= Math.floor(installment);
-        obj = {
-          id: this.promissoryist.length + 1,
-          customerName: this.orderDetail.customer.customerName,
-          amount: Math.floor(installment),
-          orginalAmount: Math.floor(installment),
-          dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-          originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-          status: 'Generating',
-          edit: false
-        };
+        if (index == 0) {
+          obj = {
+            id: this.promissoryist.length + 1,
+            customerName: this.orderDetail.customer.customerName,
+            amount: Math.floor(installment),
+            orginalAmount: Math.floor(installment),
+            dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+            originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+            status: 'Generating',
+            edit: false,
+            first: true,
+          };
+        }
+        else {
+          obj = {
+            id: this.promissoryist.length + 1,
+            customerName: this.orderDetail.customer.customerName,
+            amount: Math.floor(installment),
+            orginalAmount: Math.floor(installment),
+            dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+            originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+            status: 'Generating',
+            edit: false,
+            first: false,
+          };
+        }
+
         // if (decimalPart > 0) {
         //   decimalPartSum += decimalPart;
         // }
@@ -180,7 +198,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
       this.promissoryist.push(obj);
     }
-    this.displaypromissoryist = this.promissoryist.length  > 6 ? this.promissoryist.slice(0,6) : this.promissoryist;
+    this.displaypromissoryist = this.promissoryist.length > 6 ? this.promissoryist.slice(0, 6) : this.promissoryist;
     this.initilizeTableField();
     this.end = this.displaypromissoryist.length > 6 ? 6 : this.displaypromissoryist.length;
     this.updateEditCache();
@@ -188,7 +206,6 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.differenceAmount = 0;
   }
   saveEdit(id: number) {
-    debugger
     const datesWithoutTime = this.promissoryist.map(date => {
       let newDate = new Date(date.dueDate);
       const year = newDate.getFullYear();
@@ -196,26 +213,40 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       const day = newDate.getDate();
       return `${year}-${month + 1}-${day}`;
     });
-    let dueDate = this.editCache[id].data.dueDate;
+    let dueDate = new Date(this.editCache[id].data.dueDate);
     const year = dueDate.getFullYear();
     const month = dueDate.getMonth();
     const day = dueDate.getDate();
     let dueDateFinal = `${year}-${month + 1}-${day}`;
     // Check if any pair of dates match
     for (let i = 0; i < datesWithoutTime.length; i++) {
-      if (datesWithoutTime[i] === dueDateFinal) {
-        this.commonService.showError("Please enter another date","error");
+      if (datesWithoutTime[i] === dueDateFinal && id != i + 1) {
+        this.commonService.showError("Date must be after First Due Date", "error");
         return;
       }
     }
-    if(this.editCache[id].data.amount > 0){
-      const index = this.promissoryist.findIndex(item => item.id === id);
-      Object.assign(this.promissoryist[index], this.editCache[id].data);
-      this.promissoryist[index].edit = true;
-      this.editCache[id].edit = false;
-    }else{
-      this.commonService.showError("Amount must be greater than 0","error");
+    if (id == this.promissoryist.length - 1) {
+      this.editCache[id].data.amount = parseFloat(this.editCache[id].data.amount);
+      if (this.editCache[id].data.amount > 0) {
+        const index = this.promissoryist.findIndex(item => item.id === id);
+        Object.assign(this.promissoryist[index], this.editCache[id].data);
+        this.promissoryist[index].edit = true;
+        this.editCache[id].edit = false;
+      } else {
+        this.commonService.showError("Amount must be greater than 0", "error");
+      }
+    } else {
+      this.editCache[id].data.amount = parseInt(this.editCache[id].data.amount, 10)
+      if (this.editCache[id].data.amount > 0) {
+        const index = this.promissoryist.findIndex(item => item.id === id);
+        Object.assign(this.promissoryist[index], this.editCache[id].data);
+        this.promissoryist[index].edit = true;
+        this.editCache[id].edit = false;
+      } else {
+        this.commonService.showError("Amount must be greater than 0", "error");
+      }
     }
+
   }
   cancelEdit(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
@@ -224,14 +255,14 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
-      amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
+      amount += this.editCache[index + 1].data.amount ? parseFloat(this.editCache[index + 1].data.amount) : 0;
     }
     this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
   }
   finalSave(id: number) {
     const index = this.promissoryist.findIndex(item => item.id === id);
     // if (parseFloat(this.promissoryist[index].amount) != parseFloat(this.editCache[id].data.amount))
-      // this.promissoryist[index].edit = true;
+    // this.promissoryist[index].edit = true;
     Object.assign(this.promissoryist[index], this.editCache[id].data);
     // this.editCache[id].edit = false;
   }
@@ -243,11 +274,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       };
     });
   }
-  checkAllFields(){
+  checkAllFields() {
     for (let index = 0; index < this.promissoryist.length; index++) {
       const element = this.promissoryist[index];
       let check = this.editCache[element.id].edit;
-      if(check)
+      if (check)
         return true;
     }
     return false;
@@ -277,15 +308,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
           console.log(element.amount);
           const fromDate = new Date(element.dueDate.toString());
-        try {
-          let data = {
-            amount: parseFloat(element.amount.toString()).toFixed(3),
-            dueDate: fromDate.toISOString()
+          try {
+            let data = {
+              amount: parseFloat(element.amount.toString()).toFixed(3),
+              dueDate: fromDate.toISOString()
+            }
+            notes.push(data);
+          } catch (error) {
+            console.log(error);
           }
-          notes.push(data);
-        } catch (error) {
-          console.log(error);
-        }
         })
         let orderId: any = this.orderId
         let formData = new FormData();
@@ -296,9 +327,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           (res) => {
             this.stepSaveLoader = false;
             if (res.isSuccess) {
-                this.promissoryist.forEach((item) => {
-                  this.finalSave(item.id);
-                });
+              this.promissoryist.forEach((item) => {
+                this.finalSave(item.id);
+              });
               this.commonService.showSuccess("Data updated successfully..!", "Success");
               this.ngOnInit();
             }
@@ -409,7 +440,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     })
   }
-  initilizeTableField(){
+  initilizeTableField() {
     this.pageSize = 6;
     this.pageIndex = 1;
     this.start = 1;
@@ -437,7 +468,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  changeAmount(event:any,id: any, check?: boolean) {
+  changeAmount(event: any, id: any, check?: boolean) {
     // this.updateEditCache();
     // const charCode = (event.which) ? event.which : event.keyCode;
     // if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
@@ -446,7 +477,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // }
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
-      amount += this.editCache[index + 1].data.amount ?  parseFloat(this.editCache[index + 1].data.amount) : 0;
+      amount += this.editCache[index + 1].data.amount ? parseFloat(this.editCache[index + 1].data.amount) : 0;
     }
     this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
   }
@@ -682,101 +713,101 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
     return this.permissionService.checkPermission(catId, subCatId, perItemName);
   }
- sortType = null;
-sortCounters = {
-  'orderno': 0,
-  'amount': 0,
-  'date': 0,
-  'status': 0
-};
-lastSortedColumn = null;
+  sortType = null;
+  sortCounters = {
+    'orderno': 0,
+    'amount': 0,
+    'date': 0,
+    'status': 0
+  };
+  lastSortedColumn = null;
 
-getSortFunction(sortType: string, columnName: string,) {
-  if (this.generatedlist.length > 0) {
+  getSortFunction(sortType: string, columnName: string,) {
+    if (this.generatedlist.length > 0) {
 
-    if (this.lastSortedColumn && this.lastSortedColumn !== columnName) {
-      // reset the sort counter for other columns
-      for (let key in this.sortCounters) {
-        if (key !== columnName) {
-          this.sortCounters[key] = 0;
+      if (this.lastSortedColumn && this.lastSortedColumn !== columnName) {
+        // reset the sort counter for other columns
+        for (let key in this.sortCounters) {
+          if (key !== columnName) {
+            this.sortCounters[key] = 0;
+          }
         }
       }
+
+      this.sortCounters[columnName]++;
+
+      switch (this.sortCounters[columnName] % 3) {
+        case 0: // no sort
+          this.sortType = null;
+          this.orderParamObj.Sort = 1;
+          break;
+        case 1: // ascending
+          this.sortType = "ascend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
+            columnName === 'amount' ? 4 :
+              columnName === 'date' ? 6 :
+                8; // assuming 'status' for the default case
+          break;
+        case 2: // descending
+          this.sortType = "descend";
+          this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
+            columnName === 'amount' ? 5 :
+              columnName === 'date' ? 7 :
+                9; // assuming 'status' for the default case
+          break;
+      }
+
+      this.lastSortedColumn = columnName;
+      this.generateSortList();
     }
-
-    this.sortCounters[columnName]++;
-
-    switch (this.sortCounters[columnName] % 3) {
-      case 0: // no sort
-        this.sortType = null;
-        this.orderParamObj.Sort = 1;
-        break;
-      case 1: // ascending
-        this.sortType = "ascend";
-        this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
-                                  columnName === 'amount' ? 4 :
-                                  columnName === 'date' ? 6 :
-                                  8; // assuming 'status' for the default case
-        break;
-      case 2: // descending
-        this.sortType = "descend";
-        this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
-                                  columnName === 'amount' ? 5 :
-                                  columnName === 'date' ? 7 :
-                                  9; // assuming 'status' for the default case
-        break;
-    }
-
-    this.lastSortedColumn = columnName;
-    this.generateSortList();
   }
-}
-generateSortList() {
-  let Sort = this.orderParamObj.Sort;
-  this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
-    this.stepSaveLoader = false;
-    if (res.isSuccess) {
-      this.generatedlist = [];
-      let generatedlist = res['data'];
-      let getCount = generatedlist.length;
-      for (let index = 0; index < generatedlist.length; index++) {
-        const obj = {
-          id: Sort == 3 || Sort == 1  ?  this.generatedlist.length + 1 : getCount,
-          customerName: generatedlist[index]?.customer?.customerName,
-          amount: generatedlist[index].pnAmount,
-          dueDate: generatedlist[index].dueDate,
-          status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
-          lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
-          lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
-          pnBookID: generatedlist[index].pnBookID,
-          dateCheck: generatedlist[index].dueDate,
-          pdfView: generatedlist[index].pNpdfFile
-        };
-        this.generatedlist.push(obj);
-        getCount -= 1;
-      }
-      this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
-      this.initilizeTableField();
-      this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
+  generateSortList() {
+    let Sort = this.orderParamObj.Sort;
+    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
+      this.stepSaveLoader = false;
+      if (res.isSuccess) {
+        this.generatedlist = [];
+        let generatedlist = res['data'];
+        let getCount = generatedlist.length;
+        for (let index = 0; index < generatedlist.length; index++) {
+          const obj = {
+            id: Sort == 3 || Sort == 1 ? this.generatedlist.length + 1 : getCount,
+            customerName: generatedlist[index]?.customer?.customerName,
+            amount: generatedlist[index].pnAmount,
+            dueDate: generatedlist[index].dueDate,
+            status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+            lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
+            lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
+            pnBookID: generatedlist[index].pnBookID,
+            dateCheck: generatedlist[index].dueDate,
+            pdfView: generatedlist[index].pNpdfFile
+          };
+          this.generatedlist.push(obj);
+          getCount -= 1;
+        }
+        this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+        this.initilizeTableField();
+        this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
 
-      if (this.sortType === "ascend") {
-        this.generatedlist.sort((a, b) => a.id - b.id);
-      } else if (this.sortType === "descend") {
-        this.generatedlist.sort((a, b) => b.id - a.id);
+        if (this.sortType === "ascend") {
+          this.generatedlist.sort((a, b) => a.id - b.id);
+        } else if (this.sortType === "descend") {
+          this.generatedlist.sort((a, b) => b.id - a.id);
+        }
+        this.isGenerate = true;
       }
-      this.isGenerate = true;
-    }
-  })
-}
+    })
+  }
 
   downloadFile(file) {
     // this.apiService.downloadFile(file).subscribe(response => {
-      const blob = new Blob([file], { type: 'application/pdf' });
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = file;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
+    const blob = new Blob([file], { type: 'application/pdf' });
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = file;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
     // });
   }
   onPageIndexChange(index: number): void {
@@ -792,16 +823,26 @@ generateSortList() {
   updateDisplayData(): void {
     const start = (this.pageIndex - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
-    if(this.current != 0){
+    this.start = start == 0 ? 1 : ((this.pageIndex * this.pageSize) - this.pageSize) + 1;
+    if (this.current != 0) {
       this.displaygeneratedlist = this.generatedlist.slice(start, end);
-      this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
-    }else{
+      this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length : this.pageIndex * this.pageSize;
+    } else {
       this.displaypromissoryist = this.promissoryist.slice(start, end);
-      this.end = this.displaypromissoryist.length != 6 ? this.promissoryist.length :  this.pageIndex * this.pageSize;
+      this.end = this.displaypromissoryist.length != 6 ? this.promissoryist.length : this.pageIndex * this.pageSize;
+      this.updateEditData();
     }
 
   }
+  updateEditData() {
+    for (let index = 0; index < this.promissoryist.length; index++) {
+      if (index != this.promissoryist.length - 1) {
+        this.editCache[index + 1].data.amount = parseInt(this.editCache[index +1].data.amount, 10);
+      } else {
+        this.editCache[index + 1].data.amount = parseFloat(this.editCache[index +1].data.amount);
+      }
+    }
+  }
   disabledDate = (current: Date): boolean =>
-     differenceInCalendarDays(current,  new Date(this.orderDetail.startDate)) <= 0;
+    differenceInCalendarDays(current, new Date(this.orderDetail.startDate)) <= 0;
 }
