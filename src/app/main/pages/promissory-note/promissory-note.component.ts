@@ -221,7 +221,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // Check if any pair of dates match
     for (let i = 0; i < datesWithoutTime.length; i++) {
       if (datesWithoutTime[i] === dueDateFinal && id != i + 1) {
-        this.commonService.showError("Date must be after First Due Date", "error");
+        this.commonService.showError("Date not be same.", "error");
         return;
       }
     }
@@ -475,6 +475,19 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     //   // charCode 48-57 are 0-9, 46 is .
     //   return false;
     // }
+    let amount = 0;
+    for (let index = 0; index < this.promissoryist.length; index++) {
+      amount += this.editCache[index + 1].data.amount ? parseFloat(this.editCache[index + 1].data.amount) : 0;
+    }
+    this.differenceAmount = parseFloat((this.orderDetail.pnTotalAmount - parseFloat(amount.toFixed(3))).toFixed(3));
+  }
+  changeAmountDecimal(event: any, id: any, check?: boolean) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    const decimalIndex = value.indexOf('.');
+    if (decimalIndex !== -1 && value.length - decimalIndex > 4) {
+      input.value = value.substr(0, decimalIndex + 4);
+    }
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
       amount += this.editCache[index + 1].data.amount ? parseFloat(this.editCache[index + 1].data.amount) : 0;
@@ -837,9 +850,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   updateEditData() {
     for (let index = 0; index < this.promissoryist.length; index++) {
       if (index != this.promissoryist.length - 1) {
-        this.editCache[index + 1].data.amount = parseInt(this.editCache[index +1].data.amount, 10);
+        this.editCache[index + 1].data.amount = parseInt(this.editCache[index + 1].data.amount, 10);
       } else {
-        this.editCache[index + 1].data.amount = parseFloat(this.editCache[index +1].data.amount);
+        this.editCache[index + 1].data.amount = parseFloat(this.editCache[index + 1].data.amount);
       }
     }
   }
