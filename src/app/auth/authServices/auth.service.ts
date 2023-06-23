@@ -56,7 +56,7 @@ export class AuthService {
 
   //   Login:
   public loginUser(model: LoginModel) {
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.login;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.login;
     return this.http.post(url, model)
   }
 
@@ -64,35 +64,35 @@ export class AuthService {
   public userRegister(model: LoginModel) {
     
     // model["userName"] = model["email"];
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.register;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.register;
     return this.http.post(url, model);
   }
   public confirmEmail(model: any) {
     // model["userName"] = model["email"];
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.confirmEmail;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.confirmEmail;
     return this.http.post(url, model);
   }
   sendEmail(emailSendDto): Observable<AppResponse> {
-    let url = environment.administration + "XEmail/SendEamil";
+    let url = environment.apiUrl2 + "XEmail/SendEamil";
     return this.http.post<AppResponse>(url, emailSendDto);
   }
   GetUserList(): Observable<AppResponse> {
-    let url = environment.administration + "Account/GetUserList";
+    let url = environment.apiUrl2 + "Account/GetUserList";
     return this.http.get<AppResponse>(url);
   }
   public sendCodeAgain(model: any) {
     // model["userName"] = model["email"];
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.sendCodeAgain;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.sendCodeAgain;
     return this.http.post(url, model);
   }
   public sendSMSAgain(model: any) {
     
     // model["userName"] = model["email"];
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.sendSMSAgain;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.sendSMSAgain;
     return this.http.post(url, model);
   }
   public resetPassword(model: any) {
-    let url = environment.administration + ApiConstants.apiEndPoints.auth.resetPassword;
+    let url = environment.apiUrl2 + ApiConstants.apiEndPoints.auth.resetPassword;
     return this.http.post(url, model);
   }
 }

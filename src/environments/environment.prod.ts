@@ -3,8 +3,14 @@ export const environment = {
   // Url: 'https://localhost:44394/api/',
   // imageUrl: 'https://localhost:44394/',
   GOOGLE_MAPS_API_KEY: 'AIzaSyAYyPkMoH478DfxCo0khzrVoKiy73ezuVY',
-  creditmanagement:'https://creditmanagementstage.azurewebsites.net/POSAPI/api/',
-  creditmanagementtest:'https://creditmanagementstage.azurewebsites.net/POSAPI/api/',
-  administration: 'https://dx-admimistration.azurewebsites.net/POSAPI/api/',
-  administration2: 'https://dx-admimistration.azurewebsites.net/',
+  // intermediate: 'https://intermediatelayerspareparts.azurewebsites.net/posapi/api/',
+  // imageUrl: 'https://intermediatelayerspareparts.azurewebsites.net/',
+  apiUrl:'https://cm-dx-be-test.azurewebsites.net/api/',
+  apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',
+  // administration2: 'https://dx-admimistration.azurewebsites.net/',
+  // creditmanagementtest:'https://creditmanagementstage.azurewebsites.net/POSAPI/api/',
+
+  // apiUrl: 'https://cm-dx-be-test.azurewebsites.net/api/',     //test
+  // apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',   //test
+
 };
