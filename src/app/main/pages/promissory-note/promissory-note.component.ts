@@ -159,7 +159,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           status: 'Generating',
           edit: false,
-          last:true,
+          last: true,
           first: false,
         };
       }
@@ -176,7 +176,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             status: 'Generating',
             edit: false,
             first: true,
-            last:false,
+            last: false,
           };
         }
         else {
@@ -189,7 +189,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
             status: 'Generating',
             edit: false,
-            last:false,
+            last: false,
             first: false,
           };
         }
@@ -229,7 +229,14 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       }
     }
     if (id == this.promissoryist.length) {
-      this.editCache[id].data.amount = parseFloat(this.editCache[id].data.amount);
+      const number = parseFloat(this.editCache[id].data.amount);
+      const integerPart = parseInt(number.toString().split('.')[0]); // Get the integer part
+      const decimalPart = number.toString().split('.')[1]; // Get the decimal part
+      const roundedDecimal = decimalPart.slice(0, 3); // Extract the first three digits
+      this.editCache[id].data.amount = integerPart + parseFloat(`0.${roundedDecimal}`);
+      // console.log(result); // Output: 853.985
+
+      // this.editCache[id].data.amount = parseFloat(this.editCache[id].data.amount);
       if (this.editCache[id].data.amount > 0) {
         const index = this.promissoryist.findIndex(item => item.id === id);
         Object.assign(this.promissoryist[index], this.editCache[id].data);
@@ -491,6 +498,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     if (decimalIndex !== -1 && value.length - decimalIndex > 4) {
       input.value = value.substr(0, decimalIndex + 4);
     }
+    const number = this.editCache[id].data.amount;
+    const integerPart = parseInt(number.toString().split('.')[0]); // Get the integer part
+    const decimalPart = number.toString().split('.')[1]; // Get the decimal part
+    if(decimalPart){
+      const roundedDecimal = decimalPart.slice(0, 3); // Extract the first three digits
+      if(roundedDecimal)
+      this.editCache[id].data.amount = integerPart + parseFloat(`0.${roundedDecimal}`);
+    }
+
     let amount = 0;
     for (let index = 0; index < this.promissoryist.length; index++) {
       amount += this.editCache[index + 1].data.amount ? parseFloat(this.editCache[index + 1].data.amount) : 0;
