@@ -68,30 +68,39 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   getPNOrderDetails() {
     this.saveLoader = true;
     this.selectedItemOrderId = this.orderId;
-    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(res => {
-
-      this.saveLoader = false;
-      this.orderDetail = res.data;
-      this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
-      this.versionTab = res.data['versions'];
-      if(res.data['versions']){
-        for (let index = 0; index < res.data['versions'].length; index++) {
-          // const element = res.data['versions'][index];
-          this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(
+      (response)=>{
+        this.saveLoader = false;
+        this.orderDetail = response.data;
+        this.orderDetailMaster = JSON.parse(JSON.stringify(response.data));
+        if(response.isSuccess){
+          this.versionTab = response.data['versions'];
+          if(response.data['versions']){
+            for (let index = 0; index < response.data['versions'].length; index++) {
+              // const element = res.data['versions'][index];
+              this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+            }
+            let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
+            this.orderDetail['originalCustomer'] = {};
+            this.orderDetail['originalCustomer'] = originalCustomer;
+            this.orderDetailMaster['originalCustomer'] = {};
+            this.orderDetailMaster['originalCustomer'] = originalCustomer;
+            this.versionTab.push(response.data);
+            this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+          }else{
+            this.versionTab = [];
+            this.versionTab.push(response.data);
+            this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+          }
+        }else{
+          this.versionTab = [];
         }
-        let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
-        this.orderDetail['originalCustomer'] = {};
-        this.orderDetail['originalCustomer'] = originalCustomer;
-        this.orderDetailMaster['originalCustomer'] = {};
-        this.orderDetailMaster['originalCustomer'] = originalCustomer;
-        this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-      }else{
-        this.versionTab = [];
-        this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-      }
-    })
+
+      },
+      (error)=>{
+        this.saveLoader = false;
+        this.commonService.showError("found some errors","error");
+      })
   }
   pre(): void {
     this.current -= 1;
