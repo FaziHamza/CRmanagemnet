@@ -159,6 +159,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           status: 'Generating',
           edit: false,
+          last:true,
           first: false,
         };
       }
@@ -175,6 +176,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             status: 'Generating',
             edit: false,
             first: true,
+            last:false,
           };
         }
         else {
@@ -187,6 +189,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
             status: 'Generating',
             edit: false,
+            last:false,
             first: false,
           };
         }
@@ -221,11 +224,11 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     // Check if any pair of dates match
     for (let i = 0; i < datesWithoutTime.length; i++) {
       if (datesWithoutTime[i] === dueDateFinal && id != i + 1) {
-        this.commonService.showError("Date not be same.", "error");
+        this.commonService.showError("No 2 PNs allowed to have same due date.", "error");
         return;
       }
     }
-    if (id == this.promissoryist.length - 1) {
+    if (id == this.promissoryist.length) {
       this.editCache[id].data.amount = parseFloat(this.editCache[id].data.amount);
       if (this.editCache[id].data.amount > 0) {
         const index = this.promissoryist.findIndex(item => item.id === id);

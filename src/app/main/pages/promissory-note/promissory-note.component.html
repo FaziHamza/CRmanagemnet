@@ -574,14 +574,14 @@
                                       </td>
                                       <td class="table-data">
 
-                                        <div class="input-group" *ngIf="!isLast">
+                                        <div class="input-group" *ngIf="!data.last">
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
                                             (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" digitsOnly>
 
                                         </div>
-                                        <div class="input-group" *ngIf="isLast">
+                                        <div class="input-group" *ngIf="data.last">
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
