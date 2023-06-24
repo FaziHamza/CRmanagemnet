@@ -153,8 +153,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         obj = {
           id: this.promissoryist.length + 1,
           customerName: this.orderDetail.customer.customerName,
-          amount: remainingAmount,
-          orginalAmount: remainingAmount,
+          amount: this.formatRemainingAmount(remainingAmount),
+          orginalAmount: this.formatRemainingAmount(remainingAmount),
           dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
           status: 'Generating',
@@ -207,6 +207,24 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.updateEditCache();
     this.isGenerate = true;
     this.differenceAmount = 0;
+  }
+  formatRemainingAmount(remainingAmount) {
+    const integerPart = Math.floor(remainingAmount);
+    const decimalPart = remainingAmount % 1;
+    const roundedDecimal = decimalPart.toFixed(3).slice(-3);
+    const roundedDecimalInt = parseInt(roundedDecimal);
+    if(roundedDecimalInt){
+      return `${integerPart}.${roundedDecimal}`;
+    }else{
+      return remainingAmount;
+    }
+    // if (roundedDecimalInt >= 5) {
+    //   return integerPart + 1;
+    // } else if (roundedDecimalInt > 0) {
+    //   return `${integerPart}.${roundedDecimal}`;
+    // } else {
+    //   return remainingAmount;
+    // }
   }
   saveEdit(id: number) {
     const datesWithoutTime = this.promissoryist.map(date => {
@@ -521,7 +539,6 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     }
     return true;
   }
-
   truncateValue(number: number): number {
     const truncated = Math.trunc(number * 1000) / 1000; // Truncate to three decimal places
     const thirdDecimal = Math.floor((truncated * 1000) % 10); // Get the third decimal place
