@@ -100,7 +100,7 @@
       </div>
     </div>
     <nz-tabset>
-      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab.reverse();let index = index"
+      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab;let index = index"
         (nzClick)="tabChange(item)">
         <ng-template #titleTemplate>
           <span>{{item?.tabName}}</span>

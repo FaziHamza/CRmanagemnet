@@ -81,6 +81,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         }
         this.versionTab.push(res.data);
         this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+        this.versionTab =  this.versionTab.reverse();
       }else{
         this.versionTab = [];
         this.versionTab.push(res.data);

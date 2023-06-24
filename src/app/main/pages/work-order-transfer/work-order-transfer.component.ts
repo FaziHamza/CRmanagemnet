@@ -73,17 +73,17 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       this.selectedItemOrderId = this.orderId;
       this.apiService.getTransfereRequestDetails(this.orderId).subscribe(
         (response)=>{
-         
+
           this.orderDetail = response.data;
           this.orderDetailMaster = JSON.parse(JSON.stringify(response.data));
           if(response.isSuccess){
             this.versionTab = response.data['versions'];
             console.log(this.versionTab);
             if(response.data['versions']){
-              // for (let index = 0; index < response.data['versions'].length; index++) {
-              //   // const element = res.data['versions'][index];
-              //   this.versionTab[index]['tabName'] = 'PN V'+(index+1);
-              // }
+              for (let index = 0; index < response.data['versions'].length; index++) {
+                // const element = res.data['versions'][index];
+                this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+              }
               let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
               this.orderDetail['originalCustomer'] = {};
               this.orderDetail['originalCustomer'] = originalCustomer;
@@ -91,7 +91,11 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
               this.orderDetailMaster['originalCustomer'] = originalCustomer;
               this.versionTab.push(response.data);
               this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+
+              this.versionTab =  this.versionTab.reverse();
+
               this.saveLoader = false;
+
             }else{
               this.versionTab = [];
               this.versionTab.push(response.data);
@@ -102,14 +106,14 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
             this.versionTab = [];
             this.saveLoader = false;
           }
-  
+
         },
         (error)=>{
           this.saveLoader = false;
           this.commonService.showError("found some errors","error");
         })
     } catch (error) {
-     console.log(error); 
+     console.log(error);
     }
   }
   pre(): void {
