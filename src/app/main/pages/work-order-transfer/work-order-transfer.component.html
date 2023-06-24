@@ -98,8 +98,8 @@
         </div>
       </div>
     </div>
-    <nz-tabset>
-      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab.reverse();let index = index"
+    <nz-tabset *ngIf="versionTab.length>0">
+      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab;let index = index"
         (nzClick)="getGeneratedList(item)">
         <ng-template #titleTemplate>
           <span>{{item?.tabName}}</span>

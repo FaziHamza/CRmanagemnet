@@ -53,6 +53,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   start = 1;
   end = 6;
   ngOnInit(): void {
+    debugger
     this.commonService.breadcrumb = [
       { title: 'Transferring Promissory Notes Orders', routeLink: 'home/workorders' }
     ]
@@ -66,41 +67,50 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     })
   }
   getPNOrderDetails() {
-    this.saveLoader = true;
-    this.selectedItemOrderId = this.orderId;
-    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(
-      (response)=>{
-        this.saveLoader = false;
-        this.orderDetail = response.data;
-        this.orderDetailMaster = JSON.parse(JSON.stringify(response.data));
-        if(response.isSuccess){
-          this.versionTab = response.data['versions'];
-          if(response.data['versions']){
-            for (let index = 0; index < response.data['versions'].length; index++) {
-              // const element = res.data['versions'][index];
-              this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+    debugger
+    try {
+      this.saveLoader = true;
+      this.selectedItemOrderId = this.orderId;
+      this.apiService.getTransfereRequestDetails(this.orderId).subscribe(
+        (response)=>{
+         
+          this.orderDetail = response.data;
+          this.orderDetailMaster = JSON.parse(JSON.stringify(response.data));
+          if(response.isSuccess){
+            this.versionTab = response.data['versions'];
+            console.log(this.versionTab);
+            if(response.data['versions']){
+              // for (let index = 0; index < response.data['versions'].length; index++) {
+              //   // const element = res.data['versions'][index];
+              //   this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+              // }
+              let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
+              this.orderDetail['originalCustomer'] = {};
+              this.orderDetail['originalCustomer'] = originalCustomer;
+              this.orderDetailMaster['originalCustomer'] = {};
+              this.orderDetailMaster['originalCustomer'] = originalCustomer;
+              this.versionTab.push(response.data);
+              this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+              this.saveLoader = false;
+            }else{
+              this.versionTab = [];
+              this.versionTab.push(response.data);
+              this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+              this.saveLoader = false;
             }
-            let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
-            this.orderDetail['originalCustomer'] = {};
-            this.orderDetail['originalCustomer'] = originalCustomer;
-            this.orderDetailMaster['originalCustomer'] = {};
-            this.orderDetailMaster['originalCustomer'] = originalCustomer;
-            this.versionTab.push(response.data);
-            this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
           }else{
             this.versionTab = [];
-            this.versionTab.push(response.data);
-            this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+            this.saveLoader = false;
           }
-        }else{
-          this.versionTab = [];
-        }
-
-      },
-      (error)=>{
-        this.saveLoader = false;
-        this.commonService.showError("found some errors","error");
-      })
+  
+        },
+        (error)=>{
+          this.saveLoader = false;
+          this.commonService.showError("found some errors","error");
+        })
+    } catch (error) {
+     console.log(error); 
+    }
   }
   pre(): void {
     this.current -= 1;
