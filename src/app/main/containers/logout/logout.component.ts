@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -16,7 +16,11 @@ export class LogoutComponent implements OnInit {
   logout() {
     localStorage.clear();
     this.modal.closeAll();
-    window.location.href ='https://dx-portalstest.azurewebsites.net/login';
+    if(environment.apiUrl.includes('test')){
+      window.location.href ='https://dx-portalstest.azurewebsites.net/login';
+    }else{
+      window.location.href ='https://dx-portalsstage.azurewebsites.net/login';
+    }
   }
   close() {
     this.modal.closeAll();
