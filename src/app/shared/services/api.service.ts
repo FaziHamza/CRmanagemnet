@@ -108,6 +108,12 @@ export class ApiService {
     let url = environment.apiUrl + "PNOrdersRequests/GetPNOrdersRequests?" + param;
     return this.http.get<AppResponse>(url);
   }
+  getListOfPNsTobeTransfered(id): Observable<AppResponse> {
+    let url =
+      environment.apiUrl +
+      'PNOrders/ListOfPNsTobeTransfered?orderId=' + id;
+    return this.http.get<AppResponse>(url);
+  }
   getPNOrderBookNotes(id,Sort:number): Observable<AppResponse> {
     let url =
       environment.apiUrl +

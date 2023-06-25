@@ -95,6 +95,9 @@ html {
 }
 
 .o-btn {
+  span {
+    margin: 0px 5px;
+  }
   background: $primary;
   height: 42px;
   min-width: 140px;
@@ -102,7 +105,7 @@ html {
   font-weight: 600;
   overflow: hidden;
   border-radius: 8px;
-  display: flex;
+  display: flex !important;
   justify-content: center;
   box-shadow: $card-shadow !important;
   align-items: center;
@@ -959,7 +962,7 @@ input[type="checkbox"]:checked {
   .btn,
   .o-btn,
   .btn-white {
-    width: 180px;
+    min-width: 180px;
     margin-left: 20px;
   }
 }
@@ -2474,4 +2477,7 @@ div:where(.swal2-container) h2:where(.swal2-title) {
 
 .ant-table-row .ant-table-cell input {
   padding-right: 0px !important;
+}
+.new-promissory-card{
+  background-color: #F8F8F8;
 }

@@ -83,7 +83,7 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Vehicle_Price" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.totalAmount">
-                {{orderDetail.totalAmount |  number : ".3"}} JOD</h4>
+                {{orderDetail.totalAmount | number : ".3"}} JOD</h4>
               <h4 class="detail" *ngIf="!orderDetail.totalAmount">---</h4>
             </div>
           </div>
@@ -208,7 +208,7 @@
           </div>
           <div class="row">
             <div class="col-lg-4 col-md-6">
-              <div class="card">
+              <div class="card new-promissory-card">
                 <div class="card-heading bb-none">
                   <h5>New Customer Information</h5>
                 </div>
@@ -265,7 +265,7 @@
                               d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                           </svg>
                         </a>
-                        <a (click)="downloadFile(orderDetail.customer?.identityFile1)"   class="download">
+                        <a (click)="downloadFile(orderDetail.customer?.identityFile1)" class="download">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
                               d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -334,7 +334,7 @@
                               d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                           </svg>
                         </a>
-                        <a (click)="downloadFile(orderDetail.newGuarantor?.identityFile1)"  class="download">
+                        <a (click)="downloadFile(orderDetail.newGuarantor?.identityFile1)" class="download">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
                               d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -349,7 +349,7 @@
               </div>
             </div>
             <div class="col-lg-8 col-md-8">
-              <div class="promissory-notes-details-card">
+              <div class="promissory-notes-details-card new-promissory-card">
                 <div class="card-heading pb-4">
                   <h5>
                     New Promissory Notes
@@ -368,15 +368,17 @@
                       translate}}</button>
                   </div>
                   <ng-template #elseBlock>
-                    <div
+                    <div class="bottom-buttons"
                       *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
                       <button type="button" class="btn btn-white hvr-bounce-to-right2"
                         [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                         translate}}</button>
-                      <button type="button" class="btn btn-white hvr-bounce-to-right2" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
+                      <button type="button" class="btn btn-white hvr-bounce-to-right2"
+                        [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                         (click)="rejected()">{{"Promissory_Notes.Reject" |
                         translate}}</button>
-                      <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
+                      <button class="btn o-btn hvr-bounce-to-right" (click)="approveRequest()"
+                        [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
                         type="button">{{"Promissory_Notes.Approve" |
                         translate}}</button>
                     </div>
@@ -386,9 +388,39 @@
 
                     <div *ngIf="orderDetail.statusObj?.lookupId == 21010 || orderDetail.statusObj?.lookupId == 21009;">
                       <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                      [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
-                      translate}}</button>
+                        [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
+                        translate}}</button>
 
+                    </div>
+                  </ng-template>
+                  <div *ngIf="orderDetail.status == 21009;else block2">
+                    <div *ngIf="orderDetail?.actionTaken; else disableTransferBlock">
+                      <button type="button" class="btn o-btn btn-disabled disabled-link"
+                        [disabled]="!canPerformAction(7, 40, 82)">
+                        <span>Transfer</span>
+                      </button>
+                    </div>
+                    <ng-template #disableTransferBlock>
+                      <button type="button" class="btn o-btn hvr-bounce-to-right"
+                        [disabled]="!canPerformAction(7, 40, 82)" (click)="transfer(orderDetail.requestID)">
+                        <span>Transfer</span>
+                      </button>
+                    </ng-template>
+                  </div>
+                  <ng-template #block2>
+                    <div *ngIf="orderDetail.status == 21010;">
+                      <div *ngIf="orderDetail?.actionTaken; else disableBlock">
+                        <button type="button" class="btn o-btn   btn-disabled disabled-link"
+                          [disabled]="!canPerformAction(7, 40, 82)">
+                          <span>Reschedule</span>
+                        </button>
+                      </div>
+                      <ng-template #disableBlock>
+                        <button type="button" class="btn o-btn hvr-bounce-to-right"
+                          [disabled]="!canPerformAction(7, 40, 82)" (click)="reschedule(orderDetail.requestID)">
+                          <span>Reschedule</span>
+                        </button>
+                      </ng-template>
                     </div>
                   </ng-template>
                 </div>
@@ -454,7 +486,7 @@
                             d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                         </svg>
                       </a>
-                      <a   (click)="downloadFile(orderDetail.customer?.identityFile1)"  class="download">
+                      <a (click)="downloadFile(orderDetail.customer?.identityFile1)" class="download">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <path fill="currentColor"
                             d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -523,7 +555,7 @@
                             d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                         </svg>
                       </a>
-                      <a  (click)="downloadFile(orderDetail.guarantor?.identityFile1)"  class="download">
+                      <a (click)="downloadFile(orderDetail.guarantor?.identityFile1)" class="download">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <path fill="currentColor"
                             d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -618,7 +650,8 @@
                                       All PN Amount
 
                                     </h4>
-                                    <h4 class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal |  number : ".3"}}
+                                    <h4 class="head-detail" *ngIf="otherDetail.pnsTotal">{{otherDetail.pnsTotal | number
+                                      : ".3"}}
                                       JOD</h4>
                                     <h4 class="head-detail" *ngIf="!otherDetail.pnsTotal">---</h4>
                                   </div>
@@ -629,9 +662,9 @@
                                       PN Account
 
                                     </h4>
-                                    <h4 class="head-detail"
-                                    *ngIf="otherDetail.numberOfInstallments">{{otherDetail.numberOfInstallments}}</h4>
-                                  <h4 class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</h4>
+                                    <h4 class="head-detail" *ngIf="otherDetail.numberOfInstallments">
+                                      {{otherDetail.numberOfInstallments}}</h4>
+                                    <h4 class="head-detail" *ngIf="!otherDetail.numberOfInstallments">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -640,10 +673,10 @@
                                       Remaining PN Account
 
                                     </h4>
-                                    <h4 class="head-detail"
-                                    *ngIf="otherDetail.remainingAmount">{{otherDetail.remainingAmount |  number : ".3"}}
-                                    JOD</h4>
-                                  <h4 class="head-detail" *ngIf="!otherDetail.remainingAmount">---</h4>
+                                    <h4 class="head-detail" *ngIf="otherDetail.remainingAmount">
+                                      {{otherDetail.remainingAmount | number : ".3"}}
+                                      JOD</h4>
+                                    <h4 class="head-detail" *ngIf="!otherDetail.remainingAmount">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
@@ -652,10 +685,9 @@
                                       Remaining Uncollected PNs
 
                                     </h4>
-                                    <h4 class="head-detail"
-                                        *ngIf="otherDetail.remainingUncollectedCount">{{otherDetail.remainingUncollectedCount}}</h4>
-                                      <h4 class="head-detail"
-                                        *ngIf="!otherDetail.remainingUncollectedCount">---</h4>
+                                    <h4 class="head-detail" *ngIf="otherDetail.remainingUncollectedCount">
+                                      {{otherDetail.remainingUncollectedCount}}</h4>
+                                    <h4 class="head-detail" *ngIf="!otherDetail.remainingUncollectedCount">---</h4>
                                   </div>
                                 </div>
                               </div>
@@ -666,23 +698,24 @@
                                 [nzPageSize]="pageSize" [nzFrontPagination]="false">
                                 <thead>
                                   <tr>
-                                    <th nz-th nzSortFn="ascend" nzWidth="8%" (click)="getSortFunction(sortType,'orderno')">
+                                    <th nz-th nzSortFn="ascend" nzWidth="8%"
+                                      (click)="getSortFunction(sortType,'orderno')">
                                       {{"Promissory_Notes.No" | translate}}
-                                  </th>
-                                  <th>{{"Promissory_Notes.Customer_Name" |
+                                    </th>
+                                    <th>{{"Promissory_Notes.Customer_Name" |
                                       translate}}
-                                  </th>
-                                  <th  nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
+                                    </th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
                                       {{"Promissory_Notes.Amount" | translate}}
-                                  </th>
-                                  <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
+                                    </th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'date')">
                                       {{"Promissory_Notes.Due_Date" | translate}}
-                                  </th>
-                                  <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
+                                    </th>
+                                    <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
                                       {{"Promissory_Notes.PN_Status" | translate}}
-                                  </th>
-                                  <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
-                                  </th>
+                                    </th>
+                                    <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
+                                    </th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -693,7 +726,7 @@
                                         {{ data.id }}
                                       </td>
                                       <td class="table-data">{{ data.customerName }}</td>
-                                      <td class="table-data">{{ data.amount |  number : ".3" }} JOD
+                                      <td class="table-data">{{ data.amount | number : ".3" }} JOD
                                       </td>
                                       <td class="table-data">
                                         {{data.dueDate | date : 'dd MMM yyyy'}}
@@ -719,19 +752,22 @@
                               </nz-table>
                               <div class="paginatio-bottom">
                                 <div>
-                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
+                                  <p class="showing">Showing <span>{{start}} - {{end}}</span> from
+                                    <span>{{generatedlist.length}}</span> data</p>
                                 </div>
                                 <div>
-                                    <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
-                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
-                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                  <nz-pagination *ngIf="generatedlist.length > pageSize"
+                                    [nzTotal]="generatedlist.length" [(nzPageIndex)]="pageIndex"
+                                    [(nzPageSize)]="pageSize"
+                                    (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
                                 </div>
-                            </div>
+                              </div>
                             </div>
                           </div>
                           <div class="bottom-buttons">
-                            <button class="btn o-btn btn-white hvr-bounce-to-right"  [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}"
-                              [disabled]="true" type="button">Create
+                            <button class="btn o-btn btn-white hvr-bounce-to-right"
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}" [disabled]="true"
+                              type="button">Create
                               Request</button>
                             <button class="btn o-btn hvr-bounce-to-right" [routerLink]="['/home/workorders']"
                               type="button">Close</button>
@@ -772,12 +808,12 @@
       <div class="col-lg-4">
         <div class="bottom-buttons">
           <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
-          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)" [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">Print
+          <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)"
+            [ngClass]="{'disabled-link': !canPerformAction(7, 40, 82)}">Print
             All</button>
         </div>
       </div>
       <div class="col-lg-1"></div>
-
     </div>
 
   </div>

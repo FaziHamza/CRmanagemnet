@@ -155,7 +155,7 @@
               </div>
             </div>
           </div>
-          <div class="card card-bg-color" *ngIf="this.orderDetail.comingFromTypeID  == 26003 && index == 0">
+          <div class="card" *ngIf="this.orderDetail.comingFromTypeID  == 26003 && index == 0">
             <div class="card-heading bb-none">
               <h5>Original Customer Information</h5>
             </div>
@@ -259,7 +259,7 @@
 
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <div class="card">
+            <div class="card" [ngClass]="{'new-promissory-card':orderDetail?.comingFromTypeID == 26003 && index == 0}">
               <div class="card-heading bb-none">
                 <h5> <span *ngIf="orderDetail?.comingFromTypeID == 26003 && index == 0">New </span> {{"Promissory_Notes.Customer_Information" | translate}}</h5>
               </div>
@@ -409,7 +409,7 @@
                 <h5>
                   Promissory Notes Details
                 </h5>
-                <div class="row heading-box">
+                <div class="row heading-box" *ngIf="orderDetail?.comingFromTypeID != 26003 || !isGenerate">
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
@@ -451,8 +451,9 @@
                   translate}}</button>
                 <button class="btn o-btn hvr-bounce-to-right" type="button"
                   [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                  (click)="getListofPromissoryNote()">{{"Promissory_Notes.Generate_PNs_Book" |
-                  translate}}</button>
+                  (click)="getListofPromissoryNote()"> Generate
+                  <span *ngIf="orderDetail?.comingFromTypeID == 26003 || orderDetail?.comingFromTypeID == 26002">
+                    New </span> PNs Book</button>
               </div>
               <div class="wizard-form-body" *ngIf="isGenerate">
 
@@ -472,7 +473,7 @@
                       <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
                         [hidden]="current !== i">
                         <div class="col-lg-12 col-md-8">
-                          <div *ngIf="current == 0">
+                          <div *ngIf="current == 0 && orderDetail?.comingFromTypeID != 26003">
                             <div class="flex-end-row mt-2 mb-2">
                                 <button type="button" class="btn o-btn hvr-bounce-to-right btn-md"
                                   (click)="getListofPromissoryNote()" *ngIf="differenceAmount != 0 || checkReset()"
@@ -639,7 +640,7 @@
                             </div>
                             </div>
                           </div>
-                          <div *ngIf="current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
+                          <div *ngIf="orderDetail?.comingFromTypeID == 26003 || current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
                             <div class="row heading-box mt-4 pt-4">
                               <div class="col-lg-6">
                                 <h1 class="head-title ">
@@ -647,15 +648,15 @@
                                   translate}}
                                 </h1>
                               </div>
-                              <div class="col-lg-6 text-end">
+                              <div class="col-lg-6 text-end" *ngIf="orderDetail?.comingFromTypeID != 26003">
                                 <h1 class="head-title ">
                                   {{"Promissory_Notes.PN_BOOK_NO" |
                                   translate}} :
                                   <span *ngIf="generatedlist.length  > 0 "
-                                    class="head-detail">{{generatedlist[0].pnBookID}}</span>
+                                    class="head-detail">{{generatedlist[0]?.pnBookID}}</span>
                                 </h1>
                               </div>
-                              <div class="row heading-box">
+                              <div class="row heading-box" *ngIf="orderDetail?.comingFromTypeID != 26003">
                                 <div class="col-lg-5 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title">
@@ -776,7 +777,10 @@
                               [routerLink]="['/home/workorders']">Close</button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()"
                               [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields() || isDateMatch()} ">Confirm</button>
+                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields() || isDateMatch()} ">Confirm
+                              <span *ngIf="orderDetail?.comingFromTypeID == 26003"> Transferring</span>
+                              <span *ngIf="orderDetail?.comingFromTypeID == 26002"> Rescheduling</span>
+                            </button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 1">
                             <button type="button" [routerLink]="['/home/workorders']"
@@ -833,8 +837,7 @@
       </div>
       <div class="col-lg-6 text-end">
         <h1 class="header-content ">
-          {{"Promissory_Notes.Difference_amount" |
-          translate}} (JOD) : <span class="head-detail"
+          PN Book No : <span class="head-detail"
             *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
         </h1>
       </div>

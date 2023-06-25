@@ -136,78 +136,115 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   //#region  Generating Promissory Notes Orders Tab 1
   getListofPromissoryNote() {
-    this.promissoryist = [];
-    let remainingAmount = this.orderDetail.pnTotalAmount;
-    // let decimalPartSum = 0;
-    for (let index = 0; index < this.orderDetail.numberOfInstallments; index++) {
-      const dueDate = new Date(this.orderDetail.startDate);
-      if (this.cmsSetup.periodBetweenPNType.toLowerCase() == "months") {
-        dueDate.setMonth(dueDate.getMonth() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
-      } else {
-        dueDate.setDate(dueDate.getDate() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
-      }
-      let installment = parseFloat((this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments).toFixed(3));
-      let obj = {};
-      // let decimalPart = installment % 1;
-      if (index == this.orderDetail.numberOfInstallments - 1) {
-        // installment += decimalPartSum;
-        obj = {
-          id: this.promissoryist.length + 1,
-          customerName: this.orderDetail.customer.customerName,
-          amount: this.formatRemainingAmount(remainingAmount),
-          orginalAmount: this.formatRemainingAmount(remainingAmount),
-          dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-          originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-          status: 'Generating',
-          edit: false,
-          last: true,
-          first: false,
-        };
-      }
-      else {
-        remainingAmount -= Math.floor(installment);
-        if (index == 0) {
-          obj = {
-            id: this.promissoryist.length + 1,
-            customerName: this.orderDetail.customer.customerName,
-            amount: Math.floor(installment),
-            orginalAmount: Math.floor(installment),
-            dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-            originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
-            status: 'Generating',
-            edit: false,
-            first: true,
-            last: false,
-          };
+    if(this.orderDetail?.comingFromTypeID == 26003){
+      this.saveLoader = true;
+      this.stepSaveLoader = true;
+      this.selectedItemOrderId = this.orderId;
+      this.apiService.getListOfPNsTobeTransfered(this.orderId).subscribe(res => {
+        this.stepSaveLoader = false;
+        this.saveLoader = false;
+        if (res.isSuccess) {
+
+          this.generatedlist = [];
+          this.pdfInfoData = res['info'];
+          let generatedlist = res.data;
+          for (let index = 0; index < generatedlist.length; index++) {
+            const obj = {
+              id: this.generatedlist.length + 1,
+              customerName: this.orderDetail?.customer?.customerName,
+              // customerName: this.orderDetail.customer.customerName,
+              amount: generatedlist[index].pnAmount,
+              dueDate: generatedlist[index].dueDate,
+              status:  'Generating',
+              lookupBGColor: '#5956e9',
+              lookupTextColor: '#e6e5ff',
+              pnBookID: generatedlist[index].pnBookID,
+              pdfView: generatedlist[index].pNpdfFile
+            };
+            this.generatedlist.push(obj);
+          }
+          this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+          this.initilizeTableField();
+          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
+          this.isGenerate = true;
+          this.current = 0;
         }
-        else {
+      })
+    }else{
+      this.promissoryist = [];
+      let remainingAmount = this.orderDetail.pnTotalAmount;
+      // let decimalPartSum = 0;
+      for (let index = 0; index < this.orderDetail.numberOfInstallments; index++) {
+        const dueDate = new Date(this.orderDetail.startDate);
+        if (this.cmsSetup.periodBetweenPNType.toLowerCase() == "months") {
+          dueDate.setMonth(dueDate.getMonth() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
+        } else {
+          dueDate.setDate(dueDate.getDate() + (index * this.cmsSetup.periodBetweenPNValue)); // Add 6 days for each iteration
+        }
+        let installment = parseFloat((this.orderDetail.pnTotalAmount / this.orderDetail.numberOfInstallments).toFixed(3));
+        let obj = {};
+        // let decimalPart = installment % 1;
+        if (index == this.orderDetail.numberOfInstallments - 1) {
+          // installment += decimalPartSum;
           obj = {
             id: this.promissoryist.length + 1,
             customerName: this.orderDetail.customer.customerName,
-            amount: Math.floor(installment),
-            orginalAmount: Math.floor(installment),
+            amount: this.formatRemainingAmount(remainingAmount),
+            orginalAmount: this.formatRemainingAmount(remainingAmount),
             dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
             originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
             status: 'Generating',
             edit: false,
-            last: false,
+            last: true,
             first: false,
           };
         }
+        else {
+          remainingAmount -= Math.floor(installment);
+          if (index == 0) {
+            obj = {
+              id: this.promissoryist.length + 1,
+              customerName: this.orderDetail.customer.customerName,
+              amount: Math.floor(installment),
+              orginalAmount: Math.floor(installment),
+              dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+              originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+              status: 'Generating',
+              edit: false,
+              first: true,
+              last: false,
+            };
+          }
+          else {
+            obj = {
+              id: this.promissoryist.length + 1,
+              customerName: this.orderDetail.customer.customerName,
+              amount: Math.floor(installment),
+              orginalAmount: Math.floor(installment),
+              dueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+              originalDueDate: this.datePipe.transform(dueDate, 'yyyy-MM-dd'),
+              status: 'Generating',
+              edit: false,
+              last: false,
+              first: false,
+            };
+          }
 
-        // if (decimalPart > 0) {
-        //   decimalPartSum += decimalPart;
-        // }
+          // if (decimalPart > 0) {
+          //   decimalPartSum += decimalPart;
+          // }
+        }
+
+        this.promissoryist.push(obj);
       }
-
-      this.promissoryist.push(obj);
+      this.displaypromissoryist = this.promissoryist.length > 6 ? this.promissoryist.slice(0, 6) : this.promissoryist;
+      this.initilizeTableField();
+      this.end = this.displaypromissoryist.length > 6 ? 6 : this.displaypromissoryist.length;
+      this.updateEditCache();
+      this.isGenerate = true;
+      this.differenceAmount = 0;
     }
-    this.displaypromissoryist = this.promissoryist.length > 6 ? this.promissoryist.slice(0, 6) : this.promissoryist;
-    this.initilizeTableField();
-    this.end = this.displaypromissoryist.length > 6 ? 6 : this.displaypromissoryist.length;
-    this.updateEditCache();
-    this.isGenerate = true;
-    this.differenceAmount = 0;
+
   }
   formatRemainingAmount(remainingAmount) {
     const integerPart = Math.floor(remainingAmount);
@@ -442,6 +479,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       if (res.isSuccess) {
 
         this.generatedlist = [];
+        this.displaygeneratedlist = [];
         this.pdfInfoData = res['info'];
         let generatedlist = res.data;
         const currentDate = new Date(); // Current date
@@ -559,6 +597,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
+      this.orderDetail['comingFromTypeID'] = 0;
+      this.orderDetail['comingFromTypeID'] == 26001;
       this.orderDetail.hasActiveRequest = true;
 
       // this.orderDetail.statusObj = item.statusObj;
@@ -606,6 +646,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             };
             this.generatedlist.push(obj);
           }
+          this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+          this.initilizeTableField();
+          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
           this.current = index;
           this.isGenerate = true;
         }
@@ -659,6 +702,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           };
           this.generatedlist.push(obj);
         }
+        this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
+        this.initilizeTableField();
+        this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
         this.current = index;
         this.isGenerate = true;
       }
@@ -693,22 +739,27 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     },
   ];
   pdfView(file: any, data?: any): void {
-    const modal = this.modal.create<PDFViewComponent>({
-      nzWidth: 600,
-      nzContent: PDFViewComponent,
-      nzComponentParams: {
-        file: file,
-        data: data
-      },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: null
-    });
-    modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
-    });
+    if(file){
+      const modal = this.modal.create<PDFViewComponent>({
+        nzWidth: 600,
+        nzContent: PDFViewComponent,
+        nzComponentParams: {
+          file: file,
+          data: data
+        },
+        // nzViewContainerRef: this.viewContainerRef,
+        // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+        nzFooter: null
+      });
+      modal.afterClose.subscribe(res => {
+        if (res) {
+          // this.controls(value, data, obj, res);
+        }
+      });
+    }else{
+      this.commonService.showError("Sorry there is no file exist!","error");
+    }
+
   }
 
   printPNBook() {
@@ -874,7 +925,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     const start = (this.pageIndex - 1) * this.pageSize;
     const end = start + this.pageSize;
     this.start = start == 0 ? 1 : ((this.pageIndex * this.pageSize) - this.pageSize) + 1;
-    if (this.current != 0) {
+    if (this.current != 0 || this.orderDetail?.comingFromTypeID == 26003) {
       this.displaygeneratedlist = this.generatedlist.slice(start, end);
       this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length : this.pageIndex * this.pageSize;
     } else {

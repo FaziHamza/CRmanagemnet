@@ -353,7 +353,7 @@ export class WorkOrderRequestComponent implements OnInit {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created");
+          this.confirm("Reschedule Order Successfully Created",response.data);
           // this.router.navigate(['/home/workorders'])
         }
         else {
@@ -379,8 +379,8 @@ export class WorkOrderRequestComponent implements OnInit {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Transferring Order Successfully Created");
-          // this.router.navigate(['/home/workorders'])
+          this.confirm("Transferring Order Successfully Created",response.data);
+          // this.router.navigate(['/home/workorders/'+response.data]);
         }
         else {
           this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
@@ -396,7 +396,7 @@ export class WorkOrderRequestComponent implements OnInit {
       }
     )
   }
-  confirm(message: string): void {
+  confirm(message: string,orderId:number): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -406,8 +406,9 @@ export class WorkOrderRequestComponent implements OnInit {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.commonService.loadRequestTab = false;
-      this.commonService.selectedWorkorder = 0;
+          this.router.navigate(['/home/workorders/'+orderId]);
+      // this.commonService.loadRequestTab = false;
+      // this.commonService.selectedWorkorder = 0;
     });
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
