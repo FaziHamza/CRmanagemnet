@@ -109,7 +109,7 @@ export class WorkOrderRequestComponent implements OnInit {
       this.saveLoader = false;
       if (this.searchByRequestNo == 0)
         this.searchByRequestNo = null;
-      if (res) {
+      if (res.isSuccess) {
         this.requestList = res.data;
         this.displayData = this.requestList.length > 6 ? this.requestList.slice(0, 6) : this.requestList;
         this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
