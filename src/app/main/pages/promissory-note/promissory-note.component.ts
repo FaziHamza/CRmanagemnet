@@ -370,20 +370,34 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           this.commonService.showError("You must need to put more than 0 value..!", "Error");
           return;
         }
-        this.promissoryist.forEach(element => {
-
-          console.log(element.amount);
-          const fromDate = new Date(element.dueDate.toString());
-          try {
-            let data = {
-              amount: parseFloat(element.amount.toString()).toFixed(3),
-              dueDate: fromDate.toISOString()
+        if(this.promissoryist.length > 0){
+          this.promissoryist.forEach(element => {
+            const fromDate = new Date(element.dueDate.toString());
+            try {
+              let data = {
+                amount: parseFloat(element.amount.toString()).toFixed(3),
+                dueDate: fromDate.toISOString()
+              }
+              notes.push(data);
+            } catch (error) {
+              console.log(error);
             }
-            notes.push(data);
-          } catch (error) {
-            console.log(error);
-          }
-        })
+          })
+        }else if(this.generatedlist.length > 0){
+          this.generatedlist.forEach(element => {
+            const fromDate = new Date(element.dueDate.toString());
+            try {
+              let data = {
+                amount: parseFloat(element.amount.toString()).toFixed(3),
+                dueDate: fromDate.toISOString()
+              }
+              notes.push(data);
+            } catch (error) {
+              console.log(error);
+            }
+          })
+        }
+
         let orderId: any = this.orderId
         let formData = new FormData();
         formData.append('OrderId', orderId);
