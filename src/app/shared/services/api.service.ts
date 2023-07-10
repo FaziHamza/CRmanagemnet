@@ -83,6 +83,13 @@ export class ApiService {
       id;
     return this.http.get<AppResponse>(url);
   }
+  getDashboard(): Observable<AppResponse> {
+    let url =
+      environment.apiUrl +
+      'Dashboard/GetDashboardReads'
+    return this.http.get<AppResponse>(url);
+  }
+
 
   getPNOrders(id: number): Observable<AppResponse> {
     let url =

@@ -94,16 +94,16 @@
       <h5 class="card-subheading">
         Total :
         <span class="amount"
-          >{{ totalRemainging + totalOverDue | number : ".3" }} JOD</span
+          >{{ this.dashboardData?.total | number : ".3" }} JOD</span
         >
       </h5>
       <h5 class="card-subheading">
         Remaining :
-        <span class="amount">{{ totalRemainging | number : ".3" }} JOD</span>
+        <span class="amount">{{ this.dashboardData?.remaining  | number : ".3" }} JOD</span>
       </h5>
       <h5 class="card-subheading">
         Overdue :
-        <span class="amount">{{ totalOverDue | number : ".3" }} JOD</span>
+        <span class="amount">{{ this.dashboardData?.overDuo | number : ".3" }} JOD</span>
       </h5>
       <h5 class="card-subheading ms-auto">
         Total No. : <span class="amount">{{ totalRecords }}</span>

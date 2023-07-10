@@ -28,18 +28,15 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
   totalRecords = 0;
   selectedLookupId = '';
   unsubscribe = new Subject<void>();
-
+  dashboardData :any;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    // this.apiService.getStatusLookup(25).subscribe((result) => {
-    //   if (result?.isSuccess) {
-    //     this.lookups = result.data.map((entry) => ({
-    //       id: entry.id,
-    //       name: entry.name[0]?.lookupName,
-    //     }));
-    //   }
-    // });
+    this.apiService.getDashboard().subscribe((result) => {
+      if (result?.isSuccess) {
+        this.dashboardData= result?.data;
+      }
+    });
     this.searchByCustomerName$
       .pipe(debounceTime(500), takeUntil(this.unsubscribe))
       .subscribe(() => {
