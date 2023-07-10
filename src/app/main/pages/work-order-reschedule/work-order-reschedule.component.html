@@ -344,6 +344,36 @@
                                         translate}}</button>
                                       </div>
                                     </ng-template>
+                                    <div *ngIf="orderDetail.status == 21009;else block2">
+                                      <div *ngIf="orderDetail?.actionTaken; else disableTransferBlock">
+                                        <button type="button" class="btn o-btn btn-disabled disabled-link"
+                                          [disabled]="!canPerformAction(7, 40, 82)">
+                                          <span>Transfer</span>
+                                        </button>
+                                      </div>
+                                      <ng-template #disableTransferBlock>
+                                        <button type="button" class="btn o-btn hvr-bounce-to-right"
+                                          [disabled]="!canPerformAction(7, 40, 82)" (click)="transfer(orderDetail.requestID)">
+                                          <span>Transfer</span>
+                                        </button>
+                                      </ng-template>
+                                    </div>
+                                    <ng-template #block2>
+                                      <div *ngIf="orderDetail.status == 21010;">
+                                        <div *ngIf="orderDetail?.actionTaken; else disableBlock">
+                                          <button type="button" class="btn o-btn   btn-disabled disabled-link"
+                                            [disabled]="!canPerformAction(7, 40, 82)">
+                                            <span>Reschedule</span>
+                                          </button>
+                                        </div>
+                                        <ng-template #disableBlock>
+                                          <button type="button" class="btn o-btn hvr-bounce-to-right"
+                                            [disabled]="!canPerformAction(7, 40, 82)" (click)="reschedule(orderDetail.requestID)">
+                                            <span>Reschedule</span>
+                                          </button>
+                                        </ng-template>
+                                      </div>
+                                    </ng-template>
                                 </div>
                             </div>
                         </div>
@@ -645,6 +675,16 @@
 
                                                                 </tbody>
                                                             </nz-table>
+                                                            <div class="paginatio-bottom">
+                                                              <div>
+                                                                  <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
+                                                              </div>
+                                                              <div>
+                                                                  <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
+                                                                      [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                                                                      (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                                              </div>
+                                                          </div>
                                                         </div>
                                                     </div>
                                                     <div class="bottom-buttons">
@@ -667,16 +707,7 @@
                 </div>
             </nz-tab>
         </nz-tabset>
-        <div class="paginatio-bottom">
-          <div>
-              <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
-          </div>
-          <div>
-              <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
-                  [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
-                  (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
-          </div>
-      </div>
+
     </div>
     <div *ngIf="isPrintShow">
         <div class="row heading-box p-4">

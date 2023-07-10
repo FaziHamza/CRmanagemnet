@@ -69,7 +69,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.saveLoader = true;
     this.selectedItemOrderId = this.orderId;
     this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
-
+      debugger
       this.saveLoader = false;
       this.orderDetail = res.data;
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
@@ -81,7 +81,9 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         }
         this.versionTab.push(res.data);
         this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-        this.versionTab =  this.versionTab.reverse();
+        this.versionTab = this.versionTab.reduce((acc, curr) => [curr, ...acc], []);
+
+        // this.versionTab =  this.versionTab.reverse();
       }else{
         this.versionTab = [];
         this.versionTab.push(res.data);
@@ -340,7 +342,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.commonService.selectedWorkorder = 1;
     this.commonService.loadRequestTab = true;
   }
-  confirm(message:string): void {
+  confirm(message:string,orderId:number): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -350,7 +352,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.router.navigate(['/home/workorders']);
+      this.router.navigate(['/home/workorders/',orderId]);
     });
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
@@ -463,5 +465,57 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
     this.displaygeneratedlist = this.generatedlist.slice(start, end);
     this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
+  }
+  reschedule(id: any) {
+    let formData = new FormData();
+    formData.append('requestId', id);
+    this.saveLoader = true;
+    this.apiService.performReschedulePNOrders(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.confirm("Reschedule Order Successfully Created",response.data);
+          // this.router.navigate(['/home/workorders'])
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
+  }
+  transfer(id: any) {
+    let formData = new FormData();
+    formData.append('requestId', id);
+    this.saveLoader = true;
+    this.apiService.performTransferPNOrder(formData).subscribe(
+      (response) => {
+        this.saveLoader = false;
+        if (response.isSuccess) {
+          this.commonService.showSuccess("Data updated successfully..!", "Success");
+          this.confirm("Transferring Order Successfully Created",response.data);
+          // this.router.navigate(['/home/workorders/'+response.data]);
+        }
+        else {
+          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
+          this.error(this.errorsList)
+          this.commonService.showError("found some error..!", "Error");
+        }
+      },
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.error(this.errorsList)
+        this.commonService.showError("found some error..!", "Error");
+      }
+    )
   }
 }

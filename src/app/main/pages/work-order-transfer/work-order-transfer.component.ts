@@ -91,8 +91,8 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
               this.orderDetailMaster['originalCustomer'] = originalCustomer;
               this.versionTab.push(response.data);
               this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-
-              this.versionTab =  this.versionTab.reverse();
+              this.versionTab = this.versionTab.reduce((acc, curr) => [curr, ...acc], []);
+              // this.versionTab =  this.versionTab.reverse();
 
               this.saveLoader = false;
 
