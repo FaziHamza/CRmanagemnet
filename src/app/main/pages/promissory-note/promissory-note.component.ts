@@ -171,7 +171,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           this.current = 0;
         }
       })
-    }else{
+    }
+    else{
       this.promissoryist = [];
       let remainingAmount = this.orderDetail.pnTotalAmount;
       // let decimalPartSum = 0;
@@ -244,6 +245,9 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       this.updateEditCache();
       this.isGenerate = true;
       this.differenceAmount = 0;
+      this.current = 0;
+      this.displaygeneratedlist =  [];
+      this.generatedlist = [];
     }
 
   }
@@ -612,8 +616,8 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
-      this.orderDetail['comingFromTypeID'] = 0;
-      this.orderDetail['comingFromTypeID'] == 26001;
+      // this.orderDetail['comingFromTypeID'] = 0;
+      // this.orderDetail['comingFromTypeID'] == 26001;
       this.orderDetail.hasActiveRequest = true;
 
       // this.orderDetail.statusObj = item.statusObj;

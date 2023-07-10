@@ -409,7 +409,7 @@
                 <h5>
                   Promissory Notes Details
                 </h5>
-                <div class="row heading-box" *ngIf="orderDetail?.comingFromTypeID != 26003 || !isGenerate">
+                <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID != 26003 && orderDetail?.comingFromTypeID != 26002)">
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
@@ -678,8 +678,8 @@
 
                                     </h4>
                                     <h4 class="head-detail"
-                                        *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</h4>
-                                      <h4 class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</h4>
+                                        *ngIf="item.numberOfInstallments">{{item.numberOfInstallments}}</h4>
+                                      <h4 class="head-detail" *ngIf="!item.numberOfInstallments">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -687,17 +687,16 @@
                                     <h4 class="head-title">
                                       {{"Promissory_Notes.Remaining_Amount" |translate}}</h4>
                                     <h4 class="head-detail"
-                                    *ngIf="orderDetail.remainingAmount">{{orderDetail.remainingAmount | number :
+                                    *ngIf="item.remainingAmount">{{item.remainingAmount | number :
                                     ".3"}} JOD</h4>
-                                  <h4 class="head-detail" *ngIf="!orderDetail.remainingAmount">---</h4>
+                                  <h4 class="head-detail" *ngIf="!item.remainingAmount">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title"> Remaining No</h4>
-                                    <h4 class="head-detail"
-                                      *ngIf="orderDetail.numberOfInstallments">{{orderDetail.numberOfInstallments}}</h4>
-                                    <h4 class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</h4>
+                                    <h4 class="head-detail" *ngIf="index == 0">{{item?.numberOfInstallments ? item.numberOfInstallments : '---'}}</h4>
+                                    <h4 class="head-detail" *ngIf="index != 0">{{item?.remainingUncollectedCount ? item.remainingUncollectedCount : '---'}}</h4>
                                   </div>
                                 </div>
                               </div>

@@ -94,8 +94,10 @@ export class CreateRequestComponent implements OnInit {
     differenceInCalendarDays(current,  new Date()) <= 0;
 
   interestPercentage() {
-    if(this.interestPer != "")
+    if(this.interestPer != ""){
+      this.interestPer = this.interestPer.toFixed(3);
       this.interestVal = parseFloat(((this.getPNremainingAmount*parseFloat(this.interestPer))/100).toFixed(3));
+    }
     else{
       this.interestPer = "";
       this.interestVal = "";
@@ -104,8 +106,10 @@ export class CreateRequestComponent implements OnInit {
   }
 
   interestValue() {
-    if(this.interestVal != "")
-      this.interestPer = parseFloat((parseFloat(this.interestVal)/this.getPNremainingAmount).toFixed(3));
+    if(this.interestVal != ""){
+      this.interestVal = this.interestVal.toFixed(3);
+      this.interestPer = parseFloat(((parseFloat(this.interestVal)*100)/this.getPNremainingAmount).toFixed(3));
+    }
     else{
       this.interestPer = "";
       this.interestVal = "";

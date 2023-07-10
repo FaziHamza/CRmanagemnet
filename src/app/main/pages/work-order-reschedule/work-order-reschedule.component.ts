@@ -69,7 +69,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.saveLoader = true;
     this.selectedItemOrderId = this.orderId;
     this.apiService.getRescheduleRequestDetails(this.orderId).subscribe(res => {
-      debugger
+
       this.saveLoader = false;
       this.orderDetail = res.data;
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));

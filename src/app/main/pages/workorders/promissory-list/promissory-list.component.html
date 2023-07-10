@@ -181,7 +181,7 @@
                         </div>
 
                         <ng-template #dotsBlock>
-                            <nz-dropdown-menu #menu="nzDropdownMenu"
+                            <!-- <nz-dropdown-menu #menu="nzDropdownMenu"
                                 [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
                                 <ul nz-menu nzSelectable>
                                     <li nz-menu-item [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
@@ -194,23 +194,34 @@
                                         (click)="createRequest(data.orderId,'Transfer Request')">
                                         Create Transfer Request</li>
                                 </ul>
-                            </nz-dropdown-menu>
-                            <div class="hover-dropdown">
+                            </nz-dropdown-menu> -->
+                            <div class="dropdown" style="position: absolute !important; margin-top: -15px;" >
+                              <div class="btn dropdownButton"
+                                      id="dropdownMenuButton1"
+                                      data-bs-toggle="dropdown"
+                                      aria-expanded="false">
+                                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                              </div>
+                              <ul class="dropdown-menu menu" aria-labelledby="dropdownMenuButton1">
+                              <li>  <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                                (click)="gotoDetail(data)">
+                                View Detail</a></li>
+                              <li>    <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                                (click)="createRequest(data.orderId,'Reschedule Request')">
+                                Create Reschedule Request</a></li>
+                              <li>     <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                                (click)="createRequest(data.orderId,'Transfer Request')">
+                                Create Transfer Request</a></li>
+                              </ul>
+                            </div>
+                            <!-- <div class="hover-dropdown">
                                 <div class="dropdown">
                                     <i class="fa-solid fa-ellipsis-vertical dropbtn"></i>
                                     <div class="dropdown-content">
-                                        <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                                            (click)="gotoDetail(data)">
-                                            View Detail</a>
-                                        <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                                            (click)="createRequest(data.orderId,'Reschedule Request')">
-                                            Create Reschedule Request</a>
-                                        <a [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                                            (click)="createRequest(data.orderId,'Transfer Request')">
-                                            Create Transfer Request</a>
+
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </ng-template>
                     </td>
                 </tr>

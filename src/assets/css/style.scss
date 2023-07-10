@@ -2481,3 +2481,17 @@ div:where(.swal2-container) h2:where(.swal2-title) {
 .new-promissory-card{
   background-color: #F8F8F8;
 }
+
+.dropdown {
+  .dropdownButton {
+    border: none;
+  }
+
+  .dropdown-menu {
+    padding: 0px;
+
+    .dropdown-item {
+      padding: 8px 15px;
+    }
+  }
+}

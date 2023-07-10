@@ -324,7 +324,7 @@
                                     </div>
 
                                     <ng-template #elseBlock>
-                                        <div *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
+                                        <div class="bottom-buttons" *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
                                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
                                             [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                                             translate}}</button>
