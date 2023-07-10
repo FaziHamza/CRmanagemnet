@@ -375,13 +375,12 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
           this.commonService.showError("You must need to put more than 0 value..!", "Error");
           return;
         }
-        if(this.promissoryist.length > 0){
-          this.promissoryist.forEach(element => {
-            const fromDate = new Date(element.dueDate.toString());
+        if(this.orderDetail?.comingFromTypeID == 26003){
+          this.generatedlist.forEach(element => {
             try {
               let data = {
                 amount: parseFloat(element.amount.toString()).toFixed(3),
-                dueDate: fromDate.toISOString()
+                dueDate: element.dueDate.split('T')[0]
               }
               notes.push(data);
             } catch (error) {
@@ -389,7 +388,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
             }
           })
         }else if(this.generatedlist.length > 0){
-          this.generatedlist.forEach(element => {
+          this.promissoryist.forEach(element => {
             const fromDate = new Date(element.dueDate.toString());
             try {
               let data = {
