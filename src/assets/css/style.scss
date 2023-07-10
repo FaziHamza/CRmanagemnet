@@ -98,6 +98,7 @@ html {
   span {
     margin: 0px 5px;
   }
+
   background: $primary;
   height: 42px;
   min-width: 140px;
@@ -2478,7 +2479,8 @@ div:where(.swal2-container) h2:where(.swal2-title) {
 .ant-table-row .ant-table-cell input {
   padding-right: 0px !important;
 }
-.new-promissory-card{
+
+.new-promissory-card {
   background-color: #F8F8F8;
 }
 
@@ -2492,6 +2494,23 @@ div:where(.swal2-container) h2:where(.swal2-title) {
 
     .dropdown-item {
       padding: 8px 15px;
+    }
+  }
+}
+
+.dropdown {
+  ul li {
+    padding: 6px 10px;
+
+    a {
+      font-size: 14px;
+    }
+  }
+
+  ul li:hover {
+    background: $primary;
+    a {
+      color: white !important;
     }
   }
 }
