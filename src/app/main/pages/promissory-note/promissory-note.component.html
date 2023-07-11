@@ -416,9 +416,13 @@
                         translate}}
 
                       </h4>
-                      <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
+                      <!-- <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
                         number : ".3"}} JOD</h4>
-                      <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4>
+                      <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4> -->
+                      <h4 class="head-detail" *ngIf="item.pnTotalAmount && index == 0">{{item.pnTotalAmount | number : ".3"}} JOD</h4>
+                      <h4 class="head-detail" *ngIf="!item.pnTotalAmount && index == 0">---</h4>
+                      <h4 class="head-detail" *ngIf="item.pnsTotal && index != 0">{{item.pnsTotal | number : ".3"}} JOD</h4>
+                      <h4 class="head-detail" *ngIf="!item.pnsTotal && index != 0">---</h4>
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-6">
