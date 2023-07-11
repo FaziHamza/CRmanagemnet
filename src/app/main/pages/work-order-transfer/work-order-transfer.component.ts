@@ -221,7 +221,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       }
       this.stepSaveLoader = true;
       this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID;
+      this.saveLoader = true;
       this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID,1).subscribe(res => {
+        this.saveLoader = false;
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];

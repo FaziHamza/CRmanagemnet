@@ -409,7 +409,7 @@
                 <h5>
                   Promissory Notes Details
                 </h5>
-                <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID != 26003 && orderDetail?.comingFromTypeID != 26002)">
+                <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID == 26003 && current == 0) || (orderDetail?.comingFromTypeID == 26001 || !orderDetail?.comingFromTypeID)">
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
                       <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
@@ -656,7 +656,7 @@
                                     class="head-detail">{{generatedlist[0]?.pnBookID}}</span>
                                 </h1>
                               </div>
-                              <div class="row heading-box" *ngIf="orderDetail?.comingFromTypeID != 26003">
+                              <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID != 26003 && orderDetail?.comingFromTypeID != 26002) || (current != 0 && isGenerate)">
                                 <div class="col-lg-5 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title">
@@ -664,10 +664,11 @@
                                       |
                                       translate}}:
                                     </h4>
-                                    <h4 class="head-detail"
-                                      *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount | number : ".3"}}
-                                      JOD</h4>
-                                    <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4>
+                                    <h4 class="head-detail" *ngIf="item.pnTotalAmount && index == 0">{{item.pnTotalAmount | number : ".3"}} JOD</h4>
+                                    <h4 class="head-detail" *ngIf="!item.pnTotalAmount && index == 0">---</h4>
+                                    <h4 class="head-detail" *ngIf="item.pnsTotal && index != 0">{{item.pnsTotal | number : ".3"}} JOD</h4>
+                                    <h4 class="head-detail" *ngIf="!item.pnsTotal && index != 0">---</h4>
+
                                   </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6">

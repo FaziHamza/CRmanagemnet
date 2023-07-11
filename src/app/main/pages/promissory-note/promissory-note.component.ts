@@ -387,7 +387,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
               console.log(error);
             }
           })
-        }else if(this.generatedlist.length > 0){
+        }else if(this.promissoryist.length > 0){
           this.promissoryist.forEach(element => {
             const fromDate = new Date(element.dueDate.toString());
             try {
@@ -609,14 +609,15 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
 
   //#region  generated tab 2
   tabChange(item: any) {
+    this.saveLoader = true;
     if (item.versions) {
       this.gotoMainTab();
     }
     else {
       this.orderDetail.customer = item.customer;
       this.orderDetail.guarantor = item.guarantor;
-      // this.orderDetail['comingFromTypeID'] = 0;
-      // this.orderDetail['comingFromTypeID'] == 26001;
+      this.orderDetail['comingFromTypeID'] = 0;
+      this.orderDetail['comingFromTypeID'] == 26001;
       this.orderDetail.hasActiveRequest = true;
 
       // this.orderDetail.statusObj = item.statusObj;
@@ -643,6 +644,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       this.stepSaveLoader = true;
       this.selectedItemOrderId = item.orderId;
       this.apiService.getPNOrderBookNotes(item.orderId, 1).subscribe(res => {
+        this.saveLoader = false;
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -700,6 +702,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     this.selectedItemOrderId = this.orderId;
     this.apiService.getPNOrderBookNotes(this.orderId, 1).subscribe(res => {
       this.stepSaveLoader = false;
+      this.saveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
         // this.pdfInfoData = res['info'];

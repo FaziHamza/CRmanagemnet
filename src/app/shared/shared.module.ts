@@ -11,6 +11,7 @@ import { PositiveDecimalDirective } from 'src/app/directive/positivedecimal-only
 import { NumberDecimalDirective } from 'src/app/directive/numberdecimal-only.directive';
 import { RoundPipe } from 'src/app/pipe/round-pipe';
 import { RoundedPipe } from 'src/app/pipe/rounded-pipe';
+import { DecimalNumberDirective } from '../directive/decimal-number.directive';
 
 // const module = [
 //   CommonModule,
@@ -19,7 +20,7 @@ import { RoundedPipe } from 'src/app/pipe/rounded-pipe';
 @NgModule({
   declarations: [
     CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
-    NumberDecimalDirective,RoundPipe,RoundedPipe
+    NumberDecimalDirective,RoundPipe,RoundedPipe,DecimalNumberDirective
     // JwtComponent
   ],
   imports: [
@@ -27,7 +28,7 @@ import { RoundedPipe } from 'src/app/pipe/rounded-pipe';
   ],
   exports : [
     CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
-    NumberDecimalDirective,RoundPipe,RoundedPipe
+    NumberDecimalDirective,RoundPipe,RoundedPipe,DecimalNumberDirective
   ],
   providers: [
     EnvService,

@@ -95,8 +95,8 @@ export class CreateRequestComponent implements OnInit {
 
   interestPercentage() {
     if(this.interestPer != ""){
-      this.interestPer = this.interestPer.toFixed(3);
-      this.interestVal = parseFloat(((this.getPNremainingAmount*parseFloat(this.interestPer))/100).toFixed(3));
+      if(!this.interestPer.includes('-'))
+          this.interestVal = parseFloat(((this.getPNremainingAmount*parseFloat(this.interestPer))/100).toFixed(3));
     }
     else{
       this.interestPer = "";
@@ -104,11 +104,10 @@ export class CreateRequestComponent implements OnInit {
     }
 
   }
-
   interestValue() {
     if(this.interestVal != ""){
-      this.interestVal = this.interestVal.toFixed(3);
-      this.interestPer = parseFloat(((parseFloat(this.interestVal)*100)/this.getPNremainingAmount).toFixed(3));
+      if(!this.interestVal.includes('-'))
+          this.interestPer = parseFloat(((parseFloat(this.interestVal)*100)/this.getPNremainingAmount).toFixed(3));
     }
     else{
       this.interestPer = "";
