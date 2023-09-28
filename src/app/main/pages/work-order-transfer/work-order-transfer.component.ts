@@ -13,6 +13,7 @@ import { ErrorsComponent } from '../common/errors/errors.component';
 import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
 import { orderParam } from '../workorders/models/orderParam';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -25,6 +26,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
+    private _modalService: NgbModal,
     private sanitizer: DomSanitizer,private permissionService:PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
 
@@ -53,7 +55,6 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   start = 1;
   end = 6;
   ngOnInit(): void {
-
     this.commonService.breadcrumb = [
       { title: 'Transferring Promissory Notes Orders', routeLink: 'home/workorders' }
     ]
@@ -67,106 +68,34 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     })
   }
   getPNOrderDetails() {
-
-    try {
-      this.saveLoader = true;
-      this.selectedItemOrderId = this.orderId;
-      this.apiService.getTransfereRequestDetails(this.orderId).subscribe(
-        (response)=>{
-
-          this.orderDetail = response.data;
-          this.orderDetailMaster = JSON.parse(JSON.stringify(response.data));
-          if(response.isSuccess){
-            this.versionTab = response.data['versions'];
-            console.log(this.versionTab);
-            if(response.data['versions']){
-              for (let index = 0; index < response.data['versions'].length; index++) {
-                // const element = res.data['versions'][index];
-                this.versionTab[index]['tabName'] = 'PN V'+(index+1);
-              }
-              let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
-              this.orderDetail['originalCustomer'] = {};
-              this.orderDetail['originalCustomer'] = originalCustomer;
-              this.orderDetailMaster['originalCustomer'] = {};
-              this.orderDetailMaster['originalCustomer'] = originalCustomer;
-              this.versionTab.push(response.data);
-              this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-              this.versionTab = this.versionTab.reduce((acc, curr) => [curr, ...acc], []);
-              // this.versionTab =  this.versionTab.reverse();
-
-              this.saveLoader = false;
-
-            }else{
-              this.versionTab = [];
-              this.versionTab.push(response.data);
-              this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
-              this.saveLoader = false;
-            }
-          }else{
-            this.versionTab = [];
-            this.saveLoader = false;
-          }
-
-        },
-        (error)=>{
-          this.saveLoader = false;
-          this.commonService.showError("found some errors","error");
-        })
-    } catch (error) {
-     console.log(error);
-    }
-  }
-  reschedule(id: any) {
-    let formData = new FormData();
-    formData.append('requestId', id);
     this.saveLoader = true;
-    this.apiService.performReschedulePNOrders(formData).subscribe(
-      (response) => {
-        this.saveLoader = false;
-        if (response.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created",response.data);
-          // this.router.navigate(['/home/workorders'])
+    this.selectedItemOrderId = this.orderId;
+    this.apiService.getTransfereRequestDetails(this.orderId).subscribe(res => {
+
+      this.saveLoader = false;
+      this.orderDetail = res.data;
+      this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
+      this.versionTab = res.data['versions'];
+      if(res.data['versions']){
+        for (let index = 0; index < res.data['versions'].length; index++) {
+          // const element = res.data['versions'][index];
+          this.versionTab[index]['tabName'] = 'PN V'+(index+1);
         }
-        else {
-          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-          this.error(this.errorsList)
-          this.commonService.showError("found some error..!", "Error");
-        }
-      },
-      (error) => {
-        this.saveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.error(this.errorsList)
-        this.commonService.showError("found some error..!", "Error");
+        let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
+        this.orderDetail['originalCustomer'] = {};
+        this.orderDetail['originalCustomer'] = originalCustomer;
+        this.orderDetailMaster['originalCustomer'] = {};
+        this.orderDetailMaster['originalCustomer'] = originalCustomer;
+        this.versionTab.push(res.data);
+        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+        this.versionTab = this.versionTab.reduce((acc, curr) => [curr, ...acc], []);
+
+      }else{
+        this.versionTab = [];
+        this.versionTab.push(res.data);
+        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
       }
-    )
-  }
-  transfer(id: any) {
-    let formData = new FormData();
-    formData.append('requestId', id);
-    this.saveLoader = true;
-    this.apiService.performTransferPNOrder(formData).subscribe(
-      (response) => {
-        this.saveLoader = false;
-        if (response.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Transferring Order Successfully Created",response.data);
-          // this.router.navigate(['/home/workorders/'+response.data]);
-        }
-        else {
-          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-          this.error(this.errorsList)
-          this.commonService.showError("found some error..!", "Error");
-        }
-      },
-      (error) => {
-        this.saveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.error(this.errorsList)
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
+    })
   }
   pre(): void {
     this.current -= 1;
@@ -221,9 +150,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       }
       this.stepSaveLoader = true;
       this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID;
-      this.saveLoader = true;
       this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID,1).subscribe(res => {
-        this.saveLoader = false;
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -288,23 +215,13 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     },
   ];
   pdfView(file: any, data?: any): void {
-    const modal = this.modal.create<PDFViewComponent>({
-      nzWidth: 600,
-      nzContent: PDFViewComponent,
-      nzComponentParams: {
-        file: file,
-        data: data
-      },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: null
-    });
-    modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
-    });
+    const modelRef = this._modalService.open(PDFViewComponent, {
+      size: 'md',
+    })
+    modelRef.componentInstance.file = file;
+    modelRef.componentInstance.data = data;
   }
+
 
   printPNBook() {
     this.isPrintShow = true;
@@ -359,8 +276,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.ngOnInit();
-          // this.router.navigate(['/home/workorders'])
+          this.router.navigate(['/home/workorders'])
         }
         else {
           this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
@@ -396,7 +312,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     this.commonService.loadRequestTab = true;
   }
 
-  confirm(message:string,orderId:number): void {
+  confirm(message:string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -406,7 +322,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.router.navigate(['/home/workorders/',orderId]);
+      this.router.navigate(['/home/workorders']);
     });
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {

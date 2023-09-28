@@ -12,6 +12,7 @@ import { ErrorsComponent } from '../common/errors/errors.component';
 import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
 import { orderParam } from '../workorders/models/orderParam';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -24,7 +25,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
 
   constructor(public commonService: CommonService, private router: Router,private permissionService:PermissionService,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer,private _modalService: NgbModal,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
 
   orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
@@ -169,10 +170,8 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
         }
       }
       this.stepSaveLoader = true;
-      this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID;
-      this.saveLoader = true;
+      this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID
       this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID,1).subscribe(res => {
-        this.saveLoader = false;
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -237,23 +236,13 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     },
   ];
   pdfView(file: any, data?: any): void {
-    const modal = this.modal.create<PDFViewComponent>({
-      nzWidth: 600,
-      nzContent: PDFViewComponent,
-      nzComponentParams: {
-        file: file,
-        data: data
-      },
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: null
-    });
-    modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
-    });
+    const modelRef = this._modalService.open(PDFViewComponent, {
+      size: 'md',
+    })
+    modelRef.componentInstance.file = file;
+    modelRef.componentInstance.data = data;
   }
+
 
   printPNBook() {
     this.isPrintShow = true;
@@ -344,7 +333,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.commonService.selectedWorkorder = 1;
     this.commonService.loadRequestTab = true;
   }
-  confirm(message:string,orderId:number): void {
+  confirm(message:string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -354,7 +343,7 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
       },
     });
     modal.afterClose.subscribe(res => {
-      this.router.navigate(['/home/workorders/',orderId]);
+      this.router.navigate(['/home/workorders']);
     });
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
@@ -467,57 +456,5 @@ export class WorkOrderRescheduleComponent implements OnInit, AfterViewInit {
     this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
     this.displaygeneratedlist = this.generatedlist.slice(start, end);
     this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
-  }
-  reschedule(id: any) {
-    let formData = new FormData();
-    formData.append('requestId', id);
-    this.saveLoader = true;
-    this.apiService.performReschedulePNOrders(formData).subscribe(
-      (response) => {
-        this.saveLoader = false;
-        if (response.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created",response.data);
-          // this.router.navigate(['/home/workorders'])
-        }
-        else {
-          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-          this.error(this.errorsList)
-          this.commonService.showError("found some error..!", "Error");
-        }
-      },
-      (error) => {
-        this.saveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.error(this.errorsList)
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
-  }
-  transfer(id: any) {
-    let formData = new FormData();
-    formData.append('requestId', id);
-    this.saveLoader = true;
-    this.apiService.performTransferPNOrder(formData).subscribe(
-      (response) => {
-        this.saveLoader = false;
-        if (response.isSuccess) {
-          this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Transferring Order Successfully Created",response.data);
-          // this.router.navigate(['/home/workorders/'+response.data]);
-        }
-        else {
-          this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-          this.error(this.errorsList)
-          this.commonService.showError("found some error..!", "Error");
-        }
-      },
-      (error) => {
-        this.saveLoader = false;
-        this.errorsList = error.errors ? error.errors : error.Errors;
-        this.error(this.errorsList)
-        this.commonService.showError("found some error..!", "Error");
-      }
-    )
   }
 }

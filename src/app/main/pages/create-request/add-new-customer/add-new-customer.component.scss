@@ -1,0 +1,37 @@
+div.scrollable-table-wrapper {
+  height: 400px;
+  overflow-y: auto;
+  margin-bottom: 30px;
+
+  table {
+    font-size: 14px;
+
+    thead {
+      background: #F6F6F6;
+
+      th {
+        font-weight: 400;
+        position: sticky;
+        top: 0;
+        background: #cfcfcf;
+      }
+    }
+
+    .selectedRow {
+      background: #ffe2e4;
+      font-weight: 600;
+    }
+  }
+}
+
+.add-cutsomer {
+  label {
+    font-size: 14px;
+  }
+
+  .error {
+    color: red;
+    font-weight: 500;
+    font-size: 14px;
+  }
+}

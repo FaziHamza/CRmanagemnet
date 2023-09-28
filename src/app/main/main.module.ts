@@ -26,11 +26,18 @@ import { ErrorsComponent } from './pages/common/errors/errors.component';
 import { RejectComponent } from './pages/common/reject/reject.component';
 import { PromissoryListComponent } from './pages/workorders/promissory-list/promissory-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { FollowUpComponent } from './pages/workorders/follow-up/follow-up.component';
+import { PnDetailsComponent } from './pages/workorders/follow-up/components/pn-details/pn-details.component';
+import { FullEarlySettlementRequestDetailsComponent } from './pages/workorders/work-order-request/components/full-early-settlement-request-details/full-early-settlement-request-details.component';
+import { AddNewCustomerComponent } from './pages/create-request/add-new-customer/add-new-customer.component';
+import { ShareModule } from '../shared/module/share.module';
+import { SettlmentTypeComponent } from './pages/workorders/promissory-list/componets/settlment-type/settlment-type.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
     NgChartsModule,
     SharedModule,
+    ShareModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -43,9 +50,9 @@ import { SharedModule } from '../shared/shared.module';
     NgZorroAntdModule],
   declarations: [MainLayoutComponent, MainPageComponent, MainHeaderComponent, MainSideBarComponent,
     CMSetupComponent,
-    WorkordersComponent, LogoutComponent, CreateRequestComponent, CreditAccountComponent,
+    WorkordersComponent, LogoutComponent, CreateRequestComponent, CreditAccountComponent, AddNewCustomerComponent,
     TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent,
-    WorkOrderRequestComponent, ConfirmPopupComponent, ErrorsComponent, RejectComponent, PromissoryListComponent],
+    WorkOrderRequestComponent, ConfirmPopupComponent, ErrorsComponent, RejectComponent, PromissoryListComponent, FollowUpComponent, PnDetailsComponent, FullEarlySettlementRequestDetailsComponent, SettlmentTypeComponent],
   providers: [
     DecimalPipe, DatePipe
   ]

@@ -95,10 +95,6 @@ html {
 }
 
 .o-btn {
-  span {
-    margin: 0px 5px;
-  }
-
   background: $primary;
   height: 42px;
   min-width: 140px;
@@ -106,7 +102,7 @@ html {
   font-weight: 600;
   overflow: hidden;
   border-radius: 8px;
-  display: flex !important;
+  display: flex;
   justify-content: center;
   box-shadow: $card-shadow !important;
   align-items: center;
@@ -963,7 +959,7 @@ input[type="checkbox"]:checked {
   .btn,
   .o-btn,
   .btn-white {
-    min-width: 180px;
+    width: 180px;
     margin-left: 20px;
   }
 }
@@ -1271,6 +1267,7 @@ input {
       bottom: 23px;
       right: 21px;
     }
+
   }
 
   .bottom-text {
@@ -2262,6 +2259,11 @@ nz-tabset {
     border: 1px solid #d1d1d1 !important;
     border-radius: 8px !important;
   }
+
+  .form-check-input[type=radio] {
+    height: 14px !important;
+  }
+
 }
 
 .ant-picker-clear {
@@ -2418,6 +2420,12 @@ button span,
   cursor: not-allowed;
   /* Change cursor to not-allowed */
 }
+.disabled-element {
+  pointer-events: none;
+  /* Reduce opacity to indicate disabled state */
+  cursor: not-allowed;
+  /* Change cursor to not-allowed */
+}
 
 .flex-end-row {
   display: flex;
@@ -2480,37 +2488,56 @@ div:where(.swal2-container) h2:where(.swal2-title) {
   padding-right: 0px !important;
 }
 
-.new-promissory-card {
-  background-color: #F8F8F8;
+.dynamic-table {
+  .ant-table-row {
+    .ant-table-cell:last-child {
+      overflow: revert !important;
+    }
+
+    .ant-table-cell {
+      position: relative;
+      white-space: nowrap;
+      width: auto !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .btn {
+        box-shadow: none !important;
+      }
+
+      input {
+        padding-right: 22px !important;
+      }
+
+      small {
+        position: absolute;
+        bottom: 23px;
+        right: 21px;
+      }
+    }
+
+    .bottom-text {
+      position: absolute !important;
+      bottom: -2px !important;
+      left: 18px !important;
+    }
+
+    .form-select {
+      height: 32px !important;
+    }
+
+    // nz-table-selection{
+    //   background-color: $primary !important;
+    //   border: 1px solid $primary !important;
+    // }
+  }
+
 }
-
-.dropdown {
-  .dropdownButton {
-    border: none;
-  }
-
-  .dropdown-menu {
-    padding: 0px;
-
-    .dropdown-item {
-      padding: 8px 15px;
-    }
-  }
+.ant-checkbox-input:focus+.ant-checkbox-inner, .ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner{
+        background-color: $primary !important;
+      border: 1px solid $primary !important;
 }
-
-.dropdown {
-  ul li {
-    padding: 6px 10px;
-
-    a {
-      font-size: 14px;
-    }
-  }
-
-  ul li:hover {
-    background: $primary;
-    a {
-      color: white !important;
-    }
-  }
+.ant-checkbox-checked .ant-checkbox-inner{
+  background-color: $primary !important;
+  border: 1px solid $primary !important;
 }

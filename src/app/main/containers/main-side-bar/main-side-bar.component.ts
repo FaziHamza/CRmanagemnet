@@ -45,17 +45,35 @@ export class MainSideBarComponent implements OnInit {
   }
 
   showConfirm(): void {
-    const modal = this.modal.create<LogoutComponent>({
-      // nzTitle: 'Change Control Value',
-      nzContent: LogoutComponent,
-      // nzViewContainerRef: this.viewContainerRef,
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
-      nzFooter: null
-    });
-    modal.afterClose.subscribe(res => {
-      if (res) {
-        // this.controls(value, data, obj, res);
-      }
-    });
+    //window.location.replace('https://portals-dx-fe-dev.azurewebsites.net/login');
+  //  const modal = this.modal.create<LogoutComponent>({
+  //    nzContent: LogoutComponent,
+  //    nzFooter: null
+  //  });
+  //  modal.afterClose.subscribe(res => {
+  //    if (res) {
+  //    }
+    //  });
+    this.redirectUserAccordingToEnv();
+  }
+  redirectUserAccordingToEnv() {
+    let host = window.location.host;
+    //STAGING
+    if (host.indexOf('creditmanagementstage.azurewebsites.net') >= 0) {
+      window.location.href = 'https://dx-portalsstage.azurewebsites.net'
+    }
+    //TEST
+    else if (host.indexOf('creditmanagementtest.azurewebsites.net') >= 0) {
+      window.location.href = 'https://dx-portalstest.azurewebsites.net';
+    }
+    //DEV
+    else if (host.indexOf('cm-dx-fe-dev.azurewebsites.net') >= 0) {
+      window.location.href = 'https://portals-dx-fe-dev.azurewebsites.net/';
+    }
+    //LOCAL
+    else if (host.indexOf('localhost:4200') >= 0) {
+      // I AM USING PORTAL ON PORT 4201 SO THAT'S' WHY I REDIRECTED HERE
+      window.location.href = 'http://localhost:4201';
+    }
   }
 }

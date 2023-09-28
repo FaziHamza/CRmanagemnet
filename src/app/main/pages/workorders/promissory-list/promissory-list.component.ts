@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject, debounceTime } from 'rxjs';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { orderParam } from '../models/orderParam';
 import { CreateRequestComponent } from '../../create-request/create-request.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
+import { BsDropdownDirective } from 'ngx-bootstrap/dropdown';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettlmentTypeComponent } from './componets/settlment-type/settlment-type.component';
 
 @Component({
   selector: 'app-promissory-list',
@@ -30,7 +33,12 @@ export class PromissoryListComponent implements OnInit {
   saveLoader: boolean = false;
   start = 1;
   end = 6;
-  constructor(private apiService: ApiService, public commonService: CommonService, private router: Router,
+  pnOrderId = 0;
+  totalRecordCount = 0;
+  customerList = [];
+  constructor(private apiService: ApiService, public commonService: CommonService,
+    private router: Router,
+    private _ngbModalService: NgbModal,
     private modal: NzModalService, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
@@ -58,6 +66,10 @@ export class PromissoryListComponent implements OnInit {
 
       });
   }
+  openModal(orderId) {
+    const modalRef = this._ngbModalService.open(SettlmentTypeComponent);
+    modalRef.componentInstance.data = { orderId };
+  }
   mySort() {
 
   }
@@ -71,11 +83,12 @@ export class PromissoryListComponent implements OnInit {
       this.saveLoader = false;
       if (res.isSuccess) {
         this.orderList = res.data?.data;
+        this.totalRecordCount = res.totalRecordCount;
         this.displayData = this.orderList.length > 6 ? this.orderList.slice(0, 6) : this.orderList;
         this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
       } else {
         this.orderList = [];
-        this.displayData =[];
+        this.displayData = [];
       }
     })
   }
@@ -175,9 +188,9 @@ export class PromissoryListComponent implements OnInit {
   updateDisplayData(): void {
     const start = (this.pageIndex - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.start = start == 0 ? 1 : ((this.pageIndex * this.pageSize) - this.pageSize) + 1;
     this.displayData = this.orderList.slice(start, end);
-    this.end = this.displayData.length != 6 ? this.orderList.length :  this.pageIndex * this.pageSize;
+    this.end = this.displayData.length != 6 ? this.orderList.length : this.pageIndex * this.pageSize;
   }
 
 
@@ -205,7 +218,9 @@ export class PromissoryListComponent implements OnInit {
   getStatusLookup() {
     this.apiService.getStatusLookup(21).subscribe(res => {
       if (res.isSuccess) {
+        let warningStatus = res.data.find(x => x.id == 21016);
         this.statusList = res.data.slice(0, 6);
+        this.statusList.push(warningStatus);
       } else {
         this.statusList = [];
       }
@@ -221,7 +236,7 @@ export class PromissoryListComponent implements OnInit {
   }
   createRequest(orderId: any, requestType: string): void {
     const modal = this.modal.create<CreateRequestComponent>({
-      nzWidth: 700,
+      nzWidth: 1000,
       // nzTitle: 'Change Control Value',
       nzContent: CreateRequestComponent,
       // nzViewContainerRef: this.viewContainerRef,
@@ -237,7 +252,7 @@ export class PromissoryListComponent implements OnInit {
       nzFooter: null
     });
     modal.afterClose.subscribe(res => {
-      if(!res)
+      if (!res)
         this.ngOnInit();
       // if (res) {
       //   // this.controls(value, data, obj, res);
@@ -249,8 +264,10 @@ export class PromissoryListComponent implements OnInit {
     // if( status == 'signed' || status == 'under collecting' || status == 'collected'){
     // }else{
     // }
-    if (!this.canPerformAction(7, 39, 79) || !this.canPerformAction(7, 39, 78))
+    if (!this.canPerformAction(7, 39, 79) || !this.canPerformAction(7, 39, 78)) {
+      localStorage.setItem('pnActionType', data?.actionToDo[0]?.lookupName)
       this.router.navigate(['/home/workorders', data.orderId])
+    }
   }
   tabClick(value: boolean) {
     this.commonService.loadRequestTab = value;

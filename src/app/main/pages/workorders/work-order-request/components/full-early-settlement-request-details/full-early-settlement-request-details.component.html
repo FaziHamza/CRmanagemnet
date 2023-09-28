@@ -1,0 +1,114 @@
+<div class="modal-header my-4 pt-0" ngbAutoFocus>
+  <h6 class="fw-700 font-20 m-0 text-capitalize">{{data?.action}} {{details?.requestTypeObj?.translations[0]?.lookupName}} Request {{data?.action == null ? 'Details View' : ''}}</h6>
+</div>
+<div class="modal-body">
+  <div class="d-flex gap-5 flex-wrap">
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Customer Name</h6>
+      <p class="light-gray">{{details?.custoemr?.customerName}}</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Customer Account</h6>
+      <p class="light-gray">{{details?.custoemr?.customerId}}</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Sales Tax</h6>
+      <p class="green-clr">Tax({{details?.salesTax}}%)</p>
+    </div>
+    <div class="d-flex flex-column">
+      <div class="d-flex gap-2">
+        <input class="form-check-input input-checkbox" type="checkbox" disabled [checked]="details?.eairlySettlement?.forEmployee" />
+        <h6 class="dark-gray fw-600">Employee</h6>
+      </div>
+      <div class="d-flex gap-2">
+        <h6 class="dark-gray fw-600">{{details?.requestTypeObj?.translations[0]?.lookupName}}</h6>
+        <!--<input class="form-check-input input-checkbox" type="radio" disabled checked />-->
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="col-md-12 mt-5">
+    <div class="card-table">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr class="py-2">
+                  <th>Book No.</th>
+                  <th>No. of Uncollected PNs</th>
+                  <th>Interest Rate</th>
+                  <th>Remaining Interest Value</th>
+                  <th>Remaining PNs Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of details?.books;let i = index">
+                  <td>{{item?.pnBookID}}</td>
+                  <td>{{item?.noOfUncollectedPNs}}</td>
+                  <td>{{item?.interesRate || 0 }}%</td>
+                  <td>{{(item?.remainingInterestAmount || 0) | number:'2.3-3'}} JOD</td>
+                  <td>{{(item?.pnRemainingAmount || 0) | number:'2.3-3'}} JOD</td>
+                </tr>
+                <tr style="background: #ECECEC">
+                  <td colspan="1" class="green-clr font-16">Total</td>
+                  <td colspan="2" class="green-clr font-16">{{total?.totalPNs}}</td>
+                  <td class="green-clr font-16">{{total?.interest | number:'2.3-3'}} JOD</td>
+                  <td class="green-clr font-16">{{total?.remainingAmount | number:'2.3-3'}} JOD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="data?.action">
+    <ng-container *ngIf="data?.action == 'approve' || data?.action == 'view';else elseReject">
+      <div class="col-4">
+        <label class="mb-2 fw-600">Approved Discount Factor *</label>
+        <div class="input-group">
+          <input type="number" class="form-control" min="0" (input)="handleDiscountFactor($event)" [disabled]="!data?.action || data?.action == 'view'" [(ngModel)]="discountFactor" />
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <label class="mb-2 fw-600">Discount Amount (JOD)</label>
+        <div class="disabled-box m-0"><p class="fw-600">{{details?.eairlySettlement?.discountAmount | number:'2.3-3'}} JOD</p></div>
+      </div>
+      <div class="col-4">
+        <label class="mb-2 fw-600">Total Payment Amount (JOD)</label>
+        <div class="disabled-box m-0"><p class="fw-600">{{details?.eairlySettlement?.totalEarlySettlementAmount | number:'2.3-3'}} JOD</p></div>
+      </div>
+      <div class="col-12 mt-2" *ngIf="details?.statusObj.lookupId == 21020 || details?.statusObj.lookupId == 21019">
+        <label class="mb-2 fw-600">Rejection Reason *</label>
+        <textarea class="form-control" [(ngModel)]="rejectReason" rows="5" maxlength="150" [disabled]="!data?.action || data?.action == 'view'"></textarea>
+        <!-- <span *ngIf="!rejectReason" class="primary-clr font-14">Input is required.</span> -->
+      </div>
+    </ng-container>
+    <ng-template #elseReject>
+      <div class="col-12">
+        <label class="mb-2 fw-600">Rejection Reason *</label>
+        <textarea class="form-control" [(ngModel)]="rejectReason" rows="5" maxlength="150"></textarea>
+        <span *ngIf="!rejectReason" class="primary-clr font-14">Input is required.</span>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div class="modal-footer my-4">
+  <div class="btns-group gap-3  m-0 mt-4">
+    <button type="button" class="btn btn-cancel" (click)="_activeModal.close()">Close</button>
+    <ng-container *ngIf="data?.action !== 'view';else viewAction">
+      <button type="button" class="btn btn-save" (click)="settleRequest()" [disabled]="+discountFactor > 100">Confirm</button>
+    </ng-container>
+    <ng-template #viewAction>
+      <ng-container *ngIf="!details?.actionTaken">
+        <button type="button" class="btn btn-save" (click)="handleRequest('reject')">Reject</button>
+        <button type="button" class="btn btn-save" (click)="handleRequest('approve')">Approve</button>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>
+

@@ -1,0 +1,150 @@
+<div class="content-body-inner">
+  <div class="d-flex justify-content-between align-items-center">
+    <h6 class="fw-600 text-capitalize">Create {{settlementType}} Early Settlement Request</h6>
+  </div>
+  <hr />
+  <div class="d-flex gap-5 flex-wrap">
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Customer Name</h6>
+      <p class="light-gray">{{details?.customer?.customerName}}</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Customer Account</h6>
+      <p class="light-gray">{{details?.customer?.customerId}}</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Sales Tax</h6>
+      <p class="green-clr">Tax({{details?.salesTax}}%)</p>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="dark-gray fw-600">Employee</h6>
+      <input class="form-check-input input-checkbox" type="checkbox" [(ngModel)]="isEmployee" />
+    </div>
+  </div>
+  <hr />
+  <div class="col-md-12 mt-5">
+    <div class="card-table">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr class="py-2">
+                  <th>Book No.</th>
+                  <th>Book Serial</th>
+                  <th>No. of Uncollected PNs</th>
+                  <th>Interest Rate</th>
+                  <th>Remaining Interest Value</th>
+                  <th>Remaining PNs Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of orderBookList;let i = index">
+                  <td>{{item?.pnBookID}}</td>
+                  <td>{{item?.pnBookSerial}}</td>
+                  <td>{{item?.uncollectedPNsTotal}}</td>
+                  <td>{{item?.interesRate || 0 }}%</td>
+                  <td>{{(item?.remainingInterestAmount || 0) | number:'2.3-3'}} JOD</td>
+                  <td>{{(item?.remainingPNAmount || 0) | number:'2.3-3'}} JOD</td>
+                </tr>
+                <tr style="background: #ECECEC">
+                  <td colspan="2" class="green-clr font-16">Total</td>
+                  <td colspan="2" class="green-clr font-16">{{total?.totalPNs}}</td>
+                  <td class="green-clr font-16">{{total?.interest | number:'2.3-3'}} JOD</td>
+                  <td class="green-clr font-16">{{total?.remainingAmount | number:'2.3-3'}} JOD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--In Case Of Full Early Settlement Request -->
+  <ng-container *ngIf="settlementType == 'partial'">
+    <h6 class="fw-700 mt-5 mb-3">Uncollected Promissory Notes</h6>
+    <div class="col-md-12">
+      <div class="card-table m-0">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr class="py-2">
+                    <th>
+                      <input class="form-check-input input-checkbox me-1" type="checkbox" id="sall" (change)="checkAll($event)" [(ngModel)]="selectAll" />
+                      <label for="sall">Select</label>
+                    </th>
+                    <th>PN Book No</th>
+                    <th>Book Serial</th>
+                    <th>PN Book Note Serial</th>
+                    <th>Amount (JOD)</th>
+                    <th>Remaining Amount (JOD)</th>
+                    <th>Remaining Interest Amount (JOD)</th>
+                    <th>Due Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of unCollectedPns;let i = index">
+                    <td><input class="form-check-input input-checkbox" type="checkbox" (change)="handleCheckBoxChange()" [(ngModel)]="item.checked" [id]="i" /></td>
+                    <td>{{item?.pnBookID}}</td>
+                    <td>{{item?.pnBookSerial}}</td>
+                    <td>{{item?.pnBookNoteSerial}}</td>
+                    <td>{{item?.pnAmount | number:'2.3-3'}} JOD</td>
+                    <td>{{item?.remainingAmount | number:'2.3-3'}} JOD</td>
+                    <td>{{(item?.remainingPNInterestAmount || 0) | number:'2.3-3'}} JOD</td>
+                    <td><span [class]="'highlightPnOrderBg' + ' '+highlightDate(item?.dueDate | date:'mediumDate')">{{item?.dueDate | date:'mediumDate'}}</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h6 class="m-0 fw-500 my-3">Total Selected</h6>
+    <div class="d-flex gap-4 align-items-center bg-gray-400 p-3">
+      <div class="d-flex gap-3 align-items-center">
+        <h6 class="m-0 fw-600">PNs No</h6>
+        <p class="m-0 font-14 fw-600 green-clr">{{checkedItems.length}} PNs</p>
+      </div>
+      <div class="d-flex gap-3 align-items-center">
+        <h6 class="m-0 fw-600">Remaining Interest Value :</h6>
+        <p class="m-0 font-14 fw-600 green-clr">{{remainingPnInterestAmount | number:'2.3-3'}} JOD</p>
+      </div>
+      <div class="d-flex gap-3 align-items-center">
+        <h6 class="m-0 fw-600">Remaining PNs Amount:</h6>
+        <p class="m-0 font-14 fw-600 green-clr">{{remainingPnAmount | number:'2.3-3'}} JOD</p>
+      </div>
+    </div>
+  </ng-container>
+  <hr class="my-5" />
+  <div class="row">
+    <div class="col-4" *ngIf="details?.interesValue <= 0">
+      <label class="mb-2 fw-600">Approved Discount Factor *</label>
+      <div class="input-group">
+        <input type="text" class="form-control" appNumberDecimal (input)="handleDiscountFactor($event)" [(ngModel)]="discountFactor" />
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <label class="mb-2 fw-600">Discount Amount (JOD)</label>
+      <div class="disabled-box m-0"><p class="fw-600">{{discountAmount | number:'2.3-3'}} JOD</p></div>
+    </div>
+    <div class="col-4">
+      <label class="mb-2 fw-600">Total Payment Amount (JOD)</label>
+      <div class="disabled-box m-0"><p class="fw-600">{{totalPaymentAmount | number:'2.3-3'}} JOD</p></div>
+    </div>
+  </div>
+  <hr class="my-5" />
+  <!--<app-payment-modal [detailsItem]="details" [collectionType]="collectionType"></app-payment-modal>-->
+  <div class="btns-group gap-2">
+    <a class="btn btn-cancel" routerLink="/workorders">Cancel</a>
+    <button type="button" (click)="createEarlySettlement()" class="btn btn-save" [disabled]="details?.interesValue <= 0 && (+discountFactor > 100 || !discountFactor) || (checkedItems.length <= 0 && settlementType === 'partial')"      >
+      {{((details?.interesValue <= 0 && isEmployee) || (details?.interesValue > 0)) && 'Request Approval' || 'Confirm'}}
+    </button>
+  </div>
+</div>
+

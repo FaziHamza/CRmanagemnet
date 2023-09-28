@@ -4,6 +4,7 @@ import { CountryCodeList } from 'src/app/auth/Pages/register/countryCodes';
 import countries from 'src/app/shared/common/countryListWithCode';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,12 @@ export class CommonService {
   private languageChange: BehaviorSubject<string> = new BehaviorSubject<string>('');
   selectedWorkorder = 0;
   loadRequestTab = false;
-  constructor(private toastr: ToastrService, private ngxService: NgxUiLoaderService) { }
+  followUp = false;
+  fileTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];//'application/pdf'
+  constructor(
+    private toastr: ToastrService,
+    private router: Router,
+    private ngxService: NgxUiLoaderService) { }
   // Success
   showSuccess(message: string, title: string) {
     this.toastr.success(message, title);
@@ -32,6 +38,48 @@ export class CommonService {
 
 
   }
+  fileToBase64 = async (file: any) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        if (file.type !== 'application/pdf') {
+          resolve({ fileType: file.type, base64: reader.result, file, fileName: file.name })
+        }
+        else {
+          resolve({ fileType: file.type, file, fileName: file.name })
+        }
+      }
+      reader.onerror = (e) => reject(e)
+    })
+  checkInvalidImageFormat(data, returnObj = false): any {
+    let invalidError = '';
+    let invalidExtentions = false;
+    let files;
+    let getFiles = data.map(x => {
+      return x.file
+    })
+    if (getFiles[0] !== undefined) {
+      files = getFiles;
+    }
+    else {
+      files = data;
+    }
+    for (let file of files) {
+      if (!this.fileTypes.includes(file.type)) {
+        invalidExtentions = true;
+        invalidError = 'This file not support, supported formates: JPEG, JPG, PNG, PDF';
+        break;
+      }
+    }
+    if (returnObj) {
+      return { invalidExtentions, invalidError };
+    }
+    else {
+      return invalidExtentions;
+    }
+  }
+
   selectedAvatar = '';
 
   getUser() {
@@ -189,5 +237,17 @@ export class CommonService {
   }
   setLanguageChange(val: string): void {
     this.languageChange.next(val);
+  }
+  navigateToRouteWithQueryString(routeName: string, queryParams?: any) {
+    if (queryParams == undefined || queryParams == null)
+      this.router.navigate([routeName]);
+    else
+      this.router.navigate([routeName], queryParams);
+  }
+  navigateToRoute(routeName: string, params?: any) {
+    if (params == undefined || params == null)
+      this.router.navigate([routeName]);
+    else
+      this.router.navigate([routeName, params]);
   }
 }

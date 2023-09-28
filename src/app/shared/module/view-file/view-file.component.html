@@ -1,0 +1,19 @@
+<div class="modal-body p-2">
+  <ng-container *ngIf="(imageUploadedView?.fileType == 'image/png' || imageUploadedView?.fileType == 'image/jpeg' || imageUploadedView?.fileType == 'image/jpg');else pdf">
+    <img class="w-100" [src]="imageUploadedView?.base64" />
+  </ng-container>
+  <ng-template #pdf>
+    <div class="d-flex justify-content-center flex-column align-items-center">
+      <img height="80" width="80" src="assets/images/pdf.png" alt="" />
+      <br />
+      <a class="text-decoration-none text-capitalize" [href]="viewPdf(imageUploadedView?.file)" target="_blank">click to open pdf </a>
+    </div>
+  </ng-template>
+</div>
+<div class="btns-group my-2 mx-0">
+  <button type="button"
+          class="btn btn-cancel"
+          (click)="activeModal.close('Close click')">
+    Close
+  </button>
+</div>

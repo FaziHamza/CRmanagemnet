@@ -16,15 +16,11 @@ export class PositiveDecimalDirective {
     const cleanedValue = value.replace(/[^0-9.]/g, '');
 
     // Ensure the cleaned value is a valid decimal number
-    const isValid = /^[+]?([0-9]+(?:[.][0-9]{0,3})?|\.[0-9]{0,3})$/.test(cleanedValue) && !cleanedValue.includes('-');
+    const isValid = /^[+]?([0-9]+(?:[.][0-9]*)?|\.[0-9]+)$/.test(cleanedValue);
+
     if (!isValid) {
       // If the input is not valid, set the input value to an empty string
-      if(input.value.includes('-'))
-          input.value = '';
-      else if(cleanedValue.includes('.'))
-          input.value = parseFloat(cleanedValue).toFixed(3);
-      else
-        input.value = '';
+      input.value = '';
     } else {
       // If the input is valid, update the element's value to the cleaned value
       input.value = cleanedValue;

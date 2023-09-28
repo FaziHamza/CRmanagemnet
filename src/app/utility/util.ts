@@ -11,8 +11,9 @@ export function csvExport(name, data) {
     return;
   }
   name = name.length ? `${name}.csv` : 'export.csv';
-  const csvData = new Blob([data.map((e) => e.join(',')).join('\n')], {
-    type: 'text/csv',
+   // Create a UTF-8 encoded Blob
+  const csvData = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), data.map((e) => e.join(',')).join('\n')], {
+    type: 'text/csv;charset=utf-8',
   });
   const csvUrl = URL.createObjectURL(csvData);
   const link = document.createElement('a');

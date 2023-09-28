@@ -24,6 +24,7 @@ export class MainHeaderComponent implements OnInit {
       flag: 'arabic.png'
     }
   ];
+  portalsList = [];
   constructor(public commonService: CommonService, private storageService: StorageService,
     private route: Router, private translate: TranslateService) {
       this.translate.setDefaultLang('en');
@@ -36,6 +37,15 @@ export class MainHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userDetail = this.commonService.getUser();
     this.selectedLanguageObj = this.languages.find(language => language.id == JSON.parse(this.storageService.getString("currentLanguage")));
+    this.getUserPortals();
+  }
+  getUserPortals() {
+    //this.generalService.getUserPortals().subscribe(res => {
+    //  this.portalsList = res['data'];
+    //})
+  }
+  redirectTo(path) {
+    window.location.replace(`${path}/login?token=${sessionStorage.getItem('token')}`);
   }
   gotoSpareParts() {
     // const queryParams = { token: this.getToken };

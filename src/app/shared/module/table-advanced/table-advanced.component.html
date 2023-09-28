@@ -1,0 +1,27 @@
+<div class="dynamic-table" >
+    <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="displayData" [nzShowPagination]="false"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <thead>
+        <tr>
+            <th [(nzChecked)]="checked" *ngIf="checkboxShow" (nzCheckedChange)="onAllChecked($event)"  nzWidth="40px"></th>
+            <th *ngFor="let item of headerList">{{item.title}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+            <td [nzChecked]="setOfCheckedId.has(data.pnBookNoteId)" (nzCheckedChange)="onItemChecked(data.pnBookNoteId, $event)"  nzWidth="40px"
+            *ngIf="checkboxShow"></td>
+            <td *ngFor="let item of headerList"> {{ data[item.key] }} {{item.key?.toLowerCase()?.includes('amount') ? 'JOD' : ''}}</td>
+        </tr>
+    </tbody>
+</nz-table>
+<div class="paginatio-bottom" >
+    <div>
+        <p class="showing">Showing <span>{{start}} - {{total > end  ? end : total}}</span> from <span>{{dataList.length}}</span> data</p>
+    </div>
+    <div *ngIf="this.total  > this.pageSize ">
+        <nz-pagination *ngIf="dataList.length > pageSize" [nzTotal]="dataList.length" [(nzPageIndex)]="pageIndex"
+            [(nzPageSize)]="pageSize" (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+        </div>
+    </div>
+</div>

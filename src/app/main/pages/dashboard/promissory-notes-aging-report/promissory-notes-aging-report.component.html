@@ -94,16 +94,16 @@
       <h5 class="card-subheading">
         Total :
         <span class="amount"
-          >{{ this.dashboardData?.total | number : ".3" }} JOD</span
+          >{{ totalRemainging + totalOverDue | number : ".3" }} JOD</span
         >
       </h5>
       <h5 class="card-subheading">
         Remaining :
-        <span class="amount">{{ this.dashboardData?.remaining  | number : ".3" }} JOD</span>
+        <span class="amount">{{ totalRemainging | number : ".3" }} JOD</span>
       </h5>
       <h5 class="card-subheading">
         Overdue :
-        <span class="amount">{{ this.dashboardData?.overDuo | number : ".3" }} JOD</span>
+        <span class="amount">{{ totalOverDue | number : ".3" }} JOD</span>
       </h5>
       <h5 class="card-subheading ms-auto">
         Total No. : <span class="amount">{{ totalRecords }}</span>
@@ -133,8 +133,8 @@
       <tbody>
         <tr *ngFor="let data of editRowTable.data">
           <td class="table-data">{{ data.customerId }}</td>
-          <td class="table-data">
-            <span class="link">{{ data.customerName }}</span>
+          <td class="table-data" (click)="gotoWorkOrders(data.orderId)">
+            <span [ngClass]="{'link cursor-pointer': data.orderId}" >{{ data.customerName }}</span>
           </td>
           <td class="table-data">{{ data.uncollectd | number : ".3" }} JOD</td>
           <td class="table-data">{{ data.overDuePnsTotal | number : ".3" }} JOD</td>

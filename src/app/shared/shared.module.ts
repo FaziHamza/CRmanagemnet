@@ -11,6 +11,9 @@ import { PositiveDecimalDirective } from 'src/app/directive/positivedecimal-only
 import { NumberDecimalDirective } from 'src/app/directive/numberdecimal-only.directive';
 import { RoundPipe } from 'src/app/pipe/round-pipe';
 import { RoundedPipe } from 'src/app/pipe/rounded-pipe';
+import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DecimalNumberDirective } from '../directive/decimal-number.directive';
 
 // const module = [
@@ -20,15 +23,19 @@ import { DecimalNumberDirective } from '../directive/decimal-number.directive';
 @NgModule({
   declarations: [
     CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
-    NumberDecimalDirective,RoundPipe,RoundedPipe,DecimalNumberDirective
+    NumberDecimalDirective, RoundPipe, RoundedPipe, DecimalNumberDirective
     // JwtComponent
   ],
   imports: [
     // ...module
+    BsDropdownModule.forRoot(),
+    NgbModule,
+    NgSelectModule,
   ],
-  exports : [
+  exports: [
+    NgbPagination, BsDropdownModule, NgSelectModule, DecimalNumberDirective,
     CustomRoundPipe,NumberDirective,DigitDirective,MaxCharactersDirective,PositiveDecimalDirective,
-    NumberDecimalDirective,RoundPipe,RoundedPipe,DecimalNumberDirective
+    NumberDecimalDirective,RoundPipe,RoundedPipe
   ],
   providers: [
     EnvService,

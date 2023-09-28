@@ -1,13 +1,15 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { csvExport } from 'src/app/utility/util';
 
 @Component({
   selector: 'app-promissory-notes-payments-chart',
   templateUrl: './promissory-notes-payments-chart.component.html',
   styleUrls: ['./promissory-notes-payments-chart.component.scss'],
 })
-export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
+export class PromissoryNotesPaymentsChartComponent implements OnInit, AfterViewInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -39,7 +41,7 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
       },
     },
   };
-  barChartData: ChartData<'bar'> = {
+  @Input() barChartData: ChartData<'bar'> = {
     labels: [
       'Cash',
       'Credit Card',
@@ -66,8 +68,8 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
   selectedWeekValue = 'This Week';
   isWeekDropdownOpen = false;
   clickListenerWeekValue: (event: MouseEvent) => void;
-
-  ngAfterViewInit() {
+  constructor(private apiService: ApiService) {}
+  ngOnInit(): void {
     this.clickListenerYearValue = (event: MouseEvent) => {
       const dropdownBtn = document.getElementById(
         'dropdownYearSelectionPaymentsMenuBtn'
@@ -113,12 +115,15 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
         document.removeEventListener('click', this.clickListenerWeekValue);
       }
     };
+  }
+  ngAfterViewInit() {
     this.initChart();
   }
 
   selectYearItem(value: string) {
     this.selectedYearValue = value;
     this.toggleYearDropdown();
+    this.initChart();
   }
 
   toggleYearDropdown() {
@@ -133,6 +138,7 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
   selectMonthItem(value: string) {
     this.selectedMonthValue = value;
     this.toggleMonthDropdown();
+    this.initChart();
   }
 
   toggleMonthDropdown() {
@@ -147,6 +153,7 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
   selectWeekItem(value: string) {
     this.selectedWeekValue = value;
     this.toggleWeekDropdown();
+    this.initChart();
   }
 
   toggleWeekDropdown() {
@@ -158,15 +165,39 @@ export class PromissoryNotesPaymentsChartComponent implements AfterViewInit {
     }
   }
 
+  data = [];
   private initChart() {
-    this.updateChart();
+    const filter: any = {};
+    if (this.selectedYearValue) {
+      filter.ThisYear = this.selectedYearValue == 'This Year' ? true : false;;
+    }
+    if (this.selectedMonthValue) {
+      filter.ThisMonth = this.selectedMonthValue == 'This Month' ? true : false;;
+    }
+    if (this.selectedWeekValue) {
+      filter.ThisWeek = this.selectedWeekValue == 'This Week' ? true : false;
+    }
+    
+    this.apiService.getPromissoryNotesPayment(filter).subscribe((result) => {
+      if (result?.isSuccess) {
+        this.data = [
+          result.data.cash,
+          result.data.cards,
+          result.data.cheques,
+          result.data.eFawateeecom,
+          result.data.transfer,
+        ];
+      }
+      this.updateChart();
+    });
   }
 
   private updateChart() {
     if (!this.chart) {
       return;
     }
-    this.barChartData.datasets[0].data = [37000, 27000, 49000, 40000, 55000];
+    this.barChartData.datasets[0].data = this.data || [];
     this.chart.update();
   }
+
 }

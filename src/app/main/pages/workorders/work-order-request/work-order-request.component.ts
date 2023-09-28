@@ -9,6 +9,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { RejectComponent } from '../../common/reject/reject.component';
 import { ConfirmPopupComponent } from '../../common/confirm-popup/confirm-popup.component';
 import { PermissionService } from 'src/app/shared/services/permission.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FullEarlySettlementRequestDetailsComponent } from './components/full-early-settlement-request-details/full-early-settlement-request-details.component';
 
 @Component({
   selector: 'app-work-order-request',
@@ -43,7 +45,7 @@ export class WorkOrderRequestComponent implements OnInit {
   radioSelected: any[] = [];
 
   tabs: any[] = [];
-  constructor(private apiService: ApiService, private commonService: CommonService, private router: Router,
+  constructor(private apiService: ApiService, private commonService: CommonService, private router: Router, private _modalService: NgbModal,
     private modal: NzModalService, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
@@ -75,6 +77,16 @@ export class WorkOrderRequestComponent implements OnInit {
 
       });
   }
+  earlySettlementAction(data, action) {
+    const modalRef = this._modalService.open(FullEarlySettlementRequestDetailsComponent, { size: 'xl', centered: true });
+    modalRef.componentInstance.data = { requestId: data.requestID, requestTypeId: data?.requestTypeID, action};
+    modalRef.componentInstance.sendData.subscribe(x => {
+      if (x) {
+        this.getAllRequestList();
+      }
+    })
+  }
+
   requestTabChange(index: any) {
 
     this.radioSelected.fill(false);
@@ -109,7 +121,7 @@ export class WorkOrderRequestComponent implements OnInit {
       this.saveLoader = false;
       if (this.searchByRequestNo == 0)
         this.searchByRequestNo = null;
-      if (res.isSuccess) {
+      if (res) {
         this.requestList = res.data;
         this.displayData = this.requestList.length > 6 ? this.requestList.slice(0, 6) : this.requestList;
         this.end = this.displayData.length > 6 ? 6 : this.displayData.length;
@@ -275,7 +287,17 @@ export class WorkOrderRequestComponent implements OnInit {
     if (!this.canPerformAction(7, 40, 81) || !this.canPerformAction(7, 40, 82)) {
       if (data.requestTypeID == 24001) {
         this.router.navigate(['/home/transfer', data.requestID])
-      } else {
+      }
+      else if (data.requestTypeID == 24003 || data?.requestTypeID == 24004) {
+        const modalRef = this._modalService.open(FullEarlySettlementRequestDetailsComponent, { size: 'xl', centered: true });
+        modalRef.componentInstance.sendData.subscribe(x => {
+          if (x) {
+            this.getAllRequestList();
+          }
+        })
+        modalRef.componentInstance.data = { requestId: data.requestID, requestTypeId: data?.requestTypeID, actionTaken: data?.actionTaken,action: 'view'}
+      }
+      else {
         this.router.navigate(['/home/reschedule', data.requestID])
       }
       // if((data.status == 21009 || data.status == 21010) && data.actionTaken){
@@ -353,7 +375,7 @@ export class WorkOrderRequestComponent implements OnInit {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Reschedule Order Successfully Created",response.data);
+          this.confirm("Reschedule Order Successfully Created");
           // this.router.navigate(['/home/workorders'])
         }
         else {
@@ -379,8 +401,8 @@ export class WorkOrderRequestComponent implements OnInit {
         this.saveLoader = false;
         if (response.isSuccess) {
           this.commonService.showSuccess("Data updated successfully..!", "Success");
-          this.confirm("Transferring Order Successfully Created",response.data);
-          // this.router.navigate(['/home/workorders/'+response.data]);
+          this.confirm("Order Successfully Transferred");
+          // this.router.navigate(['/home/workorders'])
         }
         else {
           this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
@@ -396,7 +418,7 @@ export class WorkOrderRequestComponent implements OnInit {
       }
     )
   }
-  confirm(message: string,orderId:number): void {
+  confirm(message: string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -406,9 +428,8 @@ export class WorkOrderRequestComponent implements OnInit {
       },
     });
     modal.afterClose.subscribe(res => {
-          this.router.navigate(['/home/workorders/'+orderId]);
-      // this.commonService.loadRequestTab = false;
-      // this.commonService.selectedWorkorder = 0;
+      this.commonService.loadRequestTab = false;
+      this.commonService.selectedWorkorder = 0;
     });
   }
   canPerformAction(catId: number, subCatId: number, perItemName: number) {
@@ -428,8 +449,8 @@ export class WorkOrderRequestComponent implements OnInit {
   updateDisplayData(): void {
     const start = (this.pageIndex - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.start = start == 0 ? 1 : ((this.pageIndex * this.pageSize) - this.pageSize) + 1;
     this.displayData = this.requestList.slice(start, end);
-    this.end = this.displayData.length != 6 ? this.requestList.length :  this.pageIndex * this.pageSize;
+    this.end = this.displayData.length != 6 ? this.requestList.length : this.pageIndex * this.pageSize;
   }
 }

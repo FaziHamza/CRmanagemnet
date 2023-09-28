@@ -11,6 +11,9 @@ export class ConfirmPopupComponent implements OnInit {
   constructor(private modal: NzModalService) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      this.close();
+    }, 3000); // Convert seconds to milliseconds
   }
   logout() {
     this.modal.closeAll();

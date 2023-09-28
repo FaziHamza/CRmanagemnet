@@ -5,6 +5,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, debounceTime } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -28,15 +29,18 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
   totalRecords = 0;
   selectedLookupId = '';
   unsubscribe = new Subject<void>();
-  dashboardData :any;
-  constructor(private apiService: ApiService) { }
+
+  constructor(private apiService: ApiService,private router:Router) { }
 
   ngOnInit(): void {
-    this.apiService.getDashboard().subscribe((result) => {
-      if (result?.isSuccess) {
-        this.dashboardData= result?.data;
-      }
-    });
+    // this.apiService.getStatusLookup(25).subscribe((result) => {
+    //   if (result?.isSuccess) {
+    //     this.lookups = result.data.map((entry) => ({
+    //       id: entry.id,
+    //       name: entry.name[0]?.lookupName,
+    //     }));
+    //   }
+    // });
     this.searchByCustomerName$
       .pipe(debounceTime(500), takeUntil(this.unsubscribe))
       .subscribe(() => {
@@ -114,6 +118,7 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
           customerName: entry.customerName,
           uncollectd: entry.uncollectd,
           overDuePnsTotal: entry.overDuePnsTotal,
+          orderId: entry.orderId,
           lookup25001:
             entry?.ageing ? entry.ageing.find((age) => age.lookupId === 25001)?.amount || 0 : 0,
           lookup25002:
@@ -186,5 +191,9 @@ export class PromissoryNotesAgingReportComponent implements OnInit, OnDestroy {
       this.list.forEach((entry) => (total += entry[prop] || 0));
     }
     return total;
+  }
+  gotoWorkOrders(orderId){
+    if(orderId)
+        this.router.navigate(['/home/workorders',orderId])
   }
 }

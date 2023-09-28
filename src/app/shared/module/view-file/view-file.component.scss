@@ -1,0 +1,37 @@
+.imagepath {
+  img {
+    width: 100%;
+  }
+}
+
+.imagepath-no {
+  text-align: center;
+  padding: 50px;
+}
+
+.btns-group {
+  display: flex;
+  justify-content: center;
+
+  .btn {
+    background: #f8f8f8;
+    color: #dc3545;
+    border-radius: 10px;
+    padding: 12px 35px;
+    font-weight: 600;
+  }
+}
+
+.card-pdf {
+  img {
+    width: 150px;
+  }
+
+  a {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    padding: 15px;
+  }
+}

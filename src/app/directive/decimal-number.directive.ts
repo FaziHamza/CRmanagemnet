@@ -6,7 +6,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class DecimalNumberDirective {
 
   // Allow decimal numbers
-  private regex: RegExp = new RegExp(/^\d{0,8}(\.\d{0,3})?$/g);
+  private regex: RegExp = new RegExp(/^\d{0,8}\b\.?\d{0,2}$/g);
+
   // Allow key codes for special events. Reflect :
   // Backspace, tab, end, home
   // private specialKeys: Array<string> = [ 'Tab', 'End', 'Home', 'Control', 'ArrowRight', 'ArrowLeft', 'Delete'];

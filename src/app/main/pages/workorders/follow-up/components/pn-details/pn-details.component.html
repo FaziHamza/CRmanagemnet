@@ -1,0 +1,47 @@
+<div class="modal-header align-items-center justify-content-between">
+  <h6 class="fw-700 m-0" ngbAutoFocus>Promissory Note Details</h6>
+  <p class="fw-600 m-0 primary-clr">Status : <span class="font-13 fw-500 dark-gray">{{details?.statusObj?.translations[0]?.lookupName}}</span></p>
+</div>
+<div class="modal-body">
+  <div class="p-1" [style.border]="details?.statusObj?.translations[0]?.lookupName.toLowerCase() !== 'collected' && '5px solid ' + highlightDate(details?.dueDate | date:'mediumDate')">
+    <iframe [src]="transform(details?.pNpdfFil)" style="visibility:visible" height="300px" width="100%">
+    </iframe>
+  </div>
+  <div class="card mt-3">
+    <div class="card-heading"><h5>Follow-up log</h5></div>
+    <div class="card-content">
+      <ng-container *ngIf="details?.followUpLog?.length;else noFollowup">
+        <div class="d-flex flex-wrap gap-5 align-items-center mb-4" *ngFor="let item of details?.followUpLog;let index =index">
+          <div class="circle">
+            <p>{{index +1}}</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <h6 class="dark-gray fw-600 font-14 m-0">Date:</h6>
+            <p class="light-gray font-14 m-0">{{item?.createdAt | date:'mediumDate'}}</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <h6 class="dark-gray fw-600 font-14 m-0">Time:</h6>
+            <p class="light-gray font-14 m-0">{{item?.createdAt | date:'shortTime'}}</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <h6 class="dark-gray fw-600 font-14 m-0">By:</h6>
+            <p class="light-gray font-14 m-0">{{item?.createdBy?.fullName}}</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <h6 class="dark-gray fw-600 font-14 m-0">Note:</h6>
+            <p class="light-gray font-14 m-0">{{item?.followUpNotes}}</p>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noFollowup>
+        <p class="py-2 primary-clr font-16 fw-600">No follow up....</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+<div class="modal-footer border-top-0">
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="_activeModal.close()">Close</button>
+  </div>
+</div>
+

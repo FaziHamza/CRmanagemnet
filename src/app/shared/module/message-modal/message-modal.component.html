@@ -1,0 +1,14 @@
+<div class="message pb-0" *ngIf="type == 'success'">
+  <h5> <i class="fa-regular fa-circle-check"></i> {{message}}</h5>
+</div>
+<div class="message pb-0" *ngIf="type == 'error'">
+  <ng-container *ngIf="isArray;else elseBlock">
+    <h5 *ngFor=" let item of message"> <i class="fa-regular fa-circle-xmark"></i> {{item.ErrorMessageEn || item.errorMessageEn}}</h5>
+  </ng-container>
+  <ng-template #elseBlock>
+    <h5> <i class="fa-regular fa-circle-xmark"></i>{{message}}</h5>
+  </ng-template>
+</div>
+<div class="mb-3 text-center">
+  <button type="button" class="btn btn-cancel" (click)="_activeModal.close('Close click')">Close</button>
+</div>

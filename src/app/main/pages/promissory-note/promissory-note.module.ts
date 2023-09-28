@@ -9,10 +9,12 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateEarlySettlementComponent } from './create-early-settlement/create-early-settlement.component';
 
 @NgModule({
   declarations: [
     PromissoryNoteComponent,
+    CreateEarlySettlementComponent,
   ],
   imports: [
     FormsModule, ReactiveFormsModule,

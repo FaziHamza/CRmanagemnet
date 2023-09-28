@@ -1,39 +1,54 @@
 <div class="content-header">
-    <div class="heading">
-        <h4>
-            <span *ngFor="let item of commonService.breadcrumb; let last = last">
-                <span *ngIf="!last">{{item.title}} < </span>
-                        <span *ngIf="last">{{item.title}}</span>
-                </span>
-        </h4>
-    </div>
-    <div class="user-dropdown">
-        <div class="dropdown">
-            <div class="dropdown-toggle dropdown-avatar" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <nz-avatar *ngIf="userDetail"
-                [nzText]="commonService.getInitialOfName(userDetail?.unique_name)"></nz-avatar>
-                <!-- <div class="profile">JN</div><span> Jaber Nabil</span> -->
+  <div class="heading">
+    <h4>
+      <span *ngFor="let item of commonService.breadcrumb; let last = last">
+        <span *ngIf="!last">{{item.title}} < </span>
+        <span *ngIf="last">{{item.title}}</span>
+      </span>
+    </h4>
+  </div>
+
+  <div class="user-dropdown d-flex gap-4 align-items-center">
+    <div class="cursor-pointer">
+      <div dropdown container="body" placement="left bottom">
+        <img src="/assets/images/grid.svg" dropdownToggle id="button-basic" aria-controls="dropdown-basic" />
+        <ul style="width:220px" id="dropdown-basic" *dropdownMenu class="dropdown-menu-right dropdown-menu d-flex gap-4 flex-column p-2"
+            role="menu" aria-labelledby="button-basic">
+          <li *ngFor="let item of portalsList" class="cursor-pointer" role="menuitem">
+            <div class="d-flex align-items-center gap-2" (click)="redirectTo(item?.description)">
+              <img [src]="item?.imagePath" />
+              <h6 class="fw-500 m-0">{{item?.translations}}</h6>
             </div>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" routerLink="profile">My Profile</a></li>
-            </ul>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- <div class="user-dropdown">
-        <div class="dropdown">
-            <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <div *ngIf="selectedLanguageObj && selectedLanguageObj?.flag">
-                    {{selectedLanguageObj.id}}
-                    <img [src]="'assets/icons/flags/' + selectedLanguageObj.flag" alt="" />
-                </div>
-            </div>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li *ngFor="let language of languages">
-                    <a class="dropdown-item" (click)="setLanguage(language.id)"> {{ language?.title }}</a>
-                </li>
-            </ul>
-        </div>
-    </div> -->
+    <div class="dropdown">
+      <div class="dropdown-toggle dropdown-avatar" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+           aria-expanded="false">
+        <nz-avatar *ngIf="userDetail"
+                   [nzText]="commonService.getInitialOfName(userDetail?.unique_name)"></nz-avatar>
+        <!-- <div class="profile">JN</div><span> Jaber Nabil</span> -->
+      </div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" routerLink="profile">My Profile</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- <div class="user-dropdown">
+      <div class="dropdown">
+          <div class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <div *ngIf="selectedLanguageObj && selectedLanguageObj?.flag">
+                  {{selectedLanguageObj.id}}
+                  <img [src]="'assets/icons/flags/' + selectedLanguageObj.flag" alt="" />
+              </div>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li *ngFor="let language of languages">
+                  <a class="dropdown-item" (click)="setLanguage(language.id)"> {{ language?.title }}</a>
+              </li>
+          </ul>
+      </div>
+  </div> -->
 </div>

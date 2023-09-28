@@ -1,15 +1,21 @@
+
 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
   <div class="content-body-inner" *ngIf="orderDetail && !isPrintShow">
     <div class="row heading-box">
       <div class="col-lg-6">
         <span class="head-title">{{"Promissory_Notes.Date" | translate}}: </span>
-        <span class="head-detail" *ngIf="orderDetail && orderDetail.orderDate">{{orderDetail?.orderDate |
-          date:'dd MMM yyyy'}}</span>
+        <span class="head-detail" *ngIf="orderDetail && orderDetail.orderDate">
+          {{
+          orderDetail?.orderDate |
+          date:'dd MMM yyyy'
+          }}
+        </span>
         <span class="head-detail" *ngIf="!orderDetail.orderId">---</span>
       </div>
       <div class="col-lg-6 ">
         <div class="text-end">
-          <h1 class="head-title ">{{"Promissory_Notes.Order_No" | translate}}:
+          <h1 class="head-title ">
+            {{"Promissory_Notes.Order_No" | translate}}:
             <span class="head-detail" *ngIf="orderDetail?.orderId">{{orderDetail?.orderId}}</span>
             <span class="head-detail" *ngIf="!orderDetail.orderId">---</span>
           </h1>
@@ -41,14 +47,18 @@
           <div class="col-lg-4">
             <div class="card-box">
               <a class="anchor-content" *ngIf="orderDetail && orderDetail.orderQNTRLLink"
-              href="{{ orderDetail.orderQNTRLLink }}" target="_blank">{{ orderDetail.orderQNTRLLink
-                }}</a>
+                href="{{ orderDetail.orderQNTRLLink }}" target="_blank">
+                {{
+                orderDetail.orderQNTRLLink
+                }}
+              </a>
               <a class="anchor-content" *ngIf="!orderDetail.orderQNTRLLink">---</a>
             </div>
           </div>
           <div class="col-lg-6 text-end">
             <div class="card-box">
-              <h4 class="title">{{"Promissory_Notes.Opportunity_Card_No" | translate}}. :
+              <h4 class="title">
+                {{"Promissory_Notes.Opportunity_Card_No" | translate}}. :
                 <span class="detail"
                   *ngIf="orderDetail && orderDetail.opportunityNo">{{orderDetail.opportunityNo}}</span>
                 <span class="detail" *ngIf="!orderDetail.opportunityNo">---</span>
@@ -59,7 +69,8 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Brand_Name" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.orderDetail?.brand">
-                {{orderDetail.orderDetail?.brand.brand}}</h4>
+                {{orderDetail.orderDetail?.brand.brand}}
+              </h4>
               <h4 class="detail" *ngIf="!orderDetail.orderDetail?.brand">---</h4>
             </div>
           </div>
@@ -67,7 +78,8 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Vehicle_Model" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.orderDetail?.model">
-                {{orderDetail.orderDetail?.model.modelName}}</h4>
+                {{orderDetail.orderDetail?.model.modelName}}
+              </h4>
               <h4 class="detail" *ngIf="!orderDetail.orderDetail?.model">---</h4>
             </div>
           </div>
@@ -75,7 +87,8 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.VIN_No" | translate}}.</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.orderDetail?.vinNo">
-                {{orderDetail.orderDetail?.vinNo}}</h4>
+                {{orderDetail.orderDetail?.vinNo}}
+              </h4>
               <h4 class="detail" *ngIf="!orderDetail.orderDetail?.vinNo">---</h4>
             </div>
           </div>
@@ -83,7 +96,8 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Vehicle_Price" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.totalAmount">
-                {{orderDetail.totalAmount | number : ".3"}} JOD</h4>
+                {{orderDetail.totalAmount | number : ".3"}} JOD
+              </h4>
               <h4 class="detail" *ngIf="!orderDetail.totalAmount">---</h4>
             </div>
           </div>
@@ -91,7 +105,8 @@
             <div class="card-box">
               <h4 class="title">{{"Promissory_Notes.Sales_Person" | translate}}</h4>
               <h4 class="detail" *ngIf="orderDetail && orderDetail.salesConsultant.salesConsultantName">
-                {{orderDetail.salesConsultant.salesConsultantName}}</h4>
+                {{orderDetail.salesConsultant.salesConsultantName}}
+              </h4>
               <h4 class="detail" *ngIf="!orderDetail.salesConsultant">---</h4>
             </div>
           </div>
@@ -100,11 +115,98 @@
       </div>
     </div>
     <nz-tabset>
-      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab;let index = index"
-        (nzClick)="tabChange(item)">
+      <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab;let index = index" (nzClick)="tabChange(item)">
         <ng-template #titleTemplate>
           <span>{{item?.tabName}}</span>
         </ng-template>
+        <div class="row">
+          <div class="col-7">
+            <div class="card bg-gray-400">
+              <div class="card-heading">
+                <div class="head-left">
+                  <h5>Customer Information</h5>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="d-flex gap-4">
+                  <div class="name-circle flex-shrink-0">
+                    <p>{{commonService.getInitialOfName(orderDetail.customer?.customerName)}}</p>
+                  </div>
+                  <div class="d-flex gap-5 flex-wrap">
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Name</h6>
+                      <p class="light-gray m-0">{{orderDetail?.customer?.customerName}}</p>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Customer Account</h6>
+                      <p class="light-gray m-0">{{orderDetail?.customer?.customerId}}</p>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Address</h6>
+                      <p class="light-gray m-0">{{orderDetail?.customer?.address || '-'}}</p>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">ID</h6>
+                      <p class="light-gray m-0">{{orderDetail?.customer?.nationalId || '-'}}</p>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Phone No.</h6>
+                      <p class="light-gray m-0">{{orderDetail?.customer?.mobile}}</p>
+                    </div>
+                    <div class="file-item bg-white d-flex justify-content-between align-items-center py-1 px-3 gap-2">
+                      <label class="fw-600 green-clr mb-0">{{orderDetail.customer?.identityFile1 && 'ID Attachment' ||
+                        'No ID Attachment'}}</label>
+                      <div class="d-flex gap-2 align-items-center" *ngIf="orderDetail.customer?.identityFile1">
+                        <img height="20" (click)="pdfView(orderDetail.customer?.identityFile1)" class="cursor-pointer"
+                          src="assets/images/eye.png" />
+                        <a target="_blank" href="{{orderDetail.customer?.identityFile1}}" download><img height="20"
+                            class="cursor-pointer" src="assets/images/Download.png" /></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="card bg-gray-400">
+              <div class="card-heading">
+                <div class="head-left">
+                  <h5>All Promissory Notes Details</h5>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Total PN Amount</h6>
+                      <p class="green-clr m-0">{{orderDetail?.pnTotalAmount | number : "2.3-3"}} JOD</p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">No. of All Installments</h6>
+                      <p class="light-gray m-0">{{orderDetail?.numberOfInstallments}}</p>
+                    </div>
+                  </div>
+                  <div class="col-6 mt-5">
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">Remaining PN Amount</h6>
+                      <p class="green-clr m-0">{{orderDetail?.remainingAmount |number : ".3"}} JOD</p>
+                    </div>
+                  </div>
+                  <div class="col-6 mt-5">
+                    <div class="d-flex flex-column">
+                      <h6 class="fw-600">No. of Remaining Installments</h6>
+                      <p class="light-gray m-0">{{orderDetail?.remainingUncollectedCount}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div *ngIf="orderDetail">
           <div class="card card-bg-color" *ngIf="this.orderDetail.comingFromTypeID  == 26002 && index == 0">
             <div class="card-content">
@@ -113,49 +215,70 @@
                   <div class="card-box">
                     <h4 class="title">New No. Of Installments</h4>
                     <h4 class="detail" *ngIf="orderDetail.numberOfInstallments">
-                      {{orderDetail.numberOfInstallments}}</h4>
+                      {{orderDetail.numberOfInstallments}}
+                    </h4>
                     <h4 class="detail" *ngIf="!orderDetail.numberOfInstallments">---</h4>
                   </div>
                 </div>
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">New First Due Date</h4>
-                    <h4 class="detail" *ngIf="orderDetail.startDate">{{orderDetail.startDate | date
-                      :'dd MMM yyyy'}}</h4>
+                    <h4 class="detail" *ngIf="orderDetail.startDate">
+                      {{
+                      orderDetail.startDate | date
+                      :'dd MMM yyyy'
+                      }}
+                    </h4>
                     <h4 class="detail" *ngIf="!orderDetail.startDate">---</h4>
                   </div>
                 </div>
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">Interest Percenatge</h4>
-                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterestPercent">
-                      {{orderDetail.rescheduleInterestPercent}} %</h4>
-                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterestPercent">---</h4>
+                    <h4 class="detail" *ngIf="orderDetail.interesRate">
+                      {{orderDetail.interesRate}} %
+                    </h4>
+                    <h4 class="detail" *ngIf="!orderDetail.interesRate">0 %</h4>
+                    <!-- <h4 class="detail" *ngIf="orderDetail.rescheduleInterestPercent">
+                      {{orderDetail.rescheduleInterestPercent}} %
+                    </h4>
+                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterestPercent">---</h4> -->
                   </div>
                 </div>
                 <div class="col-lg-2 col-md-6">
                   <div class="card-box">
                     <h4 class="title">Interest Value</h4>
-                    <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">{{orderDetail.rescheduleInterest | number
-                      : '.3'}} JOD
+                    <h4 class="detail" *ngIf="orderDetail.interesValue">
+                      {{
+                      orderDetail.interesValue | number
+                      : '.3'
+                      }} JOD
                     </h4>
-                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterest">---</h4>
+                    <h4 class="detail" *ngIf="!orderDetail.interesValue">00.000 JOD</h4>
+                    <!-- <h4 class="detail" *ngIf="orderDetail.rescheduleInterest">
+                      {{
+                      orderDetail.rescheduleInterest | number
+                      : '.3'
+                      }} JOD
+                    </h4>
+                    <h4 class="detail" *ngIf="!orderDetail.rescheduleInterest">---</h4> -->
                   </div>
                 </div>
 
                 <div class="col-lg-3 col-md-6">
                   <div class="card-box">
                     <h4 class="title">New Remaining Amount</h4>
-                    <h4 class="detail" *ngIf="orderDetail.remainingAmount">
-                      {{orderDetail.remainingAmount | number : ".3"}} JOD</h4>
-                    <h4 class="detail" *ngIf="!orderDetail.remainingAmount">---</h4>
+                    <h4 class="detail" *ngIf="orderDetail.pnTotalAmount">
+                      {{orderDetail.pnTotalAmount | number : ".3"}} JOD
+                    </h4>
+                    <h4 class="detail" *ngIf="!orderDetail.pnTotalAmount">---</h4>
                   </div>
                 </div>
 
               </div>
             </div>
           </div>
-          <div class="card" *ngIf="this.orderDetail.comingFromTypeID  == 26003 && index == 0">
+          <div class="card card-bg-color" *ngIf="this.orderDetail.comingFromTypeID  == 26003 && index == 0">
             <div class="card-heading bb-none">
               <h5>Original Customer Information</h5>
             </div>
@@ -168,7 +291,8 @@
                         [nzText]="commonService.getInitialOfName(orderDetail.originalCustomer?.customerName)"></nz-avatar>
                     </div>
                     <div class="heading-box">
-                      <p class="head-title ">Name :
+                      <p class="head-title ">
+                        Name :
                         <span class="head-detail"
                           *ngIf="orderDetail.originalCustomer?.customerName">{{orderDetail.originalCustomer?.customerName}}</span>
                         <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.customerName">---</span>
@@ -178,7 +302,8 @@
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}} :
+                  <p class="head-title ">
+                    {{"Promissory_Notes.Customer_Account" | translate}} :
                     <span class="head-detail"
                       *ngIf="orderDetail && orderDetail.originalCustomer?.customerId">{{orderDetail.originalCustomer?.customerId}}</span>
                     <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.customerId">---</span>
@@ -186,25 +311,31 @@
                   </p>
                 </div>
                 <div class="col-lg-6">
-                  <p class="head-title ">{{"Promissory_Notes.ID" | translate}} :
+                  <p class="head-title ">
+                    {{"Promissory_Notes.ID" | translate}} :
 
                     <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.nationalId">
-                      {{orderDetail.originalCustomer?.nationalId}}</span>
+                      {{orderDetail.originalCustomer?.nationalId}}
+                    </span>
                     <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.nationalId">---</span>
                   </p>
                 </div>
                 <div class="col-lg-6">
-                  <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}} :
+                  <p class="head-title ">
+                    {{"Promissory_Notes.Phone_No" | translate}} :
                     <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.mobile">
-                      {{orderDetail.originalCustomer.mobile}}</span>
+                      {{orderDetail.originalCustomer.mobile}}
+                    </span>
                     <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.mobile">---</span>
                   </p>
                 </div>
                 <div class="col-lg-6">
-                  <p class="head-title ">{{"Promissory_Notes.Address" | translate}} :
+                  <p class="head-title ">
+                    {{"Promissory_Notes.Address" | translate}} :
 
                     <span class="head-detail" *ngIf="orderDetail && orderDetail.originalCustomer?.custAddress">
-                      {{orderDetail.originalCustomer?.custAddress}}</span>
+                      {{orderDetail.originalCustomer?.custAddress}}
+                    </span>
                     <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.custAddress">---</span>
                   </p>
 
@@ -212,15 +343,14 @@
                 <div class="col-lg-6">
                   <div class="row">
                     <div class="col-lg-3">
-                      <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}} :
+                      <p class="head-title ">
+                        {{"Promissory_Notes.ID_Attachment" | translate}} :
                       </p>
                     </div>
                     <div class="col-lg-8 d-grid ">
                       <button type="button" class="pdf-view-btn" *ngIf="orderDetail.originalCustomer?.identityFile1">
                         <div (click)="pdfView(orderDetail.originalCustomer?.identityFile1)">
-                          {{"Promissory_Notes.document_name_PDF"
-                          |
-                          translate}}
+                          ID Attachment
                         </div>
                         <div>
                           <a href="{{ orderDetail.originalCustomer?.identityFile1 }}" target="_blank" class="eye">
@@ -259,97 +389,91 @@
 
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <div class="card" [ngClass]="{'new-promissory-card':orderDetail?.comingFromTypeID == 26003 && index == 0}">
+            <div class="card">
+              <!--Promissory Note Details Start Here-->
               <div class="card-heading bb-none">
-                <h5> <span *ngIf="orderDetail?.comingFromTypeID == 26003 && index == 0">New </span> {{"Promissory_Notes.Customer_Information" | translate}}</h5>
+                <h5>Promissory Note Details</h5>
               </div>
-              <div class="card-content">
-                <div class="profileee">
-
-                  <div class="img-box" *ngIf="orderDetail.customer.customerName">
-                    <nz-avatar [nzText]="commonService.getInitialOfName(orderDetail.customer.customerName)"></nz-avatar>
+              <div class="card-content d-flex gap-3 flex-column">
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0">PN Amount</h6>
                   </div>
-                  <div class="heading-box">
-                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}
-                      <span class="head-detail"
-                        *ngIf="orderDetail && orderDetail.customer.customerName">{{orderDetail.customer.customerName}}</span>
-                      <span class="head-detail" *ngIf="!orderDetail.customer.customerName">---</span>
-                    </p>
-                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}
-                      <span class="head-detail"
-                        *ngIf="orderDetail && orderDetail.customer.customerId">{{orderDetail.customer.customerId}}</span>
-                      <span class="head-detail" *ngIf="!orderDetail.customer.customerId">---</span>
-                    </p>
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0 green-clr">{{orderDetail.pnTotalAmount | number : "2.3-3" }} JOD</h6>
                   </div>
                 </div>
-                <div class="row heading-box customer-info-card">
-                  <div class="col-lg-4 ">
-                    <p class="head-title ">{{"Promissory_Notes.ID" | translate}}</p>
-                    <p class="head-title ">{{"Promissory_Notes.Phone_No" | translate}}.</p>
-                    <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0">No. of Installments</h6>
                   </div>
-                  <div class="col-lg-8">
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.nationalId">
-                      {{orderDetail.customer.nationalId}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.customer.nationalId">---</p>
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.mobile">
-                      {{orderDetail.customer.mobile}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.customer.mobile">---</p>
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.customer.custAddress">
-                      {{orderDetail.customer.custAddress}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.customer.custAddress">---</p>
+                  <div class="col-6">
+                    <p class="fw-600 m-0 gray-500">{{orderDetail.numberOfInstallments}}</p>
                   </div>
                 </div>
-                <div class="row heading-box">
-                  <div class="col-lg-4 ">
-                    <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0">First Due Date</h6>
                   </div>
-                  <div class="col-lg-8">
-                    <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1">
-                      <div (click)="pdfView(orderDetail.customer.identityFile1)">
-                        {{"Promissory_Notes.document_name_PDF"|translate}}
-                      </div>
-
-                      <a href="{{ orderDetail.customer.identityFile1 }}" target="_blank" class="eye">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                          <path fill="currentColor"
-                            d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
-                        </svg>
-                      </a>
-                      <a (click)="downloadFile(orderDetail.customer.identityFile1)" class="download">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                          <path fill="currentColor"
-                            d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
-                        </svg>
-                      </a>
-                    </button>
-                    <p class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</p>
+                  <div class="col-6">
+                    <p class="fw-600 m-0 gray-500">{{orderDetail?.startDate | date:'mediumDate' }}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0">Interest Rate</h6>
+                  </div>
+                  <div class="col-6" *ngIf="orderDetail.comingFromTypeID == 26002">
+                    <p class="fw-600 m-0 gray-500" *ngIf="orderDetail?.interesRate">{{orderDetail?.interesRate}} %</p>
+                    <!-- <p class="fw-600 m-0 gray-500" *ngIf="orderDetail?.rescheduleInterestPercent">{{orderDetail?.rescheduleInterestPercent}} %</p> -->
+                    <p class="fw-600 m-0 gray-500" *ngIf="!orderDetail?.interesRate">0 %</p>
+                  </div>
+                  <div class="col-6" *ngIf="orderDetail.comingFromTypeID != 26002">
+                    <p class="fw-600 m-0 gray-500" *ngIf="orderDetail?.interesRate">{{orderDetail?.interesRate}} %</p>
+                    <p class="fw-600 m-0 gray-500" *ngIf="!orderDetail?.interesRate">0 %</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <h6 class="fw-600 m-0">Interest Value</h6>
+                  </div>
+                  <div class="col-6" *ngIf="orderDetail.comingFromTypeID == 26002">
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue | number : "2.3-3"}} JOD</h6>
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="!orderDetail?.interesValue">00.000 JOD</h6>
+                    <!-- <h6 class="fw-600 m-0 green-clr">{{orderDetail?.rescheduleInterest | number : "2.3-3"}} JOD</h6> -->
+                  </div>
+                  <div class="col-6" *ngIf="orderDetail.comingFromTypeID != 26002">
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue | number : "2.3-3"}} JOD</h6>
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="!orderDetail?.interesValue">00.000 JOD</h6>
                   </div>
                 </div>
               </div>
-              <hr />
+              <hr class="mt-4" />
+              <!--Guarantor Information Start Here-->
               <div class="card-heading bb-none">
                 <div class="head-left">
-                  <h5><span *ngIf="orderDetail?.comingFromTypeID == 26003 && index == 0">New </span> {{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
+                  <h5><span *ngIf="orderDetail?.comingFromTypeID == 26003 && index == 0">New </span>
+                    {{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
                 </div>
-                <!-- <div class="head-right"></div> -->
               </div>
               <div class="card-content">
                 <div class="profileee">
                   <div class="img-box">
                     <nz-avatar
-                      [nzText]="commonService.getInitialOfName(orderDetail.guarantor.customerName)"></nz-avatar>
+                      [nzText]="commonService.getInitialOfName(orderDetail?.guarantor?.customerName)"></nz-avatar>
                   </div>
                   <div class="heading-box">
-                    <p class="head-title ">{{"Promissory_Notes.Name" | translate}}
+                    <p class="head-title ">
+                      {{"Promissory_Notes.Name" | translate}}
                       <span class="head-detail"
-                        *ngIf="orderDetail && orderDetail.guarantor.customerName">{{orderDetail.guarantor.customerName}}</span>
-                      <span class="head-detail" *ngIf="!orderDetail.guarantor.customerName">---</span>
+                        *ngIf="orderDetail && orderDetail?.guarantor?.customerName">{{orderDetail?.guarantor?.customerName}}</span>
+                      <span class="head-detail" *ngIf="!orderDetail?.guarantor?.customerName">---</span>
                     </p>
-                    <p class="head-title ">{{"Promissory_Notes.Customer_Account" | translate}}
-                      <span *ngIf="orderDetail && orderDetail.guarantor.customerId"
-                        class="head-detail">{{orderDetail.guarantor.customerId}}</span>
-                      <span class="head-detail" *ngIf="!orderDetail.guarantor.customerId">---</span>
+                    <p class="head-title ">
+                      {{"Promissory_Notes.Customer_Account" | translate}}
+                      <span *ngIf="orderDetail && orderDetail?.guarantor?.customerId"
+                        class="head-detail">{{orderDetail?.guarantor?.customerId}}</span>
+                      <span class="head-detail" *ngIf="!orderDetail?.guarantor?.customerId">---</span>
                     </p>
                   </div>
                 </div>
@@ -360,15 +484,18 @@
                     <p class="head-title ">{{"Promissory_Notes.Address" | translate}}</p>
                   </div>
                   <div class="col-lg-8">
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.guarantor.nationalId">
-                      {{orderDetail.guarantor.nationalId}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.guarantor.nationalId">---</p>
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.guarantor.mobile">
-                      {{orderDetail.guarantor.mobile}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.guarantor.mobile">---</p>
-                    <p class="head-detail" *ngIf="orderDetail && orderDetail.guarantor.custAddress">
-                      {{orderDetail.guarantor.custAddress}}</p>
-                    <p class="head-detail" *ngIf="!orderDetail.guarantor.custAddress">---</p>
+                    <p class="head-detail" *ngIf="orderDetail && orderDetail?.guarantor?.nationalId">
+                      {{orderDetail?.guarantor?.nationalId}}
+                    </p>
+                    <p class="head-detail" *ngIf="!orderDetail?.guarantor?.nationalId">---</p>
+                    <p class="head-detail" *ngIf="orderDetail && orderDetail?.guarantor?.mobile">
+                      {{orderDetail?.guarantor?.mobile}}
+                    </p>
+                    <p class="head-detail" *ngIf="!orderDetail?.guarantor?.mobile">---</p>
+                    <p class="head-detail" *ngIf="orderDetail && orderDetail?.guarantor?.custAddress">
+                      {{orderDetail?.guarantor?.custAddress}}
+                    </p>
+                    <p class="head-detail" *ngIf="!orderDetail?.guarantor?.custAddress">---</p>
                   </div>
                 </div>
                 <div class="row heading-box">
@@ -376,20 +503,19 @@
                     <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                   </div>
                   <div class="col-lg-8">
-                    <button type="button" *ngIf="orderDetail && orderDetail.guarantor.identityFile1"
+                    <button type="button" *ngIf="orderDetail && orderDetail?.guarantor?.identityFile1"
                       class="pdf-view-btn">
-                      <div (click)="pdfView(orderDetail.guarantor.identityFile1)">
-                        {{"Promissory_Notes.document_name_PDF" |
-                        translate}}
+                      <div (click)="pdfView(orderDetail?.guarantor?.identityFile1)">
+                        ID Attachment
                       </div>
                       <div>
-                        <a href="{{ orderDetail.guarantor.identityFile1 }}" target="_blank" class="eye">
+                        <a href="{{ orderDetail?.guarantor?.identityFile1 }}" target="_blank" class="eye">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
                               d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
                           </svg>
                         </a>
-                        <a (click)="downloadFile(orderDetail.guarantor.identityFile1)" class="download">
+                        <a (click)="downloadFile(orderDetail?.guarantor?.identityFile1)" class="download">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
                               d="M12 15.575q-.2 0-.375-.062T11.3 15.3l-3.6-3.6q-.275-.275-.275-.7t.275-.7q.275-.275.713-.287t.712.262L11 12.15V5q0-.425.288-.713T12 4q.425 0 .713.288T13 5v7.15l1.875-1.875q.275-.275.713-.263t.712.288q.275.275.275.7t-.275.7l-3.6 3.6q-.15.15-.325.213t-.375.062ZM6 20q-.825 0-1.413-.588T4 18v-2q0-.425.288-.713T5 15q.425 0 .713.288T6 16v2h12v-2q0-.425.288-.713T19 15q.425 0 .713.288T20 16v2q0 .825-.588 1.413T18 20H6Z" />
@@ -397,7 +523,7 @@
                         </a>
                       </div>
                     </button>
-                    <p class="head-detail" *ngIf="!orderDetail.guarantor.identityFile1">---</p>
+                    <p class="head-detail" *ngIf="!orderDetail?.guarantor?.identityFile1">No ID Attachment</p>
                   </div>
                 </div>
               </div>
@@ -409,35 +535,41 @@
                 <h5>
                   Promissory Notes Details
                 </h5>
-                <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID == 26003 && current == 0) || (orderDetail?.comingFromTypeID == 26001 || !orderDetail?.comingFromTypeID)">
+                <div class="row heading-box">
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
-                      <h4 class="head-title">{{"Promissory_Notes.Promissory_Notes_Amount" |
-                        translate}}
+                      <h4 class="head-title">
+                        {{
+                        "Promissory_Notes.Promissory_Notes_Amount" |
+                        translate
+                        }}
 
                       </h4>
-                      <!-- <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">{{orderDetail.pnTotalAmount |
-                        number : ".3"}} JOD</h4>
-                      <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4> -->
-                      <h4 class="head-detail" *ngIf="item.pnTotalAmount && index == 0">{{item.pnTotalAmount | number : ".3"}} JOD</h4>
-                      <h4 class="head-detail" *ngIf="!item.pnTotalAmount && index == 0">---</h4>
-                      <h4 class="head-detail" *ngIf="item.pnsTotal && index != 0">{{item.pnsTotal | number : ".3"}} JOD</h4>
-                      <h4 class="head-detail" *ngIf="!item.pnsTotal && index != 0">---</h4>
+                      <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">
+                        {{
+                        orderDetail.pnTotalAmount |
+                        number : ".3"
+                        }} JOD
+                      </h4>
+                      <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4>
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
-                      <h4 class="head-title">{{"Promissory_Notes.No_Of_Installments" | translate}}
+                      <h4 class="head-title">
+                        {{"Promissory_Notes.No_Of_Installments" | translate}}
 
                       </h4>
                       <h4 class="head-detail" *ngIf="orderDetail.numberOfInstallments">
-                        {{orderDetail.numberOfInstallments}}</h4>
+                        {{orderDetail.numberOfInstallments}}
+                      </h4>
                       <h4 class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</h4>
                     </div>
                   </div>
                   <div class="col-lg-4 col-md-6">
                     <div class="card-box">
-                      <h4 class="head-title">{{"Promissory_Notes.First_Due_Date" | translate}}
+                      <h4 class="head-title">
+                        {{"Promissory_Notes.First_Due_Date" | translate}}
 
                       </h4>
                       <h4 class="head-detail" *ngIf="orderDetail.startDate">
@@ -449,18 +581,70 @@
 
                 </div>
               </div>
-              <div class="bottom-buttons first-btn mt-4 pt-4" *ngIf="!isGenerate">
-                <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                  [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
-                  translate}}</button>
-                <button class="btn o-btn hvr-bounce-to-right" type="button"
-                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                  (click)="getListofPromissoryNote()"> Generate
-                  <span *ngIf="orderDetail?.comingFromTypeID == 26003 || orderDetail?.comingFromTypeID == 26002">
-                    New </span> PNs Book</button>
+              <div class="p-3" *ngIf="actionType.toLowerCase() == 'view' || actionType.toLowerCase() == 'return'">
+                <h6 class="fw-500 mb-0">List Of Promissory Notes</h6>
+                <div class="card-table mt-3">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Book ID</th>
+                          <th>Customer Name</th>
+                          <th>Amount</th>
+                          <th>Due Date</th>
+                          <th>PN Status </th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of pNOrderBookNotesList;let index = index">
+                          <td>{{item?.pnBookNoteId}}</td>
+                          <td>{{item?.customer?.customerName}}</td>
+                          <td>{{item?.pnAmount}}</td>
+                          <td>{{item?.dueDate | date:'mediumDate'}}</td>
+                          <td>{{item?.statusObj?.translations[0]?.lookupName}}</td>
+                          <td>
+                            <div class="d-flex">
+                              <i class="fas fa-eye gray-500 font-18 me-2 cursor" (click)="followUp(item)"></i>
+                              <i class="fas fa-headphones gray-500 font-18 cursor"></i>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <ng-container *ngIf="totalRecords > 6">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="showing">
+                      Showing <span>{{( pageNo) * 6 - 5}} - {{pNOrderBookNotesList?.length == 6 ? (( pageNo) * 6 ):
+                        totalRecords}}</span>
+                      from <span> {{totalRecords}} </span> data
+                    </h6>
+                    <ngb-pagination [collectionSize]="totalRecords" [(page)]="pageNo" [maxSize]="3" [pageSize]="6"
+                      [rotate]="true" [ellipses]="false" (pageChange)="pageChange($event)"></ngb-pagination>
+                  </div>
+                </ng-container>
               </div>
-              <div class="wizard-form-body" *ngIf="isGenerate">
+              <div class="bottom-buttons mt-4 pt-4" *ngIf="!isGenerate">
+                <button type="button" class="btn btn-white hvr-bounce-to-right2" [routerLink]="['/home/workorders']">
+                  {{"Promissory_Notes.Close" |translate}}
+                </button>
+                <button *ngIf="actionType.toLowerCase() == 'return'" class="btn o-btn hvr-bounce-to-right" type="button"
+                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                  (click)="confirmModal(returnConfirmation)">
+                  Return PNs
+                </button>
+                <ng-container *ngIf="actionType.toLowerCase() !== 'view' && actionType.toLowerCase() !== 'return'">
+                  <button class="btn o-btn hvr-bounce-to-right" type="button"
+                    [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="getListofPromissoryNote()">
+                    {{"Promissory_Notes.Generate_PNs_Book" |translate}}
+                  </button>
+                </ng-container>
+              </div>
 
+              <!--GENERATE AREA-->
+              <div class="wizard-form-body" *ngIf="isGenerate">
                 <div class="main-content">
                   <div class="wizard-form">
                     <ul id="progressBar" class="progressbar">
@@ -477,33 +661,38 @@
                       <div *ngFor="let step of steps; let i = index" class="row justify-content-center"
                         [hidden]="current !== i">
                         <div class="col-lg-12 col-md-8">
-                          <div *ngIf="current == 0 && orderDetail?.comingFromTypeID != 26003">
+                          <div *ngIf="current == 0">
                             <div class="flex-end-row mt-2 mb-2">
-                                <button type="button" class="btn o-btn hvr-bounce-to-right btn-md"
-                                  (click)="getListofPromissoryNote()" *ngIf="differenceAmount != 0 || checkReset()"
-                                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                      stroke-width="2">
-                                      <path d="M3 2v6h6" />
-                                      <path d="M3 13a9 9 0 1 0 3-7.7L3 8" />
-                                    </g>
-                                  </svg>
-                                  {{"Promissory_Notes.Reset" | translate}} </button>
+                              <button type="button" class="btn o-btn hvr-bounce-to-right btn-md"
+                                (click)="getListofPromissoryNote()" *ngIf="differenceAmount != 0 || checkReset()"
+                                [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
+                                    <path d="M3 2v6h6" />
+                                    <path d="M3 13a9 9 0 1 0 3-7.7L3 8" />
+                                  </g>
+                                </svg>
+                                {{"Promissory_Notes.Reset" | translate}}
+                              </button>
 
                             </div>
                             <div class="row heading-box">
                               <div class="col-lg-6 ">
                                 <h1 class="header-content ">
-                                  {{"Promissory_Notes.List_Of_Promissory_Notes" |
-                                  translate}}
+                                  {{
+                                  "Promissory_Notes.List_Of_Promissory_Notes" |
+                                  translate
+                                  }}
                                 </h1>
 
                               </div>
                               <div class="col-lg-6 text-end">
                                 <h1 class="header-content ">
-                                  {{"Promissory_Notes.Difference_amount" |
-                                  translate}} (JOD) : <span class="head-detail">{{differenceAmount}}</span>
+                                  {{
+                                  "Promissory_Notes.Difference_amount" |
+                                  translate
+                                  }} (JOD) : <span class="head-detail">{{differenceAmount}}</span>
                                 </h1>
                               </div>
                             </div>
@@ -516,8 +705,11 @@
                                     <th nzWidth="8%">
                                       {{"Promissory_Notes.No" | translate}}
                                     </th>
-                                    <th> {{"Promissory_Notes.Customer_Name" |
-                                      translate}}
+                                    <th>
+                                      {{
+                                      "Promissory_Notes.Customer_Name" |
+                                      translate
+                                      }}
                                     </th>
                                     <th>
                                       {{"Promissory_Notes.Amount" | translate}}
@@ -528,7 +720,8 @@
                                     <th>
                                       {{"Promissory_Notes.PN_Status" | translate}}
                                     </th>
-                                    <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
+                                    <th nzWidth="12%">
+                                      {{"Promissory_Notes.Action" | translate}}
                                     </th>
                                   </tr>
                                 </thead>
@@ -539,8 +732,10 @@
                                         {{ data.id }}
                                       </td>
                                       <td class="table-data">{{ data.customerName }}</td>
-                                      <td [ngClass]="{'edit-data-status': data.amount != data.orginalAmount}">{{
-                                        data.amount | customRound: 3 }} JOD
+                                      <td [ngClass]="{'edit-data-status': data.amount != data.orginalAmount}">
+                                        {{
+                                        data.amount | customRound: 3
+                                        }} JOD
                                       </td>
                                       <td [ngClass]="{'edit-data-status': data.dueDate != data.originalDueDate}">
                                         {{data.dueDate | date: 'dd MMM yyyy'}}
@@ -549,7 +744,7 @@
 
                                         <button class="btn generating-status">Generating</button>
                                       </td>
-                                      <td class="table-data">
+                                      <td class="table-data" *ngIf="orderDetail.comingFromTypeID != 26003">
                                         <a class="table-edit" *ngIf="!data.edit"
                                           (click)="this.editCache[data.id].edit = true">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
@@ -571,6 +766,15 @@
                                           </svg>
                                         </button>
                                       </td>
+                                      <td class="table-data"  *ngIf="orderDetail.comingFromTypeID == 26003">
+                                        <a class="pen-icon">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" style="color: rgb(168 168 168)">
+                                            <path fill="currentColor"
+                                              d="M12 9a3 3 0 0 1 3 3a3 3 0 0 1-3 3a3 3 0 0 1-3-3a3 3 0 0 1 3-3m0-4.5c5 0 9.27 3.11 11 7.5c-1.73 4.39-6 7.5-11 7.5S2.73 16.39 1 12c1.73-4.39 6-7.5 11-7.5M3.18 12a9.821 9.821 0 0 0 17.64 0a9.821 9.821 0 0 0-17.64 0Z" />
+                                          </svg>
+                                        </a>
+                                      </td>
                                     </ng-container>
                                     <ng-template #editTemplate>
                                       <td class="table-data">{{ data.id }} </td>
@@ -579,18 +783,20 @@
                                       </td>
                                       <td class="table-data">
 
-                                        <div class="input-group" *ngIf="!data.last">
+                                        <div class="input-group" *ngIf="!isLast">
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
-                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1" digitsOnly>
+                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1"
+                                            digitsOnly>
 
                                         </div>
-                                        <div class="input-group" *ngIf="data.last">
+                                        <div class="input-group" *ngIf="isLast">
                                           <input type="text" class="form-control"
                                             [(ngModel)]="editCache[data.id].data.amount"
                                             [ngModelOptions]="{ standalone: true }"
-                                            (input)="changeAmountDecimal($event,data.id)" aria-describedby="basic-addon1" appNumberDecimal>
+                                            (input)="changeAmount($event,data.id)" aria-describedby="basic-addon1"
+                                            appNumberDecimal>
 
                                         </div>
                                       </td>
@@ -598,16 +804,21 @@
                                         <span *ngIf="data.first">
                                           {{data.dueDate | date: 'dd MMM yyyy'}}
                                         </span>
-                                        <div class="input-search1 form-control3"  *ngIf="!data.first">
-                                          <nz-date-picker [nzDisabledDate]="disabledDate"  [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
+                                        <div class="input-search1 form-control3" *ngIf="!data.first">
+                                          <nz-date-picker [nzDisabledDate]="disabledDate"
+                                            [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
                                           <!-- <input type="date" class="form-control"
 
-                                            [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1"> -->
+                                          [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1"> -->
                                         </div>
                                       </td>
                                       <td class="table-data">
-                                        <button class="btn generating-status">{{"Promissory_Notes.Generating"|
-                                          translate}}</button>
+                                        <button class="btn generating-status">
+                                          {{
+                                          "Promissory_Notes.Generating"|
+                                          translate
+                                          }}
+                                        </button>
                                       </td>
                                       <td class="table-data">
                                         <a class="table-correct" (click)="saveEdit(data.id)">
@@ -634,74 +845,91 @@
                               </nz-table>
                               <div class="paginatio-bottom">
                                 <div>
-                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{promissoryist.length}}</span> data</p>
+                                  <p class="showing">Showing <span>{{start}} - {{end}}</span> from
+                                    <span>{{promissoryist.length}}</span> data</p>
                                 </div>
                                 <div>
-                                    <nz-pagination *ngIf="promissoryist.length > pageSize" [nzTotal]="promissoryist.length"
-                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
-                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                  <nz-pagination *ngIf="promissoryist.length > pageSize"
+                                    [nzTotal]="promissoryist.length" [(nzPageIndex)]="pageIndex"
+                                    [(nzPageSize)]="pageSize"
+                                    (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
                                 </div>
-                            </div>
+                              </div>
                             </div>
                           </div>
-                          <div *ngIf="orderDetail?.comingFromTypeID == 26003 || current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
+                          <div *ngIf="current == 1 || current == 2 || current == 3 || current == 4|| current == 5">
                             <div class="row heading-box mt-4 pt-4">
                               <div class="col-lg-6">
                                 <h1 class="head-title ">
-                                  {{"Promissory_Notes.List_Of_Promissory_Notes" |
-                                  translate}}
+                                  {{
+                                  "Promissory_Notes.List_Of_Promissory_Notes" |
+                                  translate
+                                  }}
                                 </h1>
                               </div>
-                              <div class="col-lg-6 text-end" *ngIf="orderDetail?.comingFromTypeID != 26003">
+                              <div class="col-lg-6 text-end">
                                 <h1 class="head-title ">
-                                  {{"Promissory_Notes.PN_BOOK_NO" |
-                                  translate}} :
+                                  {{
+                                  "Promissory_Notes.PN_BOOK_NO" |
+                                  translate
+                                  }} :
                                   <span *ngIf="generatedlist.length  > 0 "
-                                    class="head-detail">{{generatedlist[0]?.pnBookID}}</span>
+                                    class="head-detail">{{generatedlist[0].pnBookID}}</span>
                                 </h1>
                               </div>
-                              <div class="row heading-box" *ngIf="(orderDetail?.comingFromTypeID != 26003 && orderDetail?.comingFromTypeID != 26002) || (current != 0 && isGenerate)">
+                              <div class="row heading-box">
                                 <div class="col-lg-5 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title">
-                                      {{"Promissory_Notes.Promissory_Notes_Total_Amount"
+                                      {{
+                                      "Promissory_Notes.Promissory_Notes_Total_Amount"
                                       |
-                                      translate}}:
+                                      translate
+                                      }}:
                                     </h4>
-                                    <h4 class="head-detail" *ngIf="item.pnTotalAmount && index == 0">{{item.pnTotalAmount | number : ".3"}} JOD</h4>
-                                    <h4 class="head-detail" *ngIf="!item.pnTotalAmount && index == 0">---</h4>
-                                    <h4 class="head-detail" *ngIf="item.pnsTotal && index != 0">{{item.pnsTotal | number : ".3"}} JOD</h4>
-                                    <h4 class="head-detail" *ngIf="!item.pnsTotal && index != 0">---</h4>
-
+                                    <h4 class="head-detail" *ngIf="orderDetail.pnTotalAmount">
+                                      {{orderDetail.pnTotalAmount | number : ".3"}}
+                                      JOD
+                                    </h4>
+                                    <h4 class="head-detail" *ngIf="!orderDetail.pnTotalAmount">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title">
-                                      {{"Promissory_Notes.No" |
-                                      translate}}:
+                                      {{
+                                      "Promissory_Notes.No" |
+                                      translate
+                                      }}:
 
                                     </h4>
-                                    <h4 class="head-detail"
-                                        *ngIf="item.numberOfInstallments">{{item.numberOfInstallments}}</h4>
-                                      <h4 class="head-detail" *ngIf="!item.numberOfInstallments">---</h4>
+                                    <h4 class="head-detail" *ngIf="orderDetail.numberOfInstallments">
+                                      {{orderDetail.numberOfInstallments}}
+                                    </h4>
+                                    <h4 class="head-detail" *ngIf="!orderDetail.numberOfInstallments">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title">
-                                      {{"Promissory_Notes.Remaining_Amount" |translate}}</h4>
-                                    <h4 class="head-detail"
-                                    *ngIf="item.remainingAmount">{{item.remainingAmount | number :
-                                    ".3"}} JOD</h4>
-                                  <h4 class="head-detail" *ngIf="!item.remainingAmount">---</h4>
+                                      {{"Promissory_Notes.Remaining_Amount" |translate}}
+                                    </h4>
+                                    <h4 class="head-detail" *ngIf="orderDetail.remainingAmount">
+                                      {{
+                                      orderDetail.remainingAmount | number :
+                                      ".3"
+                                      }} JOD
+                                    </h4>
+                                    <h4 class="head-detail" *ngIf="!orderDetail.remainingAmount">---</h4>
                                   </div>
                                 </div>
                                 <div class="col-lg-2 col-md-6">
                                   <div class="card-box">
                                     <h4 class="head-title"> Remaining No</h4>
-                                    <h4 class="head-detail" *ngIf="index == 0">{{item?.numberOfInstallments ? item.numberOfInstallments : '---'}}</h4>
-                                    <h4 class="head-detail" *ngIf="index != 0">{{item?.remainingUncollectedCount ? item.remainingUncollectedCount : '---'}}</h4>
+                                    <h4 class="head-detail" *ngIf="orderDetail?.remainingUncollectedCount">
+                                      {{orderDetail?.remainingUncollectedCount}}
+                                    </h4>
+                                    <h4 class="head-detail" *ngIf="!orderDetail?.remainingUncollectedCount">---</h4>
                                   </div>
                                 </div>
                               </div>
@@ -716,8 +944,11 @@
                                       (click)="getSortFunction(sortType,'orderno')">
                                       {{"Promissory_Notes.No" | translate}}
                                     </th>
-                                    <th>{{"Promissory_Notes.Customer_Name" |
-                                      translate}}
+                                    <th>
+                                      {{
+                                      "Promissory_Notes.Customer_Name" |
+                                      translate
+                                      }}
                                     </th>
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'amount')">
                                       {{"Promissory_Notes.Amount" | translate}}
@@ -728,19 +959,23 @@
                                     <th nz-th nzSortFn="ascend" (click)="getSortFunction(sortType,'status')">
                                       {{"Promissory_Notes.PN_Status" | translate}}
                                     </th>
-                                    <th nzWidth="12%">{{"Promissory_Notes.Action" | translate}}
+                                    <th nzWidth="12%">
+                                      {{"Promissory_Notes.Action" | translate}}
                                     </th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <ng-container *ngFor="let data of editRowTable.data;let index = index">
                                     <tr
-                                      [ngClass]="{'hightlight-row': data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true}">
+                                      [ngClass]="{'hightlight-row': (data.status.toLowerCase() == 'uncollected' &&  current == 4 && data.dateCheck == true)
+                                        || (highlightDate(data.dueDate | date : 'mediumDate').key == 1) && (data.status.toLowerCase() !== 'collected') }">
                                       <td class="table-data">
                                         {{ data.id }}
                                       </td>
                                       <td class="table-data">{{ data.customerName }}</td>
-                                      <td class="table-data">{{ data.amount | number : ".3" }} JOD
+                                      <td class="table-data"
+                                        [class.green-clr]="highlightDate(data.dueDate | date : 'mediumDate').key == 3">
+                                        {{ data.amount | number : ".3" }} JOD
                                       </td>
                                       <td class="table-data">
                                         {{data.dueDate | date : 'dd MMM yyyy'}}
@@ -748,10 +983,12 @@
                                       <td class="table-data">
 
                                         <button class="btn generating-status" [style.color]="data.lookupTextColor"
-                                          [style.background-color]="data.lookupBGColor">{{data.status}}</button>
+                                          [style.background-color]="data.lookupBGColor">
+                                          {{data.status}}
+                                        </button>
                                       </td>
                                       <td class="table-data">
-                                        <a class="pen-icon" (click)="pdfView(data.pdfView,data)">
+                                        <a class="pen-icon" (click)="followUp(data)">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">
                                             <path fill="currentColor"
@@ -766,57 +1003,75 @@
                               </nz-table>
                               <div class="paginatio-bottom">
                                 <div>
-                                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{generatedlist.length}}</span> data</p>
+                                  <p class="showing">Showing <span>{{start}} - {{end}}</span> from
+                                    <span>{{generatedlist.length}}</span> data</p>
                                 </div>
                                 <div>
-                                    <nz-pagination *ngIf="generatedlist.length > pageSize" [nzTotal]="generatedlist.length"
-                                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
-                                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                                  <nz-pagination *ngIf="generatedlist.length > pageSize"
+                                    [nzTotal]="generatedlist.length" [(nzPageIndex)]="pageIndex"
+                                    [(nzPageSize)]="pageSize"
+                                    (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
                                 </div>
-                            </div>
+                              </div>
                             </div>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 0">
                             <button type="button" class="btn btn-white hvr-bounce-to-right2"
-                              [routerLink]="['/home/workorders']">Close</button>
+                              [routerLink]="['/home/workorders']">
+                              Close
+                            </button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="saveGeneratingNotes()"
                               [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields() || isDateMatch()} ">Confirm
-                              <span *ngIf="orderDetail?.comingFromTypeID == 26003"> Transferring</span>
-                              <span *ngIf="orderDetail?.comingFromTypeID == 26002"> Rescheduling</span>
+                              [ngClass]="{'disabled':differenceAmount != 0 || checkAllFields() || isDateMatch()} ">
+                              Confirm
                             </button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 1">
                             <button type="button" [routerLink]="['/home/workorders']"
-                              class="btn btn-white hvr-bounce-to-right2">Close</button>
+                              class="btn btn-white hvr-bounce-to-right2">
+                              Close
+                            </button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printPNBook()"
-                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print PN
-                              Book</button>
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
+                              Print PN
+                              Book
+                            </button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 2">
                             <button type="button" [routerLink]="['/home/workorders']"
-                              class="btn btn-white hvr-bounce-to-right2">Close</button>
+                              class="btn btn-white hvr-bounce-to-right2">
+                              Close
+                            </button>
                             <button class="btn o-btn btn-white hvr-bounce-to-right" type="button"
-                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              (click)="printPNBook()">RePrint PN
-                              Book</button>
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printPNBook()">
+                              RePrint PN
+                              Book
+                            </button>
                             <button class="btn o-btn hvr-bounce-to-right" type="button"
-                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printAll(19003)">Mark
+                              [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="printAll(19003)">
+                              Mark
                               As
-                              Signed</button>
+                              Signed
+                            </button>
                           </div>
                           <div class="bottom-buttons" *ngIf="current == 3 || current == 4 || current == 5">
                             <button class="btn o-btn btn-white hvr-bounce-to-right"
                               [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              *ngIf="!orderDetail.hasActiveRequest" (click)="createRequest()" type="button">Create
-                              Request</button>
+                              *ngIf="!orderDetail.hasActiveRequest" (click)="createRequest(statusModal)" type="button">
+                              Create
+                              Request
+                            </button>
                             <button class="btn o-btn btn-disabled hvr-bounce-to-right"
                               [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
-                              *ngIf="orderDetail.hasActiveRequest" (click)="createRequest()" [disabled]="true"
-                              type="button">Create
-                              Request</button>
+                              *ngIf="orderDetail.hasActiveRequest" (click)="createRequest(statusModal)"
+                              [disabled]="true" type="button">
+                              Create
+                              Request
+                            </button>
                             <button class="btn o-btn hvr-bounce-to-right" [routerLink]="['/home/workorders']"
-                              type="button">Close</button>
+                              type="button">
+                              Close
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -834,15 +1089,15 @@
     <div class="row heading-box p-4">
       <div class="col-lg-6 ">
         <h1 class="header-content ">
-          {{"Promissory_Notes.List_Of_Promissory_Notes" |
-          translate}}
+          {{"Promissory_Notes.List_Of_Promissory_Notes" |translate}}
         </h1>
 
       </div>
       <div class="col-lg-6 text-end">
         <h1 class="header-content ">
-          PN Book No : <span class="head-detail"
-            *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
+          <!--{{"Promissory_Notes.Difference_amount" |translate}} (JOD):-->
+          Book No:
+          <span class="head-detail" *ngIf="generatedlist.length  > 0 ">{{generatedlist[0].pnBookID}}</span>
         </h1>
       </div>
     </div>
@@ -853,8 +1108,10 @@
         <div class="bottom-buttons">
           <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="printClose()">Close</button>
           <button class="btn o-btn hvr-bounce-to-right" type="button" (click)="printAll(19002)"
-            [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">Print
-            All</button>
+            [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">
+            Print
+            All
+          </button>
         </div>
       </div>
       <div class="col-lg-1"></div>
@@ -863,3 +1120,43 @@
 
   </div>
 </nz-spin>
+<ng-template #returnConfirmation let-modal>
+  <div class="modal-header" ngbAutoFocus>
+    <h6 class="fw-700 m-0">Return Promissory Notes</h6>
+  </div>
+  <div class="modal-body">
+    <p>
+      You are about to mark the promissory notes as returned, indicating that they have been <b>delivered</b> to the
+      customer.
+      If yes, please click confirm.
+    </p>
+  </div>
+  <div class="modal-footer border-top-0">
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="modal.dismiss('close')">Close</button>
+      <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="modal.close('confirm')">Confirm</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template let-model #statusModal>
+  <div class="modal-header">
+    <h6 class="fw-700 m-0">Create Request</h6>
+  </div>
+  <div class="modal-body">
+    <label class="mb-1"><b>Request Type</b></label>
+    <select class="form-select" [(ngModel)]="statusType" (change)="handleStatusChange($event)">
+      <option disabled selected [value]="''">Select request type</option>
+      <option class="select-option" [value]="24003">Early Settlement Request</option>
+      <option class="select-option" [value]="24002">Reschedule Request</option>
+      <option class="select-option" [value]="24001">Transfer Request</option>
+      <!-- <option class="select-option" [value]="data?.id" *ngFor="let data of statusList">
+        {{data.name[0].lookupName}}
+      </option> -->
+    </select>
+  </div>
+  <div class="modal-footer">
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-white hvr-bounce-to-right2" (click)="model.close()">Close</button>
+    </div>
+  </div>
+</ng-template>

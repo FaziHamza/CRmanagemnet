@@ -1,4 +1,5 @@
-<div *ngIf="safeUrl" class="pdf-container">
+<div *ngIf="safeUrl" class="modal-body p-2">
+    
     <div class="row" *ngIf="data">
         <div class="col-9"></div>
         <div class="col-lg-2 mb-2">
@@ -6,5 +7,10 @@
                 [style.background-color]="data.lookupBGColor">{{data.status}}</button>
         </div>
     </div>
-    <embed [src]="safeUrl" type="application/pdf" width="100%" height="600px">
+    <embed [src]="safeUrl" type="application/pdf" width="100%" height="400">
+</div>
+<div class="btns-group my-2 mx-0 justify-content-center">
+    <button type="button" class="btn btn-cancel" (click)="cancel()">
+        Close
+    </button>
 </div>

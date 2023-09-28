@@ -15,7 +15,7 @@ export class ApiService {
   headers!: HttpHeaders;
   profilePic: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUser() {
     return JSON.parse(localStorage.getItem('userDetail'));
@@ -32,6 +32,11 @@ export class ApiService {
   }
   generatePNRescheduleOrderRequest(formData: FormData): Observable<AppResponse> {
     let url = environment.apiUrl + "PNOrdersRequests/GeneratePNRescheduleOrderRequest";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  generatePNPartialRescheduleOrderRequest(formData: any): Observable<AppResponse> {
+    let url = environment.apiUrl + "PNOrdersRequests/GeneratePNPartialRescheduleOrderRequest";
     return this.http.post<AppResponse>(url, formData, {
     });
   }
@@ -70,7 +75,66 @@ export class ApiService {
     let url = environment.apiUrl2 + `User/GetUSERDetails?userId=${id}`;
     return this.http.get<AppResponse>(url);
   }
-
+  //FOLLOW UP START 
+  getPNsForFollowUp(params): Observable<AppResponse> {
+    let url = environment.apiUrl + `FollowUp/GetPNsForFollowUp${params}`;
+    return this.http.get<AppResponse>(url);
+  }
+  getPNsForFollowUpDetails(noteId): Observable<AppResponse> {
+    let url = environment.apiUrl + `FollowUp/GetPNsForFollowUpDetails?pnNoteId=${noteId}`;
+    return this.http.get<AppResponse>(url);
+  }
+  addFollowUp(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + "FollowUp/AddFollowUp";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  //FOLLOW UP END
+  getEarlysettlementRequestDetails(id): Observable<AppResponse> {
+    let url = environment.apiUrl + `EarlySettlement/GetEarlysettlementRequestDetails?requestId=${id}`;
+    return this.http.get<AppResponse>(url);
+  }
+  approveEarlysettlementRequest(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + "EarlySettlement/ApproveEarlysettlementRequest";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  addMarkaziaCustomer(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + "Customer/AddMarkaziaCustomer";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  updateCustomer(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + "Customer/UpdateCustomer";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  rejectEarlysettlementRequest(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + "EarlySettlement/RejectEarlysettlementRequest";
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  getPNOrderBookNotesList(params): Observable<AppResponse> {
+    let url =
+      environment.apiUrl +
+      `PNOrders/GetPNOrderBookNotes${params}`
+    return this.http.get<AppResponse>(url);
+  }
+  returnOrderPNs(data) {
+    let url = environment.apiUrl + `PNOrders/ReturnOrderPNs`;
+    return this.http.post<AppResponse>(url, data);
+  }
+  //REPORTS
+  getReportTemplate(): Observable<AppResponse> {
+    let url = environment.apiUrl + `ReportsTemplate/GetReportTemplate?PageNo=0&PageSize=1000`;
+    return this.http.get<AppResponse>(url);
+  }
+  generateReport(formData: FormData): Observable<AppResponse> {
+    let url = environment.apiUrl + `ReportsTemplate/GenerateReport`;
+    return this.http.post<AppResponse>(url, formData, {
+    });
+  }
+  //END REPORTS
   EditUser(body: any) {
     let url = environment.apiUrl2 + `User/EditUser`;
     return this.http.post<AppResponse>(url, body);
@@ -83,13 +147,6 @@ export class ApiService {
       id;
     return this.http.get<AppResponse>(url);
   }
-  getDashboard(): Observable<AppResponse> {
-    let url =
-      environment.apiUrl +
-      'Dashboard/GetDashboardReads'
-    return this.http.get<AppResponse>(url);
-  }
-
 
   getPNOrders(id: number): Observable<AppResponse> {
     let url =
@@ -115,16 +172,22 @@ export class ApiService {
     let url = environment.apiUrl + "PNOrdersRequests/GetPNOrdersRequests?" + param;
     return this.http.get<AppResponse>(url);
   }
-  getListOfPNsTobeTransfered(id): Observable<AppResponse> {
-    let url =
-      environment.apiUrl +
-      'PNOrders/ListOfPNsTobeTransfered?orderId=' + id;
+  getPNOrderBooks(params): Observable<AppResponse> {
+    let url = environment.apiUrl + `PNOrders/GetPNOrderBooks${params}`;
     return this.http.get<AppResponse>(url);
   }
-  getPNOrderBookNotes(id,Sort:number): Observable<AppResponse> {
+  getPNOrderAllNotes(params): Observable<AppResponse> {
+    let url = environment.apiUrl + `PNOrders/GetPNOrderAllNotes${params}`;
+    return this.http.get<AppResponse>(url);
+  }
+  createEarlySettlement(params): Observable<AppResponse> {
+    let url = environment.apiUrl + 'EarlySettlement/CreateEarlySettlement';
+    return this.http.post<AppResponse>(url, params);
+  }
+  getPNOrderBookNotes(id, Sort: number): Observable<AppResponse> {
     let url =
       environment.apiUrl +
-      'PNOrders/GetPNOrderBookNotes?orderId=' + id +"&Sort="+Sort;
+      'PNOrders/GetPNOrderBookNotes?orderId=' + id + "&Sort=" + Sort;
     return this.http.get<AppResponse>(url);
   }
   getPermissions(id): Observable<AppResponse> {
@@ -145,7 +208,6 @@ export class ApiService {
     let url = environment.apiUrl + 'PNOrders/UpdatePNBookStatus';
     return this.http.post<AppResponse>(url, formData, {});
   }
-
   getDashboardCards(): Observable<AppResponse> {
     let url = environment.apiUrl + 'Dashboard/GetDashboardCards';
     return this.http.get<AppResponse>(url);
@@ -168,6 +230,14 @@ export class ApiService {
       )
     );
   }
+  getPromissoryNotesPayment(filter: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(
+      toFilteringUrl(
+        `${environment.apiUrl}Dashboard/GetPromissoryNotesPayment`,
+        filter
+      )
+    );
+  }
 
   getPromissoryNotesPerYear(filter: any): Observable<AppResponse> {
     return this.http.get<AppResponse>(
@@ -177,16 +247,21 @@ export class ApiService {
       )
     );
   }
-  getPNOrderRemainingAmountforRescheduling(OrderId:number,InterestRate:number,InterestValue:number): Observable<AppResponse> {
-    let url = environment.apiUrl + "PNOrdersRequests/GetPNOrderRemainingAmountforRescheduling?OrderId="+OrderId+"&InterestRate="+InterestRate+"&InterestValue="+InterestValue;
+  getPNOrderRemainingAmountforRescheduling(OrderId: number, InterestRate: number, InterestValue: number): Observable<AppResponse> {
+    let url = environment.apiUrl + "PNOrdersRequests/GetPNOrderRemainingAmountforRescheduling?OrderId=" + OrderId + "&InterestRate=" + InterestRate + "&InterestValue=" + InterestValue;
     return this.http.get<AppResponse>(url);
   }
-  getCustomer(name:string):Observable<AppResponse> {
+  getCustomer(name: string): Observable<AppResponse> {
     let obj = "&PageNo=0&PageSize=10000"
     let url = environment.apiUrl + "Customer/GetCustomers?Search=" + name + obj;
     return this.http.get<AppResponse>(url);
   }
+  getCustomerList(): Observable<AppResponse> {
+    let obj = "?PageNo=0&PageSize=10000"
+    let url = environment.apiUrl + "Customer/GetCustomers" + obj;
+    return this.http.get<AppResponse>(url);
+  }
   downloadFile(file) {
-  return  this.http.get(file, { responseType: 'blob' })
+    return this.http.get(file, { responseType: 'blob' })
   }
 }

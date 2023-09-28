@@ -1,0 +1,181 @@
+<div class="modal-body">
+  <div class="d-flex mb-4 justify-content-between">
+    <h6 class="fw-500 mb-0">{{this.data?.customerInfo?.customerId && 'Update Customer Info' || 'Add New Customer'}}</h6>
+    <i class="fas fa-times-circle fa-2x primary-clr cursor-pointer" (click)="_activeModal.close('')"></i>
+  </div>
+  <!--ADD NEW CUSTOMER START HERE-->
+  <!--{{formGroup.value | json}}-->
+  <form [formGroup]="formGroup" class="add-cutsomer" (submit)="saveCustomer()">
+    <div class="row">
+      <div class="col-2"><label>Customer Category</label></div>
+      <div class="col-10 d-flex gap-2">
+        <div class="form-check">
+          <input class="form-check-input" value="1" type="radio" id="individual" (change)="handleCetegoryChange(1)" formControlName="customerCategory">
+          <label class="form-check-label" for="individual">Individual</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" value="2" type="radio" id="corporate" (change)="handleCetegoryChange(2)" formControlName="customerCategory">
+          <label class="form-check-label" for="corporate">Corporate</label>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <!-- IN CASE OF CORPORATE THESE FIELDS WILL BE HIDDEN-->
+    <ng-container *ngIf="isIndividual">
+      <div class="row">
+        <div class="col-2"><label>Title</label></div>
+        <div class="col-10">
+          <select class="form-control" formControlName="title">
+            <option selected disabled value="null">---Select Title---</option>
+            <option *ngFor="let item of titleList" [value]="item?.value">{{item?.text}}</option>
+          </select>
+          <ng-container *ngIf="f?.get('title')?.errors">
+            <ng-container *ngIf="f?.get('title')?.invalid && f?.get('title')?.touched || f?.get('title')?.dirty">
+              <span class="error" *ngIf="f?.get('title')?.errors['required']">Input is required</span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <hr />
+    </ng-container>
+    <div class="row">
+      <div class="col-2"><label>Name</label></div>
+      <div class="col-10">
+        <div class="row">
+          <div class="col-3" [class.col-12]="!isIndividual">
+            <input type="text" placeholder="{{isIndividual && 'First Name' || 'Full Name'}}" class="form-control" formControlName="fname" />
+            <ng-container *ngIf="f?.get('fname')?.errors">
+              <ng-container *ngIf="f?.get('fname')?.invalid && f?.get('fname')?.touched || f?.get('fname')?.dirty">
+                <span class="error" *ngIf="f?.get('fname')?.errors['required']">Input is required</span>
+                <span class="error" *ngIf="f?.get('fname')?.errors['pattern']">Input allows only characters.</span>
+              </ng-container>
+            </ng-container>
+          </div>
+          <!-- IN CASE OF CORPORATE THESE FIELDS WILL BE HIDDEN-->
+          <ng-container *ngIf="isIndividual">
+            <div class="col-3">
+              <input type="text" placeholder="Last Name" class="form-control" formControlName="sname" />
+              <ng-container *ngIf="f?.get('sname')?.errors">
+                <ng-container *ngIf="f?.get('sname')?.invalid && f?.get('sname')?.touched || f?.get('sname')?.dirty">
+                  <span class="error" *ngIf="f?.get('sname')?.errors['required']">Input is required</span>
+                  <span class="error" *ngIf="f?.get('sname')?.errors['pattern']">Input allows only characters.</span>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="col-3">
+              <input type="text" placeholder="Third Name" class="form-control" formControlName="thName" />
+              <ng-container *ngIf="f?.get('thName')?.errors">
+                <ng-container *ngIf="f?.get('thName')?.invalid && f?.get('thName')?.touched || f?.get('thName')?.dirty">
+                  <span class="error" *ngIf="f?.get('thName')?.errors['required']">Input is required</span>
+                  <span class="error" *ngIf="f?.get('thName')?.errors['pattern']">Input allows only characters.</span>
+
+                </ng-container>
+              </ng-container>
+
+            </div>
+            <div class="col-3">
+              <input type="text" placeholder="Fourth Name" class="form-control" formControlName="fourthName" />
+              <ng-container *ngIf="f?.get('fourthName')?.errors">
+                <ng-container *ngIf="f?.get('fourthName')?.invalid && f?.get('fourthName')?.touched || f?.get('fourthName')?.dirty">
+                  <span class="error" *ngIf="f?.get('fourthName')?.errors['required']">Input is required</span>
+                  <span class="error" *ngIf="f?.get('fourthName')?.errors['pattern']">Input allows only characters.</span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <!-- IN CASE OF CORPORATE THESE FIELDS WILL BE HIDDEN-->
+    <ng-container *ngIf="isIndividual">
+      <div class="row">
+        <div class="col-2"><label>Gender</label></div>
+        <div class="col-10 d-flex gap-2">
+          <div class="form-check">
+            <input class="form-check-input" value="0" type="radio" id="flexRadioDefault1" formControlName="gender">
+            <label class="form-check-label" for="flexRadioDefault1">Male</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" value="1" type="radio" id="flexRadioDefault2" formControlName="gender">
+            <label class="form-check-label" for="flexRadioDefault2">Female</label>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </ng-container>
+    <div class="row">
+      <div class="col-2"><label>Mobile</label></div>
+      <div class="col-10">
+        <div class="input-group">
+          <span class="input-group-text">962</span>
+          <input type="text" class="form-control" placeholder="e.g (7xxxxxxxx) or (07xxxxxxxx)" numbersOnly formControlName="mobile" />
+        </div>
+        <ng-container *ngIf="f?.get('mobile')?.errors">
+          <ng-container *ngIf="f?.get('mobile')?.invalid && f?.get('mobile')?.touched || f?.get('mobile')?.dirty">
+            <span class="error" *ngIf="f?.get('mobile')?.errors['required']">Input is required</span>
+            <span class="error" *ngIf="f?.get('mobile')?.errors['minlength']">Minimum 9 digits required</span>
+            <span class="error" *ngIf="f?.get('mobile')?.errors['maxlength']">Maximum 10 digits allowed</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-2"><label>National ID</label></div>
+      <div class="col-10">
+        <input type="text" class="form-control" formControlName="nationalId" />
+        <ng-container *ngIf="f?.get('nationalId')?.errors">
+          <ng-container *ngIf="f?.get('nationalId')?.invalid && f?.get('nationalId')?.touched || f?.get('nationalId')?.dirty">
+            <span class="error" *ngIf="f?.get('nationalId')?.errors['required']">Input is required</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-2"><label>Address</label></div>
+      <div class="col-10">
+        <input type="text" class="form-control" formControlName="address" />
+        <ng-container *ngIf="f?.get('address')?.errors">
+          <ng-container *ngIf="f?.get('address')?.invalid && f?.get('nationalId')?.touched || f?.get('address')?.dirty">
+            <span class="error" *ngIf="f?.get('address')?.errors['required']">Input is required</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-2"><label>ID Document</label></div>
+      <div class="col-10">
+        <input type="file" class="form-control" #fileInput (change)="fileChange($event)" />
+        <ng-container *ngIf="f?.get('image').value">
+          <div class="col-8 mt-3">
+            <div class="file-item d-flex justify-content-between p-2 align-items-center">
+              <div class="d-flex" style="word-break: break-all;">
+                <label class="fw-500 font-14">{{f?.get('image').value  && 'ID Attachment' || 'No ID Attachment'}}</label>
+              </div>
+              <div class="d-flex gap-2">
+                <img height="20" class="cursor-pointer" src="assets/images/eye.png" (click)="fileAction('view')" />
+                <img height="20" class="cursor-pointer" src="assets/images/trash.png" (click)="fileAction('delete')" />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="f?.get('image')?.errors">
+          <ng-container *ngIf="f?.get('image')?.invalid && f?.get('image')?.touched || f?.get('image')?.dirty">
+            <span class="error" *ngIf="f?.get('image')?.errors['required']">Input is required</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <hr />
+    <p *ngIf="responseMessage" class="alert alert-danger">{{responseMessage}}</p>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn o-btn hvr-bounce-to-right">
+        {{isSubmitted && 'Saving' || 'Save'}}
+        <i *ngIf="isSubmitted" class="fa-solid fa-circle-notch fa-spin"></i>
+      </button>
+    </div>
+  </form>
+</div>

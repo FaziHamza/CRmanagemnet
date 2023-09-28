@@ -98,7 +98,7 @@
         </div>
       </div>
     </div>
-    <nz-tabset *ngIf="versionTab.length>0">
+    <nz-tabset>
       <nz-tab [nzTitle]="titleTemplate" *ngFor="let item of versionTab;let index = index"
         (nzClick)="getGeneratedList(item)">
         <ng-template #titleTemplate>
@@ -166,12 +166,10 @@
                       </p>
                     </div>
                     <div class="col-lg-8 d-grid ">
-                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.originalCustomer?.identityFile1"
-                        (click)="pdfView(orderDetail.originalCustomer?.identityFile1)">
+                      <!-- (click)="pdfView(orderDetail.originalCustomer?.identityFile1)" -->
+                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.originalCustomer?.identityFile1">
                         <div>
-                          {{"Promissory_Notes.document_name_PDF"
-                          |
-                          translate}}
+                          ID Attachment
                         </div>
                         <div>
                           <a (click)="pdfView(orderDetail.originalCustomer?.identityFile1)" class="eye">
@@ -188,7 +186,8 @@
                           </a>
                         </div>
                       </button>
-                      <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.identityFile1">---</span>
+                      <span class="head-detail" *ngIf="!orderDetail.originalCustomer?.identityFile1">No ID
+                        Attachment</span>
                     </div>
                   </div>
 
@@ -208,7 +207,7 @@
           </div>
           <div class="row">
             <div class="col-lg-4 col-md-6">
-              <div class="card new-promissory-card">
+              <div class="card">
                 <div class="card-heading bb-none">
                   <h5>New Customer Information</h5>
                 </div>
@@ -255,10 +254,9 @@
                       <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                     </div>
                     <div class="col-lg-8">
-                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1"
-                        (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
-                        |
-                        translate}}
+                      <!-- (click)="pdfView(orderDetail.customer.identityFile1)" -->
+                      <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1">ID
+                        Attachment
                         <a (click)="pdfView(orderDetail.customer.identityFile1)" class="eye">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -272,7 +270,7 @@
                           </svg>
                         </a>
                       </button>
-                      <p class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</p>
+                      <p class="head-detail" *ngIf="!orderDetail.customer.identityFile1">No ID Attachment</p>
                     </div>
                   </div>
                 </div>
@@ -325,9 +323,8 @@
                       <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                     </div>
                     <div class="col-lg-8">
-                      <button type="button" *ngIf="orderDetail && orderDetail.newGuarantor.identityFile1"
-                        class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
-                        translate}}
+                      <button type="button" *ngIf="orderDetail && orderDetail?.newGuarantor?.identityFile1"
+                        class="pdf-view-btn">ID Attachment
                         <a (click)="pdfView(orderDetail.newGuarantor.identityFile1)" class="eye">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="currentColor"
@@ -341,7 +338,7 @@
                           </svg>
                         </a>
                       </button>
-                      <p class="head-detail" *ngIf="!orderDetail.newGuarantor.identityFile1">---
+                      <p class="head-detail" *ngIf="!orderDetail.newGuarantor.identityFile1">No ID Attachment
                       </p>
                     </div>
                   </div>
@@ -349,15 +346,14 @@
               </div>
             </div>
             <div class="col-lg-8 col-md-8">
-              <div class="promissory-notes-details-card new-promissory-card">
-                <div class="card-heading pb-4">
-                  <h5>
-                    New Promissory Notes
-                  </h5>
-                  <div class="row" *ngIf="orderDetail">
-                    <div class="col-lg-12" *ngIf="orderDetail.statusObj?.lookupId == 21011">
-                      <textarea class="form-control" rows="5" [value]="orderDetail.rejectionReason"></textarea>
-                    </div>
+              <div class="promissory-notes-details-card">
+                <div class="card-heading pb-3">
+                  <h5 *ngIf="orderDetail.statusObj?.lookupId != 21011" class="mt-3"> New Promissory Notes </h5>
+                  <h5 *ngIf="orderDetail.statusObj?.lookupId == 21011" class="mt-3"> Rejection Reason </h5>
+                </div>
+                <div class="row" *ngIf="orderDetail && orderDetail?.statusObj?.lookupId == 21011">
+                  <div class="col-lg-12 p-4 " >
+                    <textarea class="form-control" rows="5" [value]="orderDetail.rejectionReason"></textarea>
                   </div>
                 </div>
                 <div class="bottom-buttons first-btn mt-4 pt-4" *ngIf="orderDetail">
@@ -368,7 +364,7 @@
                       translate}}</button>
                   </div>
                   <ng-template #elseBlock>
-                    <div class="bottom-buttons"
+                    <div
                       *ngIf="orderDetail.statusObj?.lookupId == 21007 || orderDetail.statusObj?.lookupId == 21008; else thirdBlock">
                       <button type="button" class="btn btn-white hvr-bounce-to-right2"
                         [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
@@ -391,36 +387,6 @@
                         [routerLink]="['/home/workorders']">{{"Promissory_Notes.Close" |
                         translate}}</button>
 
-                    </div>
-                  </ng-template>
-                  <div *ngIf="orderDetail.status == 21009;else block2">
-                    <div *ngIf="orderDetail?.actionTaken; else disableTransferBlock">
-                      <button type="button" class="btn o-btn btn-disabled disabled-link"
-                        [disabled]="!canPerformAction(7, 40, 82)">
-                        <span>Transfer</span>
-                      </button>
-                    </div>
-                    <ng-template #disableTransferBlock>
-                      <button type="button" class="btn o-btn hvr-bounce-to-right"
-                        [disabled]="!canPerformAction(7, 40, 82)" (click)="transfer(orderDetail.requestID)">
-                        <span>Transfer</span>
-                      </button>
-                    </ng-template>
-                  </div>
-                  <ng-template #block2>
-                    <div *ngIf="orderDetail.status == 21010;">
-                      <div *ngIf="orderDetail?.actionTaken; else disableBlock">
-                        <button type="button" class="btn o-btn   btn-disabled disabled-link"
-                          [disabled]="!canPerformAction(7, 40, 82)">
-                          <span>Reschedule</span>
-                        </button>
-                      </div>
-                      <ng-template #disableBlock>
-                        <button type="button" class="btn o-btn hvr-bounce-to-right"
-                          [disabled]="!canPerformAction(7, 40, 82)" (click)="reschedule(orderDetail.requestID)">
-                          <span>Reschedule</span>
-                        </button>
-                      </ng-template>
                     </div>
                   </ng-template>
                 </div>
@@ -476,10 +442,8 @@
                     <p class="head-title ">{{"Promissory_Notes.ID_Attachment" | translate}}</p>
                   </div>
                   <div class="col-lg-8">
-                    <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1"
-                      (click)="pdfView(orderDetail.customer.identityFile1)">{{"Promissory_Notes.document_name_PDF"
-                      |
-                      translate}}
+                    <!-- (click)="pdfView(orderDetail.customer.identityFile1)" -->
+                    <button type="button" class="pdf-view-btn" *ngIf="orderDetail.customer.identityFile1">ID Attachment
                       <a (click)="pdfView(orderDetail.customer.identityFile1)" class="eye">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <path fill="currentColor"
@@ -493,7 +457,7 @@
                         </svg>
                       </a>
                     </button>
-                    <p class="head-detail" *ngIf="!orderDetail.customer.identityFile1">---</p>
+                    <p class="head-detail" *ngIf="!orderDetail.customer.identityFile1">No ID Attachment</p>
                   </div>
                 </div>
               </div>
@@ -547,8 +511,7 @@
                   </div>
                   <div class="col-lg-8">
                     <button type="button" *ngIf="orderDetail && orderDetail.guarantor.identityFile1"
-                      class="pdf-view-btn">{{"Promissory_Notes.document_name_PDF" |
-                      translate}}
+                      class="pdf-view-btn">ID Attachment
                       <a (click)="pdfView(orderDetail.guarantor.identityFile1)" class="eye">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <path fill="currentColor"
@@ -562,7 +525,7 @@
                         </svg>
                       </a>
                     </button>
-                    <p class="head-detail" *ngIf="!orderDetail.guarantor.identityFile1">---</p>
+                    <p class="head-detail" *ngIf="!orderDetail.guarantor.identityFile1">No ID Attachment</p>
                   </div>
                 </div>
               </div>
@@ -753,7 +716,8 @@
                               <div class="paginatio-bottom">
                                 <div>
                                   <p class="showing">Showing <span>{{start}} - {{end}}</span> from
-                                    <span>{{generatedlist.length}}</span> data</p>
+                                    <span>{{generatedlist.length}}</span> data
+                                  </p>
                                 </div>
                                 <div>
                                   <nz-pagination *ngIf="generatedlist.length > pageSize"
@@ -814,6 +778,7 @@
         </div>
       </div>
       <div class="col-lg-1"></div>
+
     </div>
 
   </div>

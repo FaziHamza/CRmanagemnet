@@ -13,6 +13,7 @@ import { PromissoryNotesAgingChartComponent } from './promissory-notes-aging-cha
 import { PromissoryNotesPaymentsChartComponent } from './promissory-notes-payments-chart/promissory-notes-payments-chart.component';
 import { PromissoryNotesOrdersChartComponent } from './promissory-notes-orders-chart/promissory-notes-orders-chart.component';
 import { PromissoryNotesMonthChartComponent } from './promissory-notes-month-chart/promissory-notes-month-chart.component';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PromissoryNotesMonthChartComponent } from './promissory-notes-month-cha
     NgChartsModule,
     DashboardRoutingModule,
     NgZorroAntdModule,
+    SharedModule
   ],
 })
 export class DashboardModule {}

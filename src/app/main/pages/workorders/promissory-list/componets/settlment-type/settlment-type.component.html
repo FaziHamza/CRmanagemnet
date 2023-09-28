@@ -1,0 +1,23 @@
+
+<div class="modal-header">
+  <h6 class="fw-700 m-0">Create Early Settlement Request</h6>
+</div>
+<div class="modal-body">
+  <h6 class="fw-500 mb-3">Early Settlement Type</h6>
+  <div class="d-flex align-items-center gap-3">
+    <div class="form-check d-flex align-items-center pe-2">
+      <input class="form-check-input" value="feSettlement" [(ngModel)]="settlementType" id="early" type="radio">
+      <label for="early">Full Early Settlement </label>
+    </div>
+    <div class="form-check d-flex align-items-center ps-2">
+      <input class="form-check-input" value="peSettlement" [(ngModel)]="settlementType" id="partial" type="radio">
+      <label for="partial">Partial Early Settlement </label>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn btn-white hvr-bounce-to-right2" (click)="handleCancel()">Close</button>
+    <button class="btn o-btn hvr-bounce-to-right" (click)="handleOk()">Next</button>
+  </div>
+</div>

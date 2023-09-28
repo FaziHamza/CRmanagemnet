@@ -5,6 +5,8 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { CommonService } from 'src/app/utility/services/common.service';
 import { ErrorsComponent } from '../errors/errors.component';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MessageModalComponent } from 'src/app/shared/module/message-modal/message-modal.component';
 
 @Component({
   selector: 'app-reject',
@@ -17,14 +19,15 @@ export class RejectComponent implements OnInit {
   saveSubmitted: boolean = false;
   errorsList: any[] = [];
   constructor(private formBuilder: FormBuilder, private modal: NzModalService, private apiService: ApiService,
-    private commonService: CommonService,private router:Router) { }
+    private _modalService: NgbModal,
+    private commonService: CommonService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
   }
   initForm() {
     this.rejectForm = this.formBuilder.group({
-      reason: ['', [Validators.required,Validators.maxLength(150)]],
+      reason: ['', [Validators.required, Validators.maxLength(150)]],
     });
   }
   get formControls() {
@@ -40,12 +43,13 @@ export class RejectComponent implements OnInit {
       this.apiService.rejectRequest(formData).subscribe(
         (response) => {
           if (response.isSuccess) {
-            this.commonService.showSuccess("Data updated successfully..!", "Success");
-            this.router.navigate(['/home/workorders'])
-            this.close();
+            this.responseModal('success', 'Request Rejected Successfully..!', 3)
+            this.router.navigate(['/home/workorders']);
+            setTimeout(() => {
+              this.close();
+            }, 3000);
           } else {
             this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
-            this.commonService.showError("found some error..!", "Error");
             this.error(this.errorsList);
           }
         },
@@ -56,15 +60,21 @@ export class RejectComponent implements OnInit {
       )
     }
   }
+  responseModal(type, message, autoCloseDelay?) {
+    const modalRef = this._modalService.open(MessageModalComponent, { centered: true });
+    modalRef.componentInstance.type = type;
+    modalRef.componentInstance.message = message;
+    modalRef.componentInstance.autoCloseDelay = autoCloseDelay;
+  }
   close() {
     this.modal.closeAll();
   }
-  error(errorsList:any): void {
+  error(errorsList: any): void {
     const modal = this.modal.create<ErrorsComponent>({
       nzWidth: 500,
       nzContent: ErrorsComponent,
       nzComponentParams: {
-        errorsList:errorsList
+        errorsList: errorsList
       },
       nzFooter: null
     });
