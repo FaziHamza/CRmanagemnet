@@ -454,6 +454,9 @@ export class CreateRequestComponent implements OnInit {
   }
 
   close() {
+    this.activeModel.close();
+  }
+  closeTrue() {
     this.activeModel.close(true);
   }
   disabledDate = (current: Date): boolean =>
@@ -509,6 +512,8 @@ export class CreateRequestComponent implements OnInit {
               this.commonService.showSuccess("Informations updated!", "Success!");
               // this.cancelModal();
               this.confirm("Request order successfully sent");
+              this.router.navigate(['/home/workorders'])
+
             } else {
               this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
               this.erros(this.errorsList);
@@ -541,6 +546,8 @@ export class CreateRequestComponent implements OnInit {
               this.commonService.showSuccess("Informations updated!", "Success!");
               // this.cancelModal();
               this.confirm("Request order successfully sent");
+              this.router.navigate(['/home/workorders'])
+
             } else {
               this.errorsList = response["errors"] ? response["errors"] : response["Errors"];
               this.erros(this.errorsList);
@@ -604,6 +611,8 @@ export class CreateRequestComponent implements OnInit {
             this.activeModel.close();
             this.commonService.loadRequestTab = true;
             this.commonService.selectedWorkorder = 1;
+            this.router.navigate(['/home/workorders'])
+
           }, 3000);
         }
       },

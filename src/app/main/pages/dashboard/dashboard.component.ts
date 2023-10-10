@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
       'Cash',
       'Credit Card',
       'Cheques',
-      'E-Fawateercom',
+      // 'E-Fawateercom',
       'Bank Transfer',
     ],
     datasets: [
@@ -144,7 +144,7 @@ export class DashboardComponent implements OnInit {
       'Cash',
       'Credit Card',
       'Cheques',
-      'E-Fawateercom',
+      // 'E-Fawateercom',
       'Bank Transfer',
     ];
     const data = [header]; 

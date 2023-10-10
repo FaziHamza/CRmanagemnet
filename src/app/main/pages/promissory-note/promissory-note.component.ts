@@ -113,7 +113,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       let pNsIds = response.data.map(x => x.pnBookNoteId).toString();
       let params = { orderId: this.orderId, pNsIds }
       this.apiService.returnOrderPNs(params).subscribe(response => {
-        if (response.isSuccess) this.responseModal('success', 'PNs Returned Successfully');
+        if (response.isSuccess) {
+          this.responseModal('success', 'PNs Returned Successfully');
+          this.router.navigate(['/home/workorders']);
+        }
         else if (!response.isSuccess) this.responseModal('error', response.errors[0].ErrorMessageEn);
       })
     })
@@ -551,7 +554,10 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         nzFooter: null
       });
       modal.afterClose.subscribe(res => {
-        if (res) { }
+        if (res) {
+          this.router.navigate(['/home/workorders'])
+
+        }
       });
     }
     else if (status == 24003)
@@ -604,7 +610,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     }
     else {
       for (const propName in item) {
-        if (item[propName] !== undefined && propName  != 'tabName') {
+        if (item[propName] !== undefined && propName != 'tabName') {
           this.orderDetail[propName] = item[propName];
         }
       }
@@ -773,12 +779,12 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
         modalRef.componentInstance.data = { details: response.data }
       }
     },
-    (error) => {
-      this.saveLoader = false;
-      this.errorsList = error.errors ? error.errors : error.Errors;
-      this.commonService.showError("found some error..!", "Error");
-      this.error(this.errorsList);
-    })
+      (error) => {
+        this.saveLoader = false;
+        this.errorsList = error.errors ? error.errors : error.Errors;
+        this.commonService.showError("found some error..!", "Error");
+        this.error(this.errorsList);
+      })
   }
   pdfView(file: any, data?: any): void {
     const modelRef = this._ngbModalSerivce.open(PDFViewComponent, {

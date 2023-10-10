@@ -46,7 +46,7 @@ export class PromissoryNotesPaymentsChartComponent implements OnInit, AfterViewI
       'Cash',
       'Credit Card',
       'Cheques',
-      'E-Fawateercom',
+      // 'E-Fawateercom',
       'Bank Transfer',
     ],
     datasets: [
@@ -184,7 +184,7 @@ export class PromissoryNotesPaymentsChartComponent implements OnInit, AfterViewI
           result.data.cash,
           result.data.cards,
           result.data.cheques,
-          result.data.eFawateeecom,
+          // result.data.eFawateeecom,
           result.data.transfer,
         ];
       }

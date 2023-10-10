@@ -10,6 +10,11 @@ export const environment = {
   // administration2: 'https://dx-admimistration.azurewebsites.net/',
   // creditmanagementtest:'https://creditmanagementstage.azurewebsites.net/POSAPI/api/',
 
+
+
+  //  apiUrl: 'https://creditmanagementstage.azurewebsites.net/posapi/api/',     //stage
+  //  apiUrl2: 'https://dx-admimistrationstage.azurewebsites.net/POSAPI/',   //stage
+
    apiUrl: 'https://cm-dx-be-test.azurewebsites.net/api/',     //test
    apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',   //test
    
