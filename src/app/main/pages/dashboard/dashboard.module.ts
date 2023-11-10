@@ -14,6 +14,10 @@ import { PromissoryNotesPaymentsChartComponent } from './promissory-notes-paymen
 import { PromissoryNotesOrdersChartComponent } from './promissory-notes-orders-chart/promissory-notes-orders-chart.component';
 import { PromissoryNotesMonthChartComponent } from './promissory-notes-month-chart/promissory-notes-month-chart.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { PromissoryNotePerAddressChartComponent } from './promissory-note-per-address-chart/promissory-note-per-address-chart.component';
+import { PromissoryNotePerVINModelComponent } from './promissory-note-per-vinmodel/promissory-note-per-vinmodel.component';
+import { PnCollectionCardComponent } from './pn-collection-card/pn-collection-card.component';
+import { CollectionDetailComponent } from './pn-collection-card/collection-detail/collection-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import { SharedModule } from '../../../shared/shared.module';
     PromissoryNotesPaymentsChartComponent,
     PromissoryNotesOrdersChartComponent,
     PromissoryNotesMonthChartComponent,
+    PromissoryNotePerAddressChartComponent,
+    PromissoryNotePerVINModelComponent,
+    PnCollectionCardComponent,
+    CollectionDetailComponent,
   ],
   imports: [
     CommonModule,

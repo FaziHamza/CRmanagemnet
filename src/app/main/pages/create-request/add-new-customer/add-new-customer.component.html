@@ -10,11 +10,13 @@
       <div class="col-2"><label>Customer Category</label></div>
       <div class="col-10 d-flex gap-2">
         <div class="form-check">
-          <input class="form-check-input" value="1" type="radio" id="individual" (change)="handleCetegoryChange(1)" formControlName="customerCategory">
+          <input class="form-check-input" value="1" type="radio" id="individual" (change)="handleCetegoryChange(1)"
+            formControlName="customerCategory">
           <label class="form-check-label" for="individual">Individual</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" value="2" type="radio" id="corporate" (change)="handleCetegoryChange(2)" formControlName="customerCategory">
+          <input class="form-check-input" value="2" type="radio" id="corporate" (change)="handleCetegoryChange(2)"
+            formControlName="customerCategory">
           <label class="form-check-label" for="corporate">Corporate</label>
         </div>
       </div>
@@ -43,7 +45,8 @@
       <div class="col-10">
         <div class="row">
           <div class="col-3" [class.col-12]="!isIndividual">
-            <input type="text" placeholder="{{isIndividual && 'First Name' || 'Full Name'}}" class="form-control" formControlName="fname" />
+            <input type="text" placeholder="{{isIndividual && 'First Name' || 'Full Name'}}" class="form-control"
+              formControlName="fname" />
             <ng-container *ngIf="f?.get('fname')?.errors">
               <ng-container *ngIf="f?.get('fname')?.invalid && f?.get('fname')?.touched || f?.get('fname')?.dirty">
                 <span class="error" *ngIf="f?.get('fname')?.errors['required']">Input is required</span>
@@ -76,9 +79,11 @@
             <div class="col-3">
               <input type="text" placeholder="Fourth Name" class="form-control" formControlName="fourthName" />
               <ng-container *ngIf="f?.get('fourthName')?.errors">
-                <ng-container *ngIf="f?.get('fourthName')?.invalid && f?.get('fourthName')?.touched || f?.get('fourthName')?.dirty">
+                <ng-container
+                  *ngIf="f?.get('fourthName')?.invalid && f?.get('fourthName')?.touched || f?.get('fourthName')?.dirty">
                   <span class="error" *ngIf="f?.get('fourthName')?.errors['required']">Input is required</span>
-                  <span class="error" *ngIf="f?.get('fourthName')?.errors['pattern']">Input allows only characters.</span>
+                  <span class="error" *ngIf="f?.get('fourthName')?.errors['pattern']">Input allows only
+                    characters.</span>
                 </ng-container>
               </ng-container>
             </div>
@@ -109,7 +114,8 @@
       <div class="col-10">
         <div class="input-group">
           <span class="input-group-text">962</span>
-          <input type="text" class="form-control" placeholder="e.g (7xxxxxxxx) or (07xxxxxxxx)" numbersOnly formControlName="mobile" />
+          <input type="text" class="form-control" placeholder="e.g (7xxxxxxxx) or (07xxxxxxxx)" numbersOnly
+            formControlName="mobile" />
         </div>
         <ng-container *ngIf="f?.get('mobile')?.errors">
           <ng-container *ngIf="f?.get('mobile')?.invalid && f?.get('mobile')?.touched || f?.get('mobile')?.dirty">
@@ -126,7 +132,8 @@
       <div class="col-10">
         <input type="text" class="form-control" formControlName="nationalId" />
         <ng-container *ngIf="f?.get('nationalId')?.errors">
-          <ng-container *ngIf="f?.get('nationalId')?.invalid && f?.get('nationalId')?.touched || f?.get('nationalId')?.dirty">
+          <ng-container
+            *ngIf="f?.get('nationalId')?.invalid && f?.get('nationalId')?.touched || f?.get('nationalId')?.dirty">
             <span class="error" *ngIf="f?.get('nationalId')?.errors['required']">Input is required</span>
           </ng-container>
         </ng-container>
@@ -136,7 +143,10 @@
     <div class="row">
       <div class="col-2"><label>Address</label></div>
       <div class="col-10">
-        <input type="text" class="form-control" formControlName="address" />
+        <select class="form-control" formControlName="address">
+          <option selected disabled value="null">---Select Address---</option>
+          <option *ngFor="let item of addressList" [value]="item?.name?.[0]?.lookupName">{{item?.name?.[0]?.lookupName}}</option>
+        </select>
         <ng-container *ngIf="f?.get('address')?.errors">
           <ng-container *ngIf="f?.get('address')?.invalid && f?.get('nationalId')?.touched || f?.get('address')?.dirty">
             <span class="error" *ngIf="f?.get('address')?.errors['required']">Input is required</span>
@@ -153,7 +163,7 @@
           <div class="col-8 mt-3">
             <div class="file-item d-flex justify-content-between p-2 align-items-center">
               <div class="d-flex" style="word-break: break-all;">
-                <label class="fw-500 font-14">{{f?.get('image').value  && 'ID Attachment' || 'No ID Attachment'}}</label>
+                <label class="fw-500 font-14">{{f?.get('image').value && 'ID Attachment' || 'No ID Attachment'}}</label>
               </div>
               <div class="d-flex gap-2">
                 <img height="20" class="cursor-pointer" src="assets/images/eye.png" (click)="fileAction('view')" />

@@ -581,7 +581,7 @@
 
                 </div>
               </div>
-              <div class="p-3" *ngIf="actionType.toLowerCase() == 'view' || actionType.toLowerCase() == 'return'">
+              <div class="p-3" *ngIf="actionType?.toLowerCase() == 'view' || actionType?.toLowerCase() == 'return'">
                 <h6 class="fw-500 mb-0">List Of Promissory Notes</h6>
                 <div class="card-table mt-3">
                   <div class="table-responsive">
@@ -630,12 +630,12 @@
                 <button type="button" class="btn btn-white hvr-bounce-to-right2" [routerLink]="['/home/workorders']">
                   {{"Promissory_Notes.Close" |translate}}
                 </button>
-                <button *ngIf="actionType.toLowerCase() == 'return'" class="btn o-btn hvr-bounce-to-right" type="button"
+                <button *ngIf="actionType?.toLowerCase() == 'return'" class="btn o-btn hvr-bounce-to-right" type="button"
                   [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                   (click)="confirmModal(returnConfirmation)">
                   Return PNs
                 </button>
-                <ng-container *ngIf="actionType.toLowerCase() !== 'view' && actionType.toLowerCase() !== 'return'">
+                <ng-container *ngIf="actionType?.toLowerCase() !== 'view' && actionType?.toLowerCase() !== 'return'">
                   <button class="btn o-btn hvr-bounce-to-right" type="button"
                     [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}" (click)="getListofPromissoryNote()">
                     {{"Promissory_Notes.Generate_PNs_Book" |translate}}

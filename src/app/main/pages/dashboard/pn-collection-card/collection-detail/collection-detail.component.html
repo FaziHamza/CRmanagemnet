@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h6 class="fw-700 m-0">PN Book Serial / PN Serial Collections</h6>
+</div>
+<div class="modal-body">
+    <div *ngIf="data?.length == 0">
+        <h6 class="fw-700 m-0 text-center text-danger">There is no Collection in this PN Book </h6>
+    </div>
+    <div *ngIf="data?.length > 0">
+        <div class="table-responsive mt-3 ">
+            <nz-table #editRowTable nzBordered [nzData]="displayData" nzTableLayout="fixed" [nzPageSize]="pageSize"
+                [nzLoading]="tableLoader" [nzFrontPagination]="false">
+
+
+                <thead>
+                    <tr>
+                        <th>Collection ID </th>
+                        <th> Collection Date </th>
+                        <th> Collection Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of editRowTable.data;let index = index" class="table-cursor">
+                        <td>{{ data.orderCollectionId }}</td>
+                        <td>{{ data.createdAt | date : 'dd/MM/yyyy hh:mm:ss' }}</td>
+                        <td>{{ data.paidAmount }} JOD</td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <div class="paginatio-bottom" *ngIf="collectionList?.length > pageSize">
+                <div>
+                    <p class="showing">Showing <span>{{start}} - {{end}}</span> from
+                        <span>{{collectionList?.length}}</span>
+                        data
+                    </p>
+                </div>
+                <div>
+                    <nz-pagination *ngIf="collectionList?.length > pageSize" [nzTotal]="collectionList?.length"
+                        [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+                        (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-white hvr-bounce-to-right2" (click)="handleCancel()">Close</button>
+    </div>
+</div>

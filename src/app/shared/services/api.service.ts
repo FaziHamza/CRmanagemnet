@@ -144,7 +144,7 @@ export class ApiService {
     let url =
       environment.apiUrl +
       'Lookups/GetLookups?lookupTypeId=' +
-      id;
+      id + '&PageNo=0&PageSize=1000';
     return this.http.get<AppResponse>(url);
   }
 
@@ -166,6 +166,11 @@ export class ApiService {
   getSparePartsWorkOrder(param: string = null): Observable<AppResponse> {
     let url =
       environment.apiUrl + 'PNOrders/GetPNOrders?' + param;
+    return this.http.get<AppResponse>(url);
+  }
+  getDashboardCollections(param: string = null): Observable<AppResponse> {
+    let url =
+      environment.apiUrl + 'Dashboard/GetPNsCollections?' + param;
     return this.http.get<AppResponse>(url);
   }
   getrequestWorkOrder(param: string = null): Observable<AppResponse> {
@@ -230,6 +235,17 @@ export class ApiService {
       )
     );
   }
+  getPromissoryNotesPerCarModel(filter: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(
+      toFilteringUrl(
+        `${environment.apiUrl}Dashboard/GetPromissoryNotesPerCarModel`,
+        filter
+      )
+    );
+  }
+  getPromissoryNotesPerAddress(pns: any): Observable<AppResponse> {
+    return this.http.get<AppResponse>(`${environment.apiUrl}Dashboard/GetPromissoryNotesPerAddress?PNsRequired=${pns}`);
+  }
   getPromissoryNotesPayment(filter: any): Observable<AppResponse> {
     return this.http.get<AppResponse>(
       toFilteringUrl(
@@ -260,6 +276,14 @@ export class ApiService {
     let obj = "?PageNo=0&PageSize=10000"
     let url = environment.apiUrl + "Customer/GetCustomers" + obj;
     return this.http.get<AppResponse>(url);
+  }
+  getBrandList(): Observable<any> {
+    let url = environment.apiUrl + "VINS/GetBrands";
+    return this.http.get<any>(url);
+  }
+  getModelList(brandId): Observable<any> {
+    let url = environment.apiUrl + "VINS/GetModels?BrandId=" + brandId;
+    return this.http.get<any>(url);
   }
   downloadFile(file) {
     return this.http.get(file, { responseType: 'blob' })

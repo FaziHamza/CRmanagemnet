@@ -15,11 +15,11 @@ export const environment = {
   //  apiUrl: 'https://creditmanagementstage.azurewebsites.net/posapi/api/',     //stage
   //  apiUrl2: 'https://dx-admimistrationstage.azurewebsites.net/POSAPI/',   //stage
 
-   apiUrl: 'https://cm-dx-be-test.azurewebsites.net/api/',     //test
-   apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',   //test
+  //  apiUrl: 'https://cm-dx-be-test.azurewebsites.net/api/',     //test
+  //  apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',   //test
    
 
-  // apiUrl: 'https://cm-dx-be-dev.azurewebsites.net/api/', //DEV
-  // apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',
+  apiUrl: 'https://cm-dx-be-dev.azurewebsites.net/api/', //DEV
+  apiUrl2: 'https://admin-dx-be-test.azurewebsites.net/',
 
 };

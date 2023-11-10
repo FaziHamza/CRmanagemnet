@@ -74,7 +74,7 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
       if (res) {
         this.orderId = res['id'];
         this.getPNOrderDetails();
-        if (this.actionType.toLowerCase() == 'view' || this.actionType.toLowerCase() == 'return') {
+        if (this.actionType?.toLowerCase() == 'view' || this.actionType?.toLowerCase() == 'return') {
           this.getPNOrderBookNotesList();
         }
         // this.getListofPromissoryNote();

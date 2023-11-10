@@ -36,6 +36,15 @@ export class AddNewCustomerComponent {
   ngOnInit() {
     this.initCustomerForm();
     this.updateCustomer();
+    this.getAddressList();
+  }
+  addressList: any[] = []
+  getAddressList() {
+    this._apiService.getStatusLookup(5).subscribe(res => {
+      if (res.isSuccess) {
+        this.addressList = res.data || [];
+      }
+    })
   }
   updateCustomer() {
     let customer = this.data?.customerInfo;
@@ -75,7 +84,7 @@ export class AddNewCustomerComponent {
       customerId: [''],
       title: [null, [Validators.required]],
       nationalId: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      address: [null, [Validators.required]],
       image: ['', [Validators.required]],
       fname: ['', [Validators.required, Validators.pattern('^[\u0600-\u06FFa-zA-Z\\s]+$')]],
       sname: ['', [Validators.required, Validators.pattern('^[\u0600-\u06FFa-zA-Z\\s]+$')]],

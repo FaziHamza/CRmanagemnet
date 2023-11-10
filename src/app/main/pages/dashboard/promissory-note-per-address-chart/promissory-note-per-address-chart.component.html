@@ -1,0 +1,27 @@
+<div class="filter-wrapper mb-4">
+    <div class="input-search form-control2">
+
+    </div>
+    <div class="dropdown-action">
+        <button class="btn dropdown-toggle" id="dropdownNotesSelectionOrdersMenuBtn" type="button"
+            [ngStyle]="{ color: selectedNotesValue ? '#1b212d' : '#929EAE' }" (click)="toggleNotesDropdown()">
+            {{ selectedNotesValue ? selectedNotesValue?.name : "Select Notes" }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+            </svg>
+        </button>
+        <ul class="dropdown-menu date-menu" id="dropdownNotesSelectionOrdersMenu"
+            [ngClass]="{ show: isNotesDropdownOpen }">
+            <li *ngFor="let note of notesList">
+                <span class="dropdown-item date-item" [ngClass]="{ selected: note.value === selectedNotesValue?.value }"
+                    (click)="selectNotesItem(note)">{{ note.name }}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="chart-wrapper">
+    <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [plugins]="pieChartPlugins"
+        [type]="'pie'"></canvas>
+</div>
