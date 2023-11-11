@@ -20,7 +20,7 @@ export class PnCollectionCardComponent implements OnInit {
   tableLoader: any = false;
   loadRequestTab: any = false;
   collectionList: any[] = [];
-  orderParamObj: orderParam = { PageNo: 0, PageSize: 1000, DateFrom: '', DateTo: '' }
+  orderParamObj: orderParam = { PageNo: 0, PageSize: 6, DateFrom: '', DateTo: '' }
 
   selectedDate: any;
   saveLoader: boolean = false;
@@ -55,7 +55,7 @@ export class PnCollectionCardComponent implements OnInit {
   }
   openModal(data) {
     const modalRef = this._ngbModalService.open(CollectionDetailComponent);
-    modalRef.componentInstance.data = data?.collections || [];
+    modalRef.componentInstance.data = data || [];
   }
   getDashboardCollectionsList() {
     const queryString = Object.entries(this.orderParamObj)
@@ -81,7 +81,6 @@ export class PnCollectionCardComponent implements OnInit {
           } else {
             return { ...item };
           }
-
         });
         this.collectionList = updatedData;
         this.totalRecordCount = res.totalRecordCount;
@@ -101,7 +100,8 @@ export class PnCollectionCardComponent implements OnInit {
 
   onPageIndexChange(index: number): void {
     this.pageIndex = index;
-    this.updateDisplayData();
+    this.orderParamObj.PageNo = index -1;
+    this.getDashboardCollectionsList();
   }
 
   onPageSizeChange(size: number): void {

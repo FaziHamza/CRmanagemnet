@@ -64,10 +64,6 @@ export class PromissoryNotePerVINModelComponent
   };
   selectedBrandValue: any = null;
   selectedModelValue: any = null;
-  isBrandDropdownOpen = false;
-  isModelDropdownOpen = false;
-  clickListenerBrandValue: (event: MouseEvent) => void;
-  clickListenerModelValue: (event: MouseEvent) => void;
   brandList: any[] = [];
   modelList: any[] = [];
   data = [];
@@ -75,36 +71,6 @@ export class PromissoryNotePerVINModelComponent
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.clickListenerBrandValue = (event: MouseEvent) => {
-      const dropdownBtn = document.getElementById(
-        'dropdownBrandSelectionOrdersMenuBtn'
-      );
-      const dropdownMenu = document.getElementById(
-        'dropdownBrandSelectionOrdersMenu'
-      );
-      const isClickInsideDropdown =
-        dropdownBtn.contains(event.target as Node) ||
-        dropdownMenu.contains(event.target as Node);
-      if (!isClickInsideDropdown) {
-        this.isBrandDropdownOpen = false;
-        document.removeEventListener('click', this.clickListenerBrandValue);
-      }
-    };
-    this.clickListenerModelValue = (event: MouseEvent) => {
-      const dropdownBtn = document.getElementById(
-        'dropdownModelSelectionOrdersMenuBtn'
-      );
-      const dropdownMenu = document.getElementById(
-        'dropdownModelSelectionOrdersMenu'
-      );
-      const isClickInsideDropdown =
-        dropdownBtn.contains(event.target as Node) ||
-        dropdownMenu.contains(event.target as Node);
-      if (!isClickInsideDropdown) {
-        this.isModelDropdownOpen = false;
-        document.removeEventListener('click', this.clickListenerModelValue);
-      }
-    };
     this.loadBrand();
   }
 
@@ -113,18 +79,15 @@ export class PromissoryNotePerVINModelComponent
   }
 
 
-  selectBrandItem(value: any) {
-    this.selectedBrandValue = value;
+  selectBrandItem() {
     this.modelList = [];
     this.data = [];
+    this.selectedModelValue = null;
     this.updateChart();
-    this.toggleBrandDropdown();
     this.loadModel();
     // this.initChart();
   }
-  selectModelItem(value: any) {
-    this.selectedModelValue = value;
-    this.toggleModelDropdown();
+  selectModelItem() {
     this.initChart();
   }
   loadBrand() {
@@ -134,33 +97,17 @@ export class PromissoryNotePerVINModelComponent
     })
   }
   loadModel() {
-    const brandId = this.selectedBrandValue.brandID
+    const brandId = this.selectedBrandValue
     this.apiService.getModelList(brandId).subscribe(res => {
       if (res)
         this.modelList = res;
     })
   }
-  toggleBrandDropdown() {
-    this.isBrandDropdownOpen = !this.isBrandDropdownOpen;
-    if (this.isBrandDropdownOpen) {
-      document.addEventListener('click', this.clickListenerBrandValue);
-    } else {
-      document.removeEventListener('click', this.clickListenerBrandValue);
-    }
-  }
-  toggleModelDropdown() {
-    this.isModelDropdownOpen = !this.isModelDropdownOpen;
-    if (this.isModelDropdownOpen) {
-      document.addEventListener('click', this.clickListenerModelValue);
-    } else {
-      document.removeEventListener('click', this.clickListenerModelValue);
-    }
-  }
 
   private initChart() {
     const filter: any = {};
     if (this.selectedModelValue) {
-      filter.CarModelid = this.selectedModelValue.modelID;
+      filter.CarModelid = this.selectedModelValue;
     }
     this.apiService.getPromissoryNotesPerCarModel(filter).subscribe((result) => {
       if (result?.isSuccess) {

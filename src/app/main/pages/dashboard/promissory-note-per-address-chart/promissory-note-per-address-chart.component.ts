@@ -137,7 +137,7 @@ export class PromissoryNotePerAddressChartComponent
           const getCusAddress = result.data.map(a => a.custAddress);
           this.pieChartData.labels = getCusAddress;
           result.data.forEach(res => {
-            this.data.push(res.amount);
+            this.data.push(parseFloat(res.amount.toFixed(3)));
           })
         }
       }

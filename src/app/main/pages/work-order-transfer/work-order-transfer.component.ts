@@ -14,6 +14,7 @@ import { ConfirmPopupComponent } from '../common/confirm-popup/confirm-popup.com
 import { PermissionService } from 'src/app/shared/services/permission.service';
 import { orderParam } from '../workorders/models/orderParam';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CheckGuarantorComponent } from '../common/check-guarantor/check-guarantor.component';
 declare var $: any; // Use this line to tell TypeScript that $ is defined elsewhere (by jQuery)
 
 @Component({
@@ -27,7 +28,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   constructor(public commonService: CommonService, private router: Router,
     private activatedRoute: ActivatedRoute, private apiService: ApiService,
     private _modalService: NgbModal,
-    private sanitizer: DomSanitizer,private permissionService:PermissionService,
+    private sanitizer: DomSanitizer, private permissionService: PermissionService,
     private modal: NzModalService, private cdr: ChangeDetectorRef, private datePipe: DatePipe) { }
 
   orderParamObj: orderParam = { PageSize: 1000, BranchId: 1, Status: 0, Sort: 1, OrderNumber: '', FromDate: '', ToDate: '', Search: '' }
@@ -76,24 +77,24 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       this.orderDetail = res.data;
       this.orderDetailMaster = JSON.parse(JSON.stringify(res.data));
       this.versionTab = res.data['versions'];
-      if(res.data['versions']){
+      if (res.data['versions']) {
         for (let index = 0; index < res.data['versions'].length; index++) {
           // const element = res.data['versions'][index];
-          this.versionTab[index]['tabName'] = 'PN V'+(index+1);
+          this.versionTab[index]['tabName'] = 'PN V' + (index + 1);
         }
-        let originalCustomer =  this.versionTab[this.versionTab.length - 1]['customer'];
+        let originalCustomer = this.versionTab[this.versionTab.length - 1]['customer'];
         this.orderDetail['originalCustomer'] = {};
         this.orderDetail['originalCustomer'] = originalCustomer;
         this.orderDetailMaster['originalCustomer'] = {};
         this.orderDetailMaster['originalCustomer'] = originalCustomer;
         this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+        this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
         this.versionTab = this.versionTab.reduce((acc, curr) => [curr, ...acc], []);
 
-      }else{
+      } else {
         this.versionTab = [];
         this.versionTab.push(res.data);
-        this.versionTab[this.versionTab.length-1]['tabName'] = 'PN V'+this.versionTab.length;
+        this.versionTab[this.versionTab.length - 1]['tabName'] = 'PN V' + this.versionTab.length;
       }
     })
   }
@@ -150,7 +151,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       }
       this.stepSaveLoader = true;
       this.selectedItemOrderId = this.orderDetailMaster?.pnOrderID;
-      this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID,1).subscribe(res => {
+      this.apiService.getPNOrderBookNotes(this.orderDetailMaster?.pnOrderID, 1).subscribe(res => {
         this.stepSaveLoader = false;
         if (res.isSuccess) {
           this.generatedlist = [];
@@ -163,8 +164,8 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
               // customerName: this.orderDetail.customer.customerName,
               amount: generatedlist[index].pnAmount,
               dueDate: generatedlist[index].dueDate,
-              status: generatedlist[index].statusObj ?  generatedlist[index].statusObj.translations[0].lookupName : '',
-              lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor :'',
+              status: generatedlist[index].statusObj ? generatedlist[index].statusObj.translations[0].lookupName : '',
+              lookupBGColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupBGColor : '',
               lookupTextColor: generatedlist[index].statusObj ? generatedlist[index].statusObj.lookupTextColor : '',
               pnBookID: generatedlist[index].pnBookID,
               dateCheck: generatedlist[index].dueDate,
@@ -182,7 +183,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
     }
 
   }
-  initlizePaginationControl(){
+  initlizePaginationControl() {
     this.pageSize = 6;
     this.pageIndex = 1;
     this.start = 1;
@@ -292,7 +293,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       }
     )
   }
-  error(errorsList:any) {
+  error(errorsList: any) {
     const modal = this.modal.create<ErrorsComponent>({
       nzWidth: 600,
       nzContent: ErrorsComponent,
@@ -307,12 +308,12 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.commonService.selectedWorkorder = 1
     this.commonService.loadRequestTab = true;
   }
 
-  confirm(message:string): void {
+  confirm(message: string): void {
     const modal = this.modal.create<ConfirmPopupComponent>({
       nzWidth: 500,
       nzContent: ConfirmPopupComponent,
@@ -358,16 +359,16 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
         case 1: // ascending
           this.sortType = "ascend";
           this.orderParamObj.Sort = columnName === 'orderno' ? 2 :
-                                    columnName === 'amount' ? 4 :
-                                    columnName === 'date' ? 6 :
-                                    8; // assuming 'status' for the default case
+            columnName === 'amount' ? 4 :
+              columnName === 'date' ? 6 :
+                8; // assuming 'status' for the default case
           break;
         case 2: // descending
           this.sortType = "descend";
           this.orderParamObj.Sort = columnName === 'orderno' ? 3 :
-                                    columnName === 'amount' ? 5 :
-                                    columnName === 'date' ? 7 :
-                                    9; // assuming 'status' for the default case
+            columnName === 'amount' ? 5 :
+              columnName === 'date' ? 7 :
+                9; // assuming 'status' for the default case
           break;
       }
 
@@ -375,9 +376,9 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
       this.generateSortList();
     }
   }
-  generateSortList(){
+  generateSortList() {
     let Sort = this.orderParamObj.Sort;
-    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId,Sort).subscribe(res => {
+    this.apiService.getPNOrderBookNotes(this.selectedItemOrderId, Sort).subscribe(res => {
       this.stepSaveLoader = false;
       if (res.isSuccess) {
         this.generatedlist = [];
@@ -386,7 +387,7 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
         let getCount = generatedlist.length;
         for (let index = 0; index < generatedlist.length; index++) {
           const obj = {
-            id: Sort == 3 || Sort == 1  ?  this.generatedlist.length + 1 : getCount,
+            id: Sort == 3 || Sort == 1 ? this.generatedlist.length + 1 : getCount,
             customerName: generatedlist[index]?.customer?.customerName,
             // customerName: this.orderDetail.customer.customerName,
             amount: generatedlist[index].pnAmount,
@@ -402,21 +403,21 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
           getCount -= 1;
         }
         this.displaygeneratedlist = this.generatedlist.length > 6 ? this.generatedlist.slice(0, 6) : this.generatedlist;
-          this.initlizePaginationControl();
-          this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
+        this.initlizePaginationControl();
+        this.end = this.displaygeneratedlist.length > 6 ? 6 : this.displaygeneratedlist.length;
         this.isGenerate = true;
       }
     })
   }
   downloadFile(file) {
     // this.apiService.downloadFile(file).subscribe(response => {
-      const blob = new Blob([file], { type: 'application/pdf' });
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = file;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
+    const blob = new Blob([file], { type: 'application/pdf' });
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = file;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
     // });
   }
   onPageIndexChange(index: number): void {
@@ -432,8 +433,17 @@ export class WorkOrderTransferComponent implements OnInit, AfterViewInit {
   updateDisplayData(): void {
     const start = (this.pageIndex - 1) * this.pageSize;
     const end = start + this.pageSize;
-    this.start = start == 0 ? 1 :  ((this.pageIndex * this.pageSize) - this.pageSize) + 1  ;
+    this.start = start == 0 ? 1 : ((this.pageIndex * this.pageSize) - this.pageSize) + 1;
     this.displaygeneratedlist = this.generatedlist.slice(start, end);
-    this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length :  this.pageIndex * this.pageSize;
+    this.end = this.displaygeneratedlist.length != 6 ? this.generatedlist.length : this.pageIndex * this.pageSize;
+  }
+
+  loadCheckGuarantor(customerId) {
+    if (customerId) {
+      const modalRef = this._modalService.open(CheckGuarantorComponent, {
+        size: 'xl',
+      });
+      modalRef.componentInstance.data = customerId || 0;
+    }
   }
 }

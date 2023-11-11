@@ -63,9 +63,9 @@
                     <td>{{ data.customerName }}</td>
                     <td>{{ data.pnBookSerial }}</td>
                     <td>{{ data.pnBookNoteSerial }}</td>
-                    <td>{{ data.pnAmount }} JOD</td>
+                    <td>{{ data.pnAmount  | number:'2.3-3' }} JOD</td>
                     <td>{{ data.createdAt | date : 'dd/MM/yyyy hh:mm:ss' }}</td>
-                    <td>{{ data.remainingAmount }} JOD</td>
+                    <td>{{ data.remainingAmount | number:'2.3-3' }} JOD</td>
                     <td>{{ data.dueDate | date :'dd/MM/yyyy' }}</td>
                     <td>{{ data.lastCollectionDate ? (data.lastCollectionDate | date : 'dd/MM/yyyy') : '---' }}</td>
                     <td>
@@ -76,14 +76,14 @@
                 </tr>
             </tbody>
         </nz-table>
-        <div class="paginatio-bottom" *ngIf="collectionList?.length > pageSize">
+        <div class="paginatio-bottom" *ngIf="totalRecordCount > pageSize">
             <div>
-                <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{collectionList?.length}}</span>
+                <p class="showing">Showing <span>{{start}} - {{end}}</span> from <span>{{totalRecordCount}}</span>
                     data
                 </p>
             </div>
             <div>
-                <nz-pagination *ngIf="collectionList?.length > pageSize" [nzTotal]="collectionList?.length"
+                <nz-pagination *ngIf="totalRecordCount > pageSize" [nzTotal]="totalRecordCount"
                     [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
                     (nzPageIndexChange)="onPageIndexChange($event)"></nz-pagination>
             </div>

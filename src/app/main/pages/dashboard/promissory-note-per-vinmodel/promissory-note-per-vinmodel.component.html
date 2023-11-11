@@ -1,41 +1,11 @@
-<div class="filter-wrapper mb-4">
-    <div class="dropdown-action">
-        <button class="btn dropdown-toggle" id="dropdownBrandSelectionOrdersMenuBtn" type="button"
-            [ngStyle]="{ color: selectedBrandValue ? '#1b212d' : '#929EAE' }" (click)="toggleBrandDropdown()">
-            {{ selectedBrandValue ? selectedBrandValue?.brand : "Select Brand" }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-            </svg>
-        </button>
-        <ul class="dropdown-menu date-menu" id="dropdownBrandSelectionOrdersMenu"
-            [ngClass]="{ show: isBrandDropdownOpen }">
-            <li *ngFor="let Brand of brandList">
-                <span class="dropdown-item date-item"
-                    [ngClass]="{ selected: Brand.brandID === selectedBrandValue?.brandID }"
-                    (click)="selectBrandItem(Brand)">{{ Brand.brand }}</span>
-            </li>
-        </ul>
+<div class="row mb-4">
+    <div class="col-4">
+        <ng-select [items]="brandList" bindLabel="brand" (change)="selectBrandItem()" bindValue="brandID" [(ngModel)]="selectedBrandValue" placeholder="Select Brand" aria-label="Default select example">
+        </ng-select>
     </div>
-    <div class="dropdown-action">
-        <button class="btn dropdown-toggle" id="dropdownModelSelectionOrdersMenuBtn" type="button"
-            [ngStyle]="{ color: selectedModelValue ? '#1b212d' : '#929EAE' }" (click)="toggleModelDropdown()">
-            {{ selectedModelValue ? selectedModelValue?.modelName : "Select Model" }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-chevron-down" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-            </svg>
-        </button>
-        <ul class="dropdown-menu date-menu" id="dropdownModelSelectionOrdersMenu"
-            [ngClass]="{ show: isModelDropdownOpen }">
-            <li *ngFor="let Model of modelList">
-                <span class="dropdown-item date-item"
-                    [ngClass]="{ selected: Model.modelID === selectedModelValue?.modelID }"
-                    (click)="selectModelItem(Model)">{{ Model.modelName }}</span>
-            </li>
-        </ul>
+    <div class="col-4">
+        <ng-select [items]="modelList" bindLabel="modelName" bindValue="modelID" (change)="selectModelItem()" [(ngModel)]="selectedModelValue" placeholder="Select Model" aria-label="Default select example">
+        </ng-select>
     </div>
 </div>
 <div class="chart-wrapper">

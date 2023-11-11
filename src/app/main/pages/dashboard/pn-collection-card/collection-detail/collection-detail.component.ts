@@ -7,7 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./collection-detail.component.scss']
 })
 export class CollectionDetailComponent implements OnInit {
-  @Input() data: any[] = [];
+  @Input() data: any;
   tableLoader: any = false;
   loadRequestTab: any = false;
   collectionList: any[] = [];
@@ -27,7 +27,7 @@ export class CollectionDetailComponent implements OnInit {
     this._ngbActiveModal.dismiss();
   }
   ngOnInit(): void {
-    this.collectionList = this.data;
+    this.collectionList = this.data?.collections;
     this.totalRecordCount = this.collectionList.length;
     this.displayData = this.collectionList.length > 6 ? this.collectionList.slice(0, 6) : this.collectionList;
     this.end = this.displayData.length > 6 ? 6 : this.displayData.length;

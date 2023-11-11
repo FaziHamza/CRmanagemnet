@@ -32,6 +32,7 @@ import { FullEarlySettlementRequestDetailsComponent } from './pages/workorders/w
 import { AddNewCustomerComponent } from './pages/create-request/add-new-customer/add-new-customer.component';
 import { ShareModule } from '../shared/module/share.module';
 import { SettlmentTypeComponent } from './pages/workorders/promissory-list/componets/settlment-type/settlment-type.component';
+import { CheckGuarantorComponent } from './pages/common/check-guarantor/check-guarantor.component';
 
 @NgModule({
   imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule,
@@ -52,7 +53,7 @@ import { SettlmentTypeComponent } from './pages/workorders/promissory-list/compo
     CMSetupComponent,
     WorkordersComponent, LogoutComponent, CreateRequestComponent, CreditAccountComponent, AddNewCustomerComponent,
     TestComponent, ProfileComponent, ModalMessageComponent, PDFViewComponent,
-    WorkOrderRequestComponent, ConfirmPopupComponent, ErrorsComponent, RejectComponent, PromissoryListComponent, FollowUpComponent, PnDetailsComponent, FullEarlySettlementRequestDetailsComponent, SettlmentTypeComponent],
+    WorkOrderRequestComponent, ConfirmPopupComponent, ErrorsComponent, RejectComponent, PromissoryListComponent, FollowUpComponent, PnDetailsComponent, FullEarlySettlementRequestDetailsComponent, SettlmentTypeComponent, CheckGuarantorComponent],
   providers: [
     DecimalPipe, DatePipe
   ]

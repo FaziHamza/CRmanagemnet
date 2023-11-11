@@ -1,4 +1,3 @@
-
 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
   <div class="content-body-inner" *ngIf="orderDetail && !isPrintShow">
     <div class="row heading-box">
@@ -438,12 +437,14 @@
                     <h6 class="fw-600 m-0">Interest Value</h6>
                   </div>
                   <div class="col-6" *ngIf="orderDetail.comingFromTypeID == 26002">
-                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue | number : "2.3-3"}} JOD</h6>
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue |
+                      number : "2.3-3"}} JOD</h6>
                     <h6 class="fw-600 m-0 green-clr" *ngIf="!orderDetail?.interesValue">00.000 JOD</h6>
                     <!-- <h6 class="fw-600 m-0 green-clr">{{orderDetail?.rescheduleInterest | number : "2.3-3"}} JOD</h6> -->
                   </div>
                   <div class="col-6" *ngIf="orderDetail.comingFromTypeID != 26002">
-                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue | number : "2.3-3"}} JOD</h6>
+                    <h6 class="fw-600 m-0 green-clr" *ngIf="orderDetail?.interesValue">{{orderDetail?.interesValue |
+                      number : "2.3-3"}} JOD</h6>
                     <h6 class="fw-600 m-0 green-clr" *ngIf="!orderDetail?.interesValue">00.000 JOD</h6>
                   </div>
                 </div>
@@ -454,6 +455,12 @@
                 <div class="head-left">
                   <h5><span *ngIf="orderDetail?.comingFromTypeID == 26003 && index == 0">New </span>
                     {{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
+                </div>
+                <div class="head-right">
+                  <button class="btn o-btn hvr-bounce-to-right"
+                    (click)="loadCheckGuarantor(orderDetail?.guarantor?.customerId)"
+                    [ngClass]="{'disabled-link': !orderDetail?.guarantor?.customerId}" type="button">Check
+                    Guarantor</button>
                 </div>
               </div>
               <div class="card-content">
@@ -630,8 +637,8 @@
                 <button type="button" class="btn btn-white hvr-bounce-to-right2" [routerLink]="['/home/workorders']">
                   {{"Promissory_Notes.Close" |translate}}
                 </button>
-                <button *ngIf="actionType?.toLowerCase() == 'return'" class="btn o-btn hvr-bounce-to-right" type="button"
-                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
+                <button *ngIf="actionType?.toLowerCase() == 'return'" class="btn o-btn hvr-bounce-to-right"
+                  type="button" [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}"
                   (click)="confirmModal(returnConfirmation)">
                   Return PNs
                 </button>
@@ -766,7 +773,7 @@
                                           </svg>
                                         </button>
                                       </td>
-                                      <td class="table-data"  *ngIf="orderDetail.comingFromTypeID == 26003">
+                                      <td class="table-data" *ngIf="orderDetail.comingFromTypeID == 26003">
                                         <a class="pen-icon">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" style="color: rgb(168 168 168)">
@@ -801,9 +808,15 @@
                                         </div>
                                       </td>
                                       <td class="table-data">
-                                        <span *ngIf="data.first">
+                                        <div class="input-search1 form-control3" *ngIf="data.first">
+                                          <nz-date-picker [nzDisabledDate]="disabledDates(index)" [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
+                                          <!-- <input type="date" class="form-control"
+
+                                          [ngModelOptions]="{ standalone: true }" aria-describedby="basic-addon1"> -->
+                                        </div>
+                                        <!-- <span *ngIf="data.first">
                                           {{data.dueDate | date: 'dd MMM yyyy'}}
-                                        </span>
+                                        </span> -->
                                         <div class="input-search1 form-control3" *ngIf="!data.first">
                                           <nz-date-picker [nzDisabledDate]="disabledDate"
                                             [(ngModel)]="editCache[data.id].data.dueDate"></nz-date-picker>
@@ -846,7 +859,8 @@
                               <div class="paginatio-bottom">
                                 <div>
                                   <p class="showing">Showing <span>{{start}} - {{end}}</span> from
-                                    <span>{{promissoryist.length}}</span> data</p>
+                                    <span>{{promissoryist.length}}</span> data
+                                  </p>
                                 </div>
                                 <div>
                                   <nz-pagination *ngIf="promissoryist.length > pageSize"
@@ -1004,7 +1018,8 @@
                               <div class="paginatio-bottom">
                                 <div>
                                   <p class="showing">Showing <span>{{start}} - {{end}}</span> from
-                                    <span>{{generatedlist.length}}</span> data</p>
+                                    <span>{{generatedlist.length}}</span> data
+                                  </p>
                                 </div>
                                 <div>
                                   <nz-pagination *ngIf="generatedlist.length > pageSize"

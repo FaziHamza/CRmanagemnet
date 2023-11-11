@@ -173,6 +173,11 @@ export class ApiService {
       environment.apiUrl + 'Dashboard/GetPNsCollections?' + param;
     return this.http.get<AppResponse>(url);
   }
+  checkGuarantor(param: string = null): Observable<AppResponse> {
+    let url =
+      environment.apiUrl + 'PNOrdersRequests/CheckGuarantor?' + param;
+    return this.http.get<AppResponse>(url);
+  }
   getrequestWorkOrder(param: string = null): Observable<AppResponse> {
     let url = environment.apiUrl + "PNOrdersRequests/GetPNOrdersRequests?" + param;
     return this.http.get<AppResponse>(url);

@@ -153,6 +153,9 @@
             </div>
           </div>
           <div class="col-12 d-flex justify-content-end mt-2">
+            <button class="btn o-btn hvr-bounce-to-right" style="margin-right: 2px;"
+            (click)="loadCheckGuarantor(selctedGuranteeeInfo?.customerId)" [disabled]="!selctedGuranteeeInfo?.customerId"
+            type="button">Check Guarantor</button>
             <button type="button" class="btn o-btn hvr-bounce-to-right" [disabled]="!selctedGuranteeeInfo?.customerId"
               (click)="updateCustomerInfo(2)">Update Info</button>
           </div>
@@ -451,6 +454,9 @@
             </div>
           </div>
           <div class="col-12 d-flex justify-content-end mt-2">
+            <button class="btn o-btn hvr-bounce-to-right" style="margin-right: 2px;"
+            (click)="loadCheckGuarantor(selctedCustomerInfo?.customerId)" [disabled]="!selctedCustomerInfo?.customerId"
+            type="button">Check   Guarantor</button>
             <button type="button" class="btn o-btn hvr-bounce-to-right" [disabled]="!selctedCustomerInfo?.customerId"
               (click)="updateCustomerInfo(2)">Update Info</button>
           </div>

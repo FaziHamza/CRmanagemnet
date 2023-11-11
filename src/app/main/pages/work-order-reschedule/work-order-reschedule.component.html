@@ -237,7 +237,13 @@
                                     <div class="head-left">
                                         <h5>{{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
                                     </div>
-                                    <!-- <div class="head-right"></div> -->
+                                    <div class="head-right">
+                                        <button class="btn o-btn hvr-bounce-to-right"
+                                            (click)="loadCheckGuarantor(orderDetail?.guarantor?.customerId)"
+                                            [ngClass]="{'disabled-link': !orderDetail?.guarantor?.customerId}"
+                                            type="button">Check
+                                            Guarantor</button>
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                     <div class="profileee">
@@ -441,7 +447,13 @@
                                 <div class="head-left">
                                     <h5>{{"Promissory_Notes.Guarantor_Information" | translate}}</h5>
                                 </div>
-                                <!-- <div class="head-right"></div> -->
+                                <div class="head-right">
+                                    <button class="btn o-btn hvr-bounce-to-right"
+                                        (click)="loadCheckGuarantor(orderDetail?.guarantor?.customerId)"
+                                        [ngClass]="{'disabled-link': !orderDetail?.guarantor?.customerId}"
+                                        type="button">Check
+                                        Guarantor</button>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="profileee">
@@ -687,7 +699,8 @@
                                                                 <div>
                                                                     <p class="showing">Showing <span>{{start}} -
                                                                             {{end}}</span> from
-                                                                        <span>{{generatedlist.length}}</span> data</p>
+                                                                        <span>{{generatedlist.length}}</span> data
+                                                                    </p>
                                                                 </div>
                                                                 <div>
                                                                     <nz-pagination

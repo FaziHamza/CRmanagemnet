@@ -279,7 +279,12 @@
                   <div class="head-left">
                     <h5>New Guarantor Information</h5>
                   </div>
-                  <!-- <div class="head-right"></div> -->
+                  <div class="head-right">
+                    <button class="btn o-btn hvr-bounce-to-right"
+                      (click)="loadCheckGuarantor(orderDetail?.newGuarantor?.customerId)"
+                      [ngClass]="{'disabled-link': !orderDetail?.newGuarantor?.customerId}" type="button">Check
+                      Guarantor</button>
+                  </div>
                 </div>
                 <div class="card-content">
                   <div class="profileee">
@@ -352,7 +357,7 @@
                   <h5 *ngIf="orderDetail.statusObj?.lookupId == 21011" class="mt-3"> Rejection Reason </h5>
                 </div>
                 <div class="row" *ngIf="orderDetail && orderDetail?.statusObj?.lookupId == 21011">
-                  <div class="col-lg-12 p-4 " >
+                  <div class="col-lg-12 p-4 ">
                     <textarea class="form-control" rows="5" [value]="orderDetail.rejectionReason"></textarea>
                   </div>
                 </div>

@@ -18,6 +18,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageModalComponent } from '../../../shared/module/message-modal/message-modal.component';
 import { PnDetailsComponent } from '../workorders/follow-up/components/pn-details/pn-details.component';
 import { SettlmentTypeComponent } from '../workorders/promissory-list/componets/settlment-type/settlment-type.component';
+import { CheckGuarantorComponent } from '../common/check-guarantor/check-guarantor.component';
 
 @Component({
   selector: 'app-promissory-note',
@@ -979,6 +980,20 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
   }
   disabledDate = (current: Date): boolean => differenceInCalendarDays(current, new Date(this.orderDetail.startDate)) <= 0;
 
+  disabledDates(index: any): (current: Date) => boolean {
+    return (current: Date): boolean => {
+      const startFrom = new Date(this.promissoryist[index].dueDate);
+      startFrom.setHours(0, 0, 0, 0); // Set time to midnight
+  
+      const fortyFiveDaysFromInput = new Date(startFrom);
+      fortyFiveDaysFromInput.setDate(startFrom.getDate() + 45);
+      fortyFiveDaysFromInput.setHours(0, 0, 0, 0); // Set time to midnight
+  
+      // Enable dates equal to or after startFrom, and within the range of 45 days
+      return current < startFrom || current > fortyFiveDaysFromInput;
+    };
+  }
+
   highlightDate(date) {
     let currentDate = new Date(this.datePipe.transform(new Date(), 'MMM d, y'));
     let pnDate = new Date(date);
@@ -989,5 +1004,12 @@ export class PromissoryNoteComponent implements OnInit, AfterViewInit {
     else
       return { key: 3, value: 'green-bg' }
   }
-
+  loadCheckGuarantor(customerId) {
+    if (customerId) {
+      const modalRef = this._ngbModalSerivce.open(CheckGuarantorComponent, {
+        size: 'xl',
+      });
+      modalRef.componentInstance.data = customerId || 0;
+    }
+  }
 }

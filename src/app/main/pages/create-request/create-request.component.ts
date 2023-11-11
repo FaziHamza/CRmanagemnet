@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewCustomerComponent } from './add-new-customer/add-new-customer.component';
 import { MessageModalComponent } from '../../../shared/module/message-modal/message-modal.component';
 import { ViewFileComponent } from '../../../shared/module/view-file/view-file.component';
+import { CheckGuarantorComponent } from '../common/check-guarantor/check-guarantor.component';
 
 @Component({
   selector: 'app-create-request',
@@ -740,5 +741,14 @@ export class CreateRequestComponent implements OnInit {
     //   else
     //     this.uploadedFile1 = fileUrl
     // })
+  }
+
+  loadCheckGuarantor(customerId) {
+    if (customerId) {
+      const modalRef = this._modalService.open(CheckGuarantorComponent, {
+        size: 'xl',
+      });
+      modalRef.componentInstance.data = customerId || 0;
+    }
   }
 }
