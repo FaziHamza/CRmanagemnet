@@ -170,14 +170,16 @@
               </svg>
             </a>
           </td>
-          <td (click)="gotoDetail(data)"
-              *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() != 'collected' && data.statusObj?.translations[0].lookupName.toLowerCase() != 'signed' && data.statusObj?.translations[0].lookupName.toLowerCase() != 'under collecting'">
+          <td (click)="gotoDetail(data)" *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() != 'collected' &&
+           data.statusObj?.translations[0].lookupName.toLowerCase() != 'signed' && data.statusObj?.lookupId !=  21016 &&
+           data.statusObj?.translations[0].lookupName.toLowerCase() != 'under collecting'">
             <button type="button" class="btn o-btn hvr-bounce-to-right"
                     [disabled]="!canPerformAction(7, 39, 79)">
               <span *ngIf="data.actionToDo?.length  > 0">{{data.actionToDo[0].lookupName}}</span>
             </button>
           </td>
-          <td *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'signed' || data.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting'">
+          <td *ngIf="data.statusObj?.translations[0].lookupName.toLowerCase() == 'signed' || data.statusObj?.lookupId ==  21016
+          || data.statusObj?.translations[0].lookupName.toLowerCase() == 'under collecting'">
             <div *ngIf="data.hasActiveRequest; else dotsBlock">
               <a class="pen-icon" (click)="gotoDetail(data)"
                  [ngClass]="{'disabled-link': !canPerformAction(7, 39, 79)}">

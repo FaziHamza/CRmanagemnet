@@ -58,7 +58,7 @@ export class PromissoryNotePerAddressChartComponent
       },
     ],
   };
-  selectedNotesValue: any={};
+  selectedNotesValue: any = {};
   isNotesDropdownOpen = false;
   clickListenerNotesValue: (event: MouseEvent) => void;
   notesList = [
@@ -127,24 +127,45 @@ export class PromissoryNotePerAddressChartComponent
   }
 
   private initChart() {
-    this.pieChartData.labels  = [];
+    this.pieChartData.labels = [];
     this.data = [];
     this.updateChart();
     this.apiService.getPromissoryNotesPerAddress(this.selectedNotesValue.value).subscribe((result) => {
       if (result?.isSuccess) {
         if (Array.isArray(result.data)) {
           this.data = [];
+          debugger
           const getCusAddress = result.data.map(a => a.custAddress);
           this.pieChartData.labels = getCusAddress;
+
+          if (this.pieChartData.labels.length > 3) {
+            // Keep the first three colors unchanged
+            const baseColors = (this.pieChartData.datasets[0].backgroundColor as string[]).slice(0, 3);
+
+            // Generate random colors for the rest of the data points
+            const randomColors = Array.from({ length: this.pieChartData.labels.length - 3 }, () => this.getRandomColor());
+
+            // Concatenate the base colors and random colors
+            this.pieChartData.datasets[0].backgroundColor = [...baseColors, ...randomColors];
+          }
+
           result.data.forEach(res => {
             this.data.push(parseFloat(res.amount.toFixed(3)));
           })
+
         }
       }
       this.updateChart();
     });
   }
-
+  getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
   private updateChart() {
     if (!this.chart) {
       return;

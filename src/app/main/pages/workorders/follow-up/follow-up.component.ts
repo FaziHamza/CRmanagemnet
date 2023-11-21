@@ -13,11 +13,13 @@ import { PnDetailsComponent } from './components/pn-details/pn-details.component
 })
 export class FollowUpComponent implements OnInit {
   date = [];
+  pDate = [];
   pnList = [];
   pnBookNo = '';
   searchCustomer = '';
   notes = '';
   dateObj = { fromDate: '', toDate: '' };
+  pDateObj = { fromPromisDate: '', toPromisDate: '' };
   details;
   pageNo = 1;
   totalRecords = 0;
@@ -36,6 +38,7 @@ export class FollowUpComponent implements OnInit {
   }
   getPNsForFollowUp() {
     let params = `?Search=${this.pnBookNo}&customer=${this.searchCustomer}&FromDueDate=${this.dateObj.fromDate}&ToDueDate=${this.dateObj.toDate}
+    &FromPromisDate=${this.pDateObj.fromPromisDate}&ToPromisDate=${this.pDateObj.toPromisDate}
     &Sort=${this.sort}&PageNo=${this.pageNo - 1}&PageSize=6`;
     this._apiService.getPNsForFollowUp(params).subscribe(response => {
       this.pnList = response.data;
@@ -97,6 +100,13 @@ export class FollowUpComponent implements OnInit {
     }
     this.resetSearch();
   }
+  onProDateChange(event) {
+    if (event) {
+      this.pDateObj['fromPromisDate'] = event.length > 0 && this._datePipe.transform(event[0], 'yyyy-MM-dd') || '';
+      this.pDateObj['toPromisDate'] = event.length > 0 && this._datePipe.transform(event[1], 'yyyy-MM-dd') || '';
+    }
+    this.resetSearch();
+  }
   searchByPnBookNo(event) {
     this.resetSearch();
   }
@@ -142,6 +152,10 @@ export class FollowUpComponent implements OnInit {
   }
   sortByLastFu() {
     this.sort = this.sort == 15 ? 1 : this.sort == 14 ? 15 : 14;
+    this.resetSearch();
+  }
+  sortByLastFo() {
+    this.sort = this.sort == 17 ? 1 : this.sort == 16 ? 17 : 14;
     this.resetSearch();
   }
   highlightDate(date) {
