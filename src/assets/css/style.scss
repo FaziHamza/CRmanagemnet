@@ -2541,3 +2541,17 @@ div:where(.swal2-container) h2:where(.swal2-title) {
   background-color: $primary !important;
   border: 1px solid $primary !important;
 }
+.custom-datepicker {
+  z-index: 1051; /* Adjust the z-index value as needed */
+  width: 100%;
+}
+.custom-modal {
+  z-index: 1052; /* Make sure it's higher than the date picker's z-index */
+}
+.modal {
+  z-index: 500 !important;
+}
+
+.modal-backdrop{
+  z-index: 500 !important;
+}

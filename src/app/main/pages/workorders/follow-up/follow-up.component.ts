@@ -23,6 +23,9 @@ export class FollowUpComponent implements OnInit {
   details;
   pageNo = 1;
   totalRecords = 0;
+  aging: string = ''
+  agingList :any[] = [ ]
+  selectedDate: Date | null = null;
   sort = 1;
   addFuModalRef: NgbModalRef;
   saveLoader: boolean = false;
@@ -35,14 +38,22 @@ export class FollowUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPNsForFollowUp();
+    this.getAgingList();
   }
   getPNsForFollowUp() {
     let params = `?Search=${this.pnBookNo}&customer=${this.searchCustomer}&FromDueDate=${this.dateObj.fromDate}&ToDueDate=${this.dateObj.toDate}
-    &FromPromisDate=${this.pDateObj.fromPromisDate}&ToPromisDate=${this.pDateObj.toPromisDate}
+    &FromPromisDate=${this.pDateObj.fromPromisDate}&ToPromisDate=${this.pDateObj.toPromisDate}&Aging=${this.aging}
     &Sort=${this.sort}&PageNo=${this.pageNo - 1}&PageSize=6`;
     this._apiService.getPNsForFollowUp(params).subscribe(response => {
       this.pnList = response.data;
       this.totalRecords = response.totalRecordCount;
+    })
+  }
+  getAgingList (){
+    this._apiService.getStatusLookup(25).subscribe(res => {
+      if (res.isSuccess) {
+        this.agingList = res.data;
+      }
     })
   }
   identify(index, item) {
@@ -65,6 +76,7 @@ export class FollowUpComponent implements OnInit {
   }
 
   openAddFuModal(content, item) {
+    this.selectedDate = null;
     this.details = {};
     this.details = item
     this.addFuModalRef = this._modalService.open(content, { size: 'lg', centered: true });
@@ -77,8 +89,10 @@ export class FollowUpComponent implements OnInit {
     const formData = new FormData();
     formData.append("PnNoteId", this.details?.pnBookNoteId);
     formData.append("FollowUpNotes", this.notes);
+    formData.append("PromiseDate", this.selectedDate?.toISOString());
     this._apiService.addFollowUp(formData).subscribe(response => {
       if (response.isSuccess) {
+        this.selectedDate = null;
         this.responseModal('success', 'Data saved successfully!');
         this.notes = '';
         this.getPNsForFollowUp();
@@ -107,6 +121,9 @@ export class FollowUpComponent implements OnInit {
     }
     this.resetSearch();
   }
+  agingChange() {
+    this.resetSearch();
+  }
   searchByPnBookNo(event) {
     this.resetSearch();
   }
@@ -119,6 +136,10 @@ export class FollowUpComponent implements OnInit {
   }
   clearSearchByCustomer() {
     this.searchCustomer = '';
+    this.resetSearch();
+  }
+  clearSearchByAgaing() {
+    this.aging = '';
     this.resetSearch();
   }
   resetSearch() {
@@ -168,4 +189,16 @@ export class FollowUpComponent implements OnInit {
     else
       return 'green-bg'
   }
+
+  // Function to disable past dates
+  disabledDate = (current: Date): boolean => {
+    // Get the current date without the time (set hours, minutes, and seconds to 0)
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
+    // Disable if the date is before today
+    return current && current < currentDate;
+  };
+
+
 }

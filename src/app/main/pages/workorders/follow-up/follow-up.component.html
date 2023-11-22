@@ -1,217 +1,233 @@
 <nz-spin [nzSpinning]="saveLoader" [nzSize]="'large'">
-<div class="row">
-  <div class="col-sm-3">
-    <div class="input-group mb-3 search-box">
-      <button class="btn" type="button"><i class="fa-solid fa-search"></i></button>
-      <input type="text" class="form-control" placeholder="PN Book No / PN No" [(ngModel)]="pnBookNo" (input)="searchByPnBookNo($event)">
-      <button class="btn" type="button" (click)="clearPnBookSearch()" *ngIf="pnBookNo.length > 0">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+  <div class="row">
+    <div class="col-sm-2">
+      <label >PN Book No / PN No</label>
+      <div class="input-group mb-3 search-box">
+        <button class="btn" type="button"><i class="fa-solid fa-search"></i></button>
+        <input type="text" class="form-control" placeholder="PN Book No / PN No" [(ngModel)]="pnBookNo"
+          (input)="searchByPnBookNo($event)">
+        <button class="btn" type="button" (click)="clearPnBookSearch()" *ngIf="pnBookNo.length > 0">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <label >Customer Details</label>
+      <div class="input-group mb-3 search-box">
+        <button class="btn" type="button"><i class="fa-solid fa-search"></i></button>
+        <input type="text" class="form-control" placeholder="Search by Customer Details ..."
+          [(ngModel)]="searchCustomer" (input)="searchByCustomer($event)">
+        <button class="btn" type="button" (click)="clearSearchByCustomer()" *ngIf="searchCustomer.length > 0">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <label >Due Date</label>
+      <div class="input-group mb-3 search-box py-2">
+        <nz-range-picker [(ngModel)]="date" (ngModelChange)="onDateChange($event)" class="w-100"></nz-range-picker>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <label >Promise Date</label>
+      <div class="input-group mb-3 search-box py-2">
+        <nz-range-picker [(ngModel)]="pDate" (ngModelChange)="onProDateChange($event)" class="w-100"></nz-range-picker>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <label >Aging</label>
+      <div class="input-group mb-3 search-box py-2">
+        <select class="form-select" [(ngModel)]="aging" (change)="agingChange()"
+          aria-label="Default select example">
+          <option *ngIf="!aging" selected value="">All</option>
+          <option [value]="data.id" *ngFor="let data of agingList">  {{   data.name?.[0]?.lookupName  }}  </option>
+        </select>
+        <button class="btn" type="button" (click)="clearSearchByAgaing()" *ngIf="aging">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="col-sm-3">
-    <div class="input-group mb-3 search-box">
-      <button class="btn" type="button"><i class="fa-solid fa-search"></i></button>
-      <input type="text" class="form-control" placeholder="Search by Customer Details ..." [(ngModel)]="searchCustomer" (input)="searchByCustomer($event)">
-      <button class="btn" type="button" (click)="clearSearchByCustomer()" *ngIf="searchCustomer.length > 0">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
+  <div class="d-flex align-items-center justify-content-between mt-3">
+    <h6 class="fw-600 mb-0">Uncollected Promissory Notes List</h6>
+    <p class="mb-0 fw-600 gray-500">Total No. {{totalRecords}}</p>
   </div>
-  <div class="col-sm-3">
-    <div class="input-group mb-3 search-box py-2">
-      <nz-range-picker [(ngModel)]="date" (ngModelChange)="onDateChange($event)" class="w-100"></nz-range-picker>
-    </div>
-  </div>
-  <div class="col-sm-3">
-    <div class="input-group mb-3 search-box py-2">
-      <nz-range-picker [(ngModel)]="pDate" (ngModelChange)="onProDateChange($event)" class="w-100"></nz-range-picker>
-    </div>
-  </div>
-</div>
-<div class="d-flex align-items-center justify-content-between mt-3">
-  <h6 class="fw-600 mb-0">Uncollected Promissory Notes List</h6>
-  <p class="mb-0 fw-600 gray-500">Total No. {{totalRecords}}</p>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="card-table">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr class="py-2">
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByBookNo()">
-                      PN Book No.
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 2"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 3"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByPnSerial()">
-                      PN Serial
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 4"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 5"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByCustomer()">
-                      Customer
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 6"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 7"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByDueDate()">
-                      PN Due Date
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 8"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 9"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByPnAmount()">
-                      PN Amount
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 10"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 11"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByRa()">
-                      Remaining PN Amount
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 12"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 13"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByLastFu()">
-                      Last Follow up date
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 14"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 15"></i>
-                    </button>
-                  </th>
-                  <th>
-                    <button class="btn" [disabled]="pnList?.length == 0"
-                            (click)="sortByLastFu()">
-                            Promise Date
-                      <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 14"></i>
-                      <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 15"></i>
-                    </button>
-                  </th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of pnList;let i = index;trackBy:identify">
-                  <td>
-                    <div class="d-flex flex-column gap-2">
-                      <span>{{item?.pnBookID}}</span>
-                      <span>{{item?.pnBookSerial}}</span>
-                    </div>
-                  </td>
-                  <td>{{item?.pnBookNoteSerial}}</td>
-                  <td>{{item?.customer?.customerName}}</td>
-                  <td><span [class]="'highlightPnOrderBg' + ' '+ highlightDate(item?.dueDate | date:'mediumDate')">{{item?.dueDate | date:'mediumDate'}}</span></td>
-                  <td>{{(item?.pnAmount) | number:'2.3-3'}} JOD</td>
-                  <td>{{(item?.remainingAmount) | number:'2.3-3'}} JOD</td>
-                  <td>{{(item?.lastFollowUpDate | date:'mediumDate') || '-'}}</td>
-                  <td>{{(item?.promiseDate | date:'mediumDate') || '-'}}</td>
-                  <td>
-                    <i class="fas fa-eye gray-500 font-18 me-2 cursor" (click)="openDetailsModal(item?.pnBookNoteId)"></i>
-                    <i class="fas fa-headphones gray-500 font-18 cursor" (click)="openAddFuModal(content,item)"></i>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-table">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr class="py-2">
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByBookNo()">
+                        PN Book No.
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 2"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 3"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByPnSerial()">
+                        PN Serial
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 4"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 5"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByCustomer()">
+                        Customer
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 6"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 7"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByDueDate()">
+                        PN Due Date
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 8"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 9"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByPnAmount()">
+                        PN Amount
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 10"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 11"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByRa()">
+                        Remaining PN Amount
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 12"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 13"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByLastFu()">
+                        Last Follow up date
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 14"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 15"></i>
+                      </button>
+                    </th>
+                    <th>
+                      <button class="btn" [disabled]="pnList?.length == 0" (click)="sortByLastFu()">
+                        Promise Date
+                        <i class="fa-solid fa-arrow-up-long" [class.activeSort]="sort == 14"></i>
+                        <i class="fa-solid fa-arrow-down-long" [class.activeSort]="sort == 15"></i>
+                      </button>
+                    </th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of pnList;let i = index;trackBy:identify">
+                    <td>
+                      <div class="d-flex flex-column gap-2">
+                        <span>{{item?.pnBookID}}</span>
+                        <span>{{item?.pnBookSerial}}</span>
+                      </div>
+                    </td>
+                    <td>{{item?.pnBookNoteSerial}}</td>
+                    <td>{{item?.customer?.customerName}}</td>
+                    <td><span
+                        [class]="'highlightPnOrderBg' + ' '+ highlightDate(item?.dueDate | date:'mediumDate')">{{item?.dueDate
+                        | date:'mediumDate'}}</span></td>
+                    <td>{{(item?.pnAmount) | number:'2.3-3'}} JOD</td>
+                    <td>{{(item?.remainingAmount) | number:'2.3-3'}} JOD</td>
+                    <td>{{(item?.lastFollowUpDate | date:'mediumDate') || '-'}}</td>
+                    <td>{{(item?.promiseDate | date:'mediumDate') || '-'}}</td>
+                    <td>
+                      <i class="fas fa-eye gray-500 font-18 me-2 cursor"
+                        (click)="openDetailsModal(item?.pnBookNoteId)"></i>
+                      <i class="fas fa-headphones gray-500 font-18 cursor" (click)="openAddFuModal(content,item)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="pnList?.length == 0">
+              <app-not-found></app-not-found>
+            </div>
           </div>
-          <div *ngIf="pnList?.length == 0">
-            <app-not-found></app-not-found>
+        </div>
+      </div>
+      <ng-container *ngIf="totalRecords > 6">
+        <div class="d-flex align-items-center justify-content-between">
+          <h6 class="showing">
+            Showing <span>{{( pageNo) * 6 - 5}} - {{pnList?.length == 6 ? (( pageNo) * 6 ): totalRecords}}</span>
+            from <span> {{totalRecords}} </span> data
+          </h6>
+          <ngb-pagination [collectionSize]="totalRecords" [(page)]="pageNo" [maxSize]="3" [pageSize]="6" [rotate]="true"
+            [ellipses]="false" (pageChange)="pageChange($event)"></ngb-pagination>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!--ADD FOLLOW UP-->
+  <ng-template #content let-modal>
+    <div class="modal-header" ngbAutoFocus>
+      <h6 class="fw-700 m-0">Add Follow-up</h6>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex mt-3 flex-wrap gap-5 justify-content-between">
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">Book No.</h6>
+          <p class="light-gray">{{details?.pnBookID}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">Book Serial</h6>
+          <p class="light-gray">{{details?.pnBookSerial}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">PN No.</h6>
+          <p class="light-gray">{{details?.pnBookNoteId}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">Book Serial</h6>
+          <p class="light-gray">{{details?.pnBookNoteSerial}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">Due Date</h6>
+          <p class="light-gray">{{details?.dueDate | date:'mediumDate'}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          <h6 class="dark-gray fw-600">PN Amount</h6>
+          <p class="light-gray">{{details?.pnAmount | number:'2.3-3'}} JOD</p>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <label class="fw-600">Customer Name</label>
+          <div class="disabled-box">
+            <p>{{details?.customer?.customerName}}</p>
           </div>
         </div>
-      </div>
-    </div>
-    <ng-container *ngIf="totalRecords > 6">
-      <div class="d-flex align-items-center justify-content-between">
-        <h6 class="showing">
-          Showing <span>{{( pageNo) * 6 - 5}} - {{pnList?.length == 6 ? (( pageNo) * 6 ): totalRecords}}</span>
-          from <span> {{totalRecords}} </span> data
-        </h6>
-        <ngb-pagination [collectionSize]="totalRecords"
-                        [(page)]="pageNo"
-                        [maxSize]="3"
-                        [pageSize]="6"
-                        [rotate]="true"
-                        [ellipses]="false"
-                        (pageChange)="pageChange($event)"></ngb-pagination>
-      </div>
-    </ng-container>
-  </div>
-</div>
-<!--ADD FOLLOW UP-->
-<ng-template #content let-modal>
-  <div class="modal-header" ngbAutoFocus>
-    <h6 class="fw-700 m-0">Add Follow-up</h6>
-  </div>
-  <div class="modal-body">
-    <div class="d-flex mt-3 flex-wrap gap-5 justify-content-between">
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">Book No.</h6>
-        <p class="light-gray">{{details?.pnBookID}}</p>
-      </div>
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">Book Serial</h6>
-        <p class="light-gray">{{details?.pnBookSerial}}</p>
-      </div>
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">PN No.</h6>
-        <p class="light-gray">{{details?.pnBookNoteId}}</p>
-      </div>
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">Book Serial</h6>
-        <p class="light-gray">{{details?.pnBookNoteSerial}}</p>
-      </div>
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">Due Date</h6>
-        <p class="light-gray">{{details?.dueDate | date:'mediumDate'}}</p>
-      </div>
-      <div class="d-flex flex-column">
-        <h6 class="dark-gray fw-600">PN Amount</h6>
-        <p class="light-gray">{{details?.pnAmount | number:'2.3-3'}} JOD</p>
-      </div>
-    </div>
-    <div class="row mt-4">
-      <div class="col-6">
-        <label class="fw-600">Customer Name</label>
-        <div class="disabled-box">
-          <p>{{details?.customer?.customerName}}</p>
+        <div class="col-6">
+          <label class="fw-600">Phone</label>
+          <div class="disabled-box">
+            <p>{{details?.customer?.mobile}}</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="fw-600">Promise Date</label>
+          <div>
+            <nz-date-picker class="custom-datepicker" [nzDisabledDate]="disabledDate"
+              [(ngModel)]="selectedDate"></nz-date-picker>
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="fw-600 mb-2">Note</label>
+          <textarea class="form-control" maxlength="150" [(ngModel)]="notes" rows="5"></textarea>
         </div>
       </div>
-      <div class="col-6">
-        <label class="fw-600">Phone</label>
-        <div class="disabled-box">
-          <p>{{details?.customer?.mobile}}</p>
-        </div>
-      </div>
-      <div class="col-12">
-        <label class="fw-600 mb-2">Note</label>
-        <textarea class="form-control" maxlength="150" [(ngModel)]="notes" rows="5"></textarea>
+    </div>
+    <div class="modal-footer border-top-0">
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="modal.close()">Close</button>
+        <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="submit()">Add</button>
       </div>
     </div>
-  </div>
-  <div class="modal-footer border-top-0">
-    <div class="d-flex justify-content-end gap-2">
-      <button type="button" class="btn btn-white hvr-bounce-to-right2" (click)="modal.close()">Close</button>
-      <button type="button" class="btn o-btn hvr-bounce-to-right" (click)="submit()">Add</button>
-    </div>
-  </div>
-</ng-template>
+  </ng-template>
 
 </nz-spin>

@@ -134,7 +134,6 @@ export class PromissoryNotePerAddressChartComponent
       if (result?.isSuccess) {
         if (Array.isArray(result.data)) {
           this.data = [];
-          debugger
           const getCusAddress = result.data.map(a => a.custAddress);
           this.pieChartData.labels = getCusAddress;
 

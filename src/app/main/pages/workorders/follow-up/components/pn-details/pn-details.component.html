@@ -8,7 +8,10 @@
     </iframe>
   </div>
   <div class="card mt-3">
-    <div class="card-heading"><h5>Follow-up log</h5></div>
+    <div class="card-heading">
+      <h5 class="text-left">Follow-up log</h5>
+      <h5 class="text-right">Promise Date: {{(details?.promiseDate  | date:'mediumDate') || '---'}}</h5>
+    </div>
     <div class="card-content">
       <ng-container *ngIf="details?.followUpLog?.length;else noFollowup">
         <div class="d-flex flex-wrap gap-5 align-items-center mb-4" *ngFor="let item of details?.followUpLog;let index =index">
