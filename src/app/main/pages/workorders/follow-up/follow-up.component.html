@@ -39,7 +39,6 @@
       <div class="input-group mb-3 search-box py-2">
         <select class="form-select" [(ngModel)]="aging" (change)="agingChange()"
           aria-label="Default select example">
-          <option *ngIf="!aging" selected value="">All</option>
           <option [value]="data.id" *ngFor="let data of agingList">  {{   data.name?.[0]?.lookupName  }}  </option>
         </select>
         <button class="btn" type="button" (click)="clearSearchByAgaing()" *ngIf="aging">

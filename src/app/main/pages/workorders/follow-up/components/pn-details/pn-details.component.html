@@ -10,11 +10,11 @@
   <div class="card mt-3">
     <div class="card-heading">
       <h5 class="text-left">Follow-up log</h5>
-      <h5 class="text-right">Promise Date: {{(details?.promiseDate  | date:'mediumDate') || '---'}}</h5>
+      <!-- <h5 class="text-right">Promise Date: {{(details?.promiseDate  | date:'mediumDate') || '---'}}</h5> -->
     </div>
     <div class="card-content">
       <ng-container *ngIf="details?.followUpLog?.length;else noFollowup">
-        <div class="d-flex flex-wrap gap-5 align-items-center mb-4" *ngFor="let item of details?.followUpLog;let index =index">
+        <div class="d-flex flex-wrap gap-2 align-items-center mb-4" *ngFor="let item of details?.followUpLog;let index =index">
           <div class="circle">
             <p>{{index +1}}</p>
           </div>
@@ -33,6 +33,10 @@
           <div class="d-flex align-items-center gap-2">
             <h6 class="dark-gray fw-600 font-14 m-0">Note:</h6>
             <p class="light-gray font-14 m-0">{{item?.followUpNotes}}</p>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <h6 class="dark-gray fw-600 font-14 m-0">Promise Date:</h6>
+            <p class="light-gray font-14 m-0">{{(item?.promiseDate  | date:'mediumDate') || '---'}}</p>
           </div>
         </div>
       </ng-container>
